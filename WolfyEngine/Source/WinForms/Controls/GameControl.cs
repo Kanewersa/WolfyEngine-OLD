@@ -4,6 +4,7 @@ using System.Windows.Forms;
 using Microsoft.Xna.Framework;
 using MonoGame.Forms.Controls;
 using WolfyEngine.Utils;
+using WolfyShared.Controllers;
 using WolfyShared.Engine;
 using WolfyShared.Game;
 using ControlEventHandler = WolfyShared.Engine.ControlEventHandler;
@@ -26,6 +27,7 @@ namespace WolfyEngine.Controls
 
         public EditorMode Mode { get; private set; }
         private Map _currentMap;
+        private bool _startingMap;
         private Selector _selector;
         private Vector2 _mousePosition;
         private Rectangle _selectedTileRegion;
@@ -33,6 +35,7 @@ namespace WolfyEngine.Controls
         private bool _mouseOnScreen, _mouseDown;
         private Image _entityGridImage;
         private Image _selectedTileImage;
+        private Image _startingPointImage;
 
         public BaseLayer CurrentLayer { get; private set; }
 
@@ -65,6 +68,10 @@ namespace WolfyEngine.Controls
             {
                 Scale = .5f,
                 Alpha = .5f
+            };
+            _startingPointImage = new Image("Assets/Icons/StartingPointIcon.png")
+            {
+                Scale = .5f
             };
             
 
@@ -158,6 +165,7 @@ namespace WolfyEngine.Controls
             _entityGridImage.Initialize(GraphicsDevice);
             _selectedTileImage.Initialize(GraphicsDevice);
             _selector.Initialize(GraphicsDevice);
+            _startingPointImage.Initialize(GraphicsDevice);
 
             OnInitialize?.Invoke();
         }
@@ -196,6 +204,10 @@ namespace WolfyEngine.Controls
                         _selectedTileCords.Y * _currentMap.TileSize.Y);
                     _selectedTileImage.Draw(Editor.spriteBatch);
                 }
+
+                if (_startingMap)
+                    _startingPointImage.Draw(Editor.spriteBatch);
+                
             }
 
             Editor.spriteBatch.End();
@@ -219,6 +231,8 @@ namespace WolfyEngine.Controls
                 return;
             }
 
+            SetStartingPosition();
+
             Width = map.Size.X * map.TileSize.X;
             Height = map.Size.Y * map.TileSize.Y;
 
@@ -228,6 +242,16 @@ namespace WolfyEngine.Controls
                 CurrentLayer = map.Layers[0];
 
             Invalidate();
+        }
+
+        public void SetStartingPosition()
+        {
+            _startingMap = _currentMap.Id == GameController.Instance.Settings.StartingMap;
+
+            if (!_startingMap) return;
+            var coordinates = GameController.Instance.Settings.StartingCoordinates;
+            _startingPointImage.Position =
+                new Vector2(coordinates.X * _currentMap.TileSize.X, coordinates.Y * _currentMap.TileSize.Y);
         }
 
         public void LoadLayer(BaseLayer layer)

@@ -32,7 +32,7 @@
             this.darkStatusStrip = new DarkUI.Controls.DarkStatusStrip();
             this.toolStripCoordinatesLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.gameControl = new WolfyEngine.Controls.GameControl();
-            this.EntityContextMenu = new DarkUI.Controls.DarkContextMenu();
+            this.EntityContextMenu = new EntityContextMenu();
             this.newEntityToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.removeEntityToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
@@ -131,6 +131,7 @@
             this.setStartingPointToolStripMenuItem.Name = "setStartingPointToolStripMenuItem";
             this.setStartingPointToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.setStartingPointToolStripMenuItem.Text = "Set starting point";
+            this.setStartingPointToolStripMenuItem.Click += new System.EventHandler(this.setStartingPointToolStripMenuItem_Click);
             // 
             // GamePanel
             // 
@@ -155,7 +156,7 @@
         private ScrollablePanel scrollablePanel;
         private DarkUI.Controls.DarkStatusStrip darkStatusStrip;
         private System.Windows.Forms.ToolStripStatusLabel toolStripCoordinatesLabel;
-        private DarkUI.Controls.DarkContextMenu EntityContextMenu;
+        private EntityContextMenu EntityContextMenu;
         private System.Windows.Forms.ToolStripMenuItem newEntityToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripMenuItem setStartingPointToolStripMenuItem;

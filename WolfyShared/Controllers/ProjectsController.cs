@@ -52,7 +52,7 @@ namespace WolfyShared.Controllers
             // Try to deserialize project from file
             try
             {
-                var project = Serialization.XmlDeserialize<Project>(path);
+                var project = Serialization.ProtoDeserialize<Project>(path);
                 project.Load();
                 //Runtime.CurrentProject = project;
                 CurrentProject = project;

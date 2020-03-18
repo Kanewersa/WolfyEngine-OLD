@@ -2,6 +2,7 @@
 using DarkUI.Docking;
 using Microsoft.Xna.Framework;
 using WolfyEngine.Forms;
+using WolfyShared.Controllers;
 using WolfyShared.Engine;
 using WolfyShared.Game;
 using Color = Microsoft.Xna.Framework.Color;
@@ -58,6 +59,8 @@ namespace WolfyEngine.Controls
 
         private void GameControl_OnRightClick(object sender, MouseEventArgs e)
         {
+            EntityContextMenu.CurrentCoordinates =
+                new Vector2D(e.X/_currentMap.TileSize.X, e.Y/_currentMap.TileSize.Y);
             EntityContextMenu.Show(this, new Point(e.X, e.Y + darkStatusStrip.Height));
         }
 
@@ -138,6 +141,14 @@ namespace WolfyEngine.Controls
                 form.OnTypeSelected += OnEntityTypeSelected;
                 form.ShowDialog();
             }
+        }
+
+        private void setStartingPointToolStripMenuItem_Click(object sender, System.EventArgs e)
+        {
+            GameController.Instance.Settings.StartingMap = _currentMap.Id;
+            GameController.Instance.Settings.StartingCoordinates = EntityContextMenu.CurrentCoordinates;
+            gameControl.SetStartingPosition();
+            gameControl.Invalidate();
         }
     }
 }

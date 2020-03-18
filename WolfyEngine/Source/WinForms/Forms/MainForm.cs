@@ -222,6 +222,7 @@ namespace WolfyEngine.Forms
             ProjectsController.Instance.SaveCurrentProject();
             MapsController.Instance.Save();
             TilesetsController.Instance.Save();
+            GameController.Instance.Save();
         }
 
         #region ToolStrip - ToolWindow Functions

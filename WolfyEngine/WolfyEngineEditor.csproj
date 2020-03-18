@@ -98,6 +98,9 @@
       <DependentUpon>Icons.resx</DependentUpon>
     </Compile>
     <Compile Include="Source\Program\Globals\Runtime.cs" />
+    <Compile Include="Source\WinForms\Controls\EntityContextMenu.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Source\WinForms\Controls\TilesetEditorControl.cs">
       <SubType>Component</SubType>
     </Compile>

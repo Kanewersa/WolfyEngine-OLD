@@ -24,9 +24,13 @@ namespace WolfyShared.Controllers
         public void InitializeProject()
         {
             Settings = File.Exists(GameSettingsPath)
-                ? Serialization.XmlDeserialize<GameSettings>(GameSettingsPath)
+                ? Serialization.ProtoDeserialize<GameSettings>(GameSettingsPath)
                 : new GameSettings();
         }
 
+        public void Save()
+        {
+            Serialization.ProtoSerialize(Settings, GameSettingsPath);
+        }
     }
 }

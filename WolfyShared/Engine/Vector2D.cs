@@ -1,12 +1,15 @@
-﻿namespace WolfyShared.Engine
+﻿using ProtoBuf;
+
+namespace WolfyShared.Engine
 {
     /// <summary>
     /// 2D vector with integer coordinates
     /// </summary>
+    [ProtoContract]
     public struct Vector2D
     {
-        public int X { get; }
-        public int Y { get; }
+        [ProtoMember(1)] public int X { get; }
+        [ProtoMember(2)] public int Y { get; }
 
         public Vector2D(int x, int y)
         {
