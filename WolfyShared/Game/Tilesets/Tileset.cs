@@ -13,7 +13,7 @@ namespace WolfyShared.Game
         [ProtoMember(1)] public int Id { get; set; }
         [ProtoMember(2)] public string Name { get; set; }
         [ProtoMember(3)] public Vector2D TileSize { get; set; }
-        [ProtoMember(4)] public Engine.Image Image { get; set; }
+        [ProtoMember(4)] public Image Image { get; set; }
         [ProtoMember(5)] public List<TileRow> Rows { get; set; }
 
         public Tileset () { }

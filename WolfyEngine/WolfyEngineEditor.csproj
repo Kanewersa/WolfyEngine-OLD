@@ -91,13 +91,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ProgramSettings.cs" />
     <Compile Include="Icons.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Icons.resx</DependentUpon>
     </Compile>
-    <Compile Include="Source\Program\Globals\Runtime.cs" />
     <Compile Include="Source\WinForms\Controls\EntityContextMenu.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -219,7 +217,6 @@
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
-    <Compile Include="Source\Program\Globals\StaticPaths.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Source\WinForms\Forms\NewMapForm.cs">
       <SubType>Form</SubType>
@@ -325,6 +322,7 @@
   <ItemGroup>
     <Folder Include="Assets\Icons\" />
     <Folder Include="Assets\Tilesets\" />
+    <Folder Include="Source\Program\Globals\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\x.png" />

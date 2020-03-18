@@ -1,7 +1,7 @@
 ﻿using WolfyEngine.Engine;
 using WolfyShared;
 
-namespace WolfyEngine
+namespace WolfyShared
 {
     public class ProgramSettings
     {
@@ -10,7 +10,7 @@ namespace WolfyEngine
 
         public void Save()
         {
-            Serialization.XmlSerialize(this, Globals.StaticPaths.ProgramSettings);
+            Serialization.XmlSerialize(this, StaticPaths.ProgramSettings);
         }
 
     }

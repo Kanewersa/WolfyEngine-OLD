@@ -12,6 +12,7 @@ EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		WolfyShared\WolfyShared.projitems*{8027608a-d904-4a1a-83c3-fcbc6869bcea}*SharedItemsImports = 4
+		WolfyShared\WolfyShared.projitems*{86c7f08e-1c36-429f-a401-f42fb63d3236}*SharedItemsImports = 4
 		WolfyShared\WolfyShared.projitems*{a0cdbd0e-3a41-42b7-9425-a838bc2c7383}*SharedItemsImports = 13
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

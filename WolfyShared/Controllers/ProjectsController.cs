@@ -1,6 +1,5 @@
 ﻿using System;
 using WolfyEngine.Engine;
-using WolfyEngine.Globals;
 using WolfyShared.Engine;
 
 namespace WolfyShared.Controllers

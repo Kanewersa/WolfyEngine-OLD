@@ -1,5 +1,4 @@
 ﻿using System;
-using Microsoft.Xna.Framework;
 using ProtoBuf;
 using WolfyEngine.Engine;
 using WolfyShared.Engine;

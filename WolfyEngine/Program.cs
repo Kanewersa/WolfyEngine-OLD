@@ -3,7 +3,7 @@ using System.IO;
 using System.Windows.Forms;
 using WolfyEngine.Engine;
 using WolfyEngine.Forms;
-using WolfyEngine.Globals;
+using WolfyShared;
 
 namespace WolfyEngine
 {

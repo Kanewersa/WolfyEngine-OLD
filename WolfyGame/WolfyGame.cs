@@ -1,6 +1,11 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using System.IO;
+using System.Reflection;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using WolfyShared.Controllers;
+using WolfyShared.Game;
 
 namespace WolfyGame
 {
@@ -9,8 +14,10 @@ namespace WolfyGame
     /// </summary>
     public class WolfyGame : Game
     {
-        GraphicsDeviceManager graphics;
-        SpriteBatch spriteBatch;
+        private GraphicsDeviceManager graphics;
+        private SpriteBatch spriteBatch;
+
+        private Map currentMap;
         
         public WolfyGame()
         {
@@ -30,7 +37,17 @@ namespace WolfyGame
             IsMouseVisible = true;
             Window.AllowUserResizing = true;
 
+            // Initialize the controllers
+            // Path.GetDirectoryName(Assembly.GetEntryAssembly()?.Location)
+            PathsController.Instance.SetMainPath("");
+            TilesetsController.Instance.InitializeProject();
+            MapsController.Instance.InitializeProject();
+            GameController.Instance.InitializeProject();
+
             // Load the game from current folder
+            var id = GameController.Instance.Settings.StartingMap;
+            currentMap = MapsController.Instance.GetMap(id);
+            currentMap.Initialize(graphics.GraphicsDevice);
 
             base.Initialize();
         }
@@ -77,6 +94,10 @@ namespace WolfyGame
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
+
+            spriteBatch.Begin();
+            currentMap?.Draw(spriteBatch);
+            spriteBatch.End();
 
             // TODO: Add your drawing code here
 

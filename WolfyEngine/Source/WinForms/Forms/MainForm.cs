@@ -7,7 +7,6 @@ using DarkUI.Forms;
 using DarkUI.Win32;
 using WolfyEngine.Controls;
 using WolfyEngine.Engine;
-using WolfyEngine.Globals;
 using WolfyEngine.Properties;
 using WolfyShared;
 using WolfyShared.Controllers;
@@ -203,6 +202,9 @@ namespace WolfyEngine.Forms
 
         private void assetManagerButton_Click(object sender, EventArgs e)
         {
+            Console.WriteLine("Starting map is: " + GameController.Instance.Settings.StartingMap);
+
+            return;
             using (var assetForm = new AssetManagerForm())
             {
                 assetForm.ShowDialog();

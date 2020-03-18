@@ -1,4 +1,4 @@
-﻿namespace WolfyEngine.Globals
+﻿namespace WolfyShared
 {
     public static class Runtime
     {

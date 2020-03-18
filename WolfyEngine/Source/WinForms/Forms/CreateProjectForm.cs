@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 using DarkUI.Forms;
-using WolfyEngine.Globals;
+using WolfyShared;
 using WolfyShared.Controllers;
 
 // ReSharper disable LocalizableElement

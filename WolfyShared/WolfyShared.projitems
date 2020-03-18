@@ -4,6 +4,7 @@
     <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
     <HasSharedItems>true</HasSharedItems>
     <SharedGUID>54c4eace-4362-412c-a116-7c0c8b125e74</SharedGUID>
+    <LangVersion>8.0</LangVersion>
   </PropertyGroup>
   <PropertyGroup Label="Configuration">
     <Import_RootNamespace>WolfyShared</Import_RootNamespace>
@@ -37,6 +38,9 @@
     <Compile Include="$(MSBuildThisFileDirectory)Game\Tilesets\Tileset.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Game\Tilesets\TilesetInfo.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Engine\Vector2D.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ProgramSettings.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Runtime.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)StaticPaths.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="$(MSBuildThisFileDirectory)Content\" />

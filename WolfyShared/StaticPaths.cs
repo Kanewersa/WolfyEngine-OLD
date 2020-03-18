@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 
-namespace WolfyEngine.Globals
+namespace WolfyShared
 {
     public static class StaticPaths
     {
