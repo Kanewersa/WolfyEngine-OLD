@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>54c4eace-4362-412c-a116-7c0c8b125e74</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>WolfyShared</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Controllers\GameController.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Controllers\MapsController.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Controllers\PathsController.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Controllers\ProjectsController.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Controllers\TilesetsController.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Engine\Delegates.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Engine\Enums.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Engine\Serialization\Serializer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Game\Entities\Entity.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Engine\Graphics\GraphicsManager.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Engine\Graphics\Image.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Game\GameSettings.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Game\Maps\MapsData.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Game\Maps\BaseLayer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Game\Maps\EntityLayer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Game\Maps\EntityTile.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Game\Maps\EntityTileRow.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Game\Maps\Map.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Game\Maps\MapInfo.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Game\Maps\Tile.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Game\Maps\TileLayer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Game\Maps\TileRow.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Game\Project.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Engine\RefBool.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Game\Tilesets\TilesetsData.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Game\Tilesets\Tileset.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Game\Tilesets\TilesetInfo.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Engine\Vector2D.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="$(MSBuildThisFileDirectory)Content\" />
+  </ItemGroup>
+  <ItemGroup>
+    <MonoGameContentReference Include="$(MSBuildThisFileDirectory)Content\Content.mgcb" />
+  </ItemGroup>
+</Project>

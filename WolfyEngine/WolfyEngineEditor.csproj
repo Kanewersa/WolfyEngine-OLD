@@ -1,0 +1,380 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{8027608A-D904-4A1A-83C3-FCBC6869BCEA}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>WolfyEngine</RootNamespace>
+    <AssemblyName>WolfyEngine</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <LangVersion>8.0</LangVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <PublishUrl>publikuj\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>Compile\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="DarkUI, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\DarkUI.2.0.0\lib\DarkUI.dll</HintPath>
+    </Reference>
+    <Reference Include="MonoGame.Forms.DX, Version=2.3.9.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MonoGame.Forms.DX.2.3.9\lib\net451\MonoGame.Forms.DX.dll</HintPath>
+    </Reference>
+    <Reference Include="MonoGame.Framework, Version=3.8.0.270, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MonoGame.Forms.DX.2.3.9\lib\net451\MonoGame.Framework.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="protobuf-net, Version=2.4.0.0, Culture=neutral, PublicKeyToken=257b51d87d2e4d67, processorArchitecture=MSIL">
+      <HintPath>..\packages\protobuf-net.2.4.4\lib\net40\protobuf-net.dll</HintPath>
+    </Reference>
+    <Reference Include="SharpDX, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b4dcf0f35e5521f1, processorArchitecture=MSIL">
+      <HintPath>..\packages\MonoGame.Forms.DX.2.3.9\lib\net451\SharpDX.dll</HintPath>
+    </Reference>
+    <Reference Include="SharpDX.Direct3D11, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b4dcf0f35e5521f1, processorArchitecture=MSIL">
+      <HintPath>..\packages\MonoGame.Forms.DX.2.3.9\lib\net451\SharpDX.Direct3D11.dll</HintPath>
+    </Reference>
+    <Reference Include="SharpDX.DXGI, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b4dcf0f35e5521f1, processorArchitecture=MSIL">
+      <HintPath>..\packages\MonoGame.Forms.DX.2.3.9\lib\net451\SharpDX.DXGI.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ProgramSettings.cs" />
+    <Compile Include="Icons.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Icons.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Source\Program\Globals\Runtime.cs" />
+    <Compile Include="Source\WinForms\Controls\TilesetEditorControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Source\WinForms\Forms\EntityForms\NpcEditForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Source\WinForms\Forms\EntityForms\NpcEditForm.Designer.cs">
+      <DependentUpon>NpcEditForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Source\WinForms\Forms\NewLayerForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Source\WinForms\Forms\NewLayerForm.Designer.cs">
+      <DependentUpon>NewLayerForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Source\WinForms\Forms\NewTilesetForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Source\WinForms\Forms\NewTilesetForm.Designer.cs">
+      <DependentUpon>NewTilesetForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Source\WinForms\Forms\SelectEntityTypeForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Source\WinForms\Forms\SelectEntityTypeForm.Designer.cs">
+      <DependentUpon>SelectEntityTypeForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Source\WinForms\Panels\ScrollablePanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Source\WinForms\Panels\DraggablePanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Source\WinForms\Controls\GameControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Source\WinForms\Panels\GamePanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Source\WinForms\Panels\GamePanel.Designer.cs">
+      <DependentUpon>GamePanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Source\WinForms\Panels\LayersPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Source\WinForms\Panels\LayersPanel.Designer.cs">
+      <DependentUpon>LayersPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Source\WinForms\Panels\MapsPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Source\WinForms\Panels\MapsPanel.Designer.cs">
+      <DependentUpon>MapsPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Source\WinForms\Controls\TilesetControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Source\WinForms\Panels\TilesetEditorPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Source\WinForms\Panels\TilesetEditorPanel.Designer.cs">
+      <DependentUpon>TilesetEditorPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Source\WinForms\Panels\TilesetPainterPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Source\WinForms\Panels\TilesetPainterPanel.Designer.cs">
+      <DependentUpon>TilesetPainterPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Source\WinForms\Panels\TilesetsPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Source\WinForms\Panels\TilesetsPanel.Designer.cs">
+      <DependentUpon>TilesetsPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Source\WinForms\Panels\TopPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Source\WinForms\Panels\TopPanel.Designer.cs">
+      <DependentUpon>TopPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Source\WinForms\Forms\MessageDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Source\WinForms\Forms\MessageDialog.Designer.cs">
+      <DependentUpon>MessageDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Source\WinForms\Forms\AssetManagerForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Source\WinForms\Forms\AssetManagerForm.Designer.cs">
+      <DependentUpon>AssetManagerForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Source\WinForms\Forms\AssetSelectForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Source\WinForms\Forms\AssetSelectForm.Designer.cs">
+      <DependentUpon>AssetSelectForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Source\WinForms\Forms\CreateProjectForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Source\WinForms\Forms\CreateProjectForm.Designer.cs">
+      <DependentUpon>CreateProjectForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Source\WinForms\Forms\DatabaseForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Source\WinForms\Forms\DatabaseForm.Designer.cs">
+      <DependentUpon>DatabaseForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Source\WinForms\Forms\MainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Source\WinForms\Forms\MainForm.Designer.cs">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Source\Program\Globals\StaticPaths.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Source\WinForms\Forms\NewMapForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Source\WinForms\Forms\NewMapForm.Designer.cs">
+      <DependentUpon>NewMapForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Source\WinForms\Selector.cs" />
+    <EmbeddedResource Include="Icons.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Icons.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Source\WinForms\Forms\EntityForms\NpcEditForm.resx">
+      <DependentUpon>NpcEditForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Source\WinForms\Forms\NewLayerForm.resx">
+      <DependentUpon>NewLayerForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Source\WinForms\Forms\NewTilesetForm.resx">
+      <DependentUpon>NewTilesetForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Source\WinForms\Forms\SelectEntityTypeForm.resx">
+      <DependentUpon>SelectEntityTypeForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Source\WinForms\Panels\GamePanel.resx">
+      <DependentUpon>GamePanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Source\WinForms\Panels\LayersPanel.resx">
+      <DependentUpon>LayersPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Source\WinForms\Panels\MapsPanel.resx">
+      <DependentUpon>MapsPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Source\WinForms\Panels\TilesetEditorPanel.resx">
+      <DependentUpon>TilesetEditorPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Source\WinForms\Panels\TilesetPainterPanel.resx">
+      <DependentUpon>TilesetPainterPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Source\WinForms\Panels\TilesetsPanel.resx">
+      <DependentUpon>TilesetsPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Source\WinForms\Panels\TopPanel.resx">
+      <DependentUpon>TopPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Source\WinForms\Forms\MessageDialog.resx">
+      <DependentUpon>MessageDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Source\WinForms\Forms\AssetManagerForm.resx">
+      <DependentUpon>AssetManagerForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Source\WinForms\Forms\AssetSelectForm.resx">
+      <DependentUpon>AssetSelectForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Source\WinForms\Forms\CreateProjectForm.resx">
+      <DependentUpon>CreateProjectForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Source\WinForms\Forms\DatabaseForm.resx">
+      <DependentUpon>DatabaseForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Source\WinForms\Forms\MainForm.resx">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <EmbeddedResource Include="Source\WinForms\Forms\NewMapForm.resx">
+      <DependentUpon>NewMapForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.8">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.8 %28x86 i x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Assets\Icons\" />
+    <Folder Include="Assets\Tilesets\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\plus.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\arrow-down.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\arrow-up.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\bar-chart-2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\copy.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\edit-2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\refresh-cw.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\x-circle.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\x-circle1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\x_circle.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\user32x32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\square32x32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\github32x32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <Import Project="..\WolfyShared\WolfyShared.projitems" Label="Shared" />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="..\packages\MonoGame.Forms.DX.2.3.9\Build\MonoGame.Forms.DX.targets" Condition="Exists('..\packages\MonoGame.Forms.DX.2.3.9\Build\MonoGame.Forms.DX.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>Ten projekt zawiera odwołania do pakietów NuGet, których nie ma na tym komputerze. Użyj przywracania pakietów NuGet, aby je pobrać. Aby uzyskać więcej informacji, zobacz http://go.microsoft.com/fwlink/?LinkID=322105. Brakujący plik: {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\MonoGame.Forms.DX.2.3.9\Build\MonoGame.Forms.DX.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\MonoGame.Forms.DX.2.3.9\Build\MonoGame.Forms.DX.targets'))" />
+  </Target>
+</Project>
