@@ -1,9 +1,12 @@
 ﻿using System;
 using System.IO;
+using System.Runtime.Serialization;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Xml.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using ProtoBuf;
+using Salar.Bois;
 
 namespace WolfyEngine.Engine
 {
@@ -24,6 +27,20 @@ namespace WolfyEngine.Engine
         }
 
         /// <summary>
+        /// Serializes object using BinaryFormatter and saves it to desired path.
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <param name="path"></param>
+        public static void BinarySerialize(object obj, string path)
+        {
+            Directory.CreateDirectory(Path.GetDirectoryName(path) ?? throw new InvalidOperationException());
+            var bf = new BinaryFormatter();
+            var file = File.Create(path);
+            bf.Serialize(file, obj);
+            file.Close();
+        }
+
+        /// <summary>
         /// Serializes object using Xml and saves it to desired path.
         /// </summary>
         /// <param name="obj"></param>
@@ -40,6 +57,7 @@ namespace WolfyEngine.Engine
 
         public static void JsonSerialize<T>(T obj, string file)
         {
+            //Directory.CreateDirectory(Path.GetDirectoryName(file) ?? throw new InvalidOperationException());
             using (var fs = File.CreateText(file))
             {
                 var serializer = new JsonSerializer();
@@ -58,10 +76,27 @@ namespace WolfyEngine.Engine
         /// <returns></returns>
         public static T ProtoDeserialize<T>(string path)
         {
+            
             using (var file = File.OpenRead(path))
             {
                 return Serializer.Deserialize<T>(file);
             }
+        }
+
+        /// <summary>
+        /// Returns the deserialized object of given Type
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="path"></param>
+        /// <returns></returns>
+        public static T BinaryDeserialize<T>(string path)
+        {
+            if(!File.Exists(path)) throw new Exception("Could not find file " + path);
+            var bf = new BinaryFormatter();
+            var file = File.Open(path, FileMode.Open);
+            var obj = (T)bf.Deserialize(file);
+            file.Close();
+            return obj;
         }
 
         /// <summary>
@@ -89,6 +124,26 @@ namespace WolfyEngine.Engine
                 var result = serializer.Deserialize(fs, typeof(T));
                 return result as T;
             }
+        }
+
+        public static void BoisSerialize<T>(T obj, string path)
+        {
+            Directory.CreateDirectory(Path.GetDirectoryName(path) ?? throw new InvalidOperationException());
+
+            var serializer = new BoisSerializer();
+            using (var stream = new FileStream(path, FileMode.Create))
+            {
+                serializer.Serialize(obj, stream);
+            }
+        }
+
+        public static T BoisDeserialize<T>(string path)
+        {
+            var serializer = new BoisSerializer();
+            var file = File.Open(path, FileMode.Open);
+            var obj = serializer.Deserialize<T>(file);
+            file.Close();
+            return obj;
         }
     }
 }

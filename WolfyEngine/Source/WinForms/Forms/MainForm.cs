@@ -10,6 +10,7 @@ using WolfyEngine.Engine;
 using WolfyEngine.Properties;
 using WolfyShared;
 using WolfyShared.Controllers;
+using WolfyShared.Engine;
 using WolfyShared.Game;
 using Timer = System.Windows.Forms.Timer;
 
@@ -82,6 +83,9 @@ namespace WolfyEngine.Forms
             // Load all panels containing monogame controls by showing them for a while
             darkDockPanel.ActiveContent = TilesetEditorPanel;
             darkDockPanel.ActiveContent = TilesetPainterPanel;
+
+            // Set shortcuts
+            saveProjectMenuItem.ShortcutKeys = Keys.Control | Keys.S; // Save project
         }
 
         private void DarkDockPanel_ContentRemoved(object sender, DockContentEventArgs e)
@@ -202,9 +206,7 @@ namespace WolfyEngine.Forms
 
         private void assetManagerButton_Click(object sender, EventArgs e)
         {
-            Console.WriteLine("Starting map is: " + GameController.Instance.Settings.StartingMap);
-
-            return;
+           
             using (var assetForm = new AssetManagerForm())
             {
                 assetForm.ShowDialog();
@@ -269,5 +271,6 @@ namespace WolfyEngine.Forms
         }
 
         #endregion
+
     }
 }

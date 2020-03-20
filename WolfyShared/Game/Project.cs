@@ -30,12 +30,14 @@ namespace WolfyShared
         public void Load()
         {
         }
+
         /// <summary>
         /// Saves the project to it's directory
         /// </summary>
         public void Save()
         {
-            Serialization.ProtoSerialize(this, System.IO.Path.Combine(Path, Name + ".proj"));
+            Console.WriteLine(TileSize.X);
+            Serialization.XmlSerialize(this, System.IO.Path.Combine(Path, Name + ".proj"));
         }
     }
 

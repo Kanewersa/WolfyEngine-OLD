@@ -7,7 +7,7 @@ namespace WolfyShared.Game
     [ProtoContract] public class TileRow
     {
         [ProtoMember(1)] public int Width { get; set; }
-        [ProtoMember(2)] public List<Tile> Tiles { get; set; }
+        [ProtoMember(2)] public Tile[] Tiles { get; set; }
 
         public TileRow () { }
 
@@ -20,11 +20,11 @@ namespace WolfyShared.Game
         public TileRow(int width, int height, int size)
         {
             Width = width;
-            Tiles = new List<Tile>();
+            Tiles = new Tile[width];
             //Create tiles
             for (var i = 0; i < width; i++)
             {
-                Tiles.Add(new Tile(new Vector2D(i * size, height * size)));
+                Tiles[i] = new Tile(new Vector2D(i * size, height * size));
             }
         }
 
@@ -35,11 +35,11 @@ namespace WolfyShared.Game
         public TileRow(int width)
         {
             Width = width;
-            Tiles = new List<Tile>();
+            Tiles = new Tile[width];
             //Create tiles
             for (var i = 0; i < width; i++)
             {
-                Tiles.Add(new Tile(new Vector2D(-1, -1)));
+                Tiles[i] = new Tile(new Vector2D(-1, -1));
             }
         }
     }

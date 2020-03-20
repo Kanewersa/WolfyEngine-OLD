@@ -61,13 +61,31 @@ namespace WolfyEngine.Controls
         {
             EntityContextMenu.CurrentCoordinates =
                 new Vector2D(e.X/_currentMap.TileSize.X, e.Y/_currentMap.TileSize.Y);
-            EntityContextMenu.Show(this, new Point(e.X, e.Y + darkStatusStrip.Height));
+            EntityContextMenu.Show(this, new Point(e.X, e.Y + darkToolStrip.Height));
         }
 
         private void SetCoordinatesInfo(Vector2 vector)
         {
             var (x, y) = vector;
-            toolStripCoordinatesLabel.Text = "X: "+ x +" | Y: "+ y;
+            if (gameControl.CurrentLayer is TileLayer lay)
+            {
+                if (y > lay.Size.Y - 1|| x > lay.Size.X - 1 || y < 0 || x < 0) return;
+                if (lay.Rows[(int)y].Tiles[(int) x] == null) return;
+
+                var pas = lay.Rows[(int)y].Tiles[(int)x].Passage;
+
+                var tile = lay.Rows[(int) y].Tiles[(int) x];
+
+                var refEquals = tile == lay.Tileset.Rows[tile.Source.Y / 32].Tiles[tile.Source.X/32];
+
+                toolStripCoordinatesLabel.Text = "X: " + x + " | Y: " + y + " | Passage: " + pas.Value
+                    + " | Equal: " + refEquals;
+            }
+            else
+            {
+                toolStripCoordinatesLabel.Text = "X: " + x + " | Y: " + y;
+            }
+            
         }
 
         public void LoadMap(Map map)
@@ -149,6 +167,20 @@ namespace WolfyEngine.Controls
             GameController.Instance.Settings.StartingCoordinates = EntityContextMenu.CurrentCoordinates;
             gameControl.SetStartingPosition();
             gameControl.Invalidate();
+        }
+
+        private void PencilButton_Click(object sender, System.EventArgs e)
+        {
+            gameControl.Tool = GameControl.Tools.Pencil;
+            PencilButton.Checked = true;
+            FillButton.Checked = false;
+        }
+
+        private void FillButton_Click(object sender, System.EventArgs e)
+        {
+            gameControl.Tool = GameControl.Tools.Fill;
+            FillButton.Checked = true;
+            PencilButton.Checked = false;
         }
     }
 }

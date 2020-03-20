@@ -19,7 +19,8 @@ namespace WolfyShared.Controllers
             {
                 _currentProject = value;
                 SetLastProject();
-                PathsController.Instance.SetMainPath(_currentProject.Path);
+                if(_currentProject != null)
+                    PathsController.Instance.SetMainPath(_currentProject.Path);
                 OnProjectChanged?.Invoke(CurrentProject);
             }
         }
@@ -51,7 +52,7 @@ namespace WolfyShared.Controllers
             // Try to deserialize project from file
             try
             {
-                var project = Serialization.ProtoDeserialize<Project>(path);
+                var project = Serialization.XmlDeserialize<Project>(path);
                 project.Load();
                 //Runtime.CurrentProject = project;
                 CurrentProject = project;

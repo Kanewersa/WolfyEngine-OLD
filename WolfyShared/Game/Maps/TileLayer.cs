@@ -12,13 +12,13 @@ namespace WolfyShared.Game
     {
         [ProtoMember(1)] public Vector2D TileSize { get; set; }
         [ProtoMember(2)] public int TilesetId { get; set; }
-        //TODO Tiles should be stored in arrays to improve efficiency
-        [ProtoMember(3)] public List<TileRow> Rows { get; set; }
+        [ProtoMember(3)] public VectorsRow[] Sources { get; set; }
 
+        [ProtoIgnore] public TileRow[] Rows { get; set; }
         [ProtoIgnore] private Image Image => Tileset.Image;
-        [ProtoIgnore] private Vector2D _emptyTile = new Vector2D(-1, -1);
         [ProtoIgnore] public Tileset Tileset { get; set; }
-        
+        [ProtoIgnore] private Vector2D _emptyTile = new Vector2D(-1, -1);
+
         public TileLayer() { }
 
         public TileLayer(string name, Vector2D mapSize, Vector2D tileSize, int tilesetId)
@@ -27,12 +27,14 @@ namespace WolfyShared.Game
             Size = mapSize;
             TileSize = tileSize;
             TilesetId = tilesetId;
-            Rows = new List<TileRow>();
+            Rows = new TileRow[Size.Y];
+            Sources = new VectorsRow[Size.Y];
 
             // Create tiles
-            for (var i = 0; i < mapSize.Y; i++)
+            for (var i = 0; i < Size.Y; i++)
             {
-                Rows.Add(new TileRow(mapSize.X));
+                Rows[i] = new TileRow(Size.X);
+                Sources[i] = new VectorsRow(Size.X);
             }
         }
 
@@ -40,6 +42,27 @@ namespace WolfyShared.Game
         {
             if (Tileset == null)
                 Tileset = TilesetsController.Instance.GetTileset(TilesetId);
+
+            if (Rows == null)
+            {
+                Rows = new TileRow[Size.Y];
+
+                for (var i = 0; i < Size.Y; i++)
+                {
+                    Rows[i] = new TileRow {Tiles = new Tile[Size.X]};
+                }
+            }
+
+            // TODO Loading tiles from tileset is probably necessary only inside editor
+            for (var y = 0; y < Size.Y; y++)
+            {
+                for (var x = 0; x < Size.X; x++)
+                {
+                    var source = Sources[y].Source[x];
+                    if(source != _emptyTile)
+                        Rows[y].Tiles[x] = Tileset.Rows[source.Y].Tiles[source.X];
+                }
+            }
 
             Tileset.Initialize(graphics);
         }
@@ -51,7 +74,7 @@ namespace WolfyShared.Game
                 for (var x = 0; x < Size.X; x++)
                 {
                     var currentTile = Rows[y].Tiles[x];
-                    if (currentTile.Source == _emptyTile)
+                    if (currentTile == null || currentTile.Source == _emptyTile)
                         continue;
                     
                     Image.Position = new Vector2(x * TileSize.X, y * TileSize.Y);
@@ -88,9 +111,11 @@ namespace WolfyShared.Game
                         mapIndex = tileIndex;
 
                     Rows[i].Tiles[j] = Tileset.Rows[(int)mapIndex.Y].Tiles[(int)mapIndex.X];
-                    Console.WriteLine("Replacing tile for " + Name + ":");
+                    Sources[i].Source[j] = new Vector2D((int)mapIndex.X, (int)mapIndex.Y);
                     Console.WriteLine("Tile {x: "+ i +", y: "+ j +"}" +
                                       "now has source x: "+ mapIndex.Y +", y: "+ mapIndex.X +"");
+
+                    Console.WriteLine(Rows[i].Tiles[j].Source.X + " " + Rows[i].Tiles[j].Source.Y);
 
                     //Rows[i].Tiles[j].value = mapIndex;
                     /*if (mapIndex.Y < 0)
@@ -120,9 +145,45 @@ namespace WolfyShared.Game
             }
         }
 
-        public void Save()
+        public void FillTiles(Vector2 position, Rectangle selectedRegion)
         {
+            var source = new Vector2(position.X / TileSize.X, position.Y / TileSize.Y);
+            var target = new Vector2(selectedRegion.X, selectedRegion.Y);
 
+            var src = new Vector2D((int) source.X, (int) source.Y);
+            var mainTile = Rows[src.Y].Tiles[src.X];
+            var targetTile = Tileset.Rows[(int)target.Y].Tiles[(int)target.X];
+
+            if (mainTile.Source == targetTile.Source) return;
+
+            SetTile(src, mainTile, targetTile);
+        }
+
+        private void SetTile(Vector2D src, Tile mainTile, Tile targetTile)
+        {
+            if (src.X < 0 || src.Y < 0 || src.X > Size.X - 1 || src.Y > Size.Y - 1) return;
+
+            Rows[src.Y].Tiles[src.X] = targetTile;
+
+            if(src.X - 1 >= 0)
+                if (Rows[src.Y].Tiles[src.X - 1] == mainTile || Rows[src.Y].Tiles[src.X - 1].Empty())
+                    // Call the function for left neighbor
+                    SetTile(new Vector2D(src.X - 1, src.Y), mainTile, targetTile);
+
+            if(src.X + 1 < Size.X)
+                if (Rows[src.Y].Tiles[src.X + 1] == mainTile || Rows[src.Y].Tiles[src.X + 1].Empty())
+                    // Call the function for right neighbor
+                    SetTile(new Vector2D(src.X + 1, src.Y), mainTile, targetTile);
+            
+            if(src.Y - 1 >= 0)
+                if (Rows[src.Y - 1].Tiles[src.X] == mainTile || Rows[src.Y - 1].Tiles[src.X].Empty())
+                    // Call the function for upper neighbor
+                    SetTile(new Vector2D(src.X, src.Y - 1), mainTile, targetTile);
+            
+            if(src.Y + 1 < Size.Y)
+                if (Rows[src.Y + 1].Tiles[src.X] == mainTile || Rows[src.Y + 1].Tiles[src.X].Empty())
+                    // Call the function for bottom neighbor
+                    SetTile(new Vector2D(src.X, src.Y + 1), mainTile, targetTile);
         }
 
         public void SetColor(Color color, float transparency)

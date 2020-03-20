@@ -35,7 +35,7 @@ namespace WolfyEngine.Controls
         public TilesetControl()
         {
             _currentZoom = 1f;
-            _selectedTileRegion = new Rectangle(0,0,1,1);
+            _selectedTileRegion = new Rectangle(0,0,0,0);
 
             _selector = new Selector(0.666f);
         }

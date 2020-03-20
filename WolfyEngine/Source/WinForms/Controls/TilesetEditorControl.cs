@@ -81,8 +81,8 @@ namespace WolfyEngine.Controls
             var indexX = (int)(mousePosition.X / _tileSize.X);
             var indexY = (int)(mousePosition.Y / _tileSize.Y);
 
-            if (indexX >= _currentTileset.Rows[0].Tiles.Count) { EditorMouseLeave(); return; }
-            if (indexY >= _currentTileset.Rows.Count) { EditorMouseLeave(); return; }
+            if (indexX >= _currentTileset.Size.X) { EditorMouseLeave(); return; }
+            if (indexY >= _currentTileset.Size.Y) { EditorMouseLeave(); return; }
 
             /*if (indexY < 0)
             {
@@ -128,9 +128,9 @@ namespace WolfyEngine.Controls
 
         private void DrawIcons()
         {
-            for (var y = 0; y < _currentTileset.Rows.Count; y++)
+            for (var y = 0; y < _currentTileset.Size.Y; y++)
             {
-                for (var x = 0; x < _currentTileset.Rows[y].Tiles.Count; x++)
+                for (var x = 0; x < _currentTileset.Size.X; x++)
                 {
                     var img = CurrentImage(_currentTileset.Rows[y].Tiles[x]);
 

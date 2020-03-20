@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Windows.Forms;
+using DarkUI.Forms;
 using Microsoft.Xna.Framework;
 using MonoGame.Forms.Controls;
 using WolfyEngine.Utils;
@@ -19,6 +20,12 @@ namespace WolfyEngine.Controls
             Entities
         }
 
+        public enum Tools
+        {
+            Pencil,
+            Fill
+        }
+
         public event ControlEventHandler OnInitialize;
         public event Vector2EventHandler OnCoordinatesChanged;
         public event MouseEventHandler OnRightClick;
@@ -26,6 +33,8 @@ namespace WolfyEngine.Controls
 
 
         public EditorMode Mode { get; private set; }
+        public Tools Tool { get; set; }
+
         private Map _currentMap;
         private bool _startingMap;
         private Selector _selector;
@@ -58,6 +67,8 @@ namespace WolfyEngine.Controls
         public GameControl()
         {
             Mode = EditorMode.Entities;
+            Tool = Tools.Pencil;
+
             _currentZoom = 1f;
             _selectedTileRegion = new Rectangle(0, 0, 1, 1);
             _entityGridImage = new Image("Assets/Icons/EntityGridIcon.png")
@@ -128,7 +139,26 @@ namespace WolfyEngine.Controls
         private void GameControl_MouseDown(object sender, MouseEventArgs e)
         {
             if (Mode == EditorMode.Tiles)
-                (CurrentLayer as TileLayer)?.ReplaceTiles(_mousePosition, _selectedTileRegion);
+            {
+                switch (Tool)
+                {
+                    case Tools.Pencil:
+                        (CurrentLayer as TileLayer)?.ReplaceTiles(_mousePosition, _selectedTileRegion);
+                        break;
+                    case Tools.Fill:
+                        if (_selectedTileRegion.Width > 0 || _selectedTileRegion.Height > 0)
+                        {
+                            DarkMessageBox.ShowWarning(
+                                "To use Fill tool select just one tile in tileset view!",
+                                "Too big region selected.");
+                            return;
+                        }
+                        (CurrentLayer as TileLayer)?.FillTiles(_mousePosition, _selectedTileRegion);
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
+            }
 
             _mouseDown = true;
         }

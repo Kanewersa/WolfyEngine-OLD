@@ -1,5 +1,4 @@
-﻿using System;
-using ProtoBuf;
+﻿using ProtoBuf;
 using WolfyShared.Engine;
 
 namespace WolfyShared.Game
@@ -18,6 +17,11 @@ namespace WolfyShared.Game
         {
             Source = source;
             Passage = true;
+        }
+
+        public bool Empty()
+        {
+            return Source == new Vector2D(-1, -1);
         }
     }
 }
