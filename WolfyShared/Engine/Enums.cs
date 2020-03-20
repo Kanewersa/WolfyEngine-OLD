@@ -6,4 +6,12 @@
         Static,
         Custom
     }
+
+    public enum Directions
+    {
+        Down,
+        Left,
+        Right,
+        Up
+    }
 }

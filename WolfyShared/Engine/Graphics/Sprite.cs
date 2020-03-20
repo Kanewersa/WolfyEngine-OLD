@@ -15,8 +15,6 @@ namespace WolfyShared.Engine
         protected Image _image;
         private Texture2D Texture => _image.Texture;
 
-        public Input Input;
-
         public Vector2 Position
         {
             get => _position;
@@ -32,6 +30,8 @@ namespace WolfyShared.Engine
         public float Speed = 1f;
 
         public Vector2 Velocity;
+
+        public Sprite() { }
 
         public Sprite(Dictionary<string, Animation> animations)
         {
@@ -51,23 +51,15 @@ namespace WolfyShared.Engine
 
         public virtual void Move()
         {
-            if (Keyboard.GetState().IsKeyDown((Input.Up)))
-                Velocity.Y -= Speed;
-            if (Keyboard.GetState().IsKeyDown((Input.Down)))
-                Velocity.Y = Speed;
-            if (Keyboard.GetState().IsKeyDown((Input.Left)))
-                Velocity.X -= Speed;
-            if (Keyboard.GetState().IsKeyDown((Input.Right)))
-                Velocity.X = Speed;
         }
 
         protected virtual void SetAnimations()
         {
-            if(Velocity.X > 0)
+            if (Velocity.X > 0)
                 _animationManager.Play(_animations["WalkRight"]);
-            else if(Velocity.X < 0)
+            else if (Velocity.X < 0)
                 _animationManager.Play(_animations["WalkLeft"]);
-            else if(Velocity.Y > 0)
+            else if (Velocity.Y > 0)
                 _animationManager.Play(_animations["WalkDown"]);
             else if (Velocity.Y < 0)
                 _animationManager.Play(_animations["WalkUp"]);
@@ -76,15 +68,12 @@ namespace WolfyShared.Engine
 
         public virtual void Update(GameTime gameTime, List<Sprite> sprites)
         {
-            Move();
             SetAnimations();
 
             _animationManager.Update(gameTime);
 
             Position += Velocity;
             Velocity = Vector2.Zero;
-
-            Console.WriteLine(1 / (float)gameTime.ElapsedGameTime.TotalSeconds);
         }
     }
 }

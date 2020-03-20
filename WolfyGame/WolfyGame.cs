@@ -38,11 +38,12 @@ namespace WolfyGame
             // TODO: Add your initialization logic here
             IsMouseVisible = true;
             Window.AllowUserResizing = true;
-            IsFixedTimeStep = false;
-            graphics.SynchronizeWithVerticalRetrace = false;
+            //IsFixedTimeStep = false;
+            //graphics.SynchronizeWithVerticalRetrace = false;
 
             // Initialize the controllers
             // Path.GetDirectoryName(Assembly.GetEntryAssembly()?.Location)
+
             PathsController.Instance.SetMainPath("");
             TilesetsController.Instance.InitializeProject();
             MapsController.Instance.InitializeProject();
@@ -71,13 +72,23 @@ namespace WolfyGame
 
             var animations = new Dictionary<string, Animation>()
             {
-                { "WalkUp", new Animation("WalkingUp.png", 3) },
-                { "WalkDown", new Animation("WalkingDown.png", 3) },
-                { "WalkLeft", new Animation("WalkingLeft.png", 3) },
-                { "WalkRight", new Animation("WalkingRight.png", 3) },
+                { "WalkUp", new Animation("WalkingUp.png", 3, 1) },
+                { "WalkDown", new Animation("WalkingDown.png", 3, 1) },
+                { "WalkLeft", new Animation("WalkingLeft.png", 3, 1) },
+                { "WalkRight", new Animation("WalkingRight.png", 3, 1) }
+            };
+
+            var movement = new Dictionary<string, Animation>()
+            {
+                { "Walk", new Animation("001-Fighter01.png", 4, 4) }
             };
 
             foreach (var pair in animations)
+            {
+                pair.Value.Image.Initialize(graphics.GraphicsDevice);
+            }
+
+            foreach (var pair in movement)
             {
                 pair.Value.Image.Initialize(graphics.GraphicsDevice);
             }
@@ -87,15 +98,8 @@ namespace WolfyGame
                 new Sprite(animations)
                 {
                     Position = new Vector2(100, 100),
-                    Input = new Input()
-                    {
-                        Up = Keys.W,
-                        Down = Keys.S,
-                        Left = Keys.A,
-                        Right = Keys.D,
-                    },
                 },
-                new Sprite(animations)
+                new Player(movement)
                 {
                     Position = new Vector2(150, 100),
                     Input = new Input()
@@ -144,7 +148,7 @@ namespace WolfyGame
 
             spriteBatch.Begin();
 
-            //currentMap?.Draw(spriteBatch);
+            currentMap?.Draw(spriteBatch);
 
             foreach (var sprite in _sprites)
                 sprite.Draw(spriteBatch);

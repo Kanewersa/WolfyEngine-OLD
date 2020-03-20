@@ -6,7 +6,12 @@ namespace WolfyShared.Engine
     {
         public int CurrentFrame { get; set; }
         public int FrameCount { get; private set; }
-        public int FrameHeight => Texture.Height;
+
+        public int CurrentDirection { get; set; }
+        public int DirectionsCount { get; private set; }
+        
+
+        public int FrameHeight => Texture.Height / DirectionsCount;
         public int FrameWidth => Texture.Width / FrameCount;
         public float FrameSpeed { get; set; }
 
@@ -16,11 +21,13 @@ namespace WolfyShared.Engine
 
         public Texture2D Texture => Image.Texture;
 
-        public Animation(string texture, int frameCount)
+        public Animation(string texture, int frameCount, int directionsCount)
         {
             Image = new Image(texture);
-
+            CurrentDirection = 0;
             FrameCount = frameCount;
+            DirectionsCount = directionsCount;
+            
 
             IsLooping = true;
             FrameSpeed = .2f;
