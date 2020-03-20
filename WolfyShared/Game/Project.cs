@@ -36,7 +36,6 @@ namespace WolfyShared
         /// </summary>
         public void Save()
         {
-            Console.WriteLine(TileSize.X);
             Serialization.XmlSerialize(this, System.IO.Path.Combine(Path, Name + ".proj"));
         }
     }

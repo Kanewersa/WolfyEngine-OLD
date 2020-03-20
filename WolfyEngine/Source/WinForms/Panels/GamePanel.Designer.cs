@@ -29,20 +29,20 @@
         private void InitializeComponent()
         {
             this.scrollablePanel = new WolfyEngine.Controls.ScrollablePanel();
+            this.darkToolStrip = new DarkUI.Controls.DarkToolStrip();
+            this.PencilButton = new System.Windows.Forms.ToolStripButton();
+            this.FillButton = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripCoordinatesLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.gameControl = new WolfyEngine.Controls.GameControl();
             this.EntityContextMenu = new WolfyEngine.Controls.EntityContextMenu();
             this.newEntityToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.removeEntityToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.setStartingPointToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.darkToolStrip = new DarkUI.Controls.DarkToolStrip();
-            this.toolStripCoordinatesLabel = new System.Windows.Forms.ToolStripStatusLabel();
-            this.toolStripSeparator = new System.Windows.Forms.ToolStripSeparator();
-            this.PencilButton = new System.Windows.Forms.ToolStripButton();
-            this.FillButton = new System.Windows.Forms.ToolStripButton();
             this.scrollablePanel.SuspendLayout();
-            this.EntityContextMenu.SuspendLayout();
             this.darkToolStrip.SuspendLayout();
+            this.EntityContextMenu.SuspendLayout();
             this.SuspendLayout();
             // 
             // scrollablePanel
@@ -56,6 +56,68 @@
             this.scrollablePanel.Size = new System.Drawing.Size(469, 534);
             this.scrollablePanel.TabIndex = 1;
             // 
+            // darkToolStrip
+            // 
+            this.darkToolStrip.AutoSize = false;
+            this.darkToolStrip.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
+            this.darkToolStrip.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
+            this.darkToolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.PencilButton,
+            this.FillButton,
+            this.toolStripSeparator,
+            this.toolStripCoordinatesLabel});
+            this.darkToolStrip.Location = new System.Drawing.Point(0, 0);
+            this.darkToolStrip.Name = "darkToolStrip";
+            this.darkToolStrip.Padding = new System.Windows.Forms.Padding(5, 0, 1, 0);
+            this.darkToolStrip.Size = new System.Drawing.Size(469, 28);
+            this.darkToolStrip.TabIndex = 2;
+            this.darkToolStrip.Text = "darkToolStrip1";
+            // 
+            // PencilButton
+            // 
+            this.PencilButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
+            this.PencilButton.Checked = true;
+            this.PencilButton.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.PencilButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
+            this.PencilButton.Image = global::WolfyEngine.Icons.edit_3;
+            this.PencilButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.PencilButton.Margin = new System.Windows.Forms.Padding(1, 1, 1, 2);
+            this.PencilButton.Name = "PencilButton";
+            this.PencilButton.Size = new System.Drawing.Size(59, 25);
+            this.PencilButton.Text = "Pencil";
+            this.PencilButton.ToolTipText = "Pencil tool";
+            this.PencilButton.Click += new System.EventHandler(this.PencilButton_Click);
+            // 
+            // FillButton
+            // 
+            this.FillButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
+            this.FillButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
+            this.FillButton.Image = global::WolfyEngine.Icons.filter;
+            this.FillButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.FillButton.Margin = new System.Windows.Forms.Padding(1, 1, 1, 2);
+            this.FillButton.Name = "FillButton";
+            this.FillButton.Size = new System.Drawing.Size(42, 25);
+            this.FillButton.Text = "Fill";
+            this.FillButton.ToolTipText = "Fill tool";
+            this.FillButton.Click += new System.EventHandler(this.FillButton_Click);
+            // 
+            // toolStripSeparator
+            // 
+            this.toolStripSeparator.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
+            this.toolStripSeparator.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
+            this.toolStripSeparator.Margin = new System.Windows.Forms.Padding(0, 0, 2, 0);
+            this.toolStripSeparator.Name = "toolStripSeparator";
+            this.toolStripSeparator.Size = new System.Drawing.Size(6, 28);
+            // 
+            // toolStripCoordinatesLabel
+            // 
+            this.toolStripCoordinatesLabel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
+            this.toolStripCoordinatesLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
+            this.toolStripCoordinatesLabel.Margin = new System.Windows.Forms.Padding(0);
+            this.toolStripCoordinatesLabel.Name = "toolStripCoordinatesLabel";
+            this.toolStripCoordinatesLabel.Size = new System.Drawing.Size(74, 28);
+            this.toolStripCoordinatesLabel.Text = "Coordinates:";
+            // 
             // gameControl
             // 
             this.gameControl.GraphicsProfile = Microsoft.Xna.Framework.Graphics.GraphicsProfile.HiDef;
@@ -66,6 +128,7 @@
             this.gameControl.Size = new System.Drawing.Size(195, 258);
             this.gameControl.TabIndex = 0;
             this.gameControl.Text = "Game control";
+            this.gameControl.Tool = WolfyEngine.Controls.GameControl.Tools.Pencil;
             // 
             // EntityContextMenu
             // 
@@ -113,68 +176,6 @@
             this.setStartingPointToolStripMenuItem.Text = "Set starting point";
             this.setStartingPointToolStripMenuItem.Click += new System.EventHandler(this.setStartingPointToolStripMenuItem_Click);
             // 
-            // darkToolStrip
-            // 
-            this.darkToolStrip.AutoSize = false;
-            this.darkToolStrip.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
-            this.darkToolStrip.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
-            this.darkToolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.PencilButton,
-            this.FillButton,
-            this.toolStripSeparator,
-            this.toolStripCoordinatesLabel});
-            this.darkToolStrip.Location = new System.Drawing.Point(0, 0);
-            this.darkToolStrip.Name = "darkToolStrip";
-            this.darkToolStrip.Padding = new System.Windows.Forms.Padding(5, 0, 1, 0);
-            this.darkToolStrip.Size = new System.Drawing.Size(469, 28);
-            this.darkToolStrip.TabIndex = 2;
-            this.darkToolStrip.Text = "darkToolStrip1";
-            // 
-            // toolStripCoordinatesLabel
-            // 
-            this.toolStripCoordinatesLabel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
-            this.toolStripCoordinatesLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
-            this.toolStripCoordinatesLabel.Margin = new System.Windows.Forms.Padding(0);
-            this.toolStripCoordinatesLabel.Name = "toolStripCoordinatesLabel";
-            this.toolStripCoordinatesLabel.Size = new System.Drawing.Size(74, 28);
-            this.toolStripCoordinatesLabel.Text = "Coordinates:";
-            // 
-            // toolStripSeparator
-            // 
-            this.toolStripSeparator.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
-            this.toolStripSeparator.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
-            this.toolStripSeparator.Margin = new System.Windows.Forms.Padding(0, 0, 2, 0);
-            this.toolStripSeparator.Name = "toolStripSeparator";
-            this.toolStripSeparator.Size = new System.Drawing.Size(6, 28);
-            // 
-            // PencilButton
-            // 
-            this.PencilButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
-            this.PencilButton.Checked = true;
-            this.PencilButton.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.PencilButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
-            this.PencilButton.Image = global::WolfyEngine.Icons.edit_3;
-            this.PencilButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.PencilButton.Margin = new System.Windows.Forms.Padding(1, 1, 1, 2);
-            this.PencilButton.Name = "PencilButton";
-            this.PencilButton.Size = new System.Drawing.Size(59, 25);
-            this.PencilButton.Text = "Pencil";
-            this.PencilButton.ToolTipText = "Pencil tool";
-            this.PencilButton.Click += new System.EventHandler(this.PencilButton_Click);
-            // 
-            // FillButton
-            // 
-            this.FillButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
-            this.FillButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
-            this.FillButton.Image = global::WolfyEngine.Icons.filter;
-            this.FillButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.FillButton.Margin = new System.Windows.Forms.Padding(1, 1, 1, 2);
-            this.FillButton.Name = "FillButton";
-            this.FillButton.Size = new System.Drawing.Size(42, 25);
-            this.FillButton.Text = "Fill";
-            this.FillButton.ToolTipText = "Fill tool";
-            this.FillButton.Click += new System.EventHandler(this.FillButton_Click);
-            // 
             // GamePanel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -185,9 +186,9 @@
             this.Name = "GamePanel";
             this.Size = new System.Drawing.Size(469, 534);
             this.scrollablePanel.ResumeLayout(false);
-            this.EntityContextMenu.ResumeLayout(false);
             this.darkToolStrip.ResumeLayout(false);
             this.darkToolStrip.PerformLayout();
+            this.EntityContextMenu.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }

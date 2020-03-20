@@ -38,6 +38,16 @@ namespace WolfyShared.Engine
             return new Vector2D(a.X - b.X, a.Y - b.Y);
         }
 
+        public static Vector2D operator *(Vector2D a, int b)
+        {
+            return new Vector2D(a.X * b, a.Y * b);
+        }
+
+        public static Vector2D operator /(Vector2D a, int b)
+        {
+            return new Vector2D(a.X / b, a.Y / b);
+        }
+
         public override string ToString()
         {
             return $"[{X}, {Y}]";

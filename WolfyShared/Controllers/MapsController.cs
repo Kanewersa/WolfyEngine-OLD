@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using WolfyEngine.Engine;
 using WolfyShared.Game;
@@ -82,7 +83,6 @@ namespace WolfyShared.Controllers
         public Map GetMap(int id)
         {
             if (LoadedMaps.ContainsKey(id)) return LoadedMaps[id];
-
             var file= MapsData.Info[id].FileName;
             var path = Path.Combine(_mapsPath, file);
             var map = Serialization.ProtoDeserialize<Map>(path);

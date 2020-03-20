@@ -83,11 +83,21 @@
             // widthBox
             // 
             this.widthBox.Location = new System.Drawing.Point(15, 74);
+            this.widthBox.Maximum = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
+            this.widthBox.Minimum = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
             this.widthBox.Name = "widthBox";
             this.widthBox.Size = new System.Drawing.Size(85, 20);
             this.widthBox.TabIndex = 4;
             this.widthBox.Value = new decimal(new int[] {
-            20,
+            5,
             0,
             0,
             0});
@@ -95,11 +105,21 @@
             // heightBox
             // 
             this.heightBox.Location = new System.Drawing.Point(118, 74);
+            this.heightBox.Maximum = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
+            this.heightBox.Minimum = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
             this.heightBox.Name = "heightBox";
             this.heightBox.Size = new System.Drawing.Size(82, 20);
             this.heightBox.TabIndex = 5;
             this.heightBox.Value = new decimal(new int[] {
-            20,
+            5,
             0,
             0,
             0});

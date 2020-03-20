@@ -49,7 +49,7 @@ namespace WolfyShared.Game
 
                 for (var i = 0; i < Size.Y; i++)
                 {
-                    Rows[i] = new TileRow {Tiles = new Tile[Size.X]};
+                    Rows[i] = new TileRow(Size.X);
                 }
             }
 
@@ -115,8 +115,6 @@ namespace WolfyShared.Game
                     Console.WriteLine("Tile {x: "+ i +", y: "+ j +"}" +
                                       "now has source x: "+ mapIndex.Y +", y: "+ mapIndex.X +"");
 
-                    Console.WriteLine(Rows[i].Tiles[j].Source.X + " " + Rows[i].Tiles[j].Source.Y);
-
                     //Rows[i].Tiles[j].value = mapIndex;
                     /*if (mapIndex.Y < 0)
                     {
@@ -145,18 +143,48 @@ namespace WolfyShared.Game
             }
         }
 
+
+
         public void FillTiles(Vector2 position, Rectangle selectedRegion)
         {
             var source = new Vector2(position.X / TileSize.X, position.Y / TileSize.Y);
             var target = new Vector2(selectedRegion.X, selectedRegion.Y);
 
             var src = new Vector2D((int) source.X, (int) source.Y);
-            var mainTile = Rows[src.Y].Tiles[src.X];
+            var oldTile = Rows[src.Y].Tiles[src.X];
             var targetTile = Tileset.Rows[(int)target.Y].Tiles[(int)target.X];
 
-            if (mainTile.Source == targetTile.Source) return;
+            if (oldTile.Source == targetTile.Source) return;
 
-            SetTile(src, mainTile, targetTile);
+            var queue = new Queue<Vector2D>();
+
+            FloodFill(src, oldTile, targetTile, queue);
+
+            while (queue.Count > 0)
+            {
+                var toCheck = queue.Dequeue();
+
+                FloodFill(toCheck + new Vector2D(-1,0), oldTile, targetTile, queue);
+                FloodFill(toCheck + new Vector2D(0, 1), oldTile, targetTile, queue);
+                FloodFill(toCheck + new Vector2D(1, 0), oldTile, targetTile, queue);
+                FloodFill(toCheck + new Vector2D(0, -1), oldTile, targetTile, queue);
+            }
+
+        }
+
+        private void FloodFill(Vector2D src, Tile oldTile, Tile targetTile, Queue<Vector2D> queue)
+        {
+            // Check if source fits the bounds of map
+            if (src.X < 0 || src.X >= Size.X) return;
+            if (src.Y < 0 || src.Y >= Size.Y) return;
+
+            // Enqueue source if target tile is the old tile
+            if (Rows[src.Y].Tiles[src.X] == oldTile || Rows[src.Y].Tiles[src.X].Empty())
+            {
+                Rows[src.Y].Tiles[src.X] = targetTile;
+                Sources[src.Y].Source[src.X] = targetTile.Source / TileSize.X;
+                queue.Enqueue(src);
+            }
         }
 
         private void SetTile(Vector2D src, Tile mainTile, Tile targetTile)
@@ -164,6 +192,8 @@ namespace WolfyShared.Game
             if (src.X < 0 || src.Y < 0 || src.X > Size.X - 1 || src.Y > Size.Y - 1) return;
 
             Rows[src.Y].Tiles[src.X] = targetTile;
+            Sources[src.Y].Source[src.X] = targetTile.Source / TileSize.X;
+
 
             if(src.X - 1 >= 0)
                 if (Rows[src.Y].Tiles[src.X - 1] == mainTile || Rows[src.Y].Tiles[src.X - 1].Empty())
