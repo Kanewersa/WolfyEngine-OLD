@@ -51,6 +51,7 @@ namespace WolfyGame
             ScreenHeight = graphics.PreferredBackBufferHeight;
             ScreenWidth = graphics.PreferredBackBufferWidth;
 
+            Window.ClientSizeChanged += Window_ClientSizeChanged;
             // Initialize the controllers
             // Path.GetDirectoryName(Assembly.GetEntryAssembly()?.Location)
 
@@ -69,6 +70,16 @@ namespace WolfyGame
             base.Initialize();
         }
 
+        private void Window_ClientSizeChanged(object sender, EventArgs e)
+        {
+            graphics.PreferredBackBufferHeight = Window.ClientBounds.Height;
+            graphics.PreferredBackBufferWidth = Window.ClientBounds.Width;
+            graphics.ApplyChanges();
+
+            ScreenHeight = graphics.PreferredBackBufferHeight;
+            ScreenWidth = graphics.PreferredBackBufferWidth;
+        }
+
         /// <summary>
         /// LoadContent will be called once per game and is the place to load
         /// all of your content.
@@ -82,6 +93,9 @@ namespace WolfyGame
 
             // Create the camera
             _camera = new Camera();
+            _camera.SetMapBoundaries(new Vector2(
+                currentMap.Size.X * currentMap.TileSize.X, 
+                currentMap.Size.Y * currentMap.TileSize.Y));
 
             var movement = new Dictionary<string, Animation>()
             {
