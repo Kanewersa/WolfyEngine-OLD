@@ -29,11 +29,11 @@
         private void InitializeComponent()
         {
             this.tilesetEditorControl = new WolfyEngine.Controls.TilesetEditorControl();
-            this.scrollablePanel1 = new WolfyEngine.Controls.ScrollablePanel();
+            this.scrollablePanel = new WolfyEngine.Controls.ScrollablePanel();
             this.darkToolStrip = new DarkUI.Controls.DarkToolStrip();
             this.passageButton = new System.Windows.Forms.ToolStripButton();
             this.bushButton = new System.Windows.Forms.ToolStripButton();
-            this.scrollablePanel1.SuspendLayout();
+            this.scrollablePanel.SuspendLayout();
             this.darkToolStrip.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -46,14 +46,15 @@
             this.tilesetEditorControl.TabIndex = 0;
             this.tilesetEditorControl.Text = "TilesetEditor Control";
             // 
-            // scrollablePanel1
+            // scrollablePanel
             // 
-            this.scrollablePanel1.Controls.Add(this.tilesetEditorControl);
-            this.scrollablePanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.scrollablePanel1.Location = new System.Drawing.Point(0, 53);
-            this.scrollablePanel1.Name = "scrollablePanel1";
-            this.scrollablePanel1.Size = new System.Drawing.Size(493, 494);
-            this.scrollablePanel1.TabIndex = 1;
+            this.scrollablePanel.AutoScroll = true;
+            this.scrollablePanel.Controls.Add(this.tilesetEditorControl);
+            this.scrollablePanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.scrollablePanel.Location = new System.Drawing.Point(0, 53);
+            this.scrollablePanel.Name = "scrollablePanel";
+            this.scrollablePanel.Size = new System.Drawing.Size(493, 494);
+            this.scrollablePanel.TabIndex = 1;
             // 
             // darkToolStrip
             // 
@@ -97,13 +98,13 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.scrollablePanel1);
+            this.Controls.Add(this.scrollablePanel);
             this.Controls.Add(this.darkToolStrip);
             this.DefaultDockArea = DarkUI.Docking.DarkDockArea.Right;
             this.DockText = "Tileset Editor";
             this.Name = "TilesetEditorPanel";
             this.Size = new System.Drawing.Size(493, 547);
-            this.scrollablePanel1.ResumeLayout(false);
+            this.scrollablePanel.ResumeLayout(false);
             this.darkToolStrip.ResumeLayout(false);
             this.darkToolStrip.PerformLayout();
             this.ResumeLayout(false);
@@ -113,7 +114,7 @@
         #endregion
 
         private TilesetEditorControl tilesetEditorControl;
-        private ScrollablePanel scrollablePanel1;
+        private ScrollablePanel scrollablePanel;
         private DarkUI.Controls.DarkToolStrip darkToolStrip;
         private System.Windows.Forms.ToolStripButton passageButton;
         private System.Windows.Forms.ToolStripButton bushButton;
