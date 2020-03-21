@@ -44,6 +44,15 @@ namespace WolfyShared.Game
 
             _currentKeyboardState = Keyboard.GetState();
 
+            if (_currentKeyboardState.IsKeyDown(Keys.LeftShift) && _moving)
+            {
+                _speed = 500;
+            }
+            else
+            {
+                _speed = 100;
+            }
+
             if (_currentKeyboardState.IsKeyDown(Input.Up) && !_moving)
             {
                 var vector = new Vector2(0, -GridSize);
@@ -109,7 +118,6 @@ namespace WolfyShared.Game
                     Position = _endPosition;
                     _startPosition = _endPosition;
                     _moving = false;
-                    Console.WriteLine("new position: " + Position);
                 }
             }
 
