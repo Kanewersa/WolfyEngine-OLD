@@ -13,6 +13,8 @@ namespace WolfyShared.Engine
         protected Dictionary<string, Animation> _animations;
         protected Vector2 _position;
         protected Image _image;
+        protected int GridSize = 32;
+
         private Texture2D Texture => _image.Texture;
 
         public Vector2 Position
@@ -66,14 +68,14 @@ namespace WolfyShared.Engine
             else _animationManager.Stop();
         }
 
-        public virtual void Update(GameTime gameTime, List<Sprite> sprites)
+        public virtual void Update(GameTime gameTime)
         {
             SetAnimations();
 
             _animationManager.Update(gameTime);
 
-            Position += Velocity;
-            Velocity = Vector2.Zero;
+            //Position += Velocity;
+            //Velocity = Vector2.Zero;
         }
     }
 }

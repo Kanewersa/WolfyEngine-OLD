@@ -14,4 +14,6 @@ namespace WolfyShared.Engine
     public delegate void EntityEventHandler(Entity entity);
 
     public delegate void EntityTypeEventHandler(EntityType type);
+
+    public delegate bool MovementEventHandler(Vector2 position);
 }

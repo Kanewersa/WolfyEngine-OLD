@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ProtoBuf;
 using WolfyShared.Engine;
@@ -38,6 +39,11 @@ namespace WolfyShared.Game
         public void Draw(SpriteBatch spriteBatch)
         {
             Layers.ForEach(layer => layer.Draw(spriteBatch));
+        }
+
+        public void Update(GameTime gameTime)
+        {
+            Layers.ForEach(layer => layer.Update(gameTime));
         }
     }
 }

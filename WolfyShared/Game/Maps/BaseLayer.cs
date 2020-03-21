@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework.Graphics;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using ProtoBuf;
 using WolfyShared.Engine;
 
@@ -19,7 +20,7 @@ namespace WolfyShared.Game
         public virtual void Draw(SpriteBatch spriteBatch)
         { }
 
-        public virtual void Update()
+        public virtual void Update(GameTime gameTime)
         { }
     }
 }

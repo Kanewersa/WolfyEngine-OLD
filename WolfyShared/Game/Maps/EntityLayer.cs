@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ProtoBuf;
 using WolfyShared.Engine;
@@ -9,6 +10,8 @@ namespace WolfyShared.Game
     {
         [ProtoMember(1)] public Vector2D TileSize { get; set; }
         [ProtoMember(2)] public List<EntityTileRow> Rows { get; set; }
+
+        public List<Entity> Entities { get; set; } = new List<Entity>();
 
         public EntityLayer() { }
 
@@ -25,18 +28,11 @@ namespace WolfyShared.Game
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            for (var y = 0; y < Size.Y; y++)
-            {
-                for (var x = 0; x < Size.X; x++)
-                {
-                    var entity = Rows[y].Tiles[x].Entity;
-                    entity?.Draw(spriteBatch);
-                }
-            }
+            Entities.ForEach(x => x.Draw(spriteBatch));
         }
-        public override void Update()
+        public override void Update(GameTime gameTime)
         {
-            
+            Entities.ForEach(x => x.Update(gameTime));
         }
     }
 }

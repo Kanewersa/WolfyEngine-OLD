@@ -20,7 +20,8 @@ namespace WolfyGame
         private SpriteBatch spriteBatch;
 
         private Map currentMap;
-        
+        private MovementController _movementController;
+
         public WolfyGame()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -38,11 +39,13 @@ namespace WolfyGame
             // TODO: Add your initialization logic here
             IsMouseVisible = true;
             Window.AllowUserResizing = true;
-            //IsFixedTimeStep = false;
-            //graphics.SynchronizeWithVerticalRetrace = false;
+            IsFixedTimeStep = false;
+            graphics.SynchronizeWithVerticalRetrace = false;
 
             // Initialize the controllers
             // Path.GetDirectoryName(Assembly.GetEntryAssembly()?.Location)
+
+            _movementController = new MovementController();
 
             PathsController.Instance.SetMainPath("");
             TilesetsController.Instance.InitializeProject();
@@ -62,55 +65,45 @@ namespace WolfyGame
         /// all of your content.
         /// </summary>
         ///
-        private List<Sprite> _sprites;
-
         protected override void LoadContent()
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
             // TODO: use this.Content to load your game content here
 
-            var animations = new Dictionary<string, Animation>()
-            {
-                { "WalkUp", new Animation("WalkingUp.png", 3, 1) },
-                { "WalkDown", new Animation("WalkingDown.png", 3, 1) },
-                { "WalkLeft", new Animation("WalkingLeft.png", 3, 1) },
-                { "WalkRight", new Animation("WalkingRight.png", 3, 1) }
-            };
-
             var movement = new Dictionary<string, Animation>()
             {
                 { "Walk", new Animation("001-Fighter01.png", 4, 4) }
             };
-
-            foreach (var pair in animations)
-            {
-                pair.Value.Image.Initialize(graphics.GraphicsDevice);
-            }
 
             foreach (var pair in movement)
             {
                 pair.Value.Image.Initialize(graphics.GraphicsDevice);
             }
 
-            _sprites = new List<Sprite>()
+            var player = new Player(movement)
             {
-                new Sprite(animations)
+                Position = new Vector2(64, 64),
+                Input = new Input()
                 {
-                    Position = new Vector2(100, 100),
-                },
-                new Player(movement)
-                {
-                    Position = new Vector2(150, 100),
-                    Input = new Input()
-                    {
-                        Up = Keys.Up,
-                        Down = Keys.Down,
-                        Left = Keys.Left,
-                        Right = Keys.Right,
-                    },
-                },
+                    Up = Keys.Up,
+                    Down = Keys.Down,
+                    Left = Keys.Left,
+                    Right = Keys.Right,
+                }
             };
+
+            var coordinates = GameController.Instance.Settings.StartingCoordinates;
+
+            foreach (var layer in currentMap.Layers)
+            {
+                if (layer is EntityLayer lay)
+                {
+                    lay.Rows[coordinates.Y].Tiles[coordinates.X].Entity = player;
+                    lay.Entities.Add(player);
+                    player.OnMove += position => _movementController.CanPass(currentMap, position);
+                }
+            }
         }
 
         /// <summary>
@@ -129,9 +122,7 @@ namespace WolfyGame
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
-
-            foreach (var sprite in _sprites)
-                sprite.Update(gameTime, _sprites);
+            currentMap.Update(gameTime);
 
             // TODO: Add your update logic here
 
@@ -148,10 +139,7 @@ namespace WolfyGame
 
             spriteBatch.Begin();
 
-            currentMap?.Draw(spriteBatch);
-
-            foreach (var sprite in _sprites)
-                sprite.Draw(spriteBatch);
+            currentMap.Draw(spriteBatch);
 
             spriteBatch.End();
 
