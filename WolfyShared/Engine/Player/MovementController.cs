@@ -30,12 +30,14 @@ namespace WolfyShared.Controllers
 
         public bool CanPass(Map map, Vector2 position)
         {
+            var coordinates = position / map.TileSize.X;
+
             if (   position.X < 0
                 || position.Y < 0
-                || position.X/map.TileSize.X > map.Size.X
-                || position.Y/map.TileSize.Y > map.Size.Y) return false;
+                || coordinates.X > map.Size.X
+                || coordinates.Y > map.Size.Y) return false;
 
-            return map.Layers.All(layer => CanPass(layer, position));
+            return map.Layers.All(layer => CanPass(layer, coordinates));
         }
 
         public void SetMovement(Player player)
