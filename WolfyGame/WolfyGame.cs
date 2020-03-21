@@ -22,6 +22,12 @@ namespace WolfyGame
         private Map currentMap;
         private MovementController _movementController;
 
+        private Camera _camera;
+        private Player _player;
+
+        public static int ScreenHeight;
+        public static int ScreenWidth;
+
         public WolfyGame()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -41,6 +47,9 @@ namespace WolfyGame
             Window.AllowUserResizing = true;
             IsFixedTimeStep = false;
             graphics.SynchronizeWithVerticalRetrace = false;
+
+            ScreenHeight = graphics.PreferredBackBufferHeight;
+            ScreenWidth = graphics.PreferredBackBufferWidth;
 
             // Initialize the controllers
             // Path.GetDirectoryName(Assembly.GetEntryAssembly()?.Location)
@@ -71,6 +80,9 @@ namespace WolfyGame
             spriteBatch = new SpriteBatch(GraphicsDevice);
             // TODO: use this.Content to load your game content here
 
+            // Create the camera
+            _camera = new Camera();
+
             var movement = new Dictionary<string, Animation>()
             {
                 { "Walk", new Animation("001-Fighter01.png", 4, 4) }
@@ -81,9 +93,10 @@ namespace WolfyGame
                 pair.Value.Image.Initialize(graphics.GraphicsDevice);
             }
 
-            var player = new Player(movement)
+            _player = new Player(movement)
             {
                 Position = new Vector2(64, 64),
+                GridPosition = new Vector2D(2,2),
                 Input = new Input()
                 {
                     Up = Keys.Up,
@@ -99,9 +112,10 @@ namespace WolfyGame
             {
                 if (layer is EntityLayer lay)
                 {
-                    lay.Rows[coordinates.Y].Tiles[coordinates.X].Entity = player;
-                    lay.Entities.Add(player);
-                    player.OnMove += position => _movementController.CanPass(currentMap, position);
+                    lay.Rows[coordinates.Y].Tiles[coordinates.X].Entity = _player;
+                    lay.Entities.Add(_player);
+                    _player.OnMove += (entity, position) =>
+                        _movementController.MoveEntity(entity, currentMap, lay, position);
                 }
             }
         }
@@ -124,6 +138,8 @@ namespace WolfyGame
         {
             currentMap.Update(gameTime);
 
+            _camera.Update(_player);
+
             // TODO: Add your update logic here
 
             base.Update(gameTime);
@@ -137,7 +153,7 @@ namespace WolfyGame
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            spriteBatch.Begin();
+            spriteBatch.Begin(transformMatrix: _camera.Transform, samplerState: SamplerState.PointClamp);
 
             currentMap.Draw(spriteBatch);
 

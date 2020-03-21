@@ -20,8 +20,9 @@
     <Compile Include="$(MSBuildThisFileDirectory)Engine\Delegates.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Engine\Enums.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Engine\Graphics\Sprite.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Engine\Player\Camera.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Engine\Player\Input.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Engine\Player\MovementController.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Controllers\MovementController.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Game\Entities\Player.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Engine\Serialization\Serialization.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Engine\Vector3D.cs" />

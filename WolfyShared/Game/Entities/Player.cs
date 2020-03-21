@@ -23,6 +23,9 @@ namespace WolfyShared.Game
         private bool _moving;
         private Vector2 _direction;
 
+        public override Rectangle Bounds =>
+            new Rectangle(0,0, _animations["Walk"].FrameWidth, _animations["Walk"].FrameHeight);
+
         public Player(Dictionary<string, Animation> animations)
         {
             _image = new Image();
@@ -39,7 +42,7 @@ namespace WolfyShared.Game
             if (_currentKeyboardState.IsKeyDown(Input.Up) && !_moving)
             {
                 var vector = new Vector2(0, -GridSize);
-                var canMove = OnMove.Invoke(Position + vector);
+                var canMove = OnMove.Invoke(this, GridPosition + new Vector2D(0,-1));
                 if (!canMove) return;
                 _endPosition += vector;
                 _direction = Vector2.Normalize(vector);
@@ -50,7 +53,7 @@ namespace WolfyShared.Game
             else if (_currentKeyboardState.IsKeyDown(Input.Down) && !_moving)
             {
                 var vector = new Vector2(0, GridSize);
-                var canMove = OnMove.Invoke(Position + vector);
+                var canMove = OnMove.Invoke(this, GridPosition + new Vector2D(0, 1));
                 if (!canMove) return;
                 _endPosition += vector;
                 _direction = Vector2.Normalize(vector);
@@ -61,7 +64,7 @@ namespace WolfyShared.Game
             else if (_currentKeyboardState.IsKeyDown(Input.Left) && !_moving)
             {
                 var vector = new Vector2(-GridSize, 0);
-                var canMove = OnMove.Invoke(Position + vector);
+                var canMove = OnMove.Invoke(this, GridPosition + new Vector2D(-1, 0));
                 if (!canMove) return;
                 _endPosition += vector;
                 _direction = Vector2.Normalize(vector);
@@ -72,7 +75,7 @@ namespace WolfyShared.Game
             else if (_currentKeyboardState.IsKeyDown(Input.Right) && !_moving)
             {
                 var vector = new Vector2(GridSize, 0);
-                var canMove = OnMove.Invoke(Position + vector);
+                var canMove = OnMove.Invoke(this, GridPosition + new Vector2D(1, 0));
                 if (!canMove) return;
                 _endPosition += vector;
                 _direction = Vector2.Normalize(vector);

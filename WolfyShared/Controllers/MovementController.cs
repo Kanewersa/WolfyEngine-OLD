@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using Microsoft.Xna.Framework;
+using WolfyShared.Engine;
 using WolfyShared.Game;
 
 namespace WolfyShared.Controllers
@@ -28,7 +29,7 @@ namespace WolfyShared.Controllers
             };
         }
 
-        public bool CanPass(Map map, Vector2 position)
+        private bool CanPass(Map map, Vector2 position)
         {
             var coordinates = position / map.TileSize.X;
 
@@ -40,9 +41,15 @@ namespace WolfyShared.Controllers
             return map.Layers.All(layer => CanPass(layer, coordinates));
         }
 
-        public void SetMovement(Player player)
+        public bool MoveEntity(Entity entity, Map map, EntityLayer layer, Vector2D newGridPosition)
         {
+            if (!CanPass(map, new Vector2(newGridPosition.X * map.TileSize.X, newGridPosition.Y * map.TileSize.X)))
+                return false;
 
+            entity.GridPosition = newGridPosition;
+            layer.Rows[newGridPosition.Y].Tiles[newGridPosition.X].Entity = entity;
+            layer.Rows[entity.GridPosition.Y].Tiles[entity.GridPosition.X].Entity = null;
+            return true;
         }
     }
 }

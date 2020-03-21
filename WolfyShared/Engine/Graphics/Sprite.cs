@@ -30,8 +30,8 @@ namespace WolfyShared.Engine
         }
 
         public float Speed = 1f;
-
         public Vector2 Velocity;
+        public virtual Rectangle Bounds => _image.Texture.Bounds;
 
         public Sprite() { }
 

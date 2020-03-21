@@ -11,6 +11,7 @@ namespace WolfyShared.Engine
         private float _timer;
 
         public Vector2 Position { get; set; }
+        public Vector2 FixedPosition => new Vector2((int)Position.X, (int)Position.Y);
         public Directions Direction { get; set; }
 
         public AnimationManager(Animation animation)
