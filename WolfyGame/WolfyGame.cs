@@ -93,10 +93,14 @@ namespace WolfyGame
                 pair.Value.Image.Initialize(graphics.GraphicsDevice);
             }
 
-            _player = new Player(movement)
+            var coordinates = GameController.Instance.Settings.StartingCoordinates;
+
+            _player = new Player(movement, coordinates)
             {
-                Position = new Vector2(64, 64),
-                GridPosition = new Vector2D(2,2),
+                Position = new Vector2(
+                    coordinates.X * currentMap.TileSize.X,
+                    coordinates.Y * currentMap.TileSize.Y),
+                GridPosition = new Vector2D(coordinates.X,coordinates.Y),
                 Input = new Input()
                 {
                     Up = Keys.Up,
@@ -105,8 +109,6 @@ namespace WolfyGame
                     Right = Keys.Right,
                 }
             };
-
-            var coordinates = GameController.Instance.Settings.StartingCoordinates;
 
             foreach (var layer in currentMap.Layers)
             {

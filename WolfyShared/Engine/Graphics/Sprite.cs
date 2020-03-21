@@ -39,7 +39,7 @@ namespace WolfyShared.Engine
         {
             _image = new Image();
             _animations = animations;
-            _animationManager = new AnimationManager(_animations.First().Value);
+            //_animationManager = new AnimationManager(_animations.First().Value);
         }
 
         public virtual void Draw(SpriteBatch spriteBatch)

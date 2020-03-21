@@ -7,38 +7,50 @@ namespace WolfyShared.Engine
     public class AnimationManager
     {
         private Animation _animation;
+        public Animation Animation
+        {
+            get => _animation;
+            private set
+            {
+                _animation = value;
+                GetAnimationOffset(_animation, GridSize);
+            }
+        }
 
         private float _timer;
+        
 
+        public int GridSize { get; set; }
         public Vector2 Position { get; set; }
-        public Vector2 FixedPosition => new Vector2((int)Position.X, (int)Position.Y);
+        public Vector2 PositionOffset { get; set; }
         public Directions Direction { get; set; }
 
-        public AnimationManager(Animation animation)
+        public AnimationManager(Animation animation, int gridSize)
         {
-            _animation = animation;
+            GridSize = gridSize;
+            Animation = animation;
             Direction = Directions.Down;
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(_animation.Texture,
-                Position,
+            spriteBatch.Draw(Animation.Texture,
+                Position + PositionOffset,
                 new Rectangle(
-                    _animation.CurrentFrame * _animation.FrameWidth,
-                    _animation.CurrentDirection * _animation.FrameHeight,
-                    _animation.FrameWidth,
-                    _animation.FrameHeight),
+                    Animation.CurrentFrame * Animation.FrameWidth,
+                    Animation.CurrentDirection * Animation.FrameHeight,
+                    Animation.FrameWidth,
+                    Animation.FrameHeight),
                 Color.White);
         }
 
         public void Play(Animation animation)
         {
-            if (_animation == animation)
+            if (Animation == animation)
                 return;
 
-            _animation = animation;
-            _animation.CurrentFrame = 0;
+            Animation = animation;
+            Animation.CurrentFrame = 0;
             _timer = 0;
         }
 
@@ -46,13 +58,20 @@ namespace WolfyShared.Engine
         {
             _timer = 0;
 
-            _animation.CurrentFrame = 0;
+            Animation.CurrentFrame = 0;
+        }
+
+        private void GetAnimationOffset(Animation animation, int gridSize)
+        {
+            var width = -(animation.FrameWidth - gridSize) / 2;
+            var height = -(animation.FrameHeight - gridSize);
+            PositionOffset = new Vector2(width, height);
         }
 
         public void SetDirection(Directions direction)
         {
             Direction = direction;
-            _animation.CurrentDirection = Direction switch
+            Animation.CurrentDirection = Direction switch
             {
                 Directions.Up => 3,
                 Directions.Down => 0,
@@ -66,14 +85,14 @@ namespace WolfyShared.Engine
         {
             _timer += (float)gameTime.ElapsedGameTime.TotalSeconds;
 
-            if (_timer > _animation.FrameSpeed)
+            if (_timer > Animation.FrameSpeed)
             {
                 _timer = 0f;
 
-                _animation.CurrentFrame++;
+                Animation.CurrentFrame++;
 
-                if (_animation.CurrentFrame >= _animation.FrameCount)
-                    _animation.CurrentFrame = 0;
+                if (Animation.CurrentFrame >= Animation.FrameCount)
+                    Animation.CurrentFrame = 0;
 
             }
         }

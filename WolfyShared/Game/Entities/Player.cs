@@ -16,21 +16,26 @@ namespace WolfyShared.Game
 
         private KeyboardState _currentKeyboardState;
 
-        private Vector2 _startPosition = new Vector2(64,64);
-        private Vector2 _endPosition = new Vector2(64,64);
+        private Vector2 _startPosition;
+        private Vector2 _endPosition;
+        private Vector2 _positionOffset;
         private float _timer = 0.01f;
         private float _speed = 100;
         private bool _moving;
         private Vector2 _direction;
+        private Vector2 _tileSize;
 
         public override Rectangle Bounds =>
             new Rectangle(0,0, _animations["Walk"].FrameWidth, _animations["Walk"].FrameHeight);
 
-        public Player(Dictionary<string, Animation> animations)
+        public Player(Dictionary<string, Animation> animations, Vector2D startingPosition)
         {
             _image = new Image();
+            GridPosition = startingPosition;
+            _startPosition = new Vector2(startingPosition.X * GridSize, startingPosition.Y * GridSize);
+            _endPosition = _startPosition;
             _animations = animations;
-            _animationManager = new AnimationManager(_animations.First().Value);
+            _animationManager = new AnimationManager(_animations.First().Value, GridSize);
         }
 
         public override void Move()

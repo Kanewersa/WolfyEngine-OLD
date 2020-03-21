@@ -15,7 +15,6 @@ namespace WolfyShared.Engine
         [ProtoMember(5)] public string Path { get; set; }
 
         [ProtoIgnore] public Vector2 Position;
-        [ProtoIgnore] public Vector2 FixedPosition => new Vector2((int)Position.X, (int)Position.Y);
         [ProtoIgnore] public Rectangle SourceRectangle { get; set; } = Rectangle.Empty;
         [ProtoIgnore] public Texture2D Texture { get; private set; }
 
