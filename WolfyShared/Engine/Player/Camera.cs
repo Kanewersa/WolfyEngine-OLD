@@ -89,10 +89,10 @@ namespace WolfyShared.Game
             // If map is smaller then screen
             // then map should be centered on the screen
 
-            if (MapBounds.X < bounds.X * 2)
+            if (MapBounds.X < bounds.X / Zoom * 2)
                 pos.X = MapBounds.X / 2;
 
-            if (MapBounds.Y < bounds.Y * 2)
+            if (MapBounds.Y < bounds.Y / Zoom * 2)
                 pos.Y = MapBounds.Y / 2;
 
             var position = Matrix.CreateTranslation(
