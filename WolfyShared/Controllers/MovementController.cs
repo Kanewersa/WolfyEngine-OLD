@@ -35,8 +35,8 @@ namespace WolfyShared.Controllers
 
             if (   position.X < 0
                 || position.Y < 0
-                || coordinates.X > map.Size.X
-                || coordinates.Y > map.Size.Y) return false;
+                || coordinates.X >= map.Size.X
+                || coordinates.Y >= map.Size.Y) return false;
 
             return map.Layers.All(layer => CanPass(layer, coordinates));
         }
