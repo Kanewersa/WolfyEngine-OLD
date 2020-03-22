@@ -49,6 +49,11 @@ namespace WolfyShared.Game
             Layers.ForEach(layer => layer.Draw(spriteBatch, visibleTiles));
         }
 
+        public void Draw(SpriteBatch spriteBatch)
+        {
+            Layers.ForEach(layer => layer.Draw(spriteBatch));
+        }
+
         public void Update(GameTime gameTime)
         {
             Layers.ForEach(layer => layer.Update(gameTime));

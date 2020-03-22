@@ -30,6 +30,12 @@ namespace WolfyShared.Game
         {
             Entities.ForEach(x => x.Draw(spriteBatch));
         }
+
+        public override void Draw(SpriteBatch spriteBatch)
+        {
+            Entities.ForEach(x => x.Draw(spriteBatch));
+        }
+
         public override void Update(GameTime gameTime)
         {
             Entities.ForEach(x => x.Update(gameTime));

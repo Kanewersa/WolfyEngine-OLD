@@ -20,6 +20,10 @@ namespace WolfyShared.Game
         public virtual void Draw(SpriteBatch spriteBatch, Rectangle visibleArea)
         { }
 
+        // TODO Obsolete method
+        public virtual void Draw(SpriteBatch spriteBatch)
+        { }
+
         public virtual void Update(GameTime gameTime)
         { }
     }
