@@ -18,6 +18,7 @@ namespace WolfyShared.Game
         [ProtoIgnore] private Image Image => Tileset.Image;
         [ProtoIgnore] public Tileset Tileset { get; set; }
         [ProtoIgnore] private Vector2D _emptyTile = new Vector2D(-1, -1);
+        [ProtoIgnore] private readonly int _drawOffset = 2;
 
         public TileLayer() { }
 
@@ -69,13 +70,20 @@ namespace WolfyShared.Game
 
         public override void Draw(SpriteBatch spriteBatch, Rectangle visibleArea)
         {
-            var count = 0;
-            for (var y = visibleArea.Y; y < visibleArea.Height + 2; y++)
+            var totalDrawY = visibleArea.Height + _drawOffset;
+            var totalDrawX = visibleArea.Width + _drawOffset;
+
+            if (totalDrawX + _drawOffset > Size.X)
+                totalDrawX = Size.X;
+            if (totalDrawY + _drawOffset > Size.Y)
+                totalDrawY = Size.Y;
+
+            for (var y = visibleArea.Y; y < totalDrawY; y++)
             {
-                for (var x = visibleArea.X; x < visibleArea.Width + 2; x++)
+                for (var x = visibleArea.X; x < totalDrawX; x++)
                 {
+                    if (y < 0 || x < 0) return;
                     var currentTile = Rows[y].Tiles[x];
-                    count++;
                     if (currentTile == null || currentTile.Source == _emptyTile)
                         continue;
 
@@ -86,7 +94,14 @@ namespace WolfyShared.Game
                 }
             }
 
-            /*for (var y = 0; y < Size.Y; y++)
+            Image.Position = new Vector2(0,0);
+            Image.SourceRectangle =
+                new Rectangle(0,0,Image.Texture.Width, Image.Texture.Height);
+        }
+
+        public override void Draw(SpriteBatch spriteBatch)
+        {
+            for (var y = 0; y < Size.Y; y++)
             {
                 for (var x = 0; x < Size.X; x++)
                 {
@@ -99,11 +114,11 @@ namespace WolfyShared.Game
                         TileSize.X, TileSize.Y);
                     Image.Draw(spriteBatch);
                 }
-            }*/
+            }
 
-            Image.Position = new Vector2(0,0);
+            Image.Position = new Vector2(0, 0);
             Image.SourceRectangle =
-                new Rectangle(0,0,Image.Texture.Width, Image.Texture.Height);
+                new Rectangle(0, 0, Image.Texture.Width, Image.Texture.Height);
         }
 
         public void ReplaceTiles(Vector2 position, Rectangle selectedRegion)

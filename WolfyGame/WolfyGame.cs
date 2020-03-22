@@ -49,6 +49,10 @@ namespace WolfyGame
             IsFixedTimeStep = false;
             graphics.SynchronizeWithVerticalRetrace = false;
 
+            graphics.PreferredBackBufferHeight = 1024;
+            graphics.PreferredBackBufferWidth = 1280;
+            graphics.ApplyChanges();
+
             ScreenHeight = graphics.PreferredBackBufferHeight;
             ScreenWidth = graphics.PreferredBackBufferWidth;
 
@@ -79,6 +83,8 @@ namespace WolfyGame
 
             ScreenHeight = graphics.PreferredBackBufferHeight;
             ScreenWidth = graphics.PreferredBackBufferWidth;
+            _camera.ScreenWidth = ScreenWidth;
+            _camera.ScreenHeight = ScreenHeight;
         }
 
         /// <summary>
@@ -93,7 +99,11 @@ namespace WolfyGame
             // TODO: use this.Content to load your game content here
 
             // Create the camera
-            _camera = new Camera();
+            _camera = new Camera
+            {
+                ScreenWidth = ScreenWidth,
+                ScreenHeight = ScreenHeight
+            };
             _camera.SetMapBoundaries(new Vector2(
                 currentMap.Size.X * currentMap.TileSize.X, 
                 currentMap.Size.Y * currentMap.TileSize.Y));
@@ -167,7 +177,7 @@ namespace WolfyGame
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.Clear(Color.Black);
 
             spriteBatch.Begin(transformMatrix: _camera.Transform, samplerState: SamplerState.PointClamp);
 

@@ -14,6 +14,8 @@ namespace WolfyShared.Game
         public Rectangle VisibleArea { get; protected set; }
         public Vector2 MapBounds { get; protected set; }
         public Matrix Transform { get; protected set; }
+        public int ScreenWidth { get; set; }
+        public int ScreenHeight { get; set; }
 
         private float _currentMouseWheelValue, previousMouseWheelValue;
 
@@ -51,6 +53,19 @@ namespace WolfyShared.Game
             var max = new Vector2(
                 MathHelper.Max(tl.X, MathHelper.Max(tr.X, MathHelper.Max(bl.X, br.X))),
                 MathHelper.Max(tl.Y, MathHelper.Max(tr.Y, MathHelper.Max(bl.Y, br.Y))));
+
+            if (MapBounds.X < Bounds.X / Zoom)
+            {
+                min.X = 0;
+                max.X = MapBounds.X;
+            }
+
+            if (MapBounds.Y < Bounds.Y / Zoom)
+            {
+                min.Y = 0;
+                max.Y = MapBounds.Y;
+            }
+
             var rect = new Rectangle((int)min.X, (int)min.Y, (int)(max.X - min.X), (int)(max.Y - min.Y));
             return rect;
         }
@@ -86,35 +101,35 @@ namespace WolfyShared.Game
 
         public void FollowTarget(Sprite target)
         {
-            var bounds = new Vector2(
-                WolfyGame.WolfyGame.ScreenWidth / 2,
-                WolfyGame.WolfyGame.ScreenHeight / 2);
+            var bounds = new Vector2(ScreenWidth / 2, ScreenHeight/ 2);
 
             var pos = new Vector2(
                 target.Position.X + target.Bounds.Width / 2,
                 target.Position.Y + target.Bounds.Height / 2);
 
-            // If camera X position is outside the map don't translate X
+            // If position is outside the map don't translate the camera
+
             if (pos.X - bounds.X / Zoom < 0)
-            {
                 pos.X = bounds.X / Zoom;
-            }
 
             if (pos.X + bounds.X / Zoom > MapBounds.X)
-            {
                 pos.X = MapBounds.X - bounds.X / Zoom;
-            }
-
-            if (pos.Y - bounds.Y / Zoom < 0)
-            {
-                pos.Y = bounds.Y / Zoom;
-            }
-
-            if (pos.Y + bounds.Y / Zoom > MapBounds.Y)
-            {
-                pos.Y = MapBounds.Y - bounds.Y / Zoom;
-            }
             
+            if (pos.Y - bounds.Y / Zoom < 0)
+                pos.Y = bounds.Y / Zoom;
+            
+            if (pos.Y + bounds.Y / Zoom > MapBounds.Y)
+                pos.Y = MapBounds.Y - bounds.Y / Zoom;
+            
+            // If map is smaller then screen
+            // then map should be centered on the screen
+
+            if (MapBounds.X < bounds.X * 2)
+                pos.X = MapBounds.X / 2;
+
+            if (MapBounds.Y < bounds.Y * 2)
+                pos.Y = MapBounds.Y / 2;
+
             var position = Matrix.CreateTranslation(
                 -pos.X,
                 -pos.Y,
