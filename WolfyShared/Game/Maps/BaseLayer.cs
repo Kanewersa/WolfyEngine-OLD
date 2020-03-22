@@ -17,7 +17,7 @@ namespace WolfyShared.Game
         public virtual void Initialize(GraphicsDevice graphics)
         { }
 
-        public virtual void Draw(SpriteBatch spriteBatch)
+        public virtual void Draw(SpriteBatch spriteBatch, Rectangle visibleArea)
         { }
 
         public virtual void Update(GameTime gameTime)

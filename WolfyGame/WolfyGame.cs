@@ -24,6 +24,7 @@ namespace WolfyGame
 
         private Camera _camera;
         private Player _player;
+        private Rectangle _visibleArea;
 
         public static int ScreenHeight;
         public static int ScreenWidth;
@@ -155,8 +156,7 @@ namespace WolfyGame
             currentMap.Update(gameTime);
 
             _camera.Update(_player);
-
-            // TODO: Add your update logic here
+            _visibleArea = _camera.GetVisibleArea();
 
             base.Update(gameTime);
         }
@@ -171,11 +171,9 @@ namespace WolfyGame
 
             spriteBatch.Begin(transformMatrix: _camera.Transform, samplerState: SamplerState.PointClamp);
 
-            currentMap.Draw(spriteBatch);
+            currentMap.Draw(spriteBatch, _visibleArea);
 
             spriteBatch.End();
-
-            // TODO: Add your drawing code here
 
             base.Draw(gameTime);
         }

@@ -19,7 +19,6 @@ namespace WolfyShared.Engine
 
         private float _timer;
         
-
         public int GridSize { get; set; }
         public Vector2 Position { get; set; }
         public Vector2 PositionOffset { get; set; }

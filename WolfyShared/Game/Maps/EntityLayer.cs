@@ -26,7 +26,7 @@ namespace WolfyShared.Game
             }
         }
 
-        public override void Draw(SpriteBatch spriteBatch)
+        public override void Draw(SpriteBatch spriteBatch, Rectangle visibleArea)
         {
             Entities.ForEach(x => x.Draw(spriteBatch));
         }

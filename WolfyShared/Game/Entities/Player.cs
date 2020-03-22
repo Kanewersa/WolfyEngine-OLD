@@ -45,13 +45,10 @@ namespace WolfyShared.Game
             _currentKeyboardState = Keyboard.GetState();
 
             if (_currentKeyboardState.IsKeyDown(Keys.LeftShift) && _moving)
-            {
                 _speed = 500;
-            }
             else
-            {
                 _speed = 100;
-            }
+            
 
             if (_currentKeyboardState.IsKeyDown(Input.Up) && !_moving)
             {

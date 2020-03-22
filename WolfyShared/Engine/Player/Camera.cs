@@ -22,14 +22,14 @@ namespace WolfyShared.Game
             Zoom = 1f;
         }
 
-        /*private Rectangle GetVisibleArea()
+        public Rectangle GetVisibleArea()
         {
-            var inverseViewMatrix = Matrix.Invert(Transform);
+            /*var inverseViewMatrix = Matrix.Invert(Transform);
 
             var tl = Vector2.Transform(Vector2.Zero, inverseViewMatrix);
             var tr = Vector2.Transform(new Vector2(Bounds.X, 0), inverseViewMatrix);
             var bl = Vector2.Transform(new Vector2(0, Bounds.Y), inverseViewMatrix);
-            var br = Vector2.Transform(new Vector2(Bounds.Width, Bounds.Height), inverseViewMatrix);
+            var br = Vector2.Transform(new Vector2(Position.X, Position.Y), inverseViewMatrix);
 
             var min = new Vector2(
                 MathHelper.Min(tl.X, MathHelper.Min(tr.X, MathHelper.Min(bl.X, br.X))),
@@ -38,8 +38,22 @@ namespace WolfyShared.Game
                 MathHelper.Max(tl.X, MathHelper.Max(tr.X, MathHelper.Max(bl.X, br.X))),
                 MathHelper.Max(tl.Y, MathHelper.Max(tr.Y, MathHelper.Max(bl.Y, br.Y))));
 
-            return new Rectangle((int)min.X, (int)min.Y, (int)(max.X - min.X), (int)(max.Y - min.Y));
-        }*/
+            return new Rectangle((int)min.X, (int)min.Y, (int)max.X, (int)max.Y);*/
+
+            var inverseViewMatrix = Matrix.Invert(Transform);
+            var tl = Vector2.Transform(Vector2.Zero, inverseViewMatrix);
+            var tr = Vector2.Transform(new Vector2(Bounds.X, 0), inverseViewMatrix);
+            var bl = Vector2.Transform(new Vector2(0, Bounds.Y), inverseViewMatrix);
+            var br = Vector2.Transform(Bounds, inverseViewMatrix);
+            var min = new Vector2(
+                MathHelper.Min(tl.X, MathHelper.Min(tr.X, MathHelper.Min(bl.X, br.X))),
+                MathHelper.Min(tl.Y, MathHelper.Min(tr.Y, MathHelper.Min(bl.Y, br.Y))));
+            var max = new Vector2(
+                MathHelper.Max(tl.X, MathHelper.Max(tr.X, MathHelper.Max(bl.X, br.X))),
+                MathHelper.Max(tl.Y, MathHelper.Max(tr.Y, MathHelper.Max(bl.Y, br.Y))));
+            var rect = new Rectangle((int)min.X, (int)min.Y, (int)(max.X - min.X), (int)(max.Y - min.Y));
+            return rect;
+        }
 
         public void AdjustZoom(float zoomAmount)
         {
@@ -81,43 +95,41 @@ namespace WolfyShared.Game
                 target.Position.Y + target.Bounds.Height / 2);
 
             // If camera X position is outside the map don't translate X
-            if (pos.X - Bounds.X / Zoom < 0)
+            if (pos.X - bounds.X / Zoom < 0)
             {
-                pos.X = Bounds.X / Zoom;
+                pos.X = bounds.X / Zoom;
             }
 
-            if (pos.X + Bounds.X / Zoom > MapBounds.X)
+            if (pos.X + bounds.X / Zoom > MapBounds.X)
             {
-                pos.X = MapBounds.X - Bounds.X / Zoom;
+                pos.X = MapBounds.X - bounds.X / Zoom;
             }
 
-            if (pos.Y - Bounds.Y / Zoom < 0)
+            if (pos.Y - bounds.Y / Zoom < 0)
             {
-                pos.Y = Bounds.Y / Zoom;
+                pos.Y = bounds.Y / Zoom;
             }
 
-            if (pos.Y + Bounds.Y / Zoom > MapBounds.Y)
+            if (pos.Y + bounds.Y / Zoom > MapBounds.Y)
             {
-                pos.Y = MapBounds.Y - Bounds.Y / Zoom;
+                pos.Y = MapBounds.Y - bounds.Y / Zoom;
             }
-
-            Bounds = bounds;
-            Position = pos;
-
+            
             var position = Matrix.CreateTranslation(
-                -Position.X,
-                -Position.Y,
+                -pos.X,
+                -pos.Y,
                 0);
 
             var screenOffset = Matrix.CreateTranslation(
-                Bounds.X,
-                Bounds.Y,
+                bounds.X,
+                bounds.Y,
                 0);
 
             var zoom = Matrix.CreateScale(Zoom);
 
             Transform = position * zoom * screenOffset;
-            
+            Position = pos;
+            Bounds = bounds * 2;
         }
 
         public void SetMapBoundaries(Vector2 bounds)

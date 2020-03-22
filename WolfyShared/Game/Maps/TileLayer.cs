@@ -67,9 +67,26 @@ namespace WolfyShared.Game
             Tileset.Initialize(graphics);
         }
 
-        public override void Draw(SpriteBatch spriteBatch)
+        public override void Draw(SpriteBatch spriteBatch, Rectangle visibleArea)
         {
-            for (var y = 0; y < Size.Y; y++)
+            var count = 0;
+            for (var y = visibleArea.Y; y < visibleArea.Height + 2; y++)
+            {
+                for (var x = visibleArea.X; x < visibleArea.Width + 2; x++)
+                {
+                    var currentTile = Rows[y].Tiles[x];
+                    count++;
+                    if (currentTile == null || currentTile.Source == _emptyTile)
+                        continue;
+
+                    Image.Position = new Vector2(x * TileSize.X, y * TileSize.Y);
+                    Image.SourceRectangle = new Rectangle(currentTile.Source.X, currentTile.Source.Y,
+                        TileSize.X, TileSize.Y);
+                    Image.Draw(spriteBatch);
+                }
+            }
+
+            /*for (var y = 0; y < Size.Y; y++)
             {
                 for (var x = 0; x < Size.X; x++)
                 {
@@ -82,7 +99,7 @@ namespace WolfyShared.Game
                         TileSize.X, TileSize.Y);
                     Image.Draw(spriteBatch);
                 }
-            }
+            }*/
 
             Image.Position = new Vector2(0,0);
             Image.SourceRectangle =

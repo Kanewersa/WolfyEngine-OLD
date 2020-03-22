@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ProtoBuf;
@@ -36,9 +37,16 @@ namespace WolfyShared.Game
             }
         }
 
-        public void Draw(SpriteBatch spriteBatch)
+        public void Draw(SpriteBatch spriteBatch, Rectangle visibleArea)
         {
-            Layers.ForEach(layer => layer.Draw(spriteBatch));
+            var startX = visibleArea.X / TileSize.X;
+            var startY = visibleArea.Y / TileSize.Y;
+            var endX = visibleArea.Width / TileSize.X + startX;
+            var endY = visibleArea.Height / TileSize.Y + startY;
+
+            var visibleTiles = new Rectangle(startX, startY, endX, endY);
+
+            Layers.ForEach(layer => layer.Draw(spriteBatch, visibleTiles));
         }
 
         public void Update(GameTime gameTime)
