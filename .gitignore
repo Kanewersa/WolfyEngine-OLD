@@ -5,3 +5,10 @@ packages/
 bin/
 obj/
 Compile/
+.idea/.idea.WolfyEngine/riderModule.iml
+.idea/.idea.WolfyEngine/.idea/vcs.xml
+.idea/.idea.WolfyEngine/.idea/projectSettingsUpdater.xml
+.idea/.idea.WolfyEngine/.idea/modules.xml
+.idea/.idea.WolfyEngine/.idea/indexLayout.xml
+.idea/.idea.WolfyEngine/.idea/encodings.xml
+.idea/.idea.WolfyEngine/.idea/contentModel.xml
