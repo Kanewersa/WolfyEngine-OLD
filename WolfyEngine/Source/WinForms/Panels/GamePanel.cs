@@ -22,17 +22,17 @@ namespace WolfyEngine.Controls
             InitializeComponent();
             gameControl.OnCoordinatesChanged += SetCoordinatesInfo;
             gameControl.OnRightClick += GameControl_OnRightClick;
-            gameControl.OnEntitySelect += GameControl_OnEntitySelect;
+            //gameControl.OnEntitySelect += GameControl_OnEntitySelect;
         }
 
-        private void GameControl_OnEntitySelect(Entity entity)
+        /*private void GameControl_OnEntitySelect(Entity entity)
         {
             if (entity == null)
             {
                 // Open select entity type form
                 using (var form = new SelectEntityTypeForm())
                 {
-                    form.OnTypeSelected += OnEntityTypeSelected;
+                    //form.OnTypeSelected += OnEntityTypeSelected;
                     form.ShowDialog();
                 }
             }
@@ -40,7 +40,7 @@ namespace WolfyEngine.Controls
             {
                 // Get entity type and open edit form
             }
-        }
+        }*/
 
         private void OnEntityTypeSelected(EntityType type)
         {
@@ -156,8 +156,8 @@ namespace WolfyEngine.Controls
             // Open select entity type form
             using (var form = new SelectEntityTypeForm())
             {
-                form.OnTypeSelected += OnEntityTypeSelected;
-                form.ShowDialog();
+                //form.OnTypeSelected += OnEntityTypeSelected;
+                //form.ShowDialog();
             }
         }
 

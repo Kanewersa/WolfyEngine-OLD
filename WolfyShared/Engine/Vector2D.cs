@@ -1,4 +1,5 @@
 ﻿using System;
+using Microsoft.Xna.Framework;
 using ProtoBuf;
 
 namespace WolfyShared.Engine
@@ -16,6 +17,11 @@ namespace WolfyShared.Engine
         {
             X = x;
             Y = y;
+        }
+
+        public static explicit operator Vector2(Vector2D vector)
+        {
+            return new Vector2(vector.X, vector.Y);
         }
 
         public static bool operator ==(Vector2D a, Vector2D b)

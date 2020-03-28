@@ -13,7 +13,7 @@
     <AssemblyName>WolfyGame</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <MonoGamePlatform>DesktopGL</MonoGamePlatform>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
   </PropertyGroup>
@@ -123,6 +123,12 @@
     </None>
     <None Include="app.manifest" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\WolfyECS\WolfyECS.csproj">
+      <Project>{20975c22-ddb0-47e5-bc17-b3490ef804e1}</Project>
+      <Name>WolfyECS</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="..\WolfyShared\WolfyShared.projitems" Label="Shared" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

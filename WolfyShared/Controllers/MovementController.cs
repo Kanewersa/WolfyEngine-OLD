@@ -16,7 +16,7 @@ namespace WolfyShared.Controllers
         public bool CanPass(EntityLayer layer, Vector2 position)
         {
             if (position.X < 0 || position.Y < 0) return false;
-            return layer.Rows[(int) position.Y].Tiles[(int) position.X].Entity == null;
+            return layer.Rows[(int) position.Y].Tiles[(int) position.X].Entity == 0;
         }
 
         private bool CanPass(BaseLayer layer, Vector2 position)
@@ -39,17 +39,6 @@ namespace WolfyShared.Controllers
                 || coordinates.Y >= map.Size.Y) return false;
 
             return map.Layers.All(layer => CanPass(layer, coordinates));
-        }
-
-        public bool MoveEntity(Entity entity, Map map, EntityLayer layer, Vector2D newGridPosition)
-        {
-            if (!CanPass(map, new Vector2(newGridPosition.X * map.TileSize.X, newGridPosition.Y * map.TileSize.X)))
-                return false;
-
-            entity.GridPosition = newGridPosition;
-            layer.Rows[newGridPosition.Y].Tiles[newGridPosition.X].Entity = entity;
-            layer.Rows[entity.GridPosition.Y].Tiles[entity.GridPosition.X].Entity = null;
-            return true;
         }
     }
 }

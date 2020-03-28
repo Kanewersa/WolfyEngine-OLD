@@ -17,18 +17,18 @@ namespace WolfyShared.Engine
             }
         }
 
-        private float _timer;
+        private float _timer = 0;
         
         public int GridSize { get; set; }
         public Vector2 Position { get; set; }
         public Vector2 PositionOffset { get; set; }
-        public Directions Direction { get; set; }
+        public Direction Direction { get; set; }
 
         public AnimationManager(Animation animation, int gridSize)
         {
             GridSize = gridSize;
             Animation = animation;
-            Direction = Directions.Down;
+            Direction = Direction.Down;
         }
 
         public void Draw(SpriteBatch spriteBatch)
@@ -67,15 +67,15 @@ namespace WolfyShared.Engine
             PositionOffset = new Vector2(width, height);
         }
 
-        public void SetDirection(Directions direction)
+        public void SetDirection(Direction direction)
         {
             Direction = direction;
             Animation.CurrentDirection = Direction switch
             {
-                Directions.Up => 3,
-                Directions.Down => 0,
-                Directions.Left => 1,
-                Directions.Right => 2,
+                Direction.Up => 3,
+                Direction.Down => 0,
+                Direction.Left => 1,
+                Direction.Right => 2,
                 _ => throw new ArgumentOutOfRangeException()
             };
         }

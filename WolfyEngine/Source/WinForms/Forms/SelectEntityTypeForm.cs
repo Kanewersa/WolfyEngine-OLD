@@ -5,7 +5,7 @@ namespace WolfyEngine.Forms
 {
     public partial class SelectEntityTypeForm : DarkForm
     {
-        public event EntityTypeEventHandler OnTypeSelected;
+        //public event EntityTypeEventHandler OnTypeSelected;
 
         public SelectEntityTypeForm()
         {
@@ -14,17 +14,17 @@ namespace WolfyEngine.Forms
 
         private void NPCButton_Click(object sender, System.EventArgs e)
         {
-            OnTypeSelected.Invoke(EntityType.Npc);
+            //OnTypeSelected.Invoke(EntityType.Npc);
         }
 
         private void StaticButton_Click(object sender, System.EventArgs e)
         {
-            OnTypeSelected.Invoke(EntityType.Static);
+            //OnTypeSelected.Invoke(EntityType.Static);
         }
 
         private void CustomButton_Click(object sender, System.EventArgs e)
         {
-            OnTypeSelected.Invoke(EntityType.Custom);
+            //OnTypeSelected.Invoke(EntityType.Custom);
         }
     }
 }

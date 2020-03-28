@@ -1,21 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.Remoting.Messaging;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using WolfyShared.Engine;
 
 namespace WolfyShared.Game
 {
-    public class Player : Entity
+    public class Player : Sprite
     {
         public Input Input;
 
-        public MovementEventHandler OnMove;
-
         private KeyboardState _currentKeyboardState;
-
+        public Vector2D GridPosition { get; set; }
         private Vector2 _startPosition;
         private Vector2 _endPosition;
         private Vector2 _positionOffset;
@@ -53,45 +49,45 @@ namespace WolfyShared.Game
             if (_currentKeyboardState.IsKeyDown(Input.Up) && !_moving)
             {
                 var vector = new Vector2(0, -GridSize);
-                var canMove = OnMove.Invoke(this, GridPosition + new Vector2D(0,-1));
-                if (!canMove) return;
+                //var canMove = OnMove.Invoke(this, GridPosition + new Vector2D(0,-1));
+                //if (!canMove) return;
                 _endPosition += vector;
                 _direction = Vector2.Normalize(vector);
                 Position = _startPosition;
-                _animationManager.SetDirection(Directions.Up);
+                _animationManager.SetDirection(Direction.Up);
                 _moving = true;
             }
             else if (_currentKeyboardState.IsKeyDown(Input.Down) && !_moving)
             {
                 var vector = new Vector2(0, GridSize);
-                var canMove = OnMove.Invoke(this, GridPosition + new Vector2D(0, 1));
-                if (!canMove) return;
+                //var canMove = OnMove.Invoke(this, GridPosition + new Vector2D(0, 1));
+                //if (!canMove) return;
                 _endPosition += vector;
                 _direction = Vector2.Normalize(vector);
                 Position = _startPosition;
-                _animationManager.SetDirection(Directions.Down);
+                _animationManager.SetDirection(Direction.Down);
                 _moving = true;
             }
             else if (_currentKeyboardState.IsKeyDown(Input.Left) && !_moving)
             {
                 var vector = new Vector2(-GridSize, 0);
-                var canMove = OnMove.Invoke(this, GridPosition + new Vector2D(-1, 0));
-                if (!canMove) return;
+                //var canMove = OnMove.Invoke(this, GridPosition + new Vector2D(-1, 0));
+                //if (!canMove) return;
                 _endPosition += vector;
                 _direction = Vector2.Normalize(vector);
                 Position = _startPosition;
-                _animationManager.SetDirection(Directions.Left);
+                _animationManager.SetDirection(Direction.Left);
                 _moving = true;
             }
             else if (_currentKeyboardState.IsKeyDown(Input.Right) && !_moving)
             {
                 var vector = new Vector2(GridSize, 0);
-                var canMove = OnMove.Invoke(this, GridPosition + new Vector2D(1, 0));
-                if (!canMove) return;
+                //var canMove = OnMove.Invoke(this, GridPosition + new Vector2D(1, 0));
+                //if (!canMove) return;
                 _endPosition += vector;
                 _direction = Vector2.Normalize(vector);
                 Position = _startPosition;
-                _animationManager.SetDirection(Directions.Right);
+                _animationManager.SetDirection(Direction.Right);
                 _moving = true;
             }
         }

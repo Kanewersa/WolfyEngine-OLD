@@ -29,7 +29,7 @@ namespace WolfyEngine.Controls
         public event ControlEventHandler OnInitialize;
         public event Vector2EventHandler OnCoordinatesChanged;
         public event MouseEventHandler OnRightClick;
-        public event EntityEventHandler OnEntitySelect;
+        //public event EntityEventHandler OnEntitySelect;
 
 
         public EditorMode Mode { get; private set; }
@@ -108,10 +108,10 @@ namespace WolfyEngine.Controls
             if (Mode == EditorMode.Entities)
             {
                 // Get selected entity
-                var entity = (CurrentLayer as EntityLayer)?
-                    .Rows[(int) TileCoordinates.Y].Tiles[(int) TileCoordinates.X].Entity;
+                //var entity = (CurrentLayer as EntityLayer)?
+                //    .Rows[(int) TileCoordinates.Y].Tiles[(int) TileCoordinates.X].Entity;
 
-                OnEntitySelect?.Invoke(entity);
+                //OnEntitySelect?.Invoke(entity);
             }
         }
 

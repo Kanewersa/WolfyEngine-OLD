@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
 
 namespace WolfyShared.Engine
 {
@@ -29,7 +27,6 @@ namespace WolfyShared.Engine
             }
         }
 
-        public float Speed = 1f;
         public Vector2 Velocity;
         public virtual Rectangle Bounds => _image.Texture.Bounds;
 

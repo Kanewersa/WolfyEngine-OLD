@@ -15,18 +15,33 @@
     <Compile Include="$(MSBuildThisFileDirectory)Controllers\PathsController.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Controllers\ProjectsController.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Controllers\TilesetsController.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ECS\Components\AnimationComponent.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ECS\Components\CollisionComponent.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ECS\Components\GridPositionComponent.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ECS\Components\InputComponent.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ECS\Components\MovementComponent.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ECS\Components\RoutineMovementComponent.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ECS\Components\TransformComponent.cs" />
+    <Folder Include="$(MSBuildThisFileDirectory)ECS\Entities" />
+    <Compile Include="$(MSBuildThisFileDirectory)ECS\Systems\AnimationSystem.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ECS\Systems\CollisionSystem.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ECS\Systems\InputSystem.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ECS\Systems\MovementSystem.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ECS\Systems\RoutineMovementSystem.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Engine\Animations\Animation.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Engine\Animations\AnimationManager.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Engine\Collections\Bag.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Engine\Delegates.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Engine\Enums.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Engine\Graphics\Sprite.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Engine\MeasureTime.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Engine\Player\Camera.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Engine\Player\Input.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Controllers\MovementController.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Engine\Random.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Game\Entities\Player.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Engine\Serialization\Serialization.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Engine\Vector3D.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Game\Entities\Entity.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Engine\Graphics\GraphicsManager.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Engine\Graphics\Image.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Game\GameSettings.cs" />
@@ -49,6 +64,9 @@
     <Compile Include="$(MSBuildThisFileDirectory)Engine\Vector2D.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ProgramSettings.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Runtime.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Scenes\Scene.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Scenes\GameScene.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Scenes\MenuScene.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)StaticPaths.cs" />
   </ItemGroup>
   <ItemGroup>

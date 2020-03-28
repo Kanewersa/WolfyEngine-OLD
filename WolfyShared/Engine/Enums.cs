@@ -1,4 +1,6 @@
-﻿namespace WolfyShared.Engine
+﻿using Microsoft.Xna.Framework;
+
+namespace WolfyShared.Engine
 {
     public enum EntityType
     {
@@ -7,7 +9,7 @@
         Custom
     }
 
-    public enum Directions
+    public enum Direction
     {
         Down,
         Left,

@@ -1,8 +1,6 @@
-﻿using System;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
-using WolfyShared.Engine;
+using WolfyShared.ECS;
 
 namespace WolfyShared.Game
 {
@@ -64,7 +62,7 @@ namespace WolfyShared.Game
                 Zoom = 2;
         }
 
-        public void FollowTarget(Sprite target)
+        public void FollowTarget(AnimationComponent target)
         {
             var bounds = new Vector2(ScreenWidth / 2, ScreenHeight/ 2);
 
@@ -117,7 +115,7 @@ namespace WolfyShared.Game
             MapBounds = bounds;
         }
 
-        public void Update(Sprite target)
+        public void Update(AnimationComponent target)
         {
             previousMouseWheelValue = _currentMouseWheelValue;
             _currentMouseWheelValue = Mouse.GetState().ScrollWheelValue;

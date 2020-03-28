@@ -1,13 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Reflection;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
 using WolfyShared.Controllers;
-using WolfyShared.Engine;
-using WolfyShared.Game;
+using WolfyShared.Scenes;
 
 namespace WolfyGame
 {
@@ -18,13 +13,7 @@ namespace WolfyGame
     {
         private GraphicsDeviceManager graphics;
         private SpriteBatch spriteBatch;
-
-        private Map currentMap;
-        private MovementController _movementController;
-
-        private Camera _camera;
-        private Player _player;
-        private Rectangle _visibleArea;
+        public Scene Scene { get; private set; }
 
         public static int ScreenHeight;
         public static int ScreenWidth;
@@ -43,7 +32,6 @@ namespace WolfyGame
         /// </summary>
         protected override void Initialize()
         {
-            // TODO: Add your initialization logic here
             IsMouseVisible = true;
             Window.AllowUserResizing = true;
             IsFixedTimeStep = false;
@@ -57,21 +45,15 @@ namespace WolfyGame
             ScreenWidth = graphics.PreferredBackBufferWidth;
 
             Window.ClientSizeChanged += Window_ClientSizeChanged;
-            // Initialize the controllers
-            // Path.GetDirectoryName(Assembly.GetEntryAssembly()?.Location)
-
-            _movementController = new MovementController();
 
             PathsController.Instance.SetMainPath("");
             TilesetsController.Instance.InitializeProject();
             MapsController.Instance.InitializeProject();
             GameController.Instance.InitializeProject();
 
-            // Load the game from current folder
-            var id = GameController.Instance.Settings.StartingMap;
-            currentMap = MapsController.Instance.GetMap(id);
-            currentMap.Initialize(graphics.GraphicsDevice);
-
+            // Initialize the scene
+            Scene = new GameScene(ScreenWidth, ScreenHeight);
+            Scene.Initialize(graphics.GraphicsDevice);
             base.Initialize();
         }
 
@@ -83,8 +65,8 @@ namespace WolfyGame
 
             ScreenHeight = graphics.PreferredBackBufferHeight;
             ScreenWidth = graphics.PreferredBackBufferWidth;
-            _camera.ScreenWidth = ScreenWidth;
-            _camera.ScreenHeight = ScreenHeight;
+
+            Scene.UpdateResolution(ScreenWidth, ScreenHeight);
         }
 
         /// <summary>
@@ -97,54 +79,6 @@ namespace WolfyGame
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
             // TODO: use this.Content to load your game content here
-
-            // Create the camera
-            _camera = new Camera
-            {
-                ScreenWidth = ScreenWidth,
-                ScreenHeight = ScreenHeight
-            };
-            _camera.SetMapBoundaries(new Vector2(
-                currentMap.Size.X * currentMap.TileSize.X, 
-                currentMap.Size.Y * currentMap.TileSize.Y));
-
-            var movement = new Dictionary<string, Animation>()
-            {
-                { "Walk", new Animation("001-Fighter01.png", 4, 4) }
-            };
-
-            foreach (var pair in movement)
-            {
-                pair.Value.Image.Initialize(graphics.GraphicsDevice);
-            }
-
-            var coordinates = GameController.Instance.Settings.StartingCoordinates;
-
-            _player = new Player(movement, coordinates)
-            {
-                Position = new Vector2(
-                    coordinates.X * currentMap.TileSize.X,
-                    coordinates.Y * currentMap.TileSize.Y),
-                GridPosition = new Vector2D(coordinates.X,coordinates.Y),
-                Input = new Input()
-                {
-                    Up = Keys.Up,
-                    Down = Keys.Down,
-                    Left = Keys.Left,
-                    Right = Keys.Right,
-                }
-            };
-
-            foreach (var layer in currentMap.Layers)
-            {
-                if (layer is EntityLayer lay)
-                {
-                    lay.Rows[coordinates.Y].Tiles[coordinates.X].Entity = _player;
-                    lay.Entities.Add(_player);
-                    _player.OnMove += (entity, position) =>
-                        _movementController.MoveEntity(entity, currentMap, lay, position);
-                }
-            }
         }
 
         /// <summary>
@@ -163,10 +97,7 @@ namespace WolfyGame
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
-            currentMap.Update(gameTime);
-
-            _camera.Update(_player);
-            _visibleArea = _camera.GetVisibleArea();
+            Scene.Update(gameTime);
 
             base.Update(gameTime);
         }
@@ -179,11 +110,7 @@ namespace WolfyGame
         {
             GraphicsDevice.Clear(Color.Black);
 
-            spriteBatch.Begin(transformMatrix: _camera.Transform, samplerState: SamplerState.PointClamp);
-
-            currentMap.Draw(spriteBatch, _visibleArea);
-
-            spriteBatch.End();
+            Scene.Draw(spriteBatch, gameTime);
 
             base.Draw(gameTime);
         }
