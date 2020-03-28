@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29709.97
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WolfyEngineEditor", "WolfyEngine\WolfyEngineEditor.csproj", "{8027608A-D904-4A1A-83C3-FCBC6869BCEA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WolfyEditor", "WolfyEngine\WolfyEditor.csproj", "{8027608A-D904-4A1A-83C3-FCBC6869BCEA}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WolfyGame", "WolfyGame\WolfyGame.csproj", "{86C7F08E-1C36-429F-A401-F42FB63D3236}"
 EndProject
