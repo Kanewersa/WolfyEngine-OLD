@@ -1,58 +1,62 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace WolfyECS
 {
-    public class ComponentManager
+    public class ComponentManager<T> : ComponentManager where T : EntityComponent<T>
+
     {
-        private readonly Dictionary<uint, Dictionary<Type, EntityComponent>> _entities;
-        //private readonly Dictionary<uint, List<EntityComponent>> _entities;
-        private readonly List<EntitySystem> _systems;
+    public Dictionary<Entity, int> EntityMap { get; private set; }
 
-        public ComponentManager(
-            Dictionary<uint, Dictionary<Type, EntityComponent>> entities,
-            List<EntitySystem> systems)
+    private int _size = 1;
+    public EntityComponent[] Components { get; private set; }
+
+    public ComponentManager()
+    {
+        EntityMap = new Dictionary<Entity, int>();
+        Components = new EntityComponent[1024];
+    }
+
+    public override int AddComponent(Entity entity, EntityComponent component)
+    {
+        int index = _size;
+
+        // Add component to the components array
+        Components[index] = component;
+
+        // Add pointer to the component index inside array
+        EntityMap[entity] = index;
+
+        _size++;
+        return index;
+    }
+
+    public override EntityComponent GetComponent(Entity entity)
+    {
+        return Components[EntityMap[entity]];
+    }
+
+    public override void DestroyComponent(Entity entity)
+    {
+        int index = EntityMap[entity];
+        int lastComponent = _size - 1;
+        Components[index] = Components[lastComponent];
+        EntityMap.Remove(entity);
+        _size--;
+        // TODO Searching key by value in a dictionary is not effective
+        // Reversed dictionary may be a solution but it requires extra memory
+        // however it might be worth it if components are removed frequently from entities
+        Entity movedEntity = EntityMap.FirstOrDefault(x => x.Value == lastComponent).Key;
+        EntityMap[movedEntity] = index;
+    }
+
+    // TODO Create lambda expression for components iteration
+    /*public void IterateAll(Func lambda)
+    {
+        for (int i = 1; i < _size; i++)
         {
-            _entities = entities;
-            _systems = systems;
+            lambda(Components[i]);
         }
-
-        public void AddComponent<T>(uint entityId, EntityComponent component) where T : EntityComponent
-        {
-            _entities[entityId].Add(typeof(T), component);
-            component.EntityId = entityId;
-        }
-
-        public void RemoveComponent<T>(uint entityId) where T : EntityComponent
-        {
-            var components = _entities[entityId];
-            if (components.ContainsKey(typeof(T)))
-            {
-                components.Remove(typeof(T));
-            }
-            else
-            {
-                throw new Exception("Could not find desired component.");
-            }
-        }
-
-        public void EntityModified(uint entityId)
-        {
-            foreach (var system in _systems)
-            {
-                
-            }
-        }
-
-
-        public void ClearComponents(uint entityId)
-        {
-            _entities[entityId].Clear();
-        }
-
-        public T GetComponent<T>(uint entityId) where T : EntityComponent
-        {
-            return _entities[entityId][typeof(T)] as T;
-        }
+    }*/
     }
 }

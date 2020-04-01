@@ -5,44 +5,33 @@ namespace WolfyECS
 {
     public class EntityManager
     {
-        public List<EntitySystem> Systems { get; set; }
-
-        //private Dictionary<uint, List<EntityComponent>> _entities;
-        private Dictionary<uint, Dictionary<Type, EntityComponent>> _entities;
+        private readonly World _world;
         private Queue<uint> _pendingIds;
         private uint _lastId;
 
-        private ComponentManager _componentManager;
-
-        protected EntityManager()
+        public EntityManager(World world)
         {
-            _entities = new Dictionary<uint, Dictionary<Type, EntityComponent>>();
+            _world = world;
             _pendingIds = new Queue<uint>();
-            _componentManager = new ComponentManager(_entities, Systems);
         }
 
-        private Entity CreateEntity()
+        public Entity CreateEntity()
         {
             var id = GetId();
-            var entity = new Entity(id, this, _componentManager);
-            _entities.Add(id, new Dictionary<Type, EntityComponent>());
+            var entity = new Entity(id, _world);
             return entity;
         }
 
-        protected Entity CreateEntity(string name)
+        public Entity CreateEntity(string name)
         {
             var entity = CreateEntity();
             entity.Name = name;
             return entity;
         }
 
-        protected void RemoveEntity(uint entityId)
+        public void DestroyEntity(Entity entity)
         {
-            _entities.Remove(entityId);
-            foreach (var system in Systems)
-            {
-                //system.EntityDestroyed(entityId);
-            }
+            _pendingIds.Enqueue(entity.Id);
         }
 
         private uint GetId()

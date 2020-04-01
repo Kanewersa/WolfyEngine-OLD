@@ -51,8 +51,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DarkUI, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\DarkUI.2.0.0\lib\DarkUI.dll</HintPath>
+    <Reference Include="DarkUI, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null">
+      <HintPath>..\packages\DarkUI.2.0.1\lib\DarkUI.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="MonoGame.Forms.DX, Version=2.3.9.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\MonoGame.Forms.DX.2.3.9\lib\net451\MonoGame.Forms.DX.dll</HintPath>

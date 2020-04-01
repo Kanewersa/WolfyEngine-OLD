@@ -4,37 +4,30 @@ namespace WolfyECS
 {
     public class Entity
     {
-        private readonly EntityManager _entityManager;
-        private readonly ComponentManager _componentManager;
+        private readonly World _world;
+        
         public uint Id { get; }
         public string Name { get; set; }
         
-        internal Entity(uint id, EntityManager entityManager, ComponentManager componentManager)
+        internal Entity(uint id, World world)
         {
             Id = id;
-            _entityManager = entityManager;
-            _componentManager = componentManager;
+            _world = world;
+        }
+        
+        public void AddComponent<T>() where T : EntityComponent<T>
+        {
+            _world.AddComponent<T>(this);
         }
 
-        public T AddComponent<T>() where T : EntityComponent, new()
+        public EntityComponent<T> GetComponent<T>() where T : EntityComponent<T>
         {
-            var component = new T();
-            component.EntityId = Id;
-            _componentManager.AddComponent<T>(Id, component);
-            Debug.WriteLine(typeof(T));
-            return component;
+            return _world.GetComponent<T>(this);
         }
 
-        public void RemoveComponent<T>(T component) where T : EntityComponent
+        public void RemoveComponent<T>() where T : EntityComponent<T>
         {
-            _componentManager.RemoveComponent<T>(Id);
-        }
-
-        public T GetComponent<T>() where T : EntityComponent
-        {
-            return _componentManager.GetComponent<T>(Id);
-            /*var mapper = _componentManager.GetComponent<T>();
-            return mapper.Get(Id);*/
+            _world.RemoveComponent<T>(this);
         }
     }
 }
