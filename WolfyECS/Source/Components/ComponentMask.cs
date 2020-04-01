@@ -2,16 +2,23 @@
 {
     public struct ComponentMask
     {
-        public int Mask { get; private set; }
-
-        public void AddComponent<T>() where T : EntityComponent
+        public ComponentMask(int mask)
         {
-            Mask |= (1 << Family.GetComponentFamily<T>());
+            Mask = mask;
+        }
+        
+        public int Mask { get; set; }
+
+        public ComponentMask AddComponent<T>() where T : EntityComponent
+        {
+            Mask |= 1 << Family.GetComponentFamily<T>();
+            return this;
         }
 
-        public void RemoveComponent<T>() where T : EntityComponent
+        public ComponentMask RemoveComponent<T>() where T : EntityComponent
         {
             Mask &= ~(1 << Family.GetComponentFamily<T>());
+            return this;
         }
 
         public bool IsNewMatch(ComponentMask oldMask, ComponentMask newMask)

@@ -19,7 +19,7 @@ namespace WolfyECS
         protected EntitySystem()
         {
             Entities = new List<Entity>();
-            Signature = new ComponentMask();
+            Signature = new ComponentMask(0);
         }
 
         public virtual void Initialize()
@@ -36,14 +36,14 @@ namespace WolfyECS
             _world = world;
         }
 
-        public void RequireComponent<T>() where T : EntityComponent
+        protected void RequireComponent<T>() where T : EntityComponent
         {
-            Signature.AddComponent<T>();
+            Signature = Signature.AddComponent<T>();
         }
 
-        public void DiscardComponent<T>() where T : EntityComponent
+        protected void DiscardComponent<T>() where T : EntityComponent
         {
-            Signature.RemoveComponent<T>();
+            Signature = Signature.RemoveComponent<T>();
         }
         
         public void RegisterEntity(Entity entity)

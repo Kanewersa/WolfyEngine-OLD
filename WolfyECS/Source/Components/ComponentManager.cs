@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace WolfyECS
 {
-    public class ComponentManager<T> : ComponentManager where T : EntityComponent<T>
+    public class ComponentManager<T> : ComponentManager where T : EntityComponent
 
     {
     public Dictionary<Entity, int> EntityMap { get; private set; }

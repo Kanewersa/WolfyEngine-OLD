@@ -15,17 +15,17 @@ namespace WolfyECS
             _world = world;
         }
         
-        public void AddComponent<T>() where T : EntityComponent<T>
+        public void AddComponent<T>() where T : EntityComponent, new()
         {
             _world.AddComponent<T>(this);
         }
 
-        public EntityComponent<T> GetComponent<T>() where T : EntityComponent<T>
+        public T GetComponent<T>() where T : EntityComponent
         {
             return _world.GetComponent<T>(this);
         }
 
-        public void RemoveComponent<T>() where T : EntityComponent<T>
+        public void RemoveComponent<T>() where T : EntityComponent
         {
             _world.RemoveComponent<T>(this);
         }

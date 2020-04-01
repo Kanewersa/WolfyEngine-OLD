@@ -2,15 +2,15 @@
 {
     public struct ComponentCounter
     {
-        public static int Counter;
+        public static int Counter = 1;
     }
     
     public class EntityComponent<T> : EntityComponent
     {
-        private static int _familyId = -1;
+        private static int _familyId = 0;
         public static int Family()
         {
-            if (_familyId != -1) return _familyId;
+            if (_familyId != 0) return _familyId;
             _familyId = ComponentCounter.Counter++;
             return _familyId;
         }
