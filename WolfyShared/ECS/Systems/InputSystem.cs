@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Security.Cryptography.X509Certificates;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using WolfyECS;
@@ -10,6 +11,12 @@ namespace WolfyShared.ECS
     {
         private KeyboardState _currentKeyboardState;
         private KeyboardState _lastKeyboardState;
+
+        public override void Initialize()
+        {
+            RequireComponent<InputComponent>();
+            RequireComponent<MovementComponent>();
+        }
 
         public override void Update(GameTime gameTime)
         {
@@ -24,7 +31,7 @@ namespace WolfyShared.ECS
                     throw new Exception("Entity in " + this + "is missing movement component.");
 
                 _currentKeyboardState = Keyboard.GetState();
-
+                
                 input.ArrowDown = _currentKeyboardState.IsKeyDown(Keys.Down);
                 input.ArrowLeft = _currentKeyboardState.IsKeyDown(Keys.Left);
                 input.ArrowRight = _currentKeyboardState.IsKeyDown(Keys.Right);

@@ -5,7 +5,7 @@ using WolfyShared.ECS;
 
 namespace WolfyShared.Scenes
 {
-    public abstract class Scene : EntityManager
+    public abstract class Scene
     {
         public int ScreenWidth { get; set; }
         public int ScreenHeight { get; set; }

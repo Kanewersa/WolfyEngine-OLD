@@ -8,6 +8,12 @@ namespace WolfyShared.ECS
 {
     public class RoutineMovementSystem : EntitySystem
     {
+        public override void Initialize()
+        {
+            RequireComponent<RoutineMovementComponent>();
+            RequireComponent<MovementComponent>();
+        }
+        
         public override void Update(GameTime gameTime)
         {
             foreach (var entity in Entities)

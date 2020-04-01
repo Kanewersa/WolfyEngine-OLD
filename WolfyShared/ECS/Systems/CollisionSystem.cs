@@ -35,6 +35,11 @@ namespace WolfyShared.ECS
                 _ => throw new Exception("Unknown layer type.")
             };
         }
+        
+        public override void Initialize()
+        {
+            RequireComponent<MovementComponent>();
+        }
 
         public override void Update(GameTime gameTime)
         {

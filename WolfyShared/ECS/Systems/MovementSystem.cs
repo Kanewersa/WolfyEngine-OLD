@@ -1,10 +1,16 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System.Diagnostics;
+using Microsoft.Xna.Framework;
 using WolfyECS;
 
 namespace WolfyShared.ECS
 {
     public class MovementSystem : EntitySystem
     {
+        public override void Initialize()
+        {
+            RequireComponent<MovementComponent>();
+        }
+        
         public override void Update(GameTime gameTime)
         {
             foreach (var entity in Entities)

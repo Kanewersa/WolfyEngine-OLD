@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using WolfyECS;
@@ -10,6 +11,12 @@ namespace WolfyShared.ECS
     {
         private readonly float _timer = 0.01f;
 
+        public override void Initialize()
+        {
+            RequireComponent<MovementComponent>();
+            RequireComponent<AnimationComponent>();
+        }
+        
         public override void Update(GameTime gameTime)
         {
             foreach (var entity in Entities)
@@ -51,6 +58,7 @@ namespace WolfyShared.ECS
                     animation.AnimationManager.Draw(spriteBatch);
                 else throw new Exception("");
             }
+            
         }
 
         private void SetAnimations(bool isMoving, AnimationComponent component)
