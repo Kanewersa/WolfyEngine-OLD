@@ -15,9 +15,9 @@ namespace WolfyECS
             _world = world;
         }
         
-        public void AddComponent<T>() where T : EntityComponent, new()
+        public T AddComponent<T>() where T : EntityComponent, new()
         {
-            _world.AddComponent<T>(this);
+            return _world.AddComponent<T>(this);
         }
 
         public T GetComponent<T>() where T : EntityComponent

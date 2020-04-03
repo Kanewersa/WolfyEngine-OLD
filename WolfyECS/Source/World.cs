@@ -45,6 +45,11 @@ namespace WolfyECS
             return entity;
         }
 
+        public int EntityCount()
+        {
+            return _entityMasks.Count;
+        }
+
         public void DestroyEntity(Entity entity)
         {
             _entityManager.DestroyEntity(entity);
@@ -82,15 +87,17 @@ namespace WolfyECS
 
         #region Components methods
 
-        public void AddComponent<T>(Entity e) where T : EntityComponent, new()
+        public T AddComponent<T>(Entity e) where T : EntityComponent, new()
         {
             var manager = GetComponentManager<T>();
-            manager.AddComponent(e, new T());
+            var component = new T();
+            manager.AddComponent(e, component);
             
             // Check if systems are interested in component
             var oldMask = _entityMasks[e];
             _entityMasks[e] = _entityMasks[e].AddComponent<T>();
             UpdateEntityMask(e, oldMask);
+            return component;
         }
         
         public T GetComponent<T>(Entity e) where T : EntityComponent
