@@ -45,6 +45,9 @@ namespace WolfyShared.ECS
         {
             foreach (var entity in Entities)
             {
+                var collision = entity.GetComponent<CollisionComponent>();
+                if (!collision.IsCollider) continue;
+
                 var movement = entity.GetComponent<MovementComponent>();
                 
                 if (!movement.IsMoving) continue;

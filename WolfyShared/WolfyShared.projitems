@@ -37,7 +37,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)Engine\MeasureTime.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Engine\Player\Camera.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Engine\Player\Input.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Controllers\MovementController.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Engine\Random.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Game\Entities\Player.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Engine\Serialization\Serialization.cs" />

@@ -14,7 +14,7 @@ namespace WolfyShared.ECS
         public Direction EnumDirection { get; set; }
 
         public bool IsMoving { get; set; }
-        public bool WasMoving { get; set; }
+        public bool WasMoving { get; set; } 
         public float Speed { get; set; }
     }
 }

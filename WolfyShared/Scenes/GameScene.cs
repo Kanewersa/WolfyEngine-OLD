@@ -113,8 +113,6 @@ namespace WolfyShared.Scenes
                 new AnimationManager(animation.Animations.First().Value, CurrentMap.TileSize.X);
             
             // Create Npc
-
-
             Npc = CurrentWorld.CreateEntity("NPC");
 
             Npc.AddComponent<CollisionComponent>();

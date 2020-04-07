@@ -1,6 +1,7 @@
 ﻿using System.Windows.Forms;
 using DarkUI.Docking;
 using Microsoft.Xna.Framework;
+using WolfyECS;
 using WolfyEngine.Forms;
 using WolfyShared.Controllers;
 using WolfyShared.Engine;
@@ -15,6 +16,8 @@ namespace WolfyEngine.Controls
     {
         public GameControl GameControl => gameControl;
 
+        private World _world;
+        private SchemeManager _schemeManager;
         private Map _currentMap;
 
         public GamePanel()
@@ -22,17 +25,25 @@ namespace WolfyEngine.Controls
             InitializeComponent();
             gameControl.OnCoordinatesChanged += SetCoordinatesInfo;
             gameControl.OnRightClick += GameControl_OnRightClick;
-            //gameControl.OnEntitySelect += GameControl_OnEntitySelect;
+            gameControl.OnEntitySelect += GameControl_OnEntitySelect;
+            _schemeManager = new SchemeManager();
+            _world = new World();
+            _world.Initialize();
         }
 
-        /*private void GameControl_OnEntitySelect(Entity entity)
+        private void GameControl_OnEntitySelect(int entity)
         {
-            if (entity == null)
+            if (entity == 0)
             {
                 // Open select entity type form
                 using (var form = new SelectEntityTypeForm())
                 {
-                    //form.OnTypeSelected += OnEntityTypeSelected;
+                    form.Initialize(_schemeManager);
+                    form.OnTypeSelected += delegate(EntityScheme scheme)
+                    {
+                        form.Close();
+                        OnEntityTypeSelected(scheme);
+                    };
                     form.ShowDialog();
                 }
             }
@@ -40,21 +51,19 @@ namespace WolfyEngine.Controls
             {
                 // Get entity type and open edit form
             }
-        }*/
+        }
 
-        private void OnEntityTypeSelected(EntityType type)
+        private void OnEntityTypeSelected(EntityScheme scheme)
         {
-            switch (type)
+            // Open entity edit form with given scheme
+            var entity = _world.CreateEntity(
+                "Entity" + (_world.EntityCount() + 1));
+            using (var form = new EntityEditForm())
             {
-                case EntityType.Npc:
-                    break;
-                case EntityType.Static:
-                    break;
-                case EntityType.Custom:
-                    break;
-                default:
-                    break;
+                form.Initialize(entity, scheme, _world);
+                form.ShowDialog();
             }
+
         }
 
         private void GameControl_OnRightClick(object sender, MouseEventArgs e)

@@ -100,17 +100,20 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Icons.resx</DependentUpon>
     </Compile>
+    <Compile Include="Source\ComponentType.cs" />
+    <Compile Include="Source\Game\EntityScheme.cs" />
+    <Compile Include="Source\Game\SchemeManager.cs" />
     <Compile Include="Source\WinForms\Controls\EntityContextMenu.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Source\WinForms\Controls\TilesetEditorControl.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Source\WinForms\Forms\EntityForms\NpcEditForm.cs">
+    <Compile Include="Source\WinForms\Forms\EntityForms\EntityEditForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Source\WinForms\Forms\EntityForms\NpcEditForm.Designer.cs">
-      <DependentUpon>NpcEditForm.cs</DependentUpon>
+    <Compile Include="Source\WinForms\Forms\EntityForms\EntityEditForm.Designer.cs">
+      <DependentUpon>EntityEditForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Source\WinForms\Forms\NewLayerForm.cs">
       <SubType>Form</SubType>
@@ -129,6 +132,30 @@
     </Compile>
     <Compile Include="Source\WinForms\Forms\SelectEntityTypeForm.Designer.cs">
       <DependentUpon>SelectEntityTypeForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Source\WinForms\Panels\EntityPanels\AnimationComponentPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Source\WinForms\Panels\EntityPanels\AnimationComponentPanel.Designer.cs">
+      <DependentUpon>AnimationComponentPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Source\WinForms\Panels\EntityPanels\CollisionComponentPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Source\WinForms\Panels\EntityPanels\CollisionComponentPanel.Designer.cs">
+      <DependentUpon>CollisionComponentPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Source\WinForms\Panels\EntityPanels\ComponentPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Source\WinForms\Panels\EntityPanels\ComponentPanel.Designer.cs">
+      <DependentUpon>ComponentPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Source\WinForms\Panels\EntityPanels\MovementComponentPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Source\WinForms\Panels\EntityPanels\MovementComponentPanel.Designer.cs">
+      <DependentUpon>MovementComponentPanel.cs</DependentUpon>
     </Compile>
     <Compile Include="Source\WinForms\Panels\ScrollablePanel.cs">
       <SubType>Component</SubType>
@@ -233,8 +260,8 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Icons.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Source\WinForms\Forms\EntityForms\NpcEditForm.resx">
-      <DependentUpon>NpcEditForm.cs</DependentUpon>
+    <EmbeddedResource Include="Source\WinForms\Forms\EntityForms\EntityEditForm.resx">
+      <DependentUpon>EntityEditForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Source\WinForms\Forms\NewLayerForm.resx">
       <DependentUpon>NewLayerForm.cs</DependentUpon>
@@ -244,6 +271,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Source\WinForms\Forms\SelectEntityTypeForm.resx">
       <DependentUpon>SelectEntityTypeForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Source\WinForms\Panels\EntityPanels\AnimationComponentPanel.resx">
+      <DependentUpon>AnimationComponentPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Source\WinForms\Panels\EntityPanels\CollisionComponentPanel.resx">
+      <DependentUpon>CollisionComponentPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Source\WinForms\Panels\EntityPanels\ComponentPanel.resx">
+      <DependentUpon>ComponentPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Source\WinForms\Panels\EntityPanels\MovementComponentPanel.resx">
+      <DependentUpon>MovementComponentPanel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Source\WinForms\Panels\GamePanel.resx">
       <DependentUpon>GamePanel.cs</DependentUpon>
