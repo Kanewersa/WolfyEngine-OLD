@@ -20,6 +20,11 @@ namespace WolfyECS
             return _world.AddComponent<T>(this);
         }
 
+        public bool HasComponent<T>() where T : EntityComponent
+        {
+            return GetComponent<T>() != null;
+        }
+
         public T GetComponent<T>() where T : EntityComponent
         {
             return _world.GetComponent<T>(this);
