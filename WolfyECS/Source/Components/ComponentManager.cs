@@ -1,15 +1,16 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using ProtoBuf;
 
 namespace WolfyECS
 {
-    public class ComponentManager<T> : ComponentManager where T : EntityComponent
-
+    [ProtoContract] public class ComponentManager<T> : ComponentManager
+        where T : EntityComponent
     {
-    public Dictionary<Entity, int> EntityMap { get; private set; }
+    [ProtoMember(1)] public Dictionary<Entity, int> EntityMap { get; private set; }
 
-    private int _size = 1;
-    public EntityComponent[] Components { get; private set; }
+    [ProtoMember(2)] private int _size = 1;
+    [ProtoMember(3)] public EntityComponent[] Components { get; private set; }
 
     public ComponentManager()
     {

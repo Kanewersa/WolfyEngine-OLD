@@ -1,13 +1,15 @@
-﻿namespace WolfyECS
+﻿using ProtoBuf;
+
+namespace WolfyECS
 {
     public struct ComponentCounter
     {
         public static int Counter = 1;
     }
     
-    public class EntityComponent<T> : EntityComponent
+    [ProtoContract] public class EntityComponent<T> : EntityComponent
     {
-        private static int _familyId = 0;
+        [ProtoMember(1)] private static int _familyId = 0;
         public static int Family()
         {
             if (_familyId != 0) return _familyId;

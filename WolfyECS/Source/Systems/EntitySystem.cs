@@ -1,20 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.Specialized;
+﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using ProtoBuf;
 
 namespace WolfyECS
 {
+    [ProtoContract]
     public abstract class EntitySystem
     {
         // Specifies which components are important for the system
-        public ComponentMask Signature { get; set; }
+        [ProtoMember(1)] public ComponentMask Signature { get; set; }
         
         // Entities that fit the system Signature
-        public List<Entity> Entities { get; protected set; }
+        [ProtoMember(2)] public List<Entity> Entities { get; protected set; }
         
-        private World _world;
+        [ProtoMember(3)] private World _world;
         
         protected EntitySystem()
         {

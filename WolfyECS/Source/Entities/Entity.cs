@@ -1,13 +1,14 @@
 ﻿using System.Diagnostics;
+using ProtoBuf;
 
 namespace WolfyECS
 {
-    public class Entity
+    [ProtoContract] public class Entity
     {
-        private readonly World _world;
+        [ProtoMember(1)] private readonly World _world;
         
-        public uint Id { get; }
-        public string Name { get; set; }
+        [ProtoMember(2)] public uint Id { get; }
+        [ProtoMember(3)] public string Name { get; set; }
         
         internal Entity(uint id, World world)
         {

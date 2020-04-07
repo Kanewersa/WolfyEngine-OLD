@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using ProtoBuf;
 
 namespace WolfyECS
 {
-    public class EntityManager
+    [ProtoContract] public class EntityManager
     {
-        private readonly World _world;
-        private Queue<uint> _pendingIds;
-        private uint _lastId;
+        [ProtoMember(1)] private readonly World _world;
+        [ProtoMember(2)] private Queue<uint> _pendingIds;
+        [ProtoMember(3)] private uint _lastId;
 
         public EntityManager(World world)
         {

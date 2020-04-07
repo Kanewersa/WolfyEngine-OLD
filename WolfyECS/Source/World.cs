@@ -1,18 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.InteropServices;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using ProtoBuf;
 
 namespace WolfyECS
 {
-    public class World
+    [ProtoContract] public class World
     {
-        private EntityManager _entityManager;
-        private List<EntitySystem> _systems;
-        private ComponentManager[] _componentManagers;
-        private Dictionary<Entity, ComponentMask> _entityMasks;
+        [ProtoMember(1)] private EntityManager _entityManager;
+        [ProtoMember(2)] private List<EntitySystem> _systems;
+        [ProtoMember(3)] private ComponentManager[] _componentManagers;
+        [ProtoMember(4)] private Dictionary<Entity, ComponentMask> _entityMasks;
 
         public World()
         {

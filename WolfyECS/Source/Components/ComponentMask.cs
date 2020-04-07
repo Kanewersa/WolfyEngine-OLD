@@ -1,13 +1,15 @@
-﻿namespace WolfyECS
+﻿using ProtoBuf;
+
+namespace WolfyECS
 {
-    public struct ComponentMask
+    [ProtoContract] public struct ComponentMask
     {
         public ComponentMask(int mask)
         {
             Mask = mask;
         }
         
-        public int Mask { get; set; }
+        [ProtoMember(1)] public int Mask { get; set; }
 
         public ComponentMask AddComponent<T>() where T : EntityComponent
         {

@@ -40,6 +40,9 @@
       <HintPath>..\packages\MonoGame.Forms.DX.2.3.9\lib\net451\MonoGame.Framework.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="protobuf-net, Version=2.4.0.0, Culture=neutral, PublicKeyToken=257b51d87d2e4d67, processorArchitecture=MSIL">
+      <HintPath>..\packages\protobuf-net.2.4.6\lib\net40\protobuf-net.dll</HintPath>
+    </Reference>
     <Reference Include="SharpDX, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b4dcf0f35e5521f1">
       <HintPath>..\packages\MonoGame.Forms.DX.2.3.9\lib\net451\SharpDX.dll</HintPath>
       <Private>True</Private>
@@ -53,8 +56,11 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
