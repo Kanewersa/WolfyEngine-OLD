@@ -128,7 +128,7 @@ namespace WolfyECS
             
             if (_componentManagers.ElementAtOrDefault(family) == null)
             {
-                var manager = new ComponentManager<T>();
+                var manager = new ComponentManager();
                 _componentManagers[family] = manager;
                 return manager;
             }

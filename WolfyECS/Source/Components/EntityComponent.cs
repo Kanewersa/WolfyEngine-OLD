@@ -1,4 +1,5 @@
 ﻿using ProtoBuf;
+using ProtoBuf.Meta;
 
 namespace WolfyECS
 {
@@ -14,6 +15,11 @@ namespace WolfyECS
         {
             if (_familyId != 0) return _familyId;
             _familyId = ComponentCounter.Counter++;
+
+            // Add component subtype to protobuf
+            RuntimeTypeModel.Default[typeof(EntityComponent)]
+                .AddSubType(_familyId * 100, typeof(T));
+
             return _familyId;
         }
 
@@ -21,6 +27,6 @@ namespace WolfyECS
         { }
     }
 
-    public abstract class EntityComponent
+    [ProtoContract] public class EntityComponent
     { }
 }

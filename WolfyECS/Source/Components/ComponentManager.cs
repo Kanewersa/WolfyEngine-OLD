@@ -4,8 +4,8 @@ using ProtoBuf;
 
 namespace WolfyECS
 {
-    [ProtoContract] public class ComponentManager<T> : ComponentManager
-        where T : EntityComponent
+    [ProtoContract] public class ComponentManager
+        
     {
     [ProtoMember(1)] public Dictionary<Entity, int> EntityMap { get; private set; }
 
@@ -18,7 +18,7 @@ namespace WolfyECS
         Components = new EntityComponent[1024];
     }
 
-    public override int AddComponent(Entity entity, EntityComponent component)
+    public int AddComponent(Entity entity, EntityComponent component)
     {
         int index = _size;
 
@@ -32,12 +32,12 @@ namespace WolfyECS
         return index;
     }
 
-    public override EntityComponent GetComponent(Entity entity)
+    public EntityComponent GetComponent(Entity entity)
     {
         return Components[EntityMap[entity]];
     }
 
-    public override void DestroyComponent(Entity entity)
+    public void DestroyComponent(Entity entity)
     {
         int index = EntityMap[entity];
         int lastComponent = _size - 1;
