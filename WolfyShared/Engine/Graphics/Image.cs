@@ -13,6 +13,10 @@ namespace WolfyShared.Engine
         [ProtoMember(3)] public float Scale { get; set; } = 1.0f;
         [ProtoMember(4)] public float Depth { get; set; } = 0f;
         [ProtoMember(5)] public string Path { get; set; }
+        [ProtoMember(6)] public float Rotation { get; set; } = 0f;
+        [ProtoMember(7)] public Vector2 Origin { get; set; } = Vector2.Zero;
+        [ProtoMember(8)] public SpriteEffects SpriteEffect { get; set; } = SpriteEffects.None;
+        
 
         [ProtoIgnore] public Vector2 Position;
         [ProtoIgnore] public Rectangle SourceRectangle { get; set; } = Rectangle.Empty;
@@ -43,7 +47,7 @@ namespace WolfyShared.Engine
         public void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(Texture, Position, SourceRectangle,
-                Color * Alpha, 0f, Vector2.Zero, Scale, SpriteEffects.None, Depth);
+                Color * Alpha, Rotation, Origin, Scale, SpriteEffect, Depth);
         }
 
         public void SetScale(int tileSize, int textureSize)

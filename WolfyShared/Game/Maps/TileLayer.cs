@@ -149,8 +149,10 @@ namespace WolfyShared.Game
                     else
                         mapIndex = tileIndex;
 
+                    var newSource = new Vector2D((int)mapIndex.X, (int)mapIndex.Y);
                     Rows[i].Tiles[j] = Tileset.Rows[(int)mapIndex.Y].Tiles[(int)mapIndex.X];
-                    Sources[i].Source[j] = new Vector2D((int)mapIndex.X, (int)mapIndex.Y);
+                    Sources[i].Source[j] = newSource;
+
 
                     //Rows[i].Tiles[j].value = mapIndex;
                     /*if (mapIndex.Y < 0)

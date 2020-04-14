@@ -6,7 +6,7 @@ namespace WolfyECS
 {
     [ProtoContract] public class EntityManager
     {
-        [ProtoIgnore] private readonly World _world;
+        [ProtoMember(1, AsReference = true)] private World _world;
         [ProtoIgnore] private Queue<uint> _pendingIds;
         [ProtoMember(2)]
         public uint[] Ids
@@ -20,6 +20,11 @@ namespace WolfyECS
         {
             _world = world;
             _pendingIds = new Queue<uint>();
+        }
+
+        public void Initialize(World world)
+        {
+            _world = world;
         }
 
         public Entity CreateEntity()

@@ -17,11 +17,15 @@
     <Compile Include="$(MSBuildThisFileDirectory)Controllers\TilesetsController.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ECS\Components\AnimationComponent.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ECS\Components\CollisionComponent.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ECS\Components\Movement\FixedMovementComponent.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ECS\Components\Movement\FollowMovementComponent.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ECS\Components\GridPositionComponent.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ECS\Components\InputComponent.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)ECS\Components\MovementComponent.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)ECS\Components\RoutineMovementComponent.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ECS\Components\Movement\MovementComponent.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ECS\Components\Movement\RandomMovementComponent.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ECS\Components\Movement\RoutineMovementComponent.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ECS\Components\TransformComponent.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Engine\Serialization\ReflectiveEnumerator.cs" />
     <Folder Include="$(MSBuildThisFileDirectory)ECS\Entities" />
     <Compile Include="$(MSBuildThisFileDirectory)ECS\Systems\AnimationSystem.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ECS\Systems\CollisionSystem.cs" />

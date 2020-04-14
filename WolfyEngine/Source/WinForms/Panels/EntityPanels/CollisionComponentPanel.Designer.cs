@@ -41,7 +41,6 @@
             this.IsColliderCheckBox.Size = new System.Drawing.Size(76, 17);
             this.IsColliderCheckBox.TabIndex = 0;
             this.IsColliderCheckBox.Text = "Is collider?";
-            this.IsColliderCheckBox.CheckedChanged += new System.EventHandler(this.IsColliderCheckBox_CheckedChanged);
             // 
             // CollisionComponentPanel
             // 

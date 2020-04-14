@@ -12,7 +12,7 @@ namespace WolfyEngine.Forms
     {
         private string _assetsPath;
 
-        public event StringEventHandler OnAssetSelected;
+        public event AssetPathHandler OnAssetSelected;
 
         public AssetSelectForm(string assetsPath)
         {
@@ -76,7 +76,9 @@ namespace WolfyEngine.Forms
 
             //Get current asset path
             var assetName = filesTreeView.SelectedNodes[0].FullPath;
-            OnAssetSelected?.Invoke(assetName);
+            var fullPath = Path.Combine(_assetsPath, assetName);
+            var extension = Path.GetExtension(fullPath);
+            OnAssetSelected?.Invoke(assetName, fullPath, extension);
             Close();
         }
     }

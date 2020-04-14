@@ -25,9 +25,9 @@ namespace WolfyEngine.Controls
 
         #region Kod wygenerowany przez Projektanta składników
 
-        /// <summary> 
-        /// Metoda wymagana do obsługi projektanta — nie należy modyfikować 
-        /// jej zawartości w edytorze kodu.
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent()
         {
@@ -37,8 +37,11 @@ namespace WolfyEngine.Controls
             this.FrequencyNumericUpDown = new DarkUI.Controls.DarkNumericUpDown();
             this.SpeedLabel = new DarkUI.Controls.DarkLabel();
             this.SpeedNumericUpDown = new DarkUI.Controls.DarkNumericUpDown();
+            this.FollowRangeNumericUpDown = new DarkUI.Controls.DarkNumericUpDown();
+            this.FollowRangeLabel = new DarkUI.Controls.DarkLabel();
             ((System.ComponentModel.ISupportInitialize)(this.FrequencyNumericUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.SpeedNumericUpDown)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.FollowRangeNumericUpDown)).BeginInit();
             this.SuspendLayout();
             // 
             // MovementTypeBox
@@ -86,7 +89,6 @@ namespace WolfyEngine.Controls
             this.FrequencyNumericUpDown.Name = "FrequencyNumericUpDown";
             this.FrequencyNumericUpDown.Size = new System.Drawing.Size(84, 20);
             this.FrequencyNumericUpDown.TabIndex = 3;
-            this.FrequencyNumericUpDown.ValueChanged += new System.EventHandler(this.FrequencyNumericUpDown_ValueChanged);
             // 
             // SpeedLabel
             // 
@@ -109,24 +111,52 @@ namespace WolfyEngine.Controls
             this.SpeedNumericUpDown.Name = "SpeedNumericUpDown";
             this.SpeedNumericUpDown.Size = new System.Drawing.Size(84, 20);
             this.SpeedNumericUpDown.TabIndex = 5;
-            this.SpeedNumericUpDown.ValueChanged += new System.EventHandler(this.SpeedNumericUpDown_ValueChanged);
+            // 
+            // FollowRangeNumericUpDown
+            // 
+            this.FollowRangeNumericUpDown.Location = new System.Drawing.Point(14, 223);
+            this.FollowRangeNumericUpDown.Maximum = new decimal(new int[] {
+            30,
+            0,
+            0,
+            0});
+            this.FollowRangeNumericUpDown.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            -2147483648});
+            this.FollowRangeNumericUpDown.Name = "FollowRangeNumericUpDown";
+            this.FollowRangeNumericUpDown.Size = new System.Drawing.Size(84, 20);
+            this.FollowRangeNumericUpDown.TabIndex = 7;
+            // 
+            // FollowRangeLabel
+            // 
+            this.FollowRangeLabel.AutoSize = true;
+            this.FollowRangeLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
+            this.FollowRangeLabel.Location = new System.Drawing.Point(11, 206);
+            this.FollowRangeLabel.Name = "FollowRangeLabel";
+            this.FollowRangeLabel.Size = new System.Drawing.Size(67, 13);
+            this.FollowRangeLabel.TabIndex = 6;
+            this.FollowRangeLabel.Text = "Follow range";
             // 
             // MovementComponentPanel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.FollowRangeNumericUpDown);
+            this.Controls.Add(this.FollowRangeLabel);
             this.Controls.Add(this.SpeedNumericUpDown);
             this.Controls.Add(this.SpeedLabel);
             this.Controls.Add(this.FrequencyNumericUpDown);
             this.Controls.Add(this.FrequencyLabel);
             this.Controls.Add(this.MovementTypeLabel);
             this.Controls.Add(this.MovementTypeBox);
-            this.DefaultDockArea = DarkUI.Docking.DarkDockArea.Document;
             this.DockText = "Movement";
             this.Name = "MovementComponentPanel";
             this.Size = new System.Drawing.Size(481, 337);
             ((System.ComponentModel.ISupportInitialize)(this.FrequencyNumericUpDown)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.SpeedNumericUpDown)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.FollowRangeNumericUpDown)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -140,5 +170,7 @@ namespace WolfyEngine.Controls
         private DarkUI.Controls.DarkNumericUpDown FrequencyNumericUpDown;
         private DarkUI.Controls.DarkLabel SpeedLabel;
         private DarkUI.Controls.DarkNumericUpDown SpeedNumericUpDown;
+        private DarkUI.Controls.DarkNumericUpDown FollowRangeNumericUpDown;
+        private DarkUI.Controls.DarkLabel FollowRangeLabel;
     }
 }

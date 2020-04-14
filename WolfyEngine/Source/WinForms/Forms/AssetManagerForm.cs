@@ -39,6 +39,9 @@ namespace WolfyEngine.Forms
             var tilesets = new DarkTreeNode("Tilesets");
             graphics.Nodes.Add(tilesets);
 
+            var sprites = new DarkTreeNode("Sprites");
+            graphics.Nodes.Add(sprites);
+
             //Collapse root
             mainNode.Expanded = true;
         }

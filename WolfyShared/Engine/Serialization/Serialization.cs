@@ -6,7 +6,9 @@ using System.Xml.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using ProtoBuf;
+using ProtoBuf.Meta;
 using Salar.Bois;
+using WolfyECS;
 
 namespace WolfyEngine.Engine
 {
@@ -144,6 +146,22 @@ namespace WolfyEngine.Engine
             var obj = serializer.Deserialize<T>(file);
             file.Close();
             return obj;
+        }
+
+        /// <summary>
+        /// Initializes all the subtypes for protobuf and allows serialization
+        /// </summary>
+        public static void ProtoInitialize()
+        {
+            var types = ReflectiveEnumerator.GetSubTypes<EntityComponent>();
+            foreach (var type in types)
+            {
+                RuntimeTypeModel.Default[typeof(EntityComponent)]
+                    .AddSubType(type.GetHashCode(), type);
+                var genericType = typeof(EntityComponent<>).MakeGenericType(type);
+                RuntimeTypeModel.Default[typeof(EntityComponent)]
+                    .AddSubType(genericType.GetHashCode(), genericType);
+            }
         }
     }
 }

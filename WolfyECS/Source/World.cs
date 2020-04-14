@@ -7,7 +7,7 @@ using ProtoBuf;
 
 namespace WolfyECS
 {
-    [ProtoContract] public class World
+    [ProtoContract(AsReferenceDefault = true)] public class World
     {
         [ProtoMember(1)] private EntityManager _entityManager;
         [ProtoMember(2)] private List<EntitySystem> _systems;
@@ -53,12 +53,13 @@ namespace WolfyECS
         public void DestroyEntity(Entity entity)
         {
             _entityManager.DestroyEntity(entity);
-            
-            foreach(var system in _systems)
+
+            // Destroy entity in systems and component managers
+            foreach (var system in _systems)
                 system.UnregisterEntity(entity);
             foreach (var componentManager in _componentManagers)
-                componentManager.DestroyComponent(entity);
-            // Destroy entity in systems and component managers
+                componentManager?.DestroyComponent(entity);
+            _entityMasks.Remove(entity);
         }
 
         #endregion
@@ -99,11 +100,36 @@ namespace WolfyECS
             UpdateEntityMask(e, oldMask);
             return component;
         }
-        
+
+        public void AddComponent<T>(Entity e, T component) where T : EntityComponent
+        {
+            var manager = GetComponentManager<T>();
+            manager.AddComponent(e, component);
+
+            // Check if systems are interested in component
+            var oldMask = _entityMasks[e];
+            _entityMasks[e] = _entityMasks[e].AddComponent<T>();
+            UpdateEntityMask(e, oldMask);
+        }
+
+        public bool HasComponent<T>(Entity e) where T : EntityComponent
+        {
+            var manager = GetComponentManager<T>();
+            return manager.HasComponent(e);
+        }
+
         public T GetComponent<T>(Entity e) where T : EntityComponent
         {
             var manager = GetComponentManager<T>();
             return manager.GetComponent(e) as T;
+        }
+
+        public List<EntityComponent> GetComponents(Entity e)
+        {
+            return (from manager
+                    in _componentManagers
+                    where manager != null && manager.HasComponent(e)
+                    select manager.GetComponent(e)).ToList();
         }
 
         public void RemoveComponent<T>(Entity e) where T : EntityComponent

@@ -32,6 +32,16 @@ namespace WolfyECS
         return index;
     }
 
+    public bool HasComponent(Entity entity)
+    {
+        if (EntityMap.ContainsKey(entity))
+        {
+            return Components[EntityMap[entity]] != null;
+        }
+
+        return false;
+    }
+
     public EntityComponent GetComponent(Entity entity)
     {
         return Components[EntityMap[entity]];
@@ -39,6 +49,8 @@ namespace WolfyECS
 
     public void DestroyComponent(Entity entity)
     {
+        if(!EntityMap.ContainsKey(entity)) return;
+        
         int index = EntityMap[entity];
         int lastComponent = _size - 1;
         Components[index] = Components[lastComponent];
@@ -48,7 +60,8 @@ namespace WolfyECS
         // Reversed dictionary may be a solution but it requires extra memory
         // however it might be worth it if components are removed frequently from entities
         Entity movedEntity = EntityMap.FirstOrDefault(x => x.Value == lastComponent).Key;
-        EntityMap[movedEntity] = index;
+        if(movedEntity != null)
+            EntityMap[movedEntity] = index;
     }
 
     // TODO Create lambda expression for components iteration

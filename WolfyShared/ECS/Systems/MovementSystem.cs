@@ -21,8 +21,7 @@ namespace WolfyShared.ECS
                 movement.GridPosition += movement.GridDirection;
                 movement.Transform += movement.Direction;
                 movement.WasMoving = true;
-                movement.IsMoving = false;
-                // TODO Tile size
+                movement.IsMoving = false; 
             }
         }
     }

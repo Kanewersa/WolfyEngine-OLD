@@ -52,7 +52,7 @@ namespace WolfyGame
             GameController.Instance.InitializeProject();
 
             // Initialize the scene
-            Scene = new GameScene(ScreenWidth, ScreenHeight);
+            Scene = new GameScene(ScreenWidth, ScreenHeight, GameController.Instance.World);
             Scene.Initialize(graphics.GraphicsDevice);
             base.Initialize();
         }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ProtoBuf;
+using WolfyECS;
 using WolfyShared.Engine;
 
 namespace WolfyShared.Game
@@ -14,6 +15,7 @@ namespace WolfyShared.Game
         [ProtoMember(3)] public Vector2D TileSize { get; set; }
         [ProtoMember(4)] public Vector2D Size { get; set; }
         [ProtoMember(5)] public List<BaseLayer> Layers { get; set; } = new List<BaseLayer>();
+        [ProtoMember(6, AsReference = true)] public List<Entity> Entities { get; set; }
 
         public Map() { }
 
@@ -26,7 +28,7 @@ namespace WolfyShared.Game
             {
                 new EntityLayer("Entities layer", mapSize) { Order = 1 }
             };
-
+            Entities = new List<Entity>();
         }
 
         public void Initialize(GraphicsDevice graphics)

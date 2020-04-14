@@ -28,18 +28,13 @@ namespace WolfyEngine.Forms
             form.ShowDialog();
         }
 
-        private void Form_OnAssetSelected(string str)
+        private void Form_OnAssetSelected(string assetName, string fullPath, string extension)
         {
-            var fullPath = Path.Combine(PathsController.Instance.TilesetsGraphicsPath, str);
-
-            var extension = Path.GetExtension(fullPath);
-
             using (var temp = new Bitmap(fullPath))
             {
                 var img = new Bitmap(temp);
                 graphicsPreviewBox.Image = extension == ".png" ? img : null;
             }
-
 
             _selectedAsset = fullPath;
         }

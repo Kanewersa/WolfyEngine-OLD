@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.scrollablePanel = new WolfyEngine.Controls.ScrollablePanel();
+            this.darkButton1 = new DarkUI.Controls.DarkButton();
             this.darkToolStrip = new DarkUI.Controls.DarkToolStrip();
             this.PencilButton = new System.Windows.Forms.ToolStripButton();
             this.FillButton = new System.Windows.Forms.ToolStripButton();
@@ -48,13 +49,24 @@
             // scrollablePanel
             // 
             this.scrollablePanel.AutoScroll = true;
-            this.scrollablePanel.Controls.Add(this.darkToolStrip);
+            this.scrollablePanel.Controls.Add(this.darkButton1);
             this.scrollablePanel.Controls.Add(this.gameControl);
+            this.scrollablePanel.Controls.Add(this.darkToolStrip);
             this.scrollablePanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.scrollablePanel.Location = new System.Drawing.Point(0, 0);
             this.scrollablePanel.Name = "scrollablePanel";
             this.scrollablePanel.Size = new System.Drawing.Size(469, 534);
             this.scrollablePanel.TabIndex = 1;
+            // 
+            // darkButton1
+            // 
+            this.darkButton1.Location = new System.Drawing.Point(212, 3);
+            this.darkButton1.Name = "darkButton1";
+            this.darkButton1.Padding = new System.Windows.Forms.Padding(5);
+            this.darkButton1.Size = new System.Drawing.Size(75, 23);
+            this.darkButton1.TabIndex = 3;
+            this.darkButton1.Text = "darkButton1";
+            this.darkButton1.Click += new System.EventHandler(this.darkButton1_Click);
             // 
             // darkToolStrip
             // 
@@ -207,5 +219,6 @@
         private System.Windows.Forms.ToolStripButton PencilButton;
         private System.Windows.Forms.ToolStripButton FillButton;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator;
+        private DarkUI.Controls.DarkButton darkButton1;
     }
 }

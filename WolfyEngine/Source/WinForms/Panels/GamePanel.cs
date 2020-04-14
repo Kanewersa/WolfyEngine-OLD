@@ -1,4 +1,5 @@
-﻿using System.Windows.Forms;
+﻿using System;
+using System.Windows.Forms;
 using DarkUI.Docking;
 using Microsoft.Xna.Framework;
 using WolfyECS;
@@ -16,9 +17,9 @@ namespace WolfyEngine.Controls
     {
         public GameControl GameControl => gameControl;
 
-        private World _world;
         private SchemeManager _schemeManager;
         private Map _currentMap;
+        private World _world;
 
         public GamePanel()
         {
@@ -27,22 +28,49 @@ namespace WolfyEngine.Controls
             gameControl.OnRightClick += GameControl_OnRightClick;
             gameControl.OnEntitySelect += GameControl_OnEntitySelect;
             _schemeManager = new SchemeManager();
-            _world = new World();
-            _world.Initialize();
         }
 
-        private void GameControl_OnEntitySelect(int entity)
+        public void LoadWorld()
         {
-            if (entity == 0)
+            _world = GameController.Instance.World;
+            if(_world == null)
+                throw new Exception("World doesn't exist.");
+        }
+
+        public void InitializeProject()
+        {
+            LoadWorld();
+        }
+
+        private void GameControl_OnEntitySelect(Entity entity, Vector2 position)
+        {
+            if (entity == null)
             {
-                // Open select entity type form
+                EntityScheme selectedScheme = null;
+
                 using (var form = new SelectEntityTypeForm())
                 {
                     form.Initialize(_schemeManager);
                     form.OnTypeSelected += delegate(EntityScheme scheme)
                     {
+                        selectedScheme = scheme;
                         form.Close();
-                        OnEntityTypeSelected(scheme);
+                    };
+                    form.ShowDialog();
+                }
+
+                if (selectedScheme == null) return;
+
+                using (var form = new EntityEditForm())
+                {
+                    form.Initialize(selectedScheme, _world);
+                    form.OnSave += delegate(Entity newEntity, Vector2 vector2)
+                    {
+                        var layer = gameControl.GetCurrentLayer<EntityLayer>();
+                        layer.Rows[(int)position.Y]
+                            .Tiles[(int)position.X].Entity = newEntity;
+                        layer.Entities.Add(newEntity);
+                        gameControl.CurrentMap.Entities.Add(newEntity);
                     };
                     form.ShowDialog();
                 }
@@ -50,20 +78,14 @@ namespace WolfyEngine.Controls
             else
             {
                 // Get entity type and open edit form
+                var entityComponents = entity.GetComponents();
+                using(var form = new EntityEditForm())
+                {
+                    form.SavedEntity = true;
+                    form.Initialize(entity, entityComponents, _world);
+                    form.ShowDialog();
+                }
             }
-        }
-
-        private void OnEntityTypeSelected(EntityScheme scheme)
-        {
-            // Open entity edit form with given scheme
-            var entity = _world.CreateEntity(
-                "Entity" + (_world.EntityCount() + 1));
-            using (var form = new EntityEditForm())
-            {
-                form.Initialize(entity, scheme, _world);
-                form.ShowDialog();
-            }
-
         }
 
         private void GameControl_OnRightClick(object sender, MouseEventArgs e)
@@ -135,28 +157,21 @@ namespace WolfyEngine.Controls
             var layers = _currentMap.Layers;
 
             var index = layers.IndexOf(desiredLayer);
-            var count = layers.Count;
 
             // Set lower layers
             for (var i = 0; i < index; i++)
-            {
                 if (layers[i] is TileLayer lay)
                     lay.SetColor(new Color(157, 157, 157), 1f);
-            }
-
+            
             // Set desired layer
             if (desiredLayer is TileLayer desiredLay)
-            {
                 desiredLay.SetColor(Color.White, 1f);
-            }
 
             // Set higher layers
-            for (var i = index + 1; i < count; i++)
-            {
+            for (var i = index + 1; i < layers.Count; i++)
                 if (layers[i] is TileLayer lay)
                     lay.SetColor(Color.White, .4f);
-            }
-
+            
             gameControl.Invalidate();
         }
 
@@ -190,6 +205,11 @@ namespace WolfyEngine.Controls
             gameControl.Tool = GameControl.Tools.Fill;
             FillButton.Checked = true;
             PencilButton.Checked = false;
+        }
+
+        private void darkButton1_Click(object sender, EventArgs e)
+        {
+            Console.WriteLine(_world.EntityCount());
         }
     }
 }

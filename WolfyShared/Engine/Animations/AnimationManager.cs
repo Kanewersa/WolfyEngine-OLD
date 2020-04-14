@@ -13,7 +13,8 @@ namespace WolfyShared.Engine
             private set
             {
                 _animation = value;
-                GetAnimationOffset(_animation, GridSize);
+                if(Animation.Image.Texture != null)
+                    GetAnimationOffset(_animation, GridSize);
             }
         }
 

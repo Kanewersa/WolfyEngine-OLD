@@ -15,7 +15,7 @@ namespace WolfyEngine.Controls
             tilesetEditorControl.LoadPassage();
         }
 
-        private void bushButton_Click(object sender, System.EventArgs e)
+        private void BushButton_Click(object sender, System.EventArgs e)
         {
             tilesetEditorControl.LoadBush();
         }
@@ -24,5 +24,7 @@ namespace WolfyEngine.Controls
         {
             tilesetEditorControl.LoadTileset(tileset);
         }
+
+        
     }
 }

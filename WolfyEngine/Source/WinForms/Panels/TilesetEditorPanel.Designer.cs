@@ -32,7 +32,8 @@
             this.scrollablePanel = new WolfyEngine.Controls.ScrollablePanel();
             this.darkToolStrip = new DarkUI.Controls.DarkToolStrip();
             this.passageButton = new System.Windows.Forms.ToolStripButton();
-            this.bushButton = new System.Windows.Forms.ToolStripButton();
+            this.BushButton = new System.Windows.Forms.ToolStripButton();
+            this.ShadersButton = new System.Windows.Forms.ToolStripButton();
             this.scrollablePanel.SuspendLayout();
             this.darkToolStrip.SuspendLayout();
             this.SuspendLayout();
@@ -64,7 +65,8 @@
             this.darkToolStrip.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
             this.darkToolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.passageButton,
-            this.bushButton});
+            this.BushButton,
+            this.ShadersButton});
             this.darkToolStrip.Location = new System.Drawing.Point(0, 25);
             this.darkToolStrip.Name = "darkToolStrip";
             this.darkToolStrip.Padding = new System.Windows.Forms.Padding(5, 0, 1, 0);
@@ -83,16 +85,26 @@
             this.passageButton.Text = "Passage";
             this.passageButton.Click += new System.EventHandler(this.passageButton_Click);
             // 
-            // bushButton
+            // BushButton
             // 
-            this.bushButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
-            this.bushButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
-            this.bushButton.Image = global::WolfyEngine.Icons.bar_chart_2;
-            this.bushButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.bushButton.Name = "bushButton";
-            this.bushButton.Size = new System.Drawing.Size(53, 25);
-            this.bushButton.Text = "Bush";
-            this.bushButton.Click += new System.EventHandler(this.bushButton_Click);
+            this.BushButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
+            this.BushButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
+            this.BushButton.Image = global::WolfyEngine.Icons.bar_chart_2;
+            this.BushButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.BushButton.Name = "BushButton";
+            this.BushButton.Size = new System.Drawing.Size(53, 25);
+            this.BushButton.Text = "Bush";
+            this.BushButton.Click += new System.EventHandler(this.BushButton_Click);
+            // 
+            // ShadersButton
+            // 
+            this.ShadersButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
+            this.ShadersButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
+            this.ShadersButton.Image = global::WolfyEngine.Icons.bar_chart_2;
+            this.ShadersButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.ShadersButton.Name = "ShadersButton";
+            this.ShadersButton.Size = new System.Drawing.Size(68, 25);
+            this.ShadersButton.Text = "Shaders";
             // 
             // TilesetEditorPanel
             // 
@@ -117,6 +129,7 @@
         private ScrollablePanel scrollablePanel;
         private DarkUI.Controls.DarkToolStrip darkToolStrip;
         private System.Windows.Forms.ToolStripButton passageButton;
-        private System.Windows.Forms.ToolStripButton bushButton;
+        private System.Windows.Forms.ToolStripButton ShadersButton;
+        private System.Windows.Forms.ToolStripButton BushButton;
     }
 }

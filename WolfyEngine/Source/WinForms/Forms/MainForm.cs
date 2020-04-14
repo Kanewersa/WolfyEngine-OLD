@@ -165,9 +165,11 @@ namespace WolfyEngine.Forms
             MapsController.Instance.InitializeProject();
             GameController.Instance.InitializeProject();
 
+
             // Initialize project in controls
             MapsPanel.InitializeProject(project);
             TilesetsPanel.InitializeProject(project);
+            GamePanel.InitializeProject();
         }
 
         #region Memory display
@@ -271,6 +273,5 @@ namespace WolfyEngine.Forms
         }
 
         #endregion
-
     }
 }

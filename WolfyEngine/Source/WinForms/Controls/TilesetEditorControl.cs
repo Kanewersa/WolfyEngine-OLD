@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using Microsoft.Xna.Framework;
 using MonoGame.Forms.Controls;
 using WolfyShared.Engine;
 using WolfyShared.Game;
@@ -6,7 +7,7 @@ using WolfyShared.Game;
 namespace WolfyEngine.Controls
 {
     public delegate Image ImageTileHandler(Tile tile);
-    public delegate bool BoolTileHandler(Tile tile);
+    public delegate int TileHandler(Tile tile);
 
     class TilesetEditorControl : InvalidationControl
     {
@@ -24,7 +25,7 @@ namespace WolfyEngine.Controls
 
         private Vector2 mousePosition;
 
-        public BoolTileHandler CurrentBool { get; private set; }
+        public TileHandler CurrentBool { get; private set; }
         public ImageTileHandler CurrentImage { get; private set; }
 
         #region Images
@@ -35,25 +36,40 @@ namespace WolfyEngine.Controls
         public Image Bush { get; private set; }
         public Image Dot { get; private set; }
 
+        public Image ShadowNone { get; private set; }
+        public Image ShadowOne { get; private set; }
+        public Image ShadowTwo { get; private set; }
+        public Image ShadowThree { get; private set; }
+
         #endregion
 
         protected override void Initialize()
         {
             base.Initialize();
 
-            _tileSize = new Vector2(32,32);
+            _tileSize = new Vector2(32, 32);
 
             _imageScale = _tileSize.X / 64;
 
-            PassageFalse = new Image {Path = "Assets/Icons/PassageFalseIcon.png", Scale = _imageScale, Alpha = _imageAlpha};
-            PassageTrue = new Image { Path = "Assets/Icons/PassageTrueIcon.png", Scale = _imageScale, Alpha = _imageAlpha };
-            Bush = new Image { Path = "Assets/Icons/BushIcon.png", Scale = _imageScale, Alpha = _imageAlpha };
-            Dot = new Image { Path = "Assets/Icons/DotIcon.png", Scale = _imageScale, Alpha = _imageAlpha };
+            PassageFalse = new Image
+                {Path = "Assets/Icons/PassageFalseIcon.png", Scale = _imageScale, Alpha = _imageAlpha};
+            PassageTrue = new Image
+                {Path = "Assets/Icons/PassageTrueIcon.png", Scale = _imageScale, Alpha = _imageAlpha};
+            Bush = new Image {Path = "Assets/Icons/BushIcon.png", Scale = _imageScale, Alpha = _imageAlpha};
+            Dot = new Image {Path = "Assets/Icons/DotIcon.png", Scale = _imageScale, Alpha = _imageAlpha};
+            ShadowNone = new Image{Path = "Assets/Icons/Zero.png", Scale = _imageScale, Alpha = _imageAlpha };
+            ShadowOne = new Image { Path = "Assets/Icons/One.png", Scale = _imageScale, Alpha = _imageAlpha };
+            ShadowTwo = new Image { Path = "Assets/Icons/Two.png", Scale = _imageScale, Alpha = _imageAlpha };
+            ShadowThree = new Image { Path = "Assets/Icons/Three.png", Scale = _imageScale, Alpha = _imageAlpha };
 
             PassageFalse.Initialize(GraphicsDevice);
             PassageTrue.Initialize(GraphicsDevice);
             Bush.Initialize(GraphicsDevice);
             Dot.Initialize(GraphicsDevice);
+            ShadowNone.Initialize(GraphicsDevice);
+            ShadowOne.Initialize(GraphicsDevice);
+            ShadowTwo.Initialize(GraphicsDevice);
+            ShadowThree.Initialize(GraphicsDevice);
 
             CurrentImage = DrawPassage;
             CurrentBool = SetPassage;
@@ -147,10 +163,10 @@ namespace WolfyEngine.Controls
             return tile.Passage ? PassageTrue : PassageFalse;
         }
 
-        private bool SetPassage(Tile tile)
+        private int SetPassage(Tile tile)
         {
             tile.Passage = !tile.Passage;
-            return tile.Passage;
+            return tile.Passage ? 1 : 0;
         }
 
         private Image DrawBush(Tile tile)
@@ -158,10 +174,10 @@ namespace WolfyEngine.Controls
             return tile.Bush ? Bush : Dot;
         }
 
-        private bool SetBush(Tile tile)
+        private int SetBush(Tile tile)
         {
             tile.Bush = !tile.Bush;
-            return tile.Bush; 
+            return tile.Bush ? 1 : 0; 
         }
 
         public void LoadPassage()

@@ -42,7 +42,7 @@ namespace WolfyShared.ECS
                         _ => throw new ArgumentOutOfRangeException()
                     };
 
-                    routine.Timer = routine.MovementFrequency;
+                    routine.Timer = movement.Frequency;
                 }
             }
         }

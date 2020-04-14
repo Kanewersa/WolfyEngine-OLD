@@ -21,6 +21,9 @@ namespace WolfyEngine
                 Runtime.ProgramSettings.Save();
             }
 
+            // Initialize protobuf
+            Serialization.ProtoInitialize();
+
             //Save program settings on application close
             AppDomain.CurrentDomain.ProcessExit += SaveProgramSettings;
 

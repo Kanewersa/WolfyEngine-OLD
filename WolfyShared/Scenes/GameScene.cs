@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using Microsoft.Xna.Framework;
@@ -28,15 +29,15 @@ namespace WolfyShared.Scenes
         
         public World CurrentWorld { get; set; }
 
-        public GameScene(int screenWidth, int screenHeight) : base(screenWidth, screenHeight)
+        public GameScene(int screenWidth, int screenHeight, World world) : base(screenWidth, screenHeight)
         {
             InputSystem = new InputSystem();
             MovementSystem = new MovementSystem();
             CollisionSystem = new CollisionSystem();
             AnimationSystem = new AnimationSystem();
             RoutineMovementSystem = new RoutineMovementSystem();
-            
-            CurrentWorld = new World();
+
+            CurrentWorld = world;
         }
 
         public override void Initialize(GraphicsDevice graphics)
@@ -50,7 +51,9 @@ namespace WolfyShared.Scenes
             };
 
             var mapId = GameController.Instance.Settings.StartingMap;
+            Console.WriteLine("Starting map: " + mapId);
             CurrentMap = MapsController.Instance.GetMap(mapId);
+            Console.WriteLine("Name: " + CurrentMap.Name);
             CurrentMap.Initialize(graphics);
 
             Camera.SetMapBoundaries(new Vector2(
@@ -136,8 +139,8 @@ namespace WolfyShared.Scenes
             animation.AnimationManager =
                 new AnimationManager(animation.Animations.First().Value, CurrentMap.TileSize.X);
 
-            routine.MovementFrequency = 1;
-            routine.Timer = routine.MovementFrequency;
+            movement.Frequency = 1;
+            routine.Timer = movement.Frequency;
 
             //
         }
@@ -171,7 +174,7 @@ namespace WolfyShared.Scenes
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
-            MeasureTime.Start("Update took: ");
+            //MeasureTime.Start("Update took: ");
 
             if (Paused) return;
 
@@ -186,7 +189,7 @@ namespace WolfyShared.Scenes
             CurrentMap.Update(gameTime);
             Camera.Update(Player.GetComponent<AnimationComponent>());
             VisibleArea = Camera.GetVisibleArea();
-            MeasureTime.Stop();
+            //MeasureTime.Stop();
         }
 
         
