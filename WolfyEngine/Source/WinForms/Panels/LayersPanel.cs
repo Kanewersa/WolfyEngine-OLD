@@ -47,7 +47,7 @@ namespace WolfyEngine.Controls
 
             foreach (var layer in map.Layers)
             {
-                mainNode.Nodes.Add(new DarkTreeNode(layer.Name));
+                mainNode.Nodes.Add(new DarkTreeNode(layer.Order + ": " + layer.Name));
             }
 
             mainNode.Expanded = true;
@@ -102,14 +102,12 @@ namespace WolfyEngine.Controls
             }
 
             using var form = new NewLayerForm(_currentMap);
-            form.OnLayerCreate += Form_OnLayerCreate;
+            form.OnLayerCreate += delegate(BaseLayer layer)
+            {
+                OnLayerChanged?.Invoke(layer);
+                RefreshTree(_currentMap);
+            };
             form.ShowDialog();
-        }
-
-        private void Form_OnLayerCreate(BaseLayer layer)
-        {
-            OnLayerChanged?.Invoke(layer);
-            RefreshTree(_currentMap);
         }
 
         private void MoveLayerUp(object sender, EventArgs e)

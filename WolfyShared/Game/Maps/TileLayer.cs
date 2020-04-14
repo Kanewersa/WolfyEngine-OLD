@@ -19,6 +19,8 @@ namespace WolfyShared.Game
         [ProtoIgnore] public Tileset Tileset { get; set; }
         [ProtoIgnore] private Vector2D _emptyTile = new Vector2D(-1, -1);
         [ProtoIgnore] private readonly int _drawOffset = 2;
+        [ProtoIgnore] private Color _temporaryColor = Color.White;
+        [ProtoIgnore] private float _temporaryTransparency = 1f;
 
         public TileLayer() { }
 
@@ -101,6 +103,9 @@ namespace WolfyShared.Game
 
         public override void Draw(SpriteBatch spriteBatch)
         {
+            Image.Alpha = _temporaryTransparency;
+            Image.Color = _temporaryColor;
+
             for (var y = 0; y < Size.Y; y++)
             {
                 for (var x = 0; x < Size.X; x++)
@@ -119,6 +124,8 @@ namespace WolfyShared.Game
             Image.Position = new Vector2(0, 0);
             Image.SourceRectangle =
                 new Rectangle(0, 0, Image.Texture.Width, Image.Texture.Height);
+            Image.Alpha = 1f;
+            Image.Color = Color.White;
         }
 
         public void ReplaceTiles(Vector2 position, Rectangle selectedRegion)
@@ -144,8 +151,6 @@ namespace WolfyShared.Game
 
                     Rows[i].Tiles[j] = Tileset.Rows[(int)mapIndex.Y].Tiles[(int)mapIndex.X];
                     Sources[i].Source[j] = new Vector2D((int)mapIndex.X, (int)mapIndex.Y);
-                    Console.WriteLine("Tile {x: "+ i +", y: "+ j +"}" +
-                                      "now has source x: "+ mapIndex.Y +", y: "+ mapIndex.X +"");
 
                     //Rows[i].Tiles[j].value = mapIndex;
                     /*if (mapIndex.Y < 0)
@@ -250,8 +255,8 @@ namespace WolfyShared.Game
 
         public void SetColor(Color color, float transparency)
         {
-            Image.Alpha = transparency;
-            Image.Color = color;
+            _temporaryColor = color;
+            _temporaryTransparency = transparency;
         }
     }
 }
