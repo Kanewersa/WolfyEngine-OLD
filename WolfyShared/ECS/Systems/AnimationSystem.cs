@@ -1,20 +1,32 @@
 ﻿using System;
-using System.Diagnostics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using ProtoBuf;
 using WolfyECS;
 
 
 namespace WolfyShared.ECS
 {
-    public class AnimationSystem : EntitySystem
+    [ProtoContract] public class AnimationSystem : EntitySystem
     {
-        private readonly float _timer = 0.01f;
+        [ProtoMember(1)] private readonly float _timer = 0.01f;
+        
+        public AnimationSystem() { }
 
         public override void Initialize()
         {
             RequireComponent<MovementComponent>();
             RequireComponent<AnimationComponent>();
+        }
+
+        public override void DrawInitialize(GraphicsDevice graphics)
+        {
+            foreach (var entity in Entities)
+            {
+                var comp = entity.GetComponent<AnimationComponent>();
+                comp.AnimationManager.Initialize(comp.Animations["Walk"]);
+                comp.Animations["Walk"].Image.Initialize(graphics);
+            }
         }
         
         public override void Update(GameTime gameTime)
@@ -58,7 +70,6 @@ namespace WolfyShared.ECS
                     animation.AnimationManager.Draw(spriteBatch);
                 else throw new Exception("");
             }
-            
         }
 
         private void SetAnimations(bool isMoving, AnimationComponent component)

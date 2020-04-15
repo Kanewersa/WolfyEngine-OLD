@@ -1,16 +1,17 @@
 ﻿using System;
-using System.Diagnostics;
 using System.Linq;
 using Microsoft.Xna.Framework;
+using ProtoBuf;
 using WolfyECS;
-using WolfyShared.Engine;
 using WolfyShared.Game;
 
 namespace WolfyShared.ECS
 {
-    public class CollisionSystem : EntitySystem
+    [ProtoContract] public class CollisionSystem : EntitySystem
     {
-        public Map CurrentMap { get; private set; }
+        public CollisionSystem() { }
+
+        [ProtoIgnore] public Map CurrentMap { get; private set; }
 
         public void SetMap(Map map) { CurrentMap = map; }
 
@@ -69,7 +70,11 @@ namespace WolfyShared.ECS
 
                 if (!movement.IsMoving) continue;
 
-                foreach(var collisionEntity in Entities)
+                var lay = (EntityLayer) CurrentMap.Layers.First(x => x is EntityLayer);
+                if (lay.Rows[(int)position.Y].Tiles[(int)position.X].Entity != null)
+                    movement.IsMoving = false;
+
+                /*foreach(var collisionEntity in Entities)
                 {
                     if (entity == collisionEntity) continue;
                     var comp = collisionEntity.GetComponent<MovementComponent>();
@@ -78,7 +83,7 @@ namespace WolfyShared.ECS
                         movement.IsMoving = false;
                         break;
                     }
-                }
+                }*/
             }
         }
     }

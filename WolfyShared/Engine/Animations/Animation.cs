@@ -1,24 +1,27 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
+using ProtoBuf;
 
 namespace WolfyShared.Engine
 {
-    public class Animation
+    [ProtoContract] public class Animation
     {
-        public int CurrentFrame { get; set; }
-        public int FrameCount { get; private set; }
+        [ProtoMember(1)] public int CurrentFrame { get; set; }
+        [ProtoMember(2)] public int FrameCount { get; private set; }
         
-        public int CurrentDirection { get; set; }
-        public int DirectionsCount { get; private set; }
+        [ProtoMember(3)] public int CurrentDirection { get; set; }
+        [ProtoMember(4)] public int DirectionsCount { get; private set; }
         
-        public int FrameHeight => Texture.Height / DirectionsCount;
-        public int FrameWidth => Texture.Width / FrameCount;
-        public float FrameSpeed { get; set; }
+        [ProtoIgnore] public int FrameHeight => Texture.Height / DirectionsCount;
+        [ProtoIgnore] public int FrameWidth => Texture.Width / FrameCount;
+        [ProtoMember(5)] public float FrameSpeed { get; set; }
 
-        public bool IsLooping { get; set; }
+        [ProtoMember(6)] public bool IsLooping { get; set; }
 
-        public Image Image { get; set; }
+        [ProtoMember(7)] public Image Image { get; set; }
 
-        public Texture2D Texture => Image.Texture;
+        [ProtoIgnore] public Texture2D Texture => Image.Texture;
+
+        public Animation() { }
 
         public Animation(string texture, int frameCount, int directionsCount)
         {

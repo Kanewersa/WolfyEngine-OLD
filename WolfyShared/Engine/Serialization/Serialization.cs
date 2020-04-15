@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
@@ -153,6 +154,7 @@ namespace WolfyEngine.Engine
         /// </summary>
         public static void ProtoInitialize()
         {
+            // Load entity component subtypes
             var types = ReflectiveEnumerator.GetSubTypes<EntityComponent>();
             foreach (var type in types)
             {
@@ -162,6 +164,19 @@ namespace WolfyEngine.Engine
                 RuntimeTypeModel.Default[typeof(EntityComponent)]
                     .AddSubType(genericType.GetHashCode(), genericType);
             }
+
+            // Load entity system subtypes
+            types = ReflectiveEnumerator.GetSubTypes<EntitySystem>();
+            foreach (var type in types)
+            {
+                RuntimeTypeModel.Default[typeof(EntitySystem)]
+                    .AddSubType(type.GetHashCode(), type);
+            }
+
+            // Load <Entity, int> dictionary
+            var typ = RuntimeTypeModel.Default.Add(typeof(KeyValuePair<Entity, int>), false);
+            typ.Add(11, "key").AsReferenceDefault = true;
+            typ.AddField(12, "value");
         }
     }
 }

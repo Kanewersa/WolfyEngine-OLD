@@ -15,6 +15,7 @@ namespace WolfyShared.Controllers
 
         public Dictionary<int, Tileset> LoadedTilesets { get; set; }
         public TilesetsData TilesetsData { get; set; }
+        public Tileset LastTileset { get; private set; }
 
         public TilesetsController()
         {
@@ -64,6 +65,7 @@ namespace WolfyShared.Controllers
             TilesetsData.Info.Add(info.TilesetId, info);
             tileset.Id = info.TilesetId;
             LoadedTilesets.Add(tileset.Id, tileset);
+            LastTileset = tileset;
             SaveTileset(tileset);
         }
 
@@ -75,6 +77,8 @@ namespace WolfyShared.Controllers
         {
             if (LoadedTilesets.ContainsKey(id))
                 LoadedTilesets.Remove(id);
+            if (LastTileset.Id == id)
+                LastTileset = null;
 
             TilesetsData.Info.Remove(id);
             TilesetsData.PendingIds.Enqueue(id);
@@ -98,12 +102,17 @@ namespace WolfyShared.Controllers
         /// <returns></returns>
         public Tileset GetTileset(int id)
         {
-            if (LoadedTilesets.ContainsKey(id)) return LoadedTilesets[id];
+            if (LoadedTilesets.ContainsKey(id))
+            {
+                LastTileset = LoadedTilesets[id];
+                return LastTileset;
+            }
 
             var file = TilesetsData.Info[id].FileName;
             var path = Path.Combine(_tilesetsPath, file);
             var tileset = Serialization.ProtoDeserialize<Tileset>(path);
             LoadedTilesets.Add(id, tileset);
+            LastTileset = tileset;
             return tileset;
         }
 
@@ -118,6 +127,8 @@ namespace WolfyShared.Controllers
             }
 
             LoadedTilesets.Clear();
+            if(LastTileset != null)
+                LoadedTilesets.Add(LastTileset.Id, LastTileset);
             Serialization.ProtoSerialize(TilesetsData, _tilesetsDataPath);
         }
     }

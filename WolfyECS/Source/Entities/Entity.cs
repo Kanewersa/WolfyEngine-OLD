@@ -7,7 +7,7 @@ namespace WolfyECS
 {
     [ProtoContract(AsReferenceDefault = true)] public class Entity
     {
-        [ProtoMember(1, AsReference = true)] private readonly World _world;
+        [ProtoIgnore] private World _world;
         
         [ProtoMember(2)] public uint Id { get; }
         [ProtoMember(3)] public string Name { get; set; }
@@ -17,6 +17,11 @@ namespace WolfyECS
         internal Entity(uint id, World world)
         {
             Id = id;
+            _world = world;
+        }
+
+        public void Initialize(World world)
+        {
             _world = world;
         }
         

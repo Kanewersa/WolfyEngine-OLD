@@ -6,20 +6,22 @@ namespace WolfyECS
 {
     [ProtoContract] public class EntityManager
     {
-        [ProtoMember(1, AsReference = true)] private World _world;
-        [ProtoIgnore] private Queue<uint> _pendingIds;
-        [ProtoMember(2)]
+        [ProtoIgnore] private World _world;
+        [ProtoIgnore] private Queue<uint> _pendingIds = new Queue<uint>(16);
+        [ProtoMember(1)]
         public uint[] Ids
         {
             get => _pendingIds.ToArray();
             set => _pendingIds = new Queue<uint>(value);
         }
-        [ProtoMember(3)] private uint _lastId;
+        [ProtoMember(2)] private uint _lastId;
+
+        public EntityManager () { }
 
         public EntityManager(World world)
         {
             _world = world;
-            _pendingIds = new Queue<uint>();
+            _pendingIds = new Queue<uint>(16);
         }
 
         public void Initialize(World world)

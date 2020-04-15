@@ -1,9 +1,12 @@
-﻿using WolfyECS;
+﻿using ProtoBuf;
+using WolfyECS;
 
 namespace WolfyShared.ECS
 {
-    public class CollisionComponent : EntityComponent
+    [ProtoContract] public class CollisionComponent : EntityComponent
     {
-        public bool IsCollider;
+        [ProtoMember(1)] public bool IsCollider;
+
+        public CollisionComponent() { }
     }
 }

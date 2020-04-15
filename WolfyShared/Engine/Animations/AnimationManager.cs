@@ -1,13 +1,14 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using ProtoBuf;
 
 namespace WolfyShared.Engine
 {
-    public class AnimationManager
+    [ProtoContract] public class AnimationManager
     {
-        private Animation _animation;
-        public Animation Animation
+        [ProtoIgnore] private Animation _animation;
+        [ProtoIgnore] public Animation Animation
         {
             get => _animation;
             private set
@@ -18,18 +19,24 @@ namespace WolfyShared.Engine
             }
         }
 
-        private float _timer = 0;
-        
-        public int GridSize { get; set; }
-        public Vector2 Position { get; set; }
-        public Vector2 PositionOffset { get; set; }
-        public Direction Direction { get; set; }
+        [ProtoMember(1)] private float _timer;
+        [ProtoMember(2)] public int GridSize { get; set; }
+        [ProtoMember(3)] public Vector2 Position { get; set; }
+        [ProtoMember(4)] public Vector2 PositionOffset { get; set; }
+        [ProtoMember(5)] public Direction Direction { get; set; }
+
+        public AnimationManager() { }
 
         public AnimationManager(Animation animation, int gridSize)
         {
             GridSize = gridSize;
             Animation = animation;
             Direction = Direction.Down;
+        }
+
+        public void Initialize(Animation animation)
+        {
+            Animation = animation;
         }
 
         public void Draw(SpriteBatch spriteBatch)

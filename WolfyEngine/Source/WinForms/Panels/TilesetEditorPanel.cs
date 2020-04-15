@@ -24,7 +24,5 @@ namespace WolfyEngine.Controls
         {
             tilesetEditorControl.LoadTileset(tileset);
         }
-
-        
     }
 }

@@ -1,10 +1,12 @@
-﻿using WolfyECS;
+﻿using ProtoBuf;
+using WolfyECS;
 
 namespace WolfyShared.ECS
 {
-    public class RoutineMovementComponent : EntityComponent
+    [ProtoContract] public class RoutineMovementComponent : EntityComponent
     {
-        //public float MovementFrequency { get; set; }
-        public float Timer { get; set; }
+        [ProtoMember(1)] public float Timer { get; set; }
+
+        public RoutineMovementComponent() { }
     }
 }

@@ -1,14 +1,17 @@
 ﻿using Microsoft.Xna.Framework;
+using ProtoBuf;
 using WolfyECS;
 
 namespace WolfyShared.ECS
 {
-    public class InputComponent : EntityComponent
+    [ProtoContract] public class InputComponent : EntityComponent
     {
-        public bool ArrowUp { get; set; }
-        public bool ArrowDown { get; set; }
-        public bool ArrowLeft { get; set; }
-        public bool ArrowRight { get; set; }
-        public bool LeftShift { get; set; }
+        [ProtoMember(1)] public bool ArrowUp { get; set; }
+        [ProtoMember(2)] public bool ArrowDown { get; set; }
+        [ProtoMember(3)] public bool ArrowLeft { get; set; }
+        [ProtoMember(4)] public bool ArrowRight { get; set; }
+        [ProtoMember(5)] public bool LeftShift { get; set; }
+
+        public InputComponent() { }
     }
 }

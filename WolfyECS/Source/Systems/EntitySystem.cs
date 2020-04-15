@@ -5,14 +5,14 @@ using ProtoBuf;
 
 namespace WolfyECS
 {
-    [ProtoContract]
+    [ProtoContract(SkipConstructor = true)]
     public abstract class EntitySystem
     {
         // Specifies which components are important for the system
         [ProtoMember(1)] public ComponentMask Signature { get; set; }
         
         // Entities that fit the system Signature
-        [ProtoMember(2, AsReference = true)] public List<Entity> Entities { get; protected set; }
+        [ProtoMember(2, AsReference = true)] public List<Entity> Entities { get; set; }
         
         [ProtoMember(3, AsReference = true)] private World _world;
         
@@ -23,6 +23,9 @@ namespace WolfyECS
         }
 
         public virtual void Initialize()
+        { }
+
+        public virtual void DrawInitialize(GraphicsDevice graphics)
         { }
 
         public virtual void Update(GameTime gameTime)
@@ -54,12 +57,6 @@ namespace WolfyECS
         public void UnregisterEntity(Entity entity)
         {
             Entities.Remove(entity);
-        }
-
-        // TODO Obsolete method
-        public void AddEntity(Entity entity)
-        {
-            Entities.Add(entity);
         }
     }
 }

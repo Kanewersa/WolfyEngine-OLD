@@ -1,10 +1,13 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Forms;
 using DarkUI.Docking;
 using Microsoft.Xna.Framework;
 using WolfyECS;
 using WolfyEngine.Forms;
 using WolfyShared.Controllers;
+using WolfyShared.ECS;
 using WolfyShared.Engine;
 using WolfyShared.Game;
 using Color = Microsoft.Xna.Framework.Color;
@@ -35,6 +38,8 @@ namespace WolfyEngine.Controls
             _world = GameController.Instance.World;
             if(_world == null)
                 throw new Exception("World doesn't exist.");
+
+            gameControl.LoadWorld(_world);
         }
 
         public void InitializeProject()
@@ -69,7 +74,11 @@ namespace WolfyEngine.Controls
                         var layer = gameControl.GetCurrentLayer<EntityLayer>();
                         layer.Rows[(int)position.Y]
                             .Tiles[(int)position.X].Entity = newEntity;
+                        if(layer.Entities == null)
+                            layer.Entities = new List<Entity>();
                         layer.Entities.Add(newEntity);
+                        if(gameControl.CurrentMap.Entities == null)
+                            gameControl.CurrentMap.Entities = new List<Entity>();
                         gameControl.CurrentMap.Entities.Add(newEntity);
                     };
                     form.ShowDialog();
@@ -79,7 +88,7 @@ namespace WolfyEngine.Controls
             {
                 // Get entity type and open edit form
                 var entityComponents = entity.GetComponents();
-                using(var form = new EntityEditForm())
+                using (var form = new EntityEditForm())
                 {
                     form.SavedEntity = true;
                     form.Initialize(entity, entityComponents, _world);
@@ -112,9 +121,24 @@ namespace WolfyEngine.Controls
                 toolStripCoordinatesLabel.Text = "X: " + x + " | Y: " + y + " | Passage: " + pas.Value
                     + " | Equal: " + refEquals;
             }
-            else
+            else if (gameControl.CurrentLayer is EntityLayer elay)
             {
-                toolStripCoordinatesLabel.Text = "X: " + x + " | Y: " + y;
+                if (y > elay.Size.Y - 1 || x > elay.Size.X - 1 || y < 0 || x < 0) return;
+                if (elay.Rows[(int)y].Tiles[(int)x] == null) return;
+
+                var ent = elay.Rows[(int)y].Tiles[(int)x].Entity;
+
+                if(ent != null)
+                {
+                    /*var comps = ent.GetComponents();
+                    if (comps.Count > 0)
+                        foreach (var comp in comps)
+                            Console.WriteLine(comp);*/
+                }
+                if(ent != null)
+                    toolStripCoordinatesLabel.Text = "X: " + x + " | Y: " + y + " | Entity: " + ent.Name;
+                else toolStripCoordinatesLabel.Text = "X: " + x + " | Y: " + y + " | Entity: None";
+                
             }
             
         }
@@ -209,7 +233,7 @@ namespace WolfyEngine.Controls
 
         private void darkButton1_Click(object sender, EventArgs e)
         {
-            Console.WriteLine(_world.EntityCount());
+            
         }
     }
 }

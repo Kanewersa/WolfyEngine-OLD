@@ -1,9 +1,11 @@
-﻿using WolfyECS;
+﻿using ProtoBuf;
+using WolfyECS;
 
 namespace WolfyShared.ECS
 {
-    public class FixedMovementComponent : EntityComponent
+    [ProtoContract] public class FixedMovementComponent : EntityComponent
     {
+        public FixedMovementComponent() { }
         // TODO Add movement schemes
     }
 }

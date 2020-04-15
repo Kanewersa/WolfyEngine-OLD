@@ -1,12 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
 using System.Linq;
+using DarkUI.Forms;
 using WolfyECS;
 using WolfyEngine.Forms;
 using WolfyShared.Controllers;
 using WolfyShared.ECS;
 using WolfyShared.Engine;
+using Image = System.Drawing.Image;
 
 namespace WolfyEngine.Controls
 {
@@ -26,13 +29,29 @@ namespace WolfyEngine.Controls
 
             if (entity.HasComponent<AnimationComponent>())
             {
+                Console.WriteLine("Getting animation component.....");
                 _animationComponent = entity.GetComponent<AnimationComponent>();
 
-                //_graphicsPath = _animationComponent.
+                var animation = _animationComponent.Animations.First().Value;
+                // TODO Make graphics and animations usage more clear
+                _graphicsPath = animation.Image.Path;
+                if(_graphicsPath != string.Empty)
+                    if(File.Exists(_graphicsPath))
+                        GraphicsPictureBox.Image = Image.FromFile(_graphicsPath);
+                    else
+                    {
+                        DarkMessageBox.ShowWarning(
+                            "Could not find file " + _graphicsPath + ".",
+                            "File not found.");
+                    }   
+
+                FrameCountNumericUpDown.Value = animation.FrameCount;
+                DirectionsCountNumericUpDown.Value = animation.DirectionsCount;
             }
             else
             {
-                
+                FrameCountNumericUpDown.Value = 4;
+                DirectionsCountNumericUpDown.Value = 4;
             }
         }
 

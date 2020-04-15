@@ -17,6 +17,8 @@ namespace WolfyShared.Controllers
         public Dictionary<int, Map> LoadedMaps { get; set; }
         public MapsData MapsData { get; set; }
 
+        public Map LastMap { get; private set; }
+
         public MapsController()
         {
             LoadedMaps = new Dictionary<int, Map>();
@@ -48,6 +50,7 @@ namespace WolfyShared.Controllers
             MapsData.Info.Add(info.MapId, info);
             map.Id = info.MapId;
             LoadedMaps.Add(map.Id, map);
+            LastMap = map;
             SaveMap(map);
         }
 
@@ -59,6 +62,9 @@ namespace WolfyShared.Controllers
         {
             if (LoadedMaps.ContainsKey(id))
                 LoadedMaps.Remove(id);
+
+            if (LastMap.Id == id)
+                LastMap = null;
 
             MapsData.Info.Remove(id);
             MapsData.PendingIds.Enqueue(id);
@@ -82,11 +88,16 @@ namespace WolfyShared.Controllers
         /// <returns></returns>
         public Map GetMap(int id)
         {
-            if (LoadedMaps.ContainsKey(id)) return LoadedMaps[id];
+            if (LoadedMaps.ContainsKey(id))
+            {
+                LastMap = LoadedMaps[id];
+                return LastMap;
+            }
             var file= MapsData.Info[id].FileName;
             var path = Path.Combine(_mapsPath, file);
             var map = Serialization.ProtoDeserialize<Map>(path);
             LoadedMaps.Add(id, map);
+            LastMap = map;
             return map;
         }
 
@@ -101,6 +112,8 @@ namespace WolfyShared.Controllers
             }
 
             LoadedMaps.Clear();
+            if (LastMap != null)
+                LoadedMaps.Add(LastMap.Id, LastMap);
             Serialization.ProtoSerialize(MapsData, _mapsDataPath);
         }
     }

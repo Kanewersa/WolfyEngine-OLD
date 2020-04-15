@@ -8,7 +8,7 @@ namespace WolfyShared.Game
     {
         [ProtoIgnore] public bool Selected { get; set; }
         [ProtoIgnore] public uint EntityId => Entity.Id;
-        [ProtoMember(1)] public Entity Entity { get; set; }
+        [ProtoMember(1, AsReference = true)] public Entity Entity { get; set; }
 
         public EntityTile() { }
     }

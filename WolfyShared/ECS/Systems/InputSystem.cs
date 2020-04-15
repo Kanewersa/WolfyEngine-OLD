@@ -2,15 +2,18 @@
 using System.Security.Cryptography.X509Certificates;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
+using ProtoBuf;
 using WolfyECS;
 using WolfyShared.Engine;
 
 namespace WolfyShared.ECS
 {
-    public class InputSystem : EntitySystem
+    [ProtoContract] public class InputSystem : EntitySystem
     {
-        private KeyboardState _currentKeyboardState;
-        private KeyboardState _lastKeyboardState;
+        [ProtoIgnore] private KeyboardState _currentKeyboardState;
+        [ProtoIgnore] private KeyboardState _lastKeyboardState;
+
+        public InputSystem() { }
 
         public override void Initialize()
         {

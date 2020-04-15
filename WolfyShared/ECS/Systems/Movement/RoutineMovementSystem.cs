@@ -1,13 +1,15 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
+using ProtoBuf;
 using WolfyECS;
 using WolfyShared.Engine;
 using Random = WolfyShared.Engine.Random;
 
 namespace WolfyShared.ECS
 {
-    public class RoutineMovementSystem : EntitySystem
+    [ProtoContract] public class RoutineMovementSystem : EntitySystem
     {
+        public RoutineMovementSystem() { }
         public override void Initialize()
         {
             RequireComponent<RoutineMovementComponent>();

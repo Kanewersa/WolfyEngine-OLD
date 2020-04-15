@@ -31,11 +31,16 @@ namespace WolfyShared.Game
             Entities = new List<Entity>();
         }
 
-        public void Initialize(GraphicsDevice graphics)
+        public void Initialize(GraphicsDevice graphics, World world)
         {
             foreach (var layer in Layers)
             {
                 layer.Initialize(graphics);
+            }
+
+            foreach (var entity in Entities)
+            {
+                entity.Initialize(world);
             }
         }
 

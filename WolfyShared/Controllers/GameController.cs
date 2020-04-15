@@ -32,6 +32,7 @@ namespace WolfyShared.Controllers
             World = File.Exists(WorldPath)
                 ? Serialization.ProtoDeserialize<World>(WorldPath)
                 : new World();
+            World.Initialize();
         }
 
         public void Save()

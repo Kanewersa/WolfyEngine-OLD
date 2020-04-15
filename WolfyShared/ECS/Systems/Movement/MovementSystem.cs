@@ -1,11 +1,13 @@
-﻿using System.Diagnostics;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
+using ProtoBuf;
 using WolfyECS;
 
 namespace WolfyShared.ECS
 {
-    public class MovementSystem : EntitySystem
+    [ProtoContract] public class MovementSystem : EntitySystem
     {
+        public MovementSystem() { }
+
         public override void Initialize()
         {
             RequireComponent<MovementComponent>();

@@ -29,18 +29,18 @@
         private void InitializeComponent()
         {
             this.scrollablePanel = new WolfyEngine.Controls.ScrollablePanel();
-            this.darkButton1 = new DarkUI.Controls.DarkButton();
+            this.gameControl = new WolfyEngine.Controls.GameControl();
             this.darkToolStrip = new DarkUI.Controls.DarkToolStrip();
             this.PencilButton = new System.Windows.Forms.ToolStripButton();
             this.FillButton = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripCoordinatesLabel = new System.Windows.Forms.ToolStripStatusLabel();
-            this.gameControl = new WolfyEngine.Controls.GameControl();
             this.EntityContextMenu = new WolfyEngine.Controls.EntityContextMenu();
             this.newEntityToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.removeEntityToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.setStartingPointToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.darkButton1 = new DarkUI.Controls.DarkButton();
             this.scrollablePanel.SuspendLayout();
             this.darkToolStrip.SuspendLayout();
             this.EntityContextMenu.SuspendLayout();
@@ -58,15 +58,18 @@
             this.scrollablePanel.Size = new System.Drawing.Size(469, 534);
             this.scrollablePanel.TabIndex = 1;
             // 
-            // darkButton1
+            // gameControl
             // 
-            this.darkButton1.Location = new System.Drawing.Point(212, 3);
-            this.darkButton1.Name = "darkButton1";
-            this.darkButton1.Padding = new System.Windows.Forms.Padding(5);
-            this.darkButton1.Size = new System.Drawing.Size(75, 23);
-            this.darkButton1.TabIndex = 3;
-            this.darkButton1.Text = "darkButton1";
-            this.darkButton1.Click += new System.EventHandler(this.darkButton1_Click);
+            this.gameControl.CurrentMap = null;
+            this.gameControl.GraphicsProfile = Microsoft.Xna.Framework.Graphics.GraphicsProfile.HiDef;
+            this.gameControl.Location = new System.Drawing.Point(0, 24);
+            this.gameControl.Margin = new System.Windows.Forms.Padding(0);
+            this.gameControl.Name = "gameControl";
+            this.gameControl.Paused = false;
+            this.gameControl.Size = new System.Drawing.Size(195, 258);
+            this.gameControl.TabIndex = 0;
+            this.gameControl.Text = "Game control";
+            this.gameControl.Tool = WolfyEngine.Controls.GameControl.Tools.Pencil;
             // 
             // darkToolStrip
             // 
@@ -130,18 +133,6 @@
             this.toolStripCoordinatesLabel.Size = new System.Drawing.Size(74, 28);
             this.toolStripCoordinatesLabel.Text = "Coordinates:";
             // 
-            // gameControl
-            // 
-            this.gameControl.GraphicsProfile = Microsoft.Xna.Framework.Graphics.GraphicsProfile.HiDef;
-            this.gameControl.Location = new System.Drawing.Point(0, 24);
-            this.gameControl.Margin = new System.Windows.Forms.Padding(0);
-            this.gameControl.Name = "gameControl";
-            this.gameControl.Paused = false;
-            this.gameControl.Size = new System.Drawing.Size(195, 258);
-            this.gameControl.TabIndex = 0;
-            this.gameControl.Text = "Game control";
-            this.gameControl.Tool = WolfyEngine.Controls.GameControl.Tools.Pencil;
-            // 
             // EntityContextMenu
             // 
             this.EntityContextMenu.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
@@ -187,6 +178,16 @@
             this.setStartingPointToolStripMenuItem.Size = new System.Drawing.Size(164, 22);
             this.setStartingPointToolStripMenuItem.Text = "Set starting point";
             this.setStartingPointToolStripMenuItem.Click += new System.EventHandler(this.setStartingPointToolStripMenuItem_Click);
+            // 
+            // darkButton1
+            // 
+            this.darkButton1.Location = new System.Drawing.Point(394, 0);
+            this.darkButton1.Name = "darkButton1";
+            this.darkButton1.Padding = new System.Windows.Forms.Padding(5);
+            this.darkButton1.Size = new System.Drawing.Size(75, 23);
+            this.darkButton1.TabIndex = 3;
+            this.darkButton1.Text = "darkButton1";
+            this.darkButton1.Click += new System.EventHandler(this.darkButton1_Click);
             // 
             // GamePanel
             // 

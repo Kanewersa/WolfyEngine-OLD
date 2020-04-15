@@ -20,12 +20,11 @@ namespace WolfyShared.Scenes
         public Map CurrentMap { get; private set; }
 
         public Entity Player;
-        public Entity Npc;
         public InputSystem InputSystem { get; set; }
         public MovementSystem MovementSystem { get; set; }
         public CollisionSystem CollisionSystem { get; set; }
         public AnimationSystem AnimationSystem { get; set; }
-        public RoutineMovementSystem RoutineMovementSystem { get; set; }
+        public RandomMovementSystem RandomMovementSystem { get; set; }
         
         public World CurrentWorld { get; set; }
 
@@ -35,7 +34,7 @@ namespace WolfyShared.Scenes
             MovementSystem = new MovementSystem();
             CollisionSystem = new CollisionSystem();
             AnimationSystem = new AnimationSystem();
-            RoutineMovementSystem = new RoutineMovementSystem();
+            RandomMovementSystem = new RandomMovementSystem();
 
             CurrentWorld = world;
         }
@@ -54,18 +53,16 @@ namespace WolfyShared.Scenes
             Console.WriteLine("Starting map: " + mapId);
             CurrentMap = MapsController.Instance.GetMap(mapId);
             Console.WriteLine("Name: " + CurrentMap.Name);
-            CurrentMap.Initialize(graphics);
+
+            Console.WriteLine("Entities count: " + CurrentMap.Entities.Count);
+            CurrentMap.Initialize(graphics, CurrentWorld);
 
             Camera.SetMapBoundaries(new Vector2(
                 CurrentMap.Size.X * CurrentMap.TileSize.X,
                 CurrentMap.Size.Y * CurrentMap.TileSize.Y));
 
-            var movementAnimation = new Dictionary<string, Animation>()
-            {
-                { "Walk", new Animation("001-Fighter01.png", 4, 4) }
-            };
-
-            var npcMovementAnimation = new Dictionary<string, Animation>()
+            //###################################################################
+            var movementAnimation = new Dictionary<string, Animation>
             {
                 { "Walk", new Animation("001-Fighter01.png", 4, 4) }
             };
@@ -74,11 +71,7 @@ namespace WolfyShared.Scenes
             {
                 pair.Value.Image.Initialize(graphics);
             }
-
-            foreach (var pair in npcMovementAnimation)
-            {
-                pair.Value.Image.Initialize(graphics);
-            }
+            //###################################################################
 
             var coordinates = GameController.Instance.Settings.StartingCoordinates;
 
@@ -90,9 +83,24 @@ namespace WolfyShared.Scenes
             CurrentWorld.AddSystem(CollisionSystem);
             CurrentWorld.AddSystem(MovementSystem);
             CurrentWorld.AddSystem(AnimationSystem);
-            CurrentWorld.AddSystem(RoutineMovementSystem);
+            CurrentWorld.AddSystem(RandomMovementSystem);
             
             CurrentWorld.Initialize();
+
+            foreach (var entity in CurrentMap.Entities)
+            {
+                if(entity.HasComponent<CollisionComponent>())
+                    CollisionSystem.RegisterEntity(entity);
+                if (entity.HasComponent<MovementComponent>())
+                    MovementSystem.RegisterEntity(entity);
+                if (entity.HasComponent<AnimationComponent>())
+                    AnimationSystem.RegisterEntity(entity);
+                if (entity.HasComponent<RandomMovementComponent>())
+                    RandomMovementSystem.RegisterEntity(entity);
+            }
+
+            // TODO Image initialization should be moved to separate class/manager
+            AnimationSystem.DrawInitialize(graphics);
 
             // Should be called after systems are added and initialized
             Player = CurrentWorld.CreateEntity("Player");
@@ -114,35 +122,6 @@ namespace WolfyShared.Scenes
             animation.Animations = movementAnimation;
             animation.AnimationManager =
                 new AnimationManager(animation.Animations.First().Value, CurrentMap.TileSize.X);
-            
-            // Create Npc
-            Npc = CurrentWorld.CreateEntity("NPC");
-
-            Npc.AddComponent<CollisionComponent>();
-            Npc.AddComponent<MovementComponent>();
-            Npc.AddComponent<AnimationComponent>();
-            Npc.AddComponent<RoutineMovementComponent>();
-
-            movement = Npc.GetComponent<MovementComponent>();
-            animation = Npc.GetComponent<AnimationComponent>();
-            var routine = Npc.GetComponent<RoutineMovementComponent>();
-
-            movement.Speed = 60;
-            movement.GridPosition = new Vector2(0,0);
-            movement.Direction = new Vector2(0, 0);
-            movement.Transform = movement.GridPosition * CurrentMap.TileSize.X;
-
-            animation.Position = movement.Transform;
-            animation.StartPosition = movement.Transform;
-            animation.EndPosition = movement.Transform;
-            animation.Animations = npcMovementAnimation;
-            animation.AnimationManager =
-                new AnimationManager(animation.Animations.First().Value, CurrentMap.TileSize.X);
-
-            movement.Frequency = 1;
-            routine.Timer = movement.Frequency;
-
-            //
         }
 
         public override void Draw(SpriteBatch spriteBatch, GameTime gameTime)
@@ -178,7 +157,7 @@ namespace WolfyShared.Scenes
 
             if (Paused) return;
 
-            RoutineMovementSystem.Update(gameTime);
+            RandomMovementSystem.Update(gameTime);
             InputSystem.Update(gameTime);
             CollisionSystem.Update(gameTime);
             MovementSystem.Update(gameTime);

@@ -115,6 +115,18 @@ namespace WolfyEngine.Forms
         {
             switch (component)
             {
+                case EntityComponent<MovementComponent> gc1:
+                    var gpanel = new MovementComponentPanel();
+                    gpanel.Initialize(entity);
+                    return gpanel;
+                case EntityComponent<CollisionComponent> gc2:
+                    var gpanel2 = new CollisionComponentPanel();
+                    gpanel2.Initialize(entity);
+                    return gpanel2;
+                case EntityComponent<AnimationComponent> gc3:
+                    var gpanel3 = new AnimationComponentPanel();
+                    gpanel3.Initialize(entity);
+                    return gpanel3;
                 case MovementComponent c1:
                     var panel = new MovementComponentPanel();
                     panel.Initialize(entity);
@@ -198,12 +210,7 @@ namespace WolfyEngine.Forms
 
         private void DebugButton_Click(object sender, EventArgs e)
         {
-            var comps = Entity.GetComponents();
 
-            foreach (var comp in comps)
-            {
-                Console.WriteLine(comp);
-            }
         }
     }
 }

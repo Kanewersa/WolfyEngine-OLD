@@ -1,24 +1,27 @@
 ﻿using System.Collections.Generic;
+using System.Drawing;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using ProtoBuf;
 using WolfyECS;
 using WolfyShared.Engine;
+using Image = WolfyShared.Engine.Image;
+using Rectangle = Microsoft.Xna.Framework.Rectangle;
 
 namespace WolfyShared.ECS
 {
-    public class AnimationComponent : EntityComponent
+    [ProtoContract] public class AnimationComponent : EntityComponent
     {
-        private Vector2 _position;
+        [ProtoMember(1)] private Vector2 _position;
 
-        public Vector2 StartPosition { get; set; }
-        public Vector2 EndPosition { get; set; }
-        public Vector2 PositionOffset { get; set; }
-        public AnimationManager AnimationManager { get; set; }
-        public Dictionary<string, Animation> Animations { get; set; }
-        public Image Image { get; set; }
-        public Texture2D Texture => Image.Texture;
+        [ProtoMember(2)] public Vector2 StartPosition { get; set; }
+        [ProtoMember(3)] public Vector2 EndPosition { get; set; }
+        //[ProtoMember(4)] public Vector2 PositionOffset { get; set; }
+        [ProtoMember(5)] public AnimationManager AnimationManager { get; set; }
+        [ProtoMember(6)] public Dictionary<string, Animation> Animations { get; set; }
+        [ProtoMember(7)] public Image Image { get; set; }
+        [ProtoIgnore] public Texture2D Texture => Image.Texture;
 
-        public Vector2 Velocity;
         public virtual Rectangle Bounds =>
             new Rectangle(0, 0, Animations["Walk"].FrameWidth, Animations["Walk"].FrameHeight);
 
@@ -33,5 +36,7 @@ namespace WolfyShared.ECS
                     AnimationManager.Position = _position;
             }
         }
+
+        public AnimationComponent() { }
     }
 }

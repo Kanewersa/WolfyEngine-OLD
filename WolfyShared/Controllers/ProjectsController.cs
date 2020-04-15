@@ -42,11 +42,6 @@ namespace WolfyShared.Controllers
             CurrentProject = project;
         }
 
-        public void Save(Project project)
-        {
-            project.Save();
-        }
-
         public void OpenProject(string path)
         {
             // Try to deserialize project from file

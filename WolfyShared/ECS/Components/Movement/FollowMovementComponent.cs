@@ -1,10 +1,13 @@
-﻿using WolfyECS;
+﻿using ProtoBuf;
+using WolfyECS;
 
 namespace WolfyShared.ECS
 {
-    public class FollowMovementComponent : EntityComponent
+    [ProtoContract] public class FollowMovementComponent : EntityComponent
     {
-        public int Range { get; set; }
-        public float Timer { get; set; }
+        [ProtoMember(1)] public int Range { get; set; }
+        [ProtoMember(2)] public float Timer { get; set; }
+
+        public FollowMovementComponent() { }
     }
 }

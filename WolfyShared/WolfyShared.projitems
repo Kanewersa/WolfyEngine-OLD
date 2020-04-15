@@ -19,19 +19,18 @@
     <Compile Include="$(MSBuildThisFileDirectory)ECS\Components\CollisionComponent.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ECS\Components\Movement\FixedMovementComponent.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ECS\Components\Movement\FollowMovementComponent.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)ECS\Components\GridPositionComponent.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ECS\Components\InputComponent.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ECS\Components\Movement\MovementComponent.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ECS\Components\Movement\RandomMovementComponent.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ECS\Components\Movement\RoutineMovementComponent.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)ECS\Components\TransformComponent.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ECS\Systems\Movement\RandomMovementSystem.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Engine\Serialization\ReflectiveEnumerator.cs" />
     <Folder Include="$(MSBuildThisFileDirectory)ECS\Entities" />
     <Compile Include="$(MSBuildThisFileDirectory)ECS\Systems\AnimationSystem.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ECS\Systems\CollisionSystem.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ECS\Systems\InputSystem.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)ECS\Systems\MovementSystem.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)ECS\Systems\RoutineMovementSystem.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ECS\Systems\Movement\MovementSystem.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ECS\Systems\Movement\RoutineMovementSystem.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Engine\Animations\Animation.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Engine\Animations\AnimationManager.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Engine\Collections\Bag.cs" />
@@ -71,6 +70,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Scenes\GameScene.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Scenes\MenuScene.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)StaticPaths.cs" />
+    <Folder Include="$(MSBuildThisFileDirectory)ECS\Systems\Movement\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="$(MSBuildThisFileDirectory)Content\" />

@@ -218,6 +218,12 @@ namespace WolfyEngine.Controls
             if(_mouseOnScreen && CurrentLayer is TileLayer)
                 _selector.Draw(Editor.spriteBatch);
 
+            if (CurrentMap == null)
+            {
+                Editor.spriteBatch.End();
+                return;
+            }
+
             if (CurrentLayer is EntityLayer)
             {
                 for (var y = 0; y < CurrentLayer.Size.Y; y++)
@@ -269,7 +275,7 @@ namespace WolfyEngine.Controls
             Width = map.Size.X * map.TileSize.X;
             Height = map.Size.Y * map.TileSize.Y;
 
-            map?.Initialize(Editor.graphics);
+            map?.Initialize(Editor.graphics, _world);
 
             if(map.Layers.Any())
                 CurrentLayer = map.Layers[0];

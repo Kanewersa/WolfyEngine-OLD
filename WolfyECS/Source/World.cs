@@ -7,25 +7,36 @@ using ProtoBuf;
 
 namespace WolfyECS
 {
-    [ProtoContract(AsReferenceDefault = true)] public class World
+    [ProtoContract(AsReferenceDefault = true)]
+    public class World
     {
         [ProtoMember(1)] private EntityManager _entityManager;
         [ProtoMember(2)] private List<EntitySystem> _systems;
-        [ProtoMember(3)] private ComponentManager[] _componentManagers;
-        [ProtoMember(4)] private Dictionary<Entity, ComponentMask> _entityMasks;
+
+        [ProtoMember(3)]
+        public ComponentManager[] _componentManagers;
+
+        [ProtoMap(DisableMap = true)]
+        [ProtoMember(4)] private Dictionary<uint, ComponentMask> _entityMasks;
+
+        private const int ComponentsLimit = 64;
 
         public World()
         {
             _entityManager = new EntityManager(this);
-            _systems = new List<EntitySystem>(64);
-            _componentManagers = new ComponentManager[64];
-            _entityMasks = new Dictionary<Entity, ComponentMask>();
+            _systems = new List<EntitySystem>();
+            _componentManagers = new ComponentManager[ComponentsLimit];
+            _entityMasks = new Dictionary<uint, ComponentMask>();
         }
-        
+
+        /// <summary>
+        /// Initializes all systems.
+        /// </summary>
         public void Initialize()
         {
             foreach(var system in _systems)
                 system.Initialize();
+            _entityManager.Initialize(this);
         }
 
         public void Update(GameTime gameTime)
@@ -41,7 +52,7 @@ namespace WolfyECS
         public Entity CreateEntity(string name = null)
         {
             var entity = _entityManager.CreateEntity(name);
-            _entityMasks.Add(entity, new ComponentMask(0));
+            _entityMasks.Add(entity.Id, new ComponentMask(0));
             return entity;
         }
 
@@ -59,7 +70,7 @@ namespace WolfyECS
                 system.UnregisterEntity(entity);
             foreach (var componentManager in _componentManagers)
                 componentManager?.DestroyComponent(entity);
-            _entityMasks.Remove(entity);
+            _entityMasks.Remove(entity.Id);
         }
 
         #endregion
@@ -72,7 +83,7 @@ namespace WolfyECS
 
         public void UpdateEntityMask(Entity e, ComponentMask oldMask)
         {
-            var newMask = _entityMasks[e];
+            var newMask = _entityMasks[e.Id];
 
             foreach (var system in _systems)
             {
@@ -95,8 +106,8 @@ namespace WolfyECS
             manager.AddComponent(e, component);
             
             // Check if systems are interested in component
-            var oldMask = _entityMasks[e];
-            _entityMasks[e] = _entityMasks[e].AddComponent<T>();
+            var oldMask = _entityMasks[e.Id];
+            _entityMasks[e.Id] = _entityMasks[e.Id].AddComponent<T>();
             UpdateEntityMask(e, oldMask);
             return component;
         }
@@ -107,8 +118,8 @@ namespace WolfyECS
             manager.AddComponent(e, component);
 
             // Check if systems are interested in component
-            var oldMask = _entityMasks[e];
-            _entityMasks[e] = _entityMasks[e].AddComponent<T>();
+            var oldMask = _entityMasks[e.Id];
+            _entityMasks[e.Id] = _entityMasks[e.Id].AddComponent<T>();
             UpdateEntityMask(e, oldMask);
         }
 
@@ -126,10 +137,11 @@ namespace WolfyECS
 
         public List<EntityComponent> GetComponents(Entity e)
         {
-            return (from manager
+            var list = (from manager
                     in _componentManagers
-                    where manager != null && manager.HasComponent(e)
-                    select manager.GetComponent(e)).ToList();
+                where manager != null && manager.HasComponent(e)
+                select manager.GetComponent(e)).ToList();
+            return list;
         }
 
         public void RemoveComponent<T>(Entity e) where T : EntityComponent
@@ -138,8 +150,8 @@ namespace WolfyECS
             manager.DestroyComponent(e);
             
             // Check if systems are interested in components
-            var oldMask = _entityMasks[e];
-            _entityMasks[e] = _entityMasks[e].RemoveComponent<T>();
+            var oldMask = _entityMasks[e.Id];
+            _entityMasks[e.Id] = _entityMasks[e.Id].RemoveComponent<T>();
             UpdateEntityMask(e, oldMask);
         }
 
@@ -148,10 +160,11 @@ namespace WolfyECS
         private ComponentManager GetComponentManager<T>() where T : EntityComponent
         {
             var family = Family.GetComponentFamily<T>();
-
             if (family > _componentManagers.Length)
-                Array.Resize(ref _componentManagers, family + 16);
-            
+                Array.Resize(ref _componentManagers, family + ComponentsLimit);
+                
+            Console.WriteLine("requested type: " + typeof(T));
+            Console.WriteLine("has family: " + family);
             if (_componentManagers.ElementAtOrDefault(family) == null)
             {
                 var manager = new ComponentManager();
@@ -160,6 +173,28 @@ namespace WolfyECS
             }
 
             return _componentManagers[family];
+        }
+
+        [ProtoBeforeDeserialization]
+        private void FillMissingComponent()
+        {
+            _componentManagers = new ComponentManager[1];
+            _componentManagers[0] = new ComponentManager();
+        }
+
+        [ProtoAfterDeserialization]
+        private void FillComponentsArray()
+        {
+            if (_componentManagers.Length < ComponentsLimit)
+            {
+                Array.Resize(ref _componentManagers, ComponentsLimit);
+            }
+        }
+
+        [ProtoBeforeSerialization]
+        private void RemoveRedundantComponent()
+        {
+            _componentManagers[0] = null;
         }
     }
 }
