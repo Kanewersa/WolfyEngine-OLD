@@ -14,7 +14,7 @@ namespace WolfyECS
         [ProtoMember(2)] private List<EntitySystem> _systems;
 
         [ProtoMember(3)]
-        public ComponentManager[] _componentManagers;
+        private ComponentManager[] _componentManagers;
 
         [ProtoMap(DisableMap = true)]
         [ProtoMember(4)] private Dictionary<uint, ComponentMask> _entityMasks;
@@ -34,6 +34,18 @@ namespace WolfyECS
         /// </summary>
         public void Initialize()
         {
+            for (int i = 0; i < ComponentsLimit; i++)
+            {
+                if (_componentManagers[i] == null) continue;
+                var type = _componentManagers[i].ComponentType;
+                if (type == null) continue;
+                var genericType = typeof(EntityComponent<>).MakeGenericType(type);
+                dynamic instance = Activator.CreateInstance(genericType);
+                var method = instance.GetType().GetMethod("Family");
+                var id = method.Invoke(null, new object[] { });
+                Console.WriteLine(type.Name + " has id " + id);
+            }
+
             foreach(var system in _systems)
                 system.Initialize();
             _entityManager.Initialize(this);
@@ -162,12 +174,10 @@ namespace WolfyECS
             var family = Family.GetComponentFamily<T>();
             if (family > _componentManagers.Length)
                 Array.Resize(ref _componentManagers, family + ComponentsLimit);
-                
-            Console.WriteLine("requested type: " + typeof(T));
-            Console.WriteLine("has family: " + family);
+            
             if (_componentManagers.ElementAtOrDefault(family) == null)
             {
-                var manager = new ComponentManager();
+                var manager = new ComponentManager(typeof(T));
                 _componentManagers[family] = manager;
                 return manager;
             }

@@ -3,7 +3,7 @@ using WolfyECS;
 
 namespace WolfyEngine.Controls
 {
-    public partial class ComponentPanel : DarkToolWindow
+    public partial class ComponentPanel : DarkDockContent
     {
         protected Entity Entity { get; set; }
         public ComponentPanel()

@@ -36,7 +36,7 @@
             this.IsColliderCheckBox.AutoSize = true;
             this.IsColliderCheckBox.Checked = true;
             this.IsColliderCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.IsColliderCheckBox.Location = new System.Drawing.Point(14, 39);
+            this.IsColliderCheckBox.Location = new System.Drawing.Point(13, 15);
             this.IsColliderCheckBox.Name = "IsColliderCheckBox";
             this.IsColliderCheckBox.Size = new System.Drawing.Size(76, 17);
             this.IsColliderCheckBox.TabIndex = 0;
@@ -47,7 +47,6 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.IsColliderCheckBox);
-            this.DefaultDockArea = DarkUI.Docking.DarkDockArea.Document;
             this.DockText = "Collision";
             this.Name = "CollisionComponentPanel";
             this.ResumeLayout(false);

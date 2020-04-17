@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Windows.Forms;
+using WolfyECS;
 using WolfyEngine.Engine;
 using WolfyEngine.Forms;
 using WolfyShared;
@@ -21,8 +22,8 @@ namespace WolfyEngine
                 Runtime.ProgramSettings.Save();
             }
 
-            // Initialize protobuf
-            Serialization.ProtoInitialize();
+            // Initialize WolfyEngine
+            WolfyManager.WolfyInitialize();
 
             //Save program settings on application close
             AppDomain.CurrentDomain.ProcessExit += SaveProgramSettings;

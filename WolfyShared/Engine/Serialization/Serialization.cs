@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Xml.Serialization;
 using Newtonsoft.Json;
@@ -152,10 +151,10 @@ namespace WolfyEngine.Engine
         /// <summary>
         /// Initializes all the subtypes for protobuf and allows serialization
         /// </summary>
-        public static void ProtoInitialize()
+        public static void ProtoInitialize(List<Type> types)
         {
             // Load entity component subtypes
-            var types = ReflectiveEnumerator.GetSubTypes<EntityComponent>();
+            //var types = ReflectiveEnumerator.GetSubTypes<EntityComponent>();
             foreach (var type in types)
             {
                 RuntimeTypeModel.Default[typeof(EntityComponent)]
@@ -174,9 +173,11 @@ namespace WolfyEngine.Engine
             }
 
             // Load <Entity, int> dictionary
-            var typ = RuntimeTypeModel.Default.Add(typeof(KeyValuePair<Entity, int>), false);
+            /*var typ = RuntimeTypeModel.Default.Add(typeof(KeyValuePair<Entity, int>), false);
             typ.Add(11, "key").AsReferenceDefault = true;
-            typ.AddField(12, "value");
+            typ.AddField(12, "value");*/
         }
+
+
     }
 }

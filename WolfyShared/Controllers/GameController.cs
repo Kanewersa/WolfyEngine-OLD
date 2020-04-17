@@ -1,7 +1,9 @@
 ﻿using System;
 using System.IO;
 using WolfyECS;
+using WolfyEngine;
 using WolfyEngine.Engine;
+using WolfyShared.Engine;
 using WolfyShared.Game;
 
 namespace WolfyShared.Controllers
@@ -32,7 +34,10 @@ namespace WolfyShared.Controllers
             World = File.Exists(WorldPath)
                 ? Serialization.ProtoDeserialize<World>(WorldPath)
                 : new World();
+            MeasureTime.Start("Initializing world took:");
             World.Initialize();
+            WolfyManager.InitializeFamilies();
+            MeasureTime.Stop();
         }
 
         public void Save()

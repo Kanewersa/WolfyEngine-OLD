@@ -5,6 +5,7 @@ using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using WolfyECS;
+using WolfyEngine;
 using WolfyShared.Controllers;
 using WolfyShared.ECS;
 using WolfyShared.Engine;
@@ -86,6 +87,8 @@ namespace WolfyShared.Scenes
             CurrentWorld.AddSystem(RandomMovementSystem);
             
             CurrentWorld.Initialize();
+
+            WolfyManager.InitializeFamilies();
 
             foreach (var entity in CurrentMap.Entities)
             {

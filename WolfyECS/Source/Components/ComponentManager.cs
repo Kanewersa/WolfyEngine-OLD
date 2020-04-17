@@ -19,7 +19,16 @@ namespace WolfyECS
         set => _components = value;
     }
 
+    [ProtoMember(4)] public Type ComponentType { get; set; }
+
     private const int MaxComponents = 1024;
+
+    public ComponentManager(Type type)
+    {
+        ComponentType = type;
+        EntityMap = new Dictionary<uint, int>();
+        Components = new EntityComponent[MaxComponents];
+    }
 
     public ComponentManager()
     {

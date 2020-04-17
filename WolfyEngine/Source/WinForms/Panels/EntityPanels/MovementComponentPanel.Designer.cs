@@ -52,7 +52,7 @@ namespace WolfyEngine.Controls
             WolfyShared.Engine.MovementType.Fixed,
             WolfyShared.Engine.MovementType.Random,
             WolfyShared.Engine.MovementType.Follow});
-            this.MovementTypeBox.Location = new System.Drawing.Point(11, 57);
+            this.MovementTypeBox.Location = new System.Drawing.Point(11, 31);
             this.MovementTypeBox.Name = "MovementTypeBox";
             this.MovementTypeBox.Size = new System.Drawing.Size(84, 21);
             this.MovementTypeBox.TabIndex = 0;
@@ -62,7 +62,7 @@ namespace WolfyEngine.Controls
             // 
             this.MovementTypeLabel.AutoSize = true;
             this.MovementTypeLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
-            this.MovementTypeLabel.Location = new System.Drawing.Point(11, 38);
+            this.MovementTypeLabel.Location = new System.Drawing.Point(11, 12);
             this.MovementTypeLabel.Name = "MovementTypeLabel";
             this.MovementTypeLabel.Size = new System.Drawing.Size(87, 13);
             this.MovementTypeLabel.TabIndex = 1;
@@ -72,7 +72,7 @@ namespace WolfyEngine.Controls
             // 
             this.FrequencyLabel.AutoSize = true;
             this.FrequencyLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
-            this.FrequencyLabel.Location = new System.Drawing.Point(11, 92);
+            this.FrequencyLabel.Location = new System.Drawing.Point(11, 66);
             this.FrequencyLabel.Name = "FrequencyLabel";
             this.FrequencyLabel.Size = new System.Drawing.Size(57, 13);
             this.FrequencyLabel.TabIndex = 2;
@@ -80,7 +80,7 @@ namespace WolfyEngine.Controls
             // 
             // FrequencyNumericUpDown
             // 
-            this.FrequencyNumericUpDown.Location = new System.Drawing.Point(14, 109);
+            this.FrequencyNumericUpDown.Location = new System.Drawing.Point(14, 83);
             this.FrequencyNumericUpDown.Maximum = new decimal(new int[] {
             8,
             0,
@@ -94,7 +94,7 @@ namespace WolfyEngine.Controls
             // 
             this.SpeedLabel.AutoSize = true;
             this.SpeedLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
-            this.SpeedLabel.Location = new System.Drawing.Point(11, 148);
+            this.SpeedLabel.Location = new System.Drawing.Point(11, 122);
             this.SpeedLabel.Name = "SpeedLabel";
             this.SpeedLabel.Size = new System.Drawing.Size(38, 13);
             this.SpeedLabel.TabIndex = 4;
@@ -102,7 +102,7 @@ namespace WolfyEngine.Controls
             // 
             // SpeedNumericUpDown
             // 
-            this.SpeedNumericUpDown.Location = new System.Drawing.Point(14, 165);
+            this.SpeedNumericUpDown.Location = new System.Drawing.Point(14, 139);
             this.SpeedNumericUpDown.Maximum = new decimal(new int[] {
             8,
             0,
@@ -114,7 +114,7 @@ namespace WolfyEngine.Controls
             // 
             // FollowRangeNumericUpDown
             // 
-            this.FollowRangeNumericUpDown.Location = new System.Drawing.Point(14, 223);
+            this.FollowRangeNumericUpDown.Location = new System.Drawing.Point(14, 197);
             this.FollowRangeNumericUpDown.Maximum = new decimal(new int[] {
             30,
             0,
@@ -133,7 +133,7 @@ namespace WolfyEngine.Controls
             // 
             this.FollowRangeLabel.AutoSize = true;
             this.FollowRangeLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
-            this.FollowRangeLabel.Location = new System.Drawing.Point(11, 206);
+            this.FollowRangeLabel.Location = new System.Drawing.Point(11, 180);
             this.FollowRangeLabel.Name = "FollowRangeLabel";
             this.FollowRangeLabel.Size = new System.Drawing.Size(67, 13);
             this.FollowRangeLabel.TabIndex = 6;

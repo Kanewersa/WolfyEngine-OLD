@@ -32,17 +32,17 @@
             this.GraphicsPictureBox = new System.Windows.Forms.PictureBox();
             this.darkSectionPanel1 = new DarkUI.Controls.DarkSectionPanel();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.DirectionsCountNumericUpDown = new DarkUI.Controls.DarkNumericUpDown();
+            this.darkTitle1 = new DarkUI.Controls.DarkTitle();
             this.FrameCountTitle = new DarkUI.Controls.DarkTitle();
             this.FrameCountNumericUpDown = new DarkUI.Controls.DarkNumericUpDown();
-            this.darkTitle1 = new DarkUI.Controls.DarkTitle();
-            this.DirectionsCountNumericUpDown = new DarkUI.Controls.DarkNumericUpDown();
             this.SelectGraphicsButton = new DarkUI.Controls.DarkButton();
             this.GraphicsSection.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.GraphicsPictureBox)).BeginInit();
             this.darkSectionPanel1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.FrameCountNumericUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.DirectionsCountNumericUpDown)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.FrameCountNumericUpDown)).BeginInit();
             this.SuspendLayout();
             // 
             // GraphicsSection
@@ -50,10 +50,10 @@
             this.GraphicsSection.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
             this.GraphicsSection.Controls.Add(this.GraphicsPictureBox);
-            this.GraphicsSection.Location = new System.Drawing.Point(3, 28);
+            this.GraphicsSection.Location = new System.Drawing.Point(3, 3);
             this.GraphicsSection.Name = "GraphicsSection";
             this.GraphicsSection.SectionHeader = "Graphics";
-            this.GraphicsSection.Size = new System.Drawing.Size(216, 407);
+            this.GraphicsSection.Size = new System.Drawing.Size(216, 432);
             this.GraphicsSection.TabIndex = 0;
             // 
             // GraphicsPictureBox
@@ -61,7 +61,7 @@
             this.GraphicsPictureBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.GraphicsPictureBox.Location = new System.Drawing.Point(1, 25);
             this.GraphicsPictureBox.Name = "GraphicsPictureBox";
-            this.GraphicsPictureBox.Size = new System.Drawing.Size(214, 381);
+            this.GraphicsPictureBox.Size = new System.Drawing.Size(214, 406);
             this.GraphicsPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
             this.GraphicsPictureBox.TabIndex = 0;
             this.GraphicsPictureBox.TabStop = false;
@@ -72,7 +72,7 @@
             this.darkSectionPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.darkSectionPanel1.Controls.Add(this.tableLayoutPanel1);
-            this.darkSectionPanel1.Location = new System.Drawing.Point(225, 28);
+            this.darkSectionPanel1.Location = new System.Drawing.Point(225, 3);
             this.darkSectionPanel1.Name = "darkSectionPanel1";
             this.darkSectionPanel1.SectionHeader = "Graphics settings";
             this.darkSectionPanel1.Size = new System.Drawing.Size(353, 248);
@@ -99,6 +99,35 @@
             this.tableLayoutPanel1.Size = new System.Drawing.Size(351, 222);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
+            // DirectionsCountNumericUpDown
+            // 
+            this.DirectionsCountNumericUpDown.Location = new System.Drawing.Point(4, 80);
+            this.DirectionsCountNumericUpDown.Margin = new System.Windows.Forms.Padding(4, 2, 7, 6);
+            this.DirectionsCountNumericUpDown.Maximum = new decimal(new int[] {
+            12,
+            0,
+            0,
+            0});
+            this.DirectionsCountNumericUpDown.Name = "DirectionsCountNumericUpDown";
+            this.DirectionsCountNumericUpDown.Size = new System.Drawing.Size(102, 20);
+            this.DirectionsCountNumericUpDown.TabIndex = 4;
+            this.DirectionsCountNumericUpDown.Value = new decimal(new int[] {
+            4,
+            0,
+            0,
+            0});
+            // 
+            // darkTitle1
+            // 
+            this.darkTitle1.AutoSize = true;
+            this.darkTitle1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.darkTitle1.Location = new System.Drawing.Point(10, 63);
+            this.darkTitle1.Margin = new System.Windows.Forms.Padding(10, 10, 10, 2);
+            this.darkTitle1.Name = "darkTitle1";
+            this.darkTitle1.Size = new System.Drawing.Size(331, 13);
+            this.darkTitle1.TabIndex = 3;
+            this.darkTitle1.Text = "Directions count";
+            // 
             // FrameCountTitle
             // 
             this.FrameCountTitle.AutoSize = true;
@@ -123,35 +152,6 @@
             this.FrameCountNumericUpDown.Size = new System.Drawing.Size(102, 20);
             this.FrameCountNumericUpDown.TabIndex = 2;
             this.FrameCountNumericUpDown.Value = new decimal(new int[] {
-            4,
-            0,
-            0,
-            0});
-            // 
-            // darkTitle1
-            // 
-            this.darkTitle1.AutoSize = true;
-            this.darkTitle1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.darkTitle1.Location = new System.Drawing.Point(10, 63);
-            this.darkTitle1.Margin = new System.Windows.Forms.Padding(10, 10, 10, 2);
-            this.darkTitle1.Name = "darkTitle1";
-            this.darkTitle1.Size = new System.Drawing.Size(331, 13);
-            this.darkTitle1.TabIndex = 3;
-            this.darkTitle1.Text = "Directions count";
-            // 
-            // DirectionsCountNumericUpDown
-            // 
-            this.DirectionsCountNumericUpDown.Location = new System.Drawing.Point(4, 80);
-            this.DirectionsCountNumericUpDown.Margin = new System.Windows.Forms.Padding(4, 2, 7, 6);
-            this.DirectionsCountNumericUpDown.Maximum = new decimal(new int[] {
-            12,
-            0,
-            0,
-            0});
-            this.DirectionsCountNumericUpDown.Name = "DirectionsCountNumericUpDown";
-            this.DirectionsCountNumericUpDown.Size = new System.Drawing.Size(102, 20);
-            this.DirectionsCountNumericUpDown.TabIndex = 4;
-            this.DirectionsCountNumericUpDown.Value = new decimal(new int[] {
             4,
             0,
             0,
@@ -183,8 +183,8 @@
             this.darkSectionPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.FrameCountNumericUpDown)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.DirectionsCountNumericUpDown)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.FrameCountNumericUpDown)).EndInit();
             this.ResumeLayout(false);
 
         }

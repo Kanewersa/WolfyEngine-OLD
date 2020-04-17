@@ -1,4 +1,5 @@
-﻿using ProtoBuf;
+﻿using System;
+using ProtoBuf;
 using ProtoBuf.Meta;
 
 namespace WolfyECS
@@ -8,7 +9,7 @@ namespace WolfyECS
         public static int Counter = 1;
     }
     
-    [ProtoContract] public class EntityComponent<T> : EntityComponent where T : EntityComponent
+    [ProtoContract] public class EntityComponent<T> : EntityComponent
     {
         [ProtoIgnore] private static int _familyId = 0;
         public static int Family()
@@ -18,9 +19,17 @@ namespace WolfyECS
             return _familyId;
         }
 
+        public static void SetFamily(int family)
+        {
+            if(_familyId != 0) throw new Exception("Family was already assigned.");
+            _familyId = family;
+        }
+
         public virtual void Update()
         { }
     }
-    [ProtoContract] public class EntityComponent
+
+    [ProtoContract]
+    public class EntityComponent
     { }
 }

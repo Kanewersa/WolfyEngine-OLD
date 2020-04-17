@@ -7,7 +7,7 @@
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
-        public static int GetComponentFamily<T>() where T : EntityComponent
+        public static int GetComponentFamily<T>()
         {
             return EntityComponent<T>.Family();
         }
