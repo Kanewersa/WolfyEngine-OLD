@@ -1,5 +1,4 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using WolfyECS;
 using WolfyEngine;
 using WolfyEngine.Engine;
@@ -19,9 +18,7 @@ namespace WolfyShared.Controllers
         private string WorldPath => PathsController.Instance.WorldPath;
 
         public GameController()
-        {
-            
-        }
+        { }
 
         /// <summary>
         /// Loads the game world and settings for current project

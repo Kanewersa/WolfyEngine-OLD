@@ -1,7 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using WolfyECS;
-using WolfyShared.ECS;
 
 namespace WolfyShared.Scenes
 {

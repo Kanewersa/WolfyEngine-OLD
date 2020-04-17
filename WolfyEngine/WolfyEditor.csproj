@@ -101,8 +101,6 @@
       <DependentUpon>Icons.resx</DependentUpon>
     </Compile>
     <Compile Include="Source\ComponentType.cs" />
-    <Compile Include="Source\Game\EntityScheme.cs" />
-    <Compile Include="Source\Game\SchemeManager.cs" />
     <Compile Include="Source\WinForms\Controls\EntityContextMenu.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -383,6 +381,7 @@
   <ItemGroup>
     <Folder Include="Assets\Icons\" />
     <Folder Include="Assets\Tilesets\" />
+    <Folder Include="Source\Game\" />
     <Folder Include="Source\Program\Globals\" />
   </ItemGroup>
   <ItemGroup>

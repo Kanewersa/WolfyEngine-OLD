@@ -73,17 +73,6 @@ namespace WolfyShared.ECS
                 var lay = (EntityLayer) CurrentMap.Layers.First(x => x is EntityLayer);
                 if (lay.Rows[(int)position.Y].Tiles[(int)position.X].Entity != null)
                     movement.IsMoving = false;
-
-                /*foreach(var collisionEntity in Entities)
-                {
-                    if (entity == collisionEntity) continue;
-                    var comp = collisionEntity.GetComponent<MovementComponent>();
-                    if(position == comp.GridPosition)
-                    {
-                        movement.IsMoving = false;
-                        break;
-                    }
-                }*/
             }
         }
     }

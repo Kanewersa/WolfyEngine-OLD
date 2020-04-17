@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ProtoBuf;
@@ -152,31 +151,6 @@ namespace WolfyShared.Game
                     var newSource = new Vector2D((int)mapIndex.X, (int)mapIndex.Y);
                     Rows[i].Tiles[j] = Tileset.Rows[(int)mapIndex.Y].Tiles[(int)mapIndex.X];
                     Sources[i].Source[j] = newSource;
-
-
-                    //Rows[i].Tiles[j].value = mapIndex;
-                    /*if (mapIndex.Y < 0)
-                    {
-                        if (mapIndex.X > Tileset.AutoTiles.Count - 1) continue;
-                        Rows[i].Tiles[j] = Tileset.AutoTiles[(int)mapIndex.X];
-                    }
-                    else Rows[i].Tiles[j] = Tileset.Rows[(int)mapIndex.Y].Tiles[(int)mapIndex.X];*/
-
-                    //TODO This part should be fully implemented only if there would be a Dynamic Map Extending feature~
-                    /*
-                    catch (Exception)
-                    {
-                        while (Rows.Count <= i)
-                        {
-                            TileRow row = new TileRow();
-                            for (int k = 0; k < Rows[0].Tiles.Count; k++)
-                                row.Tiles.Add(new Tile(new Vector2(-1, -1)));
-                            Rows.Add(row);
-                        }
-                        while (Rows[i].Tiles.Count <= j)
-                            Rows[i].Tiles.Add(new Tile(-Vector2.One));
-                        Rows[i].Tiles[j].value = mapIndex;
-                    }*/
                     tileIndex.X++;
                 }
             }

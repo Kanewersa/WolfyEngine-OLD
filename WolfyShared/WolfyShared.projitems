@@ -23,6 +23,8 @@
     <Compile Include="$(MSBuildThisFileDirectory)ECS\Components\Movement\MovementComponent.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ECS\Components\Movement\RandomMovementComponent.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ECS\Components\Movement\RoutineMovementComponent.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Engine\Utils\EntityScheme.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Engine\Utils\SchemeManager.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Engine\Utils\WolfyManager.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Engine\Utils\ReflectiveEnumerator.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ECS\Systems\Movement\RandomMovementSystem.cs" />
@@ -34,7 +36,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)ECS\Systems\Movement\RoutineMovementSystem.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Engine\Animations\Animation.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Engine\Animations\AnimationManager.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Engine\Collections\Bag.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Engine\Delegates.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Engine\Enums.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Engine\Graphics\Sprite.cs" />
@@ -42,7 +43,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)Engine\Player\Camera.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Engine\Player\Input.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Engine\Random.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Game\Entities\Player.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Engine\Serialization\Serialization.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Engine\Vector3D.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Engine\Graphics\GraphicsManager.cs" />
@@ -72,7 +72,8 @@
     <Compile Include="$(MSBuildThisFileDirectory)Scenes\MenuScene.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)StaticPaths.cs" />
     <Folder Include="$(MSBuildThisFileDirectory)ECS\Systems\Movement\" />
-    <Folder Include="$(MSBuildThisFileDirectory)Engine\Utils\" />
+    <Folder Include="$(MSBuildThisFileDirectory)Engine\Collections\" />
+    <Folder Include="$(MSBuildThisFileDirectory)Game\Entities\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="$(MSBuildThisFileDirectory)Content\" />

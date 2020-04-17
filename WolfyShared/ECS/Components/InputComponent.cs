@@ -1,5 +1,4 @@
-﻿using Microsoft.Xna.Framework;
-using ProtoBuf;
+﻿using ProtoBuf;
 using WolfyECS;
 
 namespace WolfyShared.ECS

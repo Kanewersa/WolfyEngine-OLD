@@ -54,8 +54,7 @@ namespace WolfyShared.Controllers
             }
             catch (Exception exception)
             {
-                Console.WriteLine(exception);
-                throw;
+                throw new Exception(exception.Message);
             }
         }
 

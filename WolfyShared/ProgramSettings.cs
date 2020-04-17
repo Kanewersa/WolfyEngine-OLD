@@ -1,5 +1,4 @@
 ﻿using WolfyEngine.Engine;
-using WolfyShared;
 
 namespace WolfyShared
 {

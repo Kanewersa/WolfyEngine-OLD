@@ -1,6 +1,4 @@
-﻿using Microsoft.Xna.Framework;
-
-namespace WolfyShared.Engine
+﻿namespace WolfyShared.Engine
 {
     public enum Direction
     {
