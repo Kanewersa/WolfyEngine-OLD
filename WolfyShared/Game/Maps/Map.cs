@@ -11,18 +11,17 @@ namespace WolfyShared.Game
     {
         [ProtoMember(1)] public int Id { get; set; }
         [ProtoMember(2)] public string Name { get; set; }
-        [ProtoMember(3)] public Vector2D TileSize { get; set; }
+        [ProtoIgnore] public Vector2D TileSize => Runtime.TileSize;
         [ProtoMember(4)] public Vector2D Size { get; set; }
         [ProtoMember(5)] public List<BaseLayer> Layers { get; set; } = new List<BaseLayer>();
         [ProtoMember(6, AsReference = true)] public List<Entity> Entities { get; set; }
 
         public Map() { }
 
-        public Map(string name, Vector2D mapSize, Vector2D tileSize)
+        public Map(string name, Vector2D mapSize)
         {
             Name = name;
             Size = mapSize;
-            TileSize = tileSize;
             Layers = new List<BaseLayer>
             {
                 new EntityLayer("Entities layer", mapSize) { Order = 1 }

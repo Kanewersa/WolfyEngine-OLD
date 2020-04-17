@@ -15,21 +15,20 @@ namespace WolfyShared.Engine
             {
                 _animation = value;
                 if(Animation.Image.Texture != null)
-                    GetAnimationOffset(_animation, GridSize);
+                    GetAnimationOffset(_animation);
             }
         }
 
         [ProtoMember(1)] private float _timer;
-        [ProtoMember(2)] public int GridSize { get; set; }
+        [ProtoIgnore] public Vector2D TileSize => Runtime.TileSize;
         [ProtoMember(3)] public Vector2 Position { get; set; }
         [ProtoMember(4)] public Vector2 PositionOffset { get; set; }
         [ProtoMember(5)] public Direction Direction { get; set; }
 
         public AnimationManager() { }
 
-        public AnimationManager(Animation animation, int gridSize)
+        public AnimationManager(Animation animation)
         {
-            GridSize = gridSize;
             Animation = animation;
             Direction = Direction.Down;
         }
@@ -68,10 +67,10 @@ namespace WolfyShared.Engine
             Animation.CurrentFrame = 0;
         }
 
-        private void GetAnimationOffset(Animation animation, int gridSize)
+        private void GetAnimationOffset(Animation animation)
         {
-            var width = -(animation.FrameWidth - gridSize) / 2;
-            var height = -(animation.FrameHeight - gridSize);
+            var width = -(animation.FrameWidth - TileSize.X) / 2;
+            var height = -(animation.FrameHeight - TileSize.Y);
             PositionOffset = new Vector2(width, height);
         }
 

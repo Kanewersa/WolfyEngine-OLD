@@ -123,7 +123,7 @@ namespace WolfyShared.Scenes
             animation.EndPosition = movement.Transform;
             animation.Animations = movementAnimation;
             animation.AnimationManager =
-                new AnimationManager(animation.Animations.First().Value, CurrentMap.TileSize.X);
+                new AnimationManager(animation.Animations.First().Value);
         }
 
         public override void Draw(SpriteBatch spriteBatch, GameTime gameTime)

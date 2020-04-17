@@ -161,12 +161,6 @@
     <Compile Include="Source\WinForms\Panels\EntityPanels\MovementComponentPanel.Designer.cs">
       <DependentUpon>MovementComponentPanel.cs</DependentUpon>
     </Compile>
-    <Compile Include="Source\WinForms\Panels\ObjectsPanel.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Source\WinForms\Panels\ObjectsPanel.Designer.cs">
-      <DependentUpon>ObjectsPanel.cs</DependentUpon>
-    </Compile>
     <Compile Include="Source\WinForms\Panels\ScrollablePanel.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -306,9 +300,6 @@
     <EmbeddedResource Include="Source\WinForms\Panels\MapsPanel.resx">
       <DependentUpon>MapsPanel.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Source\WinForms\Panels\ObjectsPanel.resx">
-      <DependentUpon>ObjectsPanel.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Source\WinForms\Panels\TilesetEditorPanel.resx">
       <DependentUpon>TilesetEditorPanel.cs</DependentUpon>
     </EmbeddedResource>
@@ -381,8 +372,6 @@
   <ItemGroup>
     <Folder Include="Assets\Icons\" />
     <Folder Include="Assets\Tilesets\" />
-    <Folder Include="Source\Game\" />
-    <Folder Include="Source\Program\Globals\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\x.png" />

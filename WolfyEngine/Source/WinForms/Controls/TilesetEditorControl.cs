@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
 using MonoGame.Forms.Controls;
+using WolfyShared;
 using WolfyShared.Engine;
 using WolfyShared.Game;
 
@@ -19,7 +20,7 @@ namespace WolfyEngine.Controls
         private Tile _currentTile;
         private Tile _lastTile = new Tile();
 
-        private Vector2 _tileSize;
+        public Vector2D TileSize => Runtime.TileSize;
         private float _imageScale;
         private float _imageAlpha = 0.7f;
 
@@ -47,9 +48,7 @@ namespace WolfyEngine.Controls
         {
             base.Initialize();
 
-            _tileSize = new Vector2(32, 32);
-
-            _imageScale = _tileSize.X / 64;
+            _imageScale = TileSize.X / 64;
 
             PassageFalse = new Image
                 {Path = "Assets/Icons/PassageFalseIcon.png", Scale = _imageScale, Alpha = _imageAlpha};
@@ -92,10 +91,10 @@ namespace WolfyEngine.Controls
         {
             if (_currentTileset == null) return;
 
-            mousePosition = new Vector2((int)(e.X / _tileSize.X), (int)(e.Y / _tileSize.Y));
-            mousePosition *= _tileSize.X;
-            var indexX = (int)(mousePosition.X / _tileSize.X);
-            var indexY = (int)(mousePosition.Y / _tileSize.Y);
+            mousePosition = new Vector2((int)(e.X / TileSize.X), (int)(e.Y / TileSize.Y));
+            mousePosition *= TileSize.X;
+            var indexX = (int)(mousePosition.X / TileSize.X);
+            var indexY = (int)(mousePosition.Y / TileSize.Y);
 
             if (indexX >= _currentTileset.Size.X) { EditorMouseLeave(); return; }
             if (indexY >= _currentTileset.Size.Y) { EditorMouseLeave(); return; }
@@ -152,7 +151,7 @@ namespace WolfyEngine.Controls
 
                     img.Alpha = _currentTileset.Rows[y].Tiles[x].Hovered ? 1.0f : 0.6f;
 
-                    img.Position = new Vector2(x * _tileSize.X, y * _tileSize.X);
+                    img.Position = new Vector2(x * TileSize.X, y * TileSize.X);
                     img.Draw(Editor.spriteBatch);
                 }
             }

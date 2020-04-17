@@ -1,4 +1,5 @@
 ﻿using System;
+using DarkUI.Forms;
 using WolfyEngine.Engine;
 using WolfyShared.Engine;
 
@@ -18,9 +19,15 @@ namespace WolfyShared.Controllers
             set
             {
                 _currentProject = value;
+                if (_currentProject == null)
+                {
+                    DarkMessageBox.ShowError(
+                        "Selected project is invalid. The application will close.",
+                        "Invalid project!");
+                    System.Windows.Forms.Application.Exit();
+                }
                 SetLastProject();
-                if(_currentProject != null)
-                    PathsController.Instance.SetMainPath(_currentProject.Path);
+                PathsController.Instance.SetMainPath(_currentProject.Path);
                 OnProjectChanged?.Invoke(CurrentProject);
             }
         }
@@ -38,7 +45,6 @@ namespace WolfyShared.Controllers
             int.TryParse(tileSize.Substring(0, 2), out var result);
             var project = new Project(name, path, new Vector2D(result, result));
             project.Save();
-            //Runtime.CurrentProject = project;
             CurrentProject = project;
         }
 
@@ -48,7 +54,7 @@ namespace WolfyShared.Controllers
             try
             {
                 var project = Serialization.XmlDeserialize<Project>(path);
-                project.Load();
+                project.Initialize();
                 //Runtime.CurrentProject = project;
                 CurrentProject = project;
             }
@@ -61,7 +67,7 @@ namespace WolfyShared.Controllers
         public void OpenProject(Project project)
         {
             CurrentProject = project;
-            CurrentProject.Load();
+            CurrentProject.Initialize();
         }
 
         public void SaveCurrentProject()
@@ -73,7 +79,7 @@ namespace WolfyShared.Controllers
         public void LoadLastProject()
         {
             CurrentProject = Runtime.ProgramSettings.LastProject;
-            CurrentProject?.Load();
+            CurrentProject?.Initialize();
         }
     }
 }

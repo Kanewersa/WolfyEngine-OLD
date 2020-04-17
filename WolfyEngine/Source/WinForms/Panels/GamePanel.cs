@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Windows.Forms;
 using DarkUI.Docking;
 using Microsoft.Xna.Framework;
 using WolfyECS;
 using WolfyEngine.Forms;
+using WolfyShared;
 using WolfyShared.Controllers;
-using WolfyShared.ECS;
 using WolfyShared.Engine;
 using WolfyShared.Game;
 using Color = Microsoft.Xna.Framework.Color;
@@ -100,7 +99,7 @@ namespace WolfyEngine.Controls
         private void GameControl_OnRightClick(object sender, MouseEventArgs e)
         {
             EntityContextMenu.CurrentCoordinates =
-                new Vector2D(e.X/_currentMap.TileSize.X, e.Y/_currentMap.TileSize.Y);
+                new Vector2D(e.X/Runtime.TileSize.X, e.Y/Runtime.TileSize.Y);
             EntityContextMenu.Show(this, new Point(e.X, e.Y + darkToolStrip.Height));
         }
 

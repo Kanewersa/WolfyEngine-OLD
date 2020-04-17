@@ -2,6 +2,7 @@
 using System.Drawing;
 using System.IO;
 using DarkUI.Forms;
+using WolfyShared;
 using WolfyShared.Controllers;
 using WolfyShared.Game;
 
@@ -51,7 +52,6 @@ namespace WolfyEngine.Forms
 
             var tileset = new Tileset(
                 nameTextBox.Text,
-                ProjectsController.Instance.CurrentProject.TileSize,
                 _selectedAsset);
 
             TilesetsController.Instance.AddTileset(tileset);

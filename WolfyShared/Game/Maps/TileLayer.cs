@@ -9,7 +9,6 @@ namespace WolfyShared.Game
 {
     [ProtoContract] public class TileLayer : BaseLayer
     {
-        [ProtoMember(1)] public Vector2D TileSize { get; set; }
         [ProtoMember(2)] public int TilesetId { get; set; }
         [ProtoMember(3)] public VectorsRow[] Sources { get; set; }
 
@@ -23,11 +22,10 @@ namespace WolfyShared.Game
 
         public TileLayer() { }
 
-        public TileLayer(string name, Vector2D mapSize, Vector2D tileSize, int tilesetId)
+        public TileLayer(string name, Vector2D mapSize, int tilesetId)
         {
             Name = name;
             Size = mapSize;
-            TileSize = tileSize;
             TilesetId = tilesetId;
             Rows = new TileRow[Size.Y];
             Sources = new VectorsRow[Size.Y];

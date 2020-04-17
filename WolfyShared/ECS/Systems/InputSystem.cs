@@ -11,6 +11,8 @@ namespace WolfyShared.ECS
     {
         [ProtoIgnore] private KeyboardState _currentKeyboardState;
         [ProtoIgnore] private KeyboardState _lastKeyboardState;
+        [ProtoIgnore] public Vector2D TileSize => Runtime.TileSize;
+        [ProtoIgnore] public int GridSize => Runtime.GridSize;
 
         public InputSystem() { }
 
@@ -47,27 +49,26 @@ namespace WolfyShared.ECS
                 }
                 else if (!movement.WasMoving)
                 {
-                    // TODO Tile size
                     if (input.ArrowUp)
                     {
                         movement.IsMoving = true;
-                        movement.Direction = new Vector2(0,-32);
+                        movement.Direction = new Vector2(0,-GridSize);
                         movement.EnumDirection = Direction.Up;
                     } else if (input.ArrowDown)
                     {
                         movement.IsMoving = true;
-                        movement.Direction = new Vector2(0,32);
+                        movement.Direction = new Vector2(0,GridSize);
                         movement.EnumDirection = Direction.Down;
                     } else if (input.ArrowLeft)
                     {
                         movement.IsMoving = true;
-                        movement.Direction = new Vector2(-32,0);
+                        movement.Direction = new Vector2(-GridSize,0);
                         movement.EnumDirection = Direction.Left;
                     } else if (input.ArrowRight)
                     {
                         movement.IsMoving = true;
                         movement.EnumDirection = Direction.Right;
-                        movement.Direction = new Vector2(32,0);
+                        movement.Direction = new Vector2(GridSize,0);
                     }
                 }
             }

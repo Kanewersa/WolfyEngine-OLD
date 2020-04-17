@@ -26,7 +26,7 @@ namespace WolfyEngine.Forms
             var width = (int) widthBox.Value;
             var height = (int) heightBox.Value;
 
-            var map = new Map(name, new Vector2D(width,height), new Vector2D(32,32));
+            var map = new Map(name, new Vector2D(width,height));
 
             OnMapCreate?.Invoke(map);
 

@@ -3,6 +3,7 @@ using System.Windows.Forms;
 using Microsoft.Xna.Framework;
 using MonoGame.Forms.Controls;
 using WolfyEngine.Utils;
+using WolfyShared;
 using WolfyShared.Engine;
 using WolfyShared.Game;
 using ControlEventHandler = WolfyShared.Engine.ControlEventHandler;
@@ -28,6 +29,9 @@ namespace WolfyEngine.Controls
 
         public event RectangleEvent OnControlClick;
 
+        public Vector2D TileSize => Runtime.TileSize;
+        public int GridSize => Runtime.GridSize;
+
 
         // Editor background color
         public Color Color { get; set; } = new Color(60,63,65);
@@ -48,7 +52,7 @@ namespace WolfyEngine.Controls
         private void HandleSelector(MouseEventArgs e)
         {
             if (_currentLayer == null) return;
-            _mousePosition = new Vector2((int)(e.X / _currentLayer.TileSize.X), (int)(e.Y / _currentLayer.TileSize.Y));
+            _mousePosition = new Vector2((int)(e.X / TileSize.X), (int)(e.Y / TileSize.Y));
             _mousePosition *= 32;
 
             if (_mousePosition != _clickPosition && _mouseDown)
@@ -115,11 +119,11 @@ namespace WolfyEngine.Controls
                     (int)_selector.GetPositionX(0), (int)_selector.GetPositionY(0),
                     (int)(_selector.GetPositionX(1) - _selector.GetPositionX(0)),
                     (int)(_selector.GetPositionY(2) - _selector.GetPositionY(0)));
-                //TODO Change operations to equal project tile size
-                rect.X /= 32;
-                rect.Y /= 32;
-                rect.Width /= 32;
-                rect.Height /= 32;
+
+                rect.X /= GridSize;
+                rect.Y /= GridSize;
+                rect.Width /= GridSize;
+                rect.Height /= GridSize;
 
                 OnControlClick?.Invoke(rect);
             };

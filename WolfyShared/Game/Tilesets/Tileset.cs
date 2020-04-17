@@ -11,16 +11,15 @@ namespace WolfyShared.Game
         //Unique Tilesets id
         [ProtoMember(1)] public int Id { get; set; }
         [ProtoMember(2)] public string Name { get; set; }
-        [ProtoMember(3)] public Vector2D TileSize { get; set; }
+        [ProtoIgnore] public Vector2D TileSize => Runtime.TileSize;
         [ProtoMember(4)] public Image Image { get; set; }
         [ProtoMember(5)] public TileRow[] Rows { get; set; }
         [ProtoMember(6)] public Vector2D Size { get; set; }
 
         public Tileset () { }
-        public Tileset(string name, Vector2D tileSize, string imagePath)
+        public Tileset(string name, string imagePath)
         {
             Name = name;
-            TileSize = tileSize;
             Image = new Image(imagePath);
 
             // Get texture size

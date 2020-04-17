@@ -68,7 +68,7 @@ namespace WolfyEngine.Controls
             };
 
             _animationComponent.Animations = animations;
-            _animationComponent.AnimationManager = new AnimationManager(animations.First().Value, 32);
+            _animationComponent.AnimationManager = new AnimationManager(animations.First().Value);
         }
 
         private void SelectGraphicsButton_Click(object sender, System.EventArgs e)

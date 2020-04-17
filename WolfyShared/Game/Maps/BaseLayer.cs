@@ -13,6 +13,7 @@ namespace WolfyShared.Game
         [ProtoMember(1)] public string Name { get; set; }
         [ProtoMember(2)] public Vector2D Size { get; set; }
         [ProtoMember(3)] public int Order { get; set; }
+        [ProtoIgnore] public Vector2D TileSize => Runtime.TileSize;
 
         public virtual void Initialize(GraphicsDevice graphics)
         { }

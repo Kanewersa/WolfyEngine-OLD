@@ -31,10 +31,8 @@ namespace WolfyShared.Controllers
             World = File.Exists(WorldPath)
                 ? Serialization.ProtoDeserialize<World>(WorldPath)
                 : new World();
-            MeasureTime.Start("Initializing world took:");
             World.Initialize();
             WolfyManager.InitializeFamilies();
-            MeasureTime.Stop();
         }
 
         public void Save()

@@ -56,8 +56,7 @@ namespace WolfyEngine.Forms
             {
                 // Tile layer
                 case 0:
-                    var layer = new TileLayer(nameTextBox.Text, _currentMap.Size,
-                        _currentMap.TileSize, _selectedTileset);
+                    var layer = new TileLayer(nameTextBox.Text, _currentMap.Size, _selectedTileset);
                     layer.Order = _currentMap.Layers.Count + 1;
                     _currentMap.Layers.Add(layer);
                     OnLayerCreate?.Invoke(layer);

@@ -1,4 +1,5 @@
 ﻿using System;
+using DarkUI.Forms;
 using ProtoBuf;
 using WolfyEngine.Engine;
 using WolfyShared.Engine;
@@ -27,8 +28,17 @@ namespace WolfyShared
         /// <summary>
         /// Initializes the project
         /// </summary>
-        public void Load()
+        public void Initialize()
         {
+            Runtime.TileSize = TileSize;
+            if (TileSize.X != TileSize.Y)
+            {
+                DarkMessageBox.ShowError(
+                    "Rectangle tiles are not supported. The application will close.",
+                    "Rectangle tiles error!");
+                System.Windows.Forms.Application.Exit();
+            }
+            Runtime.GridSize = TileSize.X;
         }
 
         /// <summary>

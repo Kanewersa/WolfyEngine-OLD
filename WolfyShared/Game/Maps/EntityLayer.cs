@@ -9,7 +9,6 @@ namespace WolfyShared.Game
 {
     [ProtoContract] public class EntityLayer : BaseLayer
     {
-        [ProtoMember(1)] public Vector2D TileSize { get; set; }
         [ProtoMember(2)] public List<EntityTileRow> Rows { get; set; }
         [ProtoMember(3, AsReference = true)] public List<Entity> Entities { get; set; }
         public EntityLayer() { }
