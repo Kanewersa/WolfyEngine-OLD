@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
+using System.Linq;
 using System.Windows.Forms;
 using DarkUI.Controls;
 using DarkUI.Forms;
@@ -10,6 +12,9 @@ namespace WolfyEngine.Forms
 {
     public partial class AssetManagerForm : DarkForm
     {
+        private string SelectedFolder { get; set; }
+        private string SelectedFile { get; set; }
+
         public AssetManagerForm()
         {
             InitializeComponent();
@@ -48,11 +53,25 @@ namespace WolfyEngine.Forms
 
         private void FoldersTreeView_Click(object sender, System.EventArgs e)
         {
-            if(foldersTreeView.SelectedNodes.Count < 1 || foldersTreeView.SelectedNodes[0] == null)
+            if(foldersTreeView.SelectedNodes.Count < 1)
                 return;
 
+            if(foldersTreeView.SelectedNodes[0] == null)
+            {
+                SelectedFolder = null;
+                RefreshButtons();
+                return;
+            }
+
+            var previousFolder = SelectedFile;
+            SelectedFolder = FormattedPath(foldersTreeView.SelectedNodes[0].FullPath);
+           
+            if (previousFolder != SelectedFolder)
+                SelectedFile = null;
+
             previewBox.Image = null;
-            InitializeFilesTree();
+            InitializeFilesList();
+            RefreshButtons();
         }
 
         private string FormattedPath(string path)
@@ -63,10 +82,10 @@ namespace WolfyEngine.Forms
             return Path.Combine(ProjectsController.Instance.CurrentProject.Path, str);
         }
 
-        private void InitializeFilesTree()
+        private void InitializeFilesList()
         {
-            filesTreeView.Nodes.Clear();
-            DisplayFiles(FormattedPath(foldersTreeView.SelectedNodes[0].FullPath));
+            filesListView.Items.Clear();
+            DisplayFiles(SelectedFolder);
         }
 
         private void DisplayFiles(string folderPath)
@@ -74,29 +93,47 @@ namespace WolfyEngine.Forms
             if (!Directory.Exists(folderPath))
                 Directory.CreateDirectory(folderPath);
 
-            var directory = new DirectoryInfo(folderPath);
+            var extension = "*.png";
 
-            var files = directory.GetFiles("*.png");
+            foreach (var file in Directory.EnumerateFiles(folderPath, extension, SearchOption.TopDirectoryOnly))
+            {
+                var compiled = "{name}.xnb";
+                var found = folderPath + "\\" + compiled.Replace("{name}", Path.GetFileNameWithoutExtension(file));
+                Console.WriteLine("looking for: " + found);
+
+                if (File.Exists(found))
+                    filesListView.Items.Add(new DarkListItem(Path.GetFileName(file)));
+                else
+                {
+                    var item = new DarkListItem(Path.GetFileName(file)) { TextColor = Color.IndianRed };
+                    filesListView.Items.Add(item);
+                }
+            }
 
             //Clear files tree view
-            filesTreeView.Refresh();
-
-            //Fill files tree view with files
-            foreach (var file in files)
-                filesTreeView.Nodes.Add(new DarkTreeNode(file.Name));
+            filesListView.Refresh();
         }
 
-        private void filesTreeView_Click(object sender, EventArgs e)
+        private void filesListView_Click(object sender, EventArgs e)
         {
-            if(filesTreeView.SelectedNodes.Count < 1 || filesTreeView.SelectedNodes[0] == null) return;
-            PreviewFile(
-                Path.Combine(
-                    FormattedPath(foldersTreeView.SelectedNodes[0].FullPath),
-                    filesTreeView.SelectedNodes[0].Text));
+            if (filesListView.SelectedIndices.Count < 1) return;
+            SelectedFile = Path.Combine(
+                SelectedFolder,
+                filesListView.Items[filesListView.SelectedIndices[0]].Text);
+            PreviewFile(SelectedFile);
         }
 
         private void PreviewFile(string path)
         {
+            if (!File.Exists(path))
+            {
+                DarkMessageBox.ShowError(
+                    "Could not find file: " + path,
+                    "File not found.");
+                SelectedFile = null;
+                return;
+            }
+
             var extension = Path.GetExtension(path);
 
             using (var temp = new Bitmap(path))
@@ -106,20 +143,69 @@ namespace WolfyEngine.Forms
             }
         }
 
+        private void RefreshButtons()
+        {
+            importButton.Enabled = SelectedFolder != null;
+            exportButton.Enabled = SelectedFile != null;
+            deleteButton.Enabled = SelectedFile != null;
+        }
+
         private void ImportButton_Click(object sender, EventArgs e)
         {
+            if (SelectedFolder == null)
+                return;
+
             using var dialog = new OpenFileDialog
             {
-                Title = "Select asset", Filter = "png files (*.png)|*.png|All files (*.*)|*.*"
+                Title = "Select asset",
+                Filter = "png files (*.png)|*.png|All files (*.*)|*.*",
+                Multiselect = true
             };
             if (dialog.ShowDialog() != DialogResult.OK) return;
-            //Copy file to appropriate path
-            var source = dialog.FileName;
-            var destination = Path.Combine(FormattedPath(foldersTreeView.SelectedNodes[0].FullPath),
-                dialog.SafeFileName);
 
-            File.Copy(source, destination);
-            InitializeFilesTree();
+            var files = dialog.FileNames;
+
+            // Build content
+            BuildContent(files);
+        }
+
+        private async void BuildContent(string[] files)
+        {
+            await ContentController.Instance.BuildContent(files);
+            MoveBuiltContent(files);
+        }
+
+        private void MoveBuiltContent(string[] source)
+        {
+            // Move pre-built files to proper folder
+
+            foreach (var file in source)
+            {
+                var info = new FileInfo(file);
+                info.MoveTo(SelectedFolder + "\\" + info.Name);
+            }
+
+            // Move all built to proper folder
+            var builtFiles = Directory.GetFiles(
+                Path.Combine(Application.StartupPath, "output"),
+                "*.*",
+                SearchOption.TopDirectoryOnly);
+
+            if (builtFiles.Length == 0)
+            {
+                DarkMessageBox.ShowError(
+                    "Could not find files in working directory.",
+                    "No files found.");
+                return;
+            }
+
+            foreach (var file in builtFiles)
+            {
+                var info = new FileInfo(file);
+                info.MoveTo(SelectedFolder + "\\" + info.Name);
+            }
+
+            InitializeFilesList();
         }
     }
 }

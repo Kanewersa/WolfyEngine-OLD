@@ -29,11 +29,11 @@
         private void InitializeComponent()
         {
             this.foldersTreeView = new DarkUI.Controls.DarkTreeView();
-            this.filesTreeView = new DarkUI.Controls.DarkTreeView();
             this.previewBox = new System.Windows.Forms.PictureBox();
             this.importButton = new DarkUI.Controls.DarkButton();
             this.exportButton = new DarkUI.Controls.DarkButton();
             this.deleteButton = new DarkUI.Controls.DarkButton();
+            this.filesListView = new DarkUI.Controls.DarkListView();
             ((System.ComponentModel.ISupportInitialize)(this.previewBox)).BeginInit();
             this.SuspendLayout();
             // 
@@ -50,20 +50,6 @@
             this.foldersTreeView.TabIndex = 1;
             this.foldersTreeView.Text = "darkTreeView1";
             this.foldersTreeView.Click += new System.EventHandler(this.FoldersTreeView_Click);
-            // 
-            // filesTreeView
-            // 
-            this.filesTreeView.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
-            this.filesTreeView.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(55)))), ((int)(((byte)(58)))), ((int)(((byte)(60)))));
-            this.filesTreeView.Location = new System.Drawing.Point(175, 0);
-            this.filesTreeView.Margin = new System.Windows.Forms.Padding(0);
-            this.filesTreeView.MaxDragChange = 20;
-            this.filesTreeView.Name = "filesTreeView";
-            this.filesTreeView.Size = new System.Drawing.Size(175, 564);
-            this.filesTreeView.TabIndex = 2;
-            this.filesTreeView.Text = "darkTreeView1";
-            this.filesTreeView.Click += new System.EventHandler(this.filesTreeView_Click);
             // 
             // previewBox
             // 
@@ -114,16 +100,26 @@
             this.deleteButton.TabIndex = 6;
             this.deleteButton.Text = "Delete";
             // 
+            // filesListView
+            // 
+            this.filesListView.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(55)))), ((int)(((byte)(58)))), ((int)(((byte)(60)))));
+            this.filesListView.Location = new System.Drawing.Point(175, 0);
+            this.filesListView.Name = "filesListView";
+            this.filesListView.Size = new System.Drawing.Size(175, 564);
+            this.filesListView.TabIndex = 7;
+            this.filesListView.Text = "darkListView1";
+            this.filesListView.Click += new System.EventHandler(this.filesListView_Click);
+            // 
             // AssetManagerForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(850, 564);
+            this.Controls.Add(this.filesListView);
             this.Controls.Add(this.deleteButton);
             this.Controls.Add(this.exportButton);
             this.Controls.Add(this.importButton);
             this.Controls.Add(this.previewBox);
-            this.Controls.Add(this.filesTreeView);
             this.Controls.Add(this.foldersTreeView);
             this.Name = "AssetManagerForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
@@ -135,10 +131,10 @@
 
         #endregion
         private DarkUI.Controls.DarkTreeView foldersTreeView;
-        private DarkUI.Controls.DarkTreeView filesTreeView;
         private System.Windows.Forms.PictureBox previewBox;
         private DarkUI.Controls.DarkButton importButton;
         private DarkUI.Controls.DarkButton exportButton;
         private DarkUI.Controls.DarkButton deleteButton;
+        private DarkUI.Controls.DarkListView filesListView;
     }
 }

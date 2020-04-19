@@ -10,6 +10,7 @@
     <Import_RootNamespace>WolfyShared</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Controllers\ContentController.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Controllers\GameController.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Controllers\MapsController.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Controllers\PathsController.cs" />
@@ -23,6 +24,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)ECS\Components\Movement\MovementComponent.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ECS\Components\Movement\RandomMovementComponent.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ECS\Components\Movement\RoutineMovementComponent.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Engine\ComponentType.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Engine\Utils\EntityScheme.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Engine\Utils\SchemeManager.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Engine\Utils\WolfyManager.cs" />

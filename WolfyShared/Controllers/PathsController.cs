@@ -28,6 +28,10 @@ namespace WolfyShared.Controllers
 
                 GameSettingsPath = Path.Combine(DataPath, "GameData.wolf");
                 WorldPath = Path.Combine(DataPath, "World.wolf");
+
+                /*ContentWorkingPath = Path.Combine(GraphicsPath, "working");
+                ContentIntermediatePath = Path.Combine(ContentWorkingPath, "inter");
+                ContentOutputPath = Path.Combine(ContentWorkingPath, "output");*/
             }
         }
 
@@ -48,8 +52,13 @@ namespace WolfyShared.Controllers
         public string TilesetsPath { get; private set; }
         public string TilesetsDataPath { get; private set; }
 
-        public string GameSettingsPath { get; set; }
-        public string WorldPath { get; set; }
+        public string GameSettingsPath { get; private set; }
+        public string WorldPath { get; private set; }
+
+        // Content manager paths
+        /*public string ContentWorkingPath { get; private set; }
+        public string ContentIntermediatePath { get; private set; }
+        public string ContentOutputPath { get; private set; }*/
 
         public void SetMainPath(string path)
         {

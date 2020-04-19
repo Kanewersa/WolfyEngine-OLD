@@ -50,6 +50,7 @@ namespace WolfyGame
             TilesetsController.Instance.InitializeProject();
             MapsController.Instance.InitializeProject();
             GameController.Instance.InitializeProject();
+            ContentController.Instance.Initialize();
 
             // Initialize the scene
             Scene = new GameScene(ScreenWidth, ScreenHeight, GameController.Instance.World);
