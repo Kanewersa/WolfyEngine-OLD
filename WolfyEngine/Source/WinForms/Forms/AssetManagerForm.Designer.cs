@@ -34,6 +34,8 @@
             this.exportButton = new DarkUI.Controls.DarkButton();
             this.deleteButton = new DarkUI.Controls.DarkButton();
             this.filesListView = new DarkUI.Controls.DarkListView();
+            this.ReloadAssetButton = new DarkUI.Controls.DarkButton();
+            this.ReloadDirectoryButton = new DarkUI.Controls.DarkButton();
             ((System.ComponentModel.ISupportInitialize)(this.previewBox)).BeginInit();
             this.SuspendLayout();
             // 
@@ -110,11 +112,39 @@
             this.filesListView.Text = "darkListView1";
             this.filesListView.Click += new System.EventHandler(this.filesListView_Click);
             // 
+            // ReloadAssetButton
+            // 
+            this.ReloadAssetButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.ReloadAssetButton.Enabled = false;
+            this.ReloadAssetButton.Location = new System.Drawing.Point(733, 135);
+            this.ReloadAssetButton.Margin = new System.Windows.Forms.Padding(0);
+            this.ReloadAssetButton.Name = "ReloadAssetButton";
+            this.ReloadAssetButton.Padding = new System.Windows.Forms.Padding(5);
+            this.ReloadAssetButton.Size = new System.Drawing.Size(108, 32);
+            this.ReloadAssetButton.TabIndex = 8;
+            this.ReloadAssetButton.Text = "Reload asset";
+            this.ReloadAssetButton.Click += new System.EventHandler(this.ReloadAssetButton_Click);
+            // 
+            // ReloadDirectoryButton
+            // 
+            this.ReloadDirectoryButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.ReloadDirectoryButton.Enabled = false;
+            this.ReloadDirectoryButton.Location = new System.Drawing.Point(733, 177);
+            this.ReloadDirectoryButton.Margin = new System.Windows.Forms.Padding(0);
+            this.ReloadDirectoryButton.Name = "ReloadDirectoryButton";
+            this.ReloadDirectoryButton.Padding = new System.Windows.Forms.Padding(5);
+            this.ReloadDirectoryButton.Size = new System.Drawing.Size(108, 32);
+            this.ReloadDirectoryButton.TabIndex = 9;
+            this.ReloadDirectoryButton.Text = "Reload directory";
+            this.ReloadDirectoryButton.Click += new System.EventHandler(this.ReloadDirectoryButton_Click);
+            // 
             // AssetManagerForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(850, 564);
+            this.Controls.Add(this.ReloadDirectoryButton);
+            this.Controls.Add(this.ReloadAssetButton);
             this.Controls.Add(this.filesListView);
             this.Controls.Add(this.deleteButton);
             this.Controls.Add(this.exportButton);
@@ -136,5 +166,7 @@
         private DarkUI.Controls.DarkButton exportButton;
         private DarkUI.Controls.DarkButton deleteButton;
         private DarkUI.Controls.DarkListView filesListView;
+        private DarkUI.Controls.DarkButton ReloadAssetButton;
+        private DarkUI.Controls.DarkButton ReloadDirectoryButton;
     }
 }

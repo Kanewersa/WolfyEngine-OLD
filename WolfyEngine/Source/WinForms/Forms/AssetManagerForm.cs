@@ -120,7 +120,9 @@ namespace WolfyEngine.Forms
             SelectedFile = Path.Combine(
                 SelectedFolder,
                 filesListView.Items[filesListView.SelectedIndices[0]].Text);
+            Console.WriteLine(SelectedFile);
             PreviewFile(SelectedFile);
+            RefreshButtons();
         }
 
         private void PreviewFile(string path)
@@ -148,6 +150,8 @@ namespace WolfyEngine.Forms
             importButton.Enabled = SelectedFolder != null;
             exportButton.Enabled = SelectedFile != null;
             deleteButton.Enabled = SelectedFile != null;
+            ReloadAssetButton.Enabled = SelectedFile != null;
+            ReloadDirectoryButton.Enabled = SelectedFolder != null;
         }
 
         private void ImportButton_Click(object sender, EventArgs e)
@@ -202,10 +206,33 @@ namespace WolfyEngine.Forms
             foreach (var file in builtFiles)
             {
                 var info = new FileInfo(file);
-                info.MoveTo(SelectedFolder + "\\" + info.Name);
+                var path = SelectedFolder + "\\" + info.Name;
+
+                if (File.Exists(path))
+                    File.Delete(path);
+                
+                info.MoveTo(path);
             }
 
             InitializeFilesList();
+        }
+
+        private void ReloadAssetButton_Click(object sender, EventArgs e)
+        {
+            if (SelectedFile == null) return;
+
+            BuildContent(new [] { SelectedFile });
+
+        }
+
+        private void ReloadDirectoryButton_Click(object sender, EventArgs e)
+        {
+            if (SelectedFolder == null) return;
+
+            var files = Directory.GetFiles(SelectedFolder)
+                .Where(x => Path.GetExtension(x) != ".xnb").ToArray();
+
+            BuildContent(files);
         }
     }
 }
