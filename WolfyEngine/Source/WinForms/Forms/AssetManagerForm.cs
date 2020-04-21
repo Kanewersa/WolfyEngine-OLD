@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using DarkUI.Controls;
 using DarkUI.Forms;
+using WolfyShared;
 using WolfyShared.Controllers;
 
 namespace WolfyEngine.Forms
@@ -63,11 +65,9 @@ namespace WolfyEngine.Forms
                 return;
             }
 
-            
-
             var previousFolder = SelectedFile;
             SelectedFolder = FormattedPath(foldersTreeView.SelectedNodes[0].FullPath);
-           
+
             if (previousFolder != SelectedFolder)
                 SelectedFile = null;
 
@@ -80,7 +80,8 @@ namespace WolfyEngine.Forms
         {
             var i = path.IndexOf("\\", StringComparison.Ordinal)+1;
             var str = path.Substring(i);
-            str = str.Replace("\\", "/");
+            if(!Runtime.IsWindows)
+                str = str.Replace("\\", "/");
             return Path.Combine(ProjectsController.Instance.CurrentProject.Path, str);
         }
 
@@ -148,10 +149,12 @@ namespace WolfyEngine.Forms
         private void RefreshButtons()
         {
             importButton.Enabled = SelectedFolder != null;
+            RestoreDirectoryButton.Enabled = SelectedFolder != null;
+            OpenDirectoryButton.Enabled = SelectedFolder != null;
+
             exportButton.Enabled = SelectedFile != null;
             DeleteButton.Enabled = SelectedFile != null;
             RestoreAssetButton.Enabled = SelectedFile != null;
-            RestoreDirectoryButton.Enabled = SelectedFolder != null;
         }
 
         private void ImportButton_Click(object sender, EventArgs e)
@@ -237,7 +240,52 @@ namespace WolfyEngine.Forms
 
         private void DeleteButton_Click(object sender, EventArgs e)
         {
+            var box = DarkMessageBox.ShowWarning(
+                "Are you sure you want to delete this file?",
+                "Confirm prompt",
+                DarkDialogButton.YesNo);
+
+            if (box != DialogResult.Yes) return;
+
+            if(File.Exists(SelectedFile))
+                File.Delete(SelectedFile);
+
+            var counterpart = Path.ChangeExtension(SelectedFile, ".xnb");
             
+            if(File.Exists(counterpart))
+                File.Delete(counterpart);
+
+            SelectedFile = null;
+
+            InitializeFilesList();
+        }
+
+        private void OpenDirectoryButton_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (Directory.Exists(SelectedFolder))
+                {
+                    var startInfo = new ProcessStartInfo
+                    {
+                        Arguments = SelectedFolder,
+                        FileName = "explorer.exe"
+                    };
+
+                    Process.Start(startInfo);
+                }
+                else
+                {
+                    DarkMessageBox.ShowError(
+                        "Selected directory doesn't exist.",
+                        "Could not find directory.");
+                }
+            }
+            catch (Exception exception)
+            {
+                Console.WriteLine(exception);
+                throw;
+            }
         }
     }
 }

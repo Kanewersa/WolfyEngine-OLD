@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using WolfyECS;
 using WolfyEngine.Engine;
@@ -21,6 +22,9 @@ namespace WolfyEngine
                 Runtime.ProgramSettings = new ProgramSettings();
                 Runtime.ProgramSettings.Save();
             }
+
+            // Check running os
+            Runtime.IsWindows = RuntimeInformation.IsOSPlatform(OSPlatform.Windows);
 
             // Initialize WolfyEngine
             WolfyManager.WolfyInitialize();

@@ -38,6 +38,7 @@ namespace WolfyEngine.Forms
             this.RestoreDirectoryButton = new DarkUI.Controls.DarkButton();
             this.DeleteButton = new DarkUI.Controls.DarkButton();
             this.previewBox = new System.Windows.Forms.PictureBox();
+            this.OpenDirectoryButton = new DarkUI.Controls.DarkButton();
             ((System.ComponentModel.ISupportInitialize)(this.previewBox)).BeginInit();
             this.SuspendLayout();
             // 
@@ -146,11 +147,25 @@ namespace WolfyEngine.Forms
             this.previewBox.TabIndex = 3;
             this.previewBox.TabStop = false;
             // 
+            // OpenDirectoryButton
+            // 
+            this.OpenDirectoryButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.OpenDirectoryButton.Enabled = false;
+            this.OpenDirectoryButton.Location = new System.Drawing.Point(742, 219);
+            this.OpenDirectoryButton.Margin = new System.Windows.Forms.Padding(0);
+            this.OpenDirectoryButton.Name = "OpenDirectoryButton";
+            this.OpenDirectoryButton.Padding = new System.Windows.Forms.Padding(5);
+            this.OpenDirectoryButton.Size = new System.Drawing.Size(100, 29);
+            this.OpenDirectoryButton.TabIndex = 10;
+            this.OpenDirectoryButton.Text = "Open directory";
+            this.OpenDirectoryButton.Click += new System.EventHandler(this.OpenDirectoryButton_Click);
+            // 
             // AssetManagerForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(850, 564);
+            this.Controls.Add(this.OpenDirectoryButton);
             this.Controls.Add(this.RestoreDirectoryButton);
             this.Controls.Add(this.RestoreAssetButton);
             this.Controls.Add(this.filesListView);
@@ -176,5 +191,6 @@ namespace WolfyEngine.Forms
         private DarkUI.Controls.DarkListView filesListView;
         private DarkUI.Controls.DarkButton RestoreAssetButton;
         private DarkUI.Controls.DarkButton RestoreDirectoryButton;
+        private DarkUI.Controls.DarkButton OpenDirectoryButton;
     }
 }
