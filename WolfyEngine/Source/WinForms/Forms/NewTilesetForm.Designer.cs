@@ -162,6 +162,7 @@
             this.Controls.Add(this.cancelButton);
             this.Controls.Add(this.createButton);
             this.Name = "NewTilesetForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "New tileset";
             ((System.ComponentModel.ISupportInitialize)(this.graphicsPreviewBox)).EndInit();
             this.ResumeLayout(false);

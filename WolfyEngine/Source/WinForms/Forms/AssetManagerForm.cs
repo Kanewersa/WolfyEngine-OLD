@@ -63,6 +63,8 @@ namespace WolfyEngine.Forms
                 return;
             }
 
+            
+
             var previousFolder = SelectedFile;
             SelectedFolder = FormattedPath(foldersTreeView.SelectedNodes[0].FullPath);
            
@@ -90,8 +92,7 @@ namespace WolfyEngine.Forms
 
         private void DisplayFiles(string folderPath)
         {
-            if (!Directory.Exists(folderPath))
-                Directory.CreateDirectory(folderPath);
+            Directory.CreateDirectory(folderPath);
 
             var extension = "*.png";
 
@@ -99,13 +100,13 @@ namespace WolfyEngine.Forms
             {
                 var compiled = "{name}.xnb";
                 var found = folderPath + "\\" + compiled.Replace("{name}", Path.GetFileNameWithoutExtension(file));
-                Console.WriteLine("looking for: " + found);
 
                 if (File.Exists(found))
                     filesListView.Items.Add(new DarkListItem(Path.GetFileName(file)));
                 else
                 {
                     var item = new DarkListItem(Path.GetFileName(file)) { TextColor = Color.IndianRed };
+
                     filesListView.Items.Add(item);
                 }
             }
@@ -120,7 +121,6 @@ namespace WolfyEngine.Forms
             SelectedFile = Path.Combine(
                 SelectedFolder,
                 filesListView.Items[filesListView.SelectedIndices[0]].Text);
-            Console.WriteLine(SelectedFile);
             PreviewFile(SelectedFile);
             RefreshButtons();
         }
@@ -149,9 +149,9 @@ namespace WolfyEngine.Forms
         {
             importButton.Enabled = SelectedFolder != null;
             exportButton.Enabled = SelectedFile != null;
-            deleteButton.Enabled = SelectedFile != null;
-            ReloadAssetButton.Enabled = SelectedFile != null;
-            ReloadDirectoryButton.Enabled = SelectedFolder != null;
+            DeleteButton.Enabled = SelectedFile != null;
+            RestoreAssetButton.Enabled = SelectedFile != null;
+            RestoreDirectoryButton.Enabled = SelectedFolder != null;
         }
 
         private void ImportButton_Click(object sender, EventArgs e)
@@ -233,6 +233,11 @@ namespace WolfyEngine.Forms
                 .Where(x => Path.GetExtension(x) != ".xnb").ToArray();
 
             BuildContent(files);
+        }
+
+        private void DeleteButton_Click(object sender, EventArgs e)
+        {
+            
         }
     }
 }

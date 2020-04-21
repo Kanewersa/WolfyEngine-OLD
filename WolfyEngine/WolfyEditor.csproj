@@ -435,6 +435,9 @@
       <Name>WolfyECS</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\trash-2.png" />
+  </ItemGroup>
   <Import Project="..\WolfyShared\WolfyShared.projitems" Label="Shared" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\MonoGame.Forms.DX.2.3.9\Build\MonoGame.Forms.DX.targets" Condition="Exists('..\packages\MonoGame.Forms.DX.2.3.9\Build\MonoGame.Forms.DX.targets')" />

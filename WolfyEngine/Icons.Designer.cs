@@ -19,7 +19,7 @@ namespace WolfyEngine {
     // przez narzędzie, takie jak ResGen lub Visual Studio.
     // Aby dodać lub usunąć składową, edytuj plik ResX, a następnie ponownie uruchom narzędzie ResGen
     // z opcją /str lub ponownie utwórz projekt VS.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("EntitySystem.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class Icons {
@@ -61,7 +61,7 @@ namespace WolfyEngine {
         }
         
         /// <summary>
-        ///   Wyszukuje zlokalizowany zasób typu EntitySystem.Drawing.Bitmap.
+        ///   Wyszukuje zlokalizowany zasób typu System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap arrow_down {
             get {
@@ -71,7 +71,7 @@ namespace WolfyEngine {
         }
         
         /// <summary>
-        ///   Wyszukuje zlokalizowany zasób typu EntitySystem.Drawing.Bitmap.
+        ///   Wyszukuje zlokalizowany zasób typu System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap arrow_up {
             get {
@@ -81,7 +81,7 @@ namespace WolfyEngine {
         }
         
         /// <summary>
-        ///   Wyszukuje zlokalizowany zasób typu EntitySystem.Drawing.Bitmap.
+        ///   Wyszukuje zlokalizowany zasób typu System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap bar_chart_2 {
             get {
@@ -91,7 +91,7 @@ namespace WolfyEngine {
         }
         
         /// <summary>
-        ///   Wyszukuje zlokalizowany zasób typu EntitySystem.Drawing.Bitmap.
+        ///   Wyszukuje zlokalizowany zasób typu System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap copy {
             get {
@@ -101,7 +101,7 @@ namespace WolfyEngine {
         }
         
         /// <summary>
-        ///   Wyszukuje zlokalizowany zasób typu EntitySystem.Drawing.Bitmap.
+        ///   Wyszukuje zlokalizowany zasób typu System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap edit_2 {
             get {
@@ -111,7 +111,7 @@ namespace WolfyEngine {
         }
         
         /// <summary>
-        ///   Wyszukuje zlokalizowany zasób typu EntitySystem.Drawing.Bitmap.
+        ///   Wyszukuje zlokalizowany zasób typu System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap edit_3 {
             get {
@@ -121,7 +121,7 @@ namespace WolfyEngine {
         }
         
         /// <summary>
-        ///   Wyszukuje zlokalizowany zasób typu EntitySystem.Drawing.Bitmap.
+        ///   Wyszukuje zlokalizowany zasób typu System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap filter {
             get {
@@ -131,7 +131,7 @@ namespace WolfyEngine {
         }
         
         /// <summary>
-        ///   Wyszukuje zlokalizowany zasób typu EntitySystem.Drawing.Bitmap.
+        ///   Wyszukuje zlokalizowany zasób typu System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap github32x32 {
             get {
@@ -141,7 +141,7 @@ namespace WolfyEngine {
         }
         
         /// <summary>
-        ///   Wyszukuje zlokalizowany zasób typu EntitySystem.Drawing.Bitmap.
+        ///   Wyszukuje zlokalizowany zasób typu System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap plus {
             get {
@@ -151,7 +151,7 @@ namespace WolfyEngine {
         }
         
         /// <summary>
-        ///   Wyszukuje zlokalizowany zasób typu EntitySystem.Drawing.Bitmap.
+        ///   Wyszukuje zlokalizowany zasób typu System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap refresh_cw {
             get {
@@ -161,7 +161,7 @@ namespace WolfyEngine {
         }
         
         /// <summary>
-        ///   Wyszukuje zlokalizowany zasób typu EntitySystem.Drawing.Bitmap.
+        ///   Wyszukuje zlokalizowany zasób typu System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap square32x32 {
             get {
@@ -171,7 +171,17 @@ namespace WolfyEngine {
         }
         
         /// <summary>
-        ///   Wyszukuje zlokalizowany zasób typu EntitySystem.Drawing.Bitmap.
+        ///   Wyszukuje zlokalizowany zasób typu System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap trash_2 {
+            get {
+                object obj = ResourceManager.GetObject("trash-2", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Wyszukuje zlokalizowany zasób typu System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap user32x32 {
             get {
@@ -181,7 +191,7 @@ namespace WolfyEngine {
         }
         
         /// <summary>
-        ///   Wyszukuje zlokalizowany zasób typu EntitySystem.Drawing.Bitmap.
+        ///   Wyszukuje zlokalizowany zasób typu System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap x {
             get {
@@ -191,7 +201,7 @@ namespace WolfyEngine {
         }
         
         /// <summary>
-        ///   Wyszukuje zlokalizowany zasób typu EntitySystem.Drawing.Bitmap.
+        ///   Wyszukuje zlokalizowany zasób typu System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap x_circle {
             get {

@@ -144,6 +144,7 @@
             this.Controls.Add(this.nameTitle);
             this.Controls.Add(this.nameTextBox);
             this.Name = "NewLayerForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "New layer";
             ((System.ComponentModel.ISupportInitialize)(this.graphicsPreviewBox)).EndInit();
             this.ResumeLayout(false);

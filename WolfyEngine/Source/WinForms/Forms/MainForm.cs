@@ -209,7 +209,6 @@ namespace WolfyEngine.Forms
 
         private void assetManagerButton_Click(object sender, EventArgs e)
         {
-           
             using (var assetForm = new AssetManagerForm())
             {
                 assetForm.ShowDialog();
