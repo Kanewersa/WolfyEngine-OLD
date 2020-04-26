@@ -7,16 +7,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WolfyEditor", "WolfyEngine\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WolfyGame", "WolfyGame\WolfyGame.csproj", "{86C7F08E-1C36-429F-A401-F42FB63D3236}"
 EndProject
-Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "WolfyShared", "WolfyShared\WolfyShared.shproj", "{A0CDBD0E-3A41-42B7-9425-A838BC2C7383}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WolfyECS", "WolfyECS\WolfyECS.csproj", "{20975C22-DDB0-47E5-BC17-B3490EF804E1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WolfyCore", "WolfyCore\WolfyCore.csproj", "{2DBDC60E-8E63-4D72-8CAD-067064261EE9}"
+EndProject
 Global
-	GlobalSection(SharedMSBuildProjectFiles) = preSolution
-		WolfyShared\WolfyShared.projitems*{8027608a-d904-4a1a-83c3-fcbc6869bcea}*SharedItemsImports = 4
-		WolfyShared\WolfyShared.projitems*{86c7f08e-1c36-429f-a401-f42fb63d3236}*SharedItemsImports = 4
-		WolfyShared\WolfyShared.projitems*{a0cdbd0e-3a41-42b7-9425-a838bc2c7383}*SharedItemsImports = 13
-	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
@@ -34,6 +29,10 @@ Global
 		{20975C22-DDB0-47E5-BC17-B3490EF804E1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{20975C22-DDB0-47E5-BC17-B3490EF804E1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{20975C22-DDB0-47E5-BC17-B3490EF804E1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2DBDC60E-8E63-4D72-8CAD-067064261EE9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2DBDC60E-8E63-4D72-8CAD-067064261EE9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2DBDC60E-8E63-4D72-8CAD-067064261EE9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2DBDC60E-8E63-4D72-8CAD-067064261EE9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -34,7 +34,7 @@ namespace WolfyEngine.Controls
                 return;
             }
 
-            BuildTree();
+            RefreshTree();
             toolStrip.Enabled = true;
         }
 
@@ -55,7 +55,7 @@ namespace WolfyEngine.Controls
             mainNode.Expanded = true;
         }
 
-        private void RefreshTree(string path)
+        private void RefreshTree()
         {
             mapsTree.Nodes.Clear();
             _nodeKeys.Clear();
@@ -87,7 +87,7 @@ namespace WolfyEngine.Controls
 
         private void refreshTreeButton_Click(object sender, System.EventArgs e)
         {
-            RefreshTree(_mapsPath);
+            RefreshTree();
         }
 
         private void NewMapButton_Click(object sender, System.EventArgs e)
@@ -101,7 +101,7 @@ namespace WolfyEngine.Controls
         {
             MapsController.Instance.AddMap(map);
             OnMapChanged?.Invoke(map);
-            RefreshTree(_mapsPath);
+            RefreshTree();
             mapsTree.Nodes[0].Expanded = true;
             mapsTree.SelectNode(mapsTree.Nodes[0].Nodes.Last());
         }

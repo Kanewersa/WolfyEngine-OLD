@@ -30,7 +30,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Engine\Utils\WolfyManager.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Engine\Utils\ReflectiveEnumerator.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ECS\Systems\Movement\RandomMovementSystem.cs" />
-    <Folder Include="$(MSBuildThisFileDirectory)ECS\Entities" />
+    <Compile Include="$(MSBuildThisFileDirectory)Game\SerializationHelper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ECS\Systems\AnimationSystem.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ECS\Systems\CollisionSystem.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ECS\Systems\InputSystem.cs" />
@@ -74,7 +74,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)StaticPaths.cs" />
     <Folder Include="$(MSBuildThisFileDirectory)ECS\Systems\Movement\" />
     <Folder Include="$(MSBuildThisFileDirectory)Engine\Collections\" />
-    <Folder Include="$(MSBuildThisFileDirectory)Game\Entities\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="$(MSBuildThisFileDirectory)Content\" />

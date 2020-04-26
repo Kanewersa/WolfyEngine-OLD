@@ -133,12 +133,15 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\WolfyCore\WolfyCore.csproj">
+      <Project>{2dbdc60e-8e63-4d72-8cad-067064261ee9}</Project>
+      <Name>WolfyCore</Name>
+    </ProjectReference>
     <ProjectReference Include="..\WolfyECS\WolfyECS.csproj">
       <Project>{20975c22-ddb0-47e5-bc17-b3490ef804e1}</Project>
       <Name>WolfyECS</Name>
     </ProjectReference>
   </ItemGroup>
-  <Import Project="..\WolfyShared\WolfyShared.projitems" Label="Shared" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\MonoGame\v3.0\MonoGame.Content.Builder.targets" />
   <Import Project="..\packages\MonoGame.Forms.DX.2.3.9\Build\MonoGame.Forms.DX.targets" Condition="Exists('..\packages\MonoGame.Forms.DX.2.3.9\Build\MonoGame.Forms.DX.targets')" />

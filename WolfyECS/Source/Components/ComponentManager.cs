@@ -19,11 +19,11 @@ namespace WolfyECS
         set => _components = value;
     }
 
-    [ProtoMember(4)] public Type ComponentType { get; set; }
+    [ProtoMember(4)] public string ComponentType { get; set; }
 
     private const int MaxComponents = 1024;
 
-    public ComponentManager(Type type)
+    public ComponentManager(string type)
     {
         ComponentType = type;
         EntityMap = new Dictionary<uint, int>();
@@ -62,6 +62,9 @@ namespace WolfyECS
 
     public EntityComponent GetComponent(Entity entity)
     {
+        Console.WriteLine("Id in map is: " + EntityMap[entity.Id]);
+        var comp = Components[EntityMap[entity.Id]];
+        Console.WriteLine(comp);
         return Components[EntityMap[entity.Id]];
     }
 

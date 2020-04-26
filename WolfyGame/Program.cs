@@ -1,4 +1,5 @@
 ﻿using System;
+using WolfyEngine;
 
 namespace WolfyGame
 {
@@ -13,6 +14,9 @@ namespace WolfyGame
         [STAThread]
         static void Main()
         {
+            // Initialize WolfyEngine
+            WolfyManager.WolfyInitialize();
+
             using (var game = new WolfyGame())
                 game.Run();
         }

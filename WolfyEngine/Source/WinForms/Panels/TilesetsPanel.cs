@@ -94,7 +94,7 @@ namespace WolfyEngine.Controls
                 return;
             }
 
-            BuildTree();
+            RefreshTree();
             toolStrip.Enabled = true;
         }
     }
