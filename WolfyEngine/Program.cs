@@ -2,10 +2,10 @@
 using System.IO;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
-using WolfyECS;
 using WolfyEngine.Engine;
 using WolfyEngine.Forms;
 using WolfyShared;
+using WolfyShared.Controllers;
 
 namespace WolfyEngine
 {
@@ -16,11 +16,11 @@ namespace WolfyEngine
         {
             // Load program settings
             if(File.Exists(StaticPaths.ProgramSettings))
-                Runtime.ProgramSettings = Serialization.XmlDeserialize<ProgramSettings>(StaticPaths.ProgramSettings);
+                ProjectsController.Instance.Settings = Serialization.XmlDeserialize<ProgramSettings>(StaticPaths.ProgramSettings);
             else
             {
-                Runtime.ProgramSettings = new ProgramSettings();
-                Runtime.ProgramSettings.Save();
+                ProjectsController.Instance.Settings = new ProgramSettings();
+                ProjectsController.Instance.Settings.Save();
             }
 
             // Check running os
@@ -39,8 +39,8 @@ namespace WolfyEngine
 
         private static void SaveProgramSettings(object sender, EventArgs e)
         {
-            Runtime.ProgramSettings.FirstStart = false;
-            Runtime.ProgramSettings.Save();
+            ProjectsController.Instance.Settings.FirstStart = false;
+            ProjectsController.Instance.Settings.Save();
         }
     }
 }

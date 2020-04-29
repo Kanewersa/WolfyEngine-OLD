@@ -1,17 +1,17 @@
 ﻿using System;
 using System.IO;
 using System.Threading.Tasks;
-using System.Windows.Forms;
 using Microsoft.Xna.Framework.Content.Pipeline;
 using Microsoft.Xna.Framework.Graphics;
+using System.Windows.Forms;
 using MonoGame.RuntimeBuilder;
 
 namespace WolfyShared.Controllers
 {
-    public class ContentController
+    public class ContentBuilder
     {
-        private static ContentController _instance;
-        public static ContentController Instance => _instance ??= new ContentController();
+        private static ContentBuilder _instance;
+        public static ContentBuilder Instance => _instance ??= new ContentBuilder();
 
         private RuntimeBuilder RuntimeBuilder { get; set; }
 

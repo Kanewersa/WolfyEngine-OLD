@@ -85,9 +85,7 @@ namespace WolfyShared.Scenes
             CurrentWorld.AddSystem(AnimationSystem);
             CurrentWorld.AddSystem(RandomMovementSystem);
             
-            CurrentWorld.Initialize();
-
-            WolfyManager.InitializeFamilies();
+            CurrentWorld.Initialize(WolfyManager.ComponentTypes);
 
             foreach (var entity in CurrentMap.Entities)
             {

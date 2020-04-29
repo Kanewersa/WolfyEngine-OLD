@@ -11,6 +11,5 @@ namespace WolfyShared
         {
             Serialization.XmlSerialize(this, StaticPaths.ProgramSettings);
         }
-
     }
 }

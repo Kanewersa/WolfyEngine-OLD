@@ -2,19 +2,17 @@
 using WolfyECS;
 using WolfyEngine;
 using WolfyEngine.Engine;
-using WolfyShared.Engine;
 using WolfyShared.Game;
 
 namespace WolfyShared.Controllers
 {
-    class GameController
+    public class GameController
     {
         private static GameController _instance;
         public static GameController Instance => _instance ??= new GameController();
 
         public GameSettings Settings { get; set; }
         public World World { get; private set; }
-        public SerializationHelper SerializationHelper { get; private set; }
 
         private string GameSettingsPath => PathsController.Instance.GameSettingsPath;
         private string WorldPath => PathsController.Instance.WorldPath;
@@ -33,7 +31,8 @@ namespace WolfyShared.Controllers
             World = File.Exists(WorldPath)
                 ? Serialization.ProtoDeserialize<World>(WorldPath)
                 : new World();
-            World.Initialize();
+
+            World.Initialize(WolfyManager.ComponentTypes);
             WolfyManager.InitializeFamilies();
         }
 

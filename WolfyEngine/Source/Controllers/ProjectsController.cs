@@ -13,6 +13,13 @@ namespace WolfyShared.Controllers
         
         private Project _currentProject;
 
+        private ProgramSettings _settings;
+        public ProgramSettings Settings
+        {
+            get => _settings;
+            set { _settings = value; }
+        }
+
         public Project CurrentProject
         {
             get => _currentProject;
@@ -25,6 +32,7 @@ namespace WolfyShared.Controllers
                         "Selected project is invalid. The application will close.",
                         "Invalid project!");
                     System.Windows.Forms.Application.Exit();
+                    throw new Exception("Could not load empty project.");
                 }
                 SetLastProject();
                 PathsController.Instance.SetMainPath(_currentProject.Path);
@@ -36,8 +44,8 @@ namespace WolfyShared.Controllers
 
         private void SetLastProject()
         {
-            Runtime.ProgramSettings.LastProject = CurrentProject;
-            Runtime.ProgramSettings.Save();
+            Settings.LastProject = CurrentProject;
+            Settings.Save();
         }
 
         public void Create(string name, string path, string tileSize)
@@ -72,13 +80,14 @@ namespace WolfyShared.Controllers
 
         public void SaveCurrentProject()
         {
-            //Runtime.CurrentProject.Save();
             CurrentProject.Save();
         }
 
         public void LoadLastProject()
         {
-            CurrentProject = Runtime.ProgramSettings.LastProject;
+            if (Settings.LastProject == null) return;
+
+            CurrentProject = Settings.LastProject;
             CurrentProject?.Initialize();
         }
     }

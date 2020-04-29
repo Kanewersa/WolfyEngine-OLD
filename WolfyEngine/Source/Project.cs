@@ -37,6 +37,7 @@ namespace WolfyShared
                     "Rectangle tiles are not supported. The application will close.",
                     "Rectangle tiles error!");
                 System.Windows.Forms.Application.Exit();
+                throw new Exception("Rectangle tiles are not supported!");
             }
             Runtime.GridSize = TileSize.X;
         }

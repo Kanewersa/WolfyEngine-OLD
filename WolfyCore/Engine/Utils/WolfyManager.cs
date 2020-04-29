@@ -7,7 +7,7 @@ namespace WolfyEngine
 {
     public static class WolfyManager
     {
-        public static List<Type> ComponentTypes { get; set; }
+        public static List<Type> ComponentTypes { get; private set; }
 
         /// <summary>
         /// Performs all operations needed to initialize WolfyEngine.

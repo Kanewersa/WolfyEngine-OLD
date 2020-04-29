@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using WolfyEngine;
 using WolfyShared.Controllers;
 using WolfyShared.Scenes;
 
@@ -50,7 +51,9 @@ namespace WolfyGame
             TilesetsController.Instance.InitializeProject();
             MapsController.Instance.InitializeProject();
             GameController.Instance.InitializeProject();
-            ContentController.Instance.Initialize();
+
+            // Initialize families after GameController is initialized
+            WolfyManager.InitializeFamilies();
 
             // Initialize the scene
             Scene = new GameScene(ScreenWidth, ScreenHeight, GameController.Instance.World);

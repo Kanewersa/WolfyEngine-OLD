@@ -178,7 +178,7 @@ namespace WolfyEngine.Forms
 
         private async void BuildContent(string[] files)
         {
-            await ContentController.Instance.BuildContent(files);
+            await ContentBuilder.Instance.BuildContent(files);
             MoveBuiltContent(files);
         }
 

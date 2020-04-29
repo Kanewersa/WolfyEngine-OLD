@@ -2,7 +2,7 @@
 
 namespace WolfyShared.Controllers
 {
-    class PathsController
+    public class PathsController
     {
         private static PathsController _instance;
         public static PathsController Instance => _instance ??= new PathsController();
@@ -28,6 +28,7 @@ namespace WolfyShared.Controllers
 
                 GameSettingsPath = Path.Combine(DataPath, "GameData.wolf");
                 WorldPath = Path.Combine(DataPath, "World.wolf");
+                SerializationHelperPath = Path.Combine(DataPath, "Serialization.wolf");
 
                 /*ContentWorkingPath = Path.Combine(GraphicsPath, "working");
                 ContentIntermediatePath = Path.Combine(ContentWorkingPath, "inter");
@@ -54,6 +55,7 @@ namespace WolfyShared.Controllers
 
         public string GameSettingsPath { get; private set; }
         public string WorldPath { get; private set; }
+        public string SerializationHelperPath { get; private set; }
 
         // Content manager paths
         /*public string ContentWorkingPath { get; private set; }

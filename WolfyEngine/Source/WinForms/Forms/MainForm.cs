@@ -164,7 +164,7 @@ namespace WolfyEngine.Forms
             TilesetsController.Instance.InitializeProject();
             MapsController.Instance.InitializeProject();
             GameController.Instance.InitializeProject();
-            ContentController.Instance.Initialize();
+            ContentBuilder.Instance.Initialize();
 
             // Initialize project in controls
             MapsPanel.InitializeProject(project);
