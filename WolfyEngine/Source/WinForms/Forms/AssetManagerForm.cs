@@ -189,7 +189,7 @@ namespace WolfyEngine.Forms
             foreach (var file in source)
             {
                 var info = new FileInfo(file);
-                info.MoveTo(SelectedFolder + "\\" + info.Name);
+                info.CopyTo(SelectedFolder + "\\" + info.Name);
             }
 
             // Move all built to proper folder
