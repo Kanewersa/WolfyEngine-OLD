@@ -30,6 +30,9 @@ namespace WolfyShared
         /// </summary>
         public void Initialize()
         {
+            if(TileSize.X == 0 || TileSize.Y == 0)
+                throw new NullReferenceException("Tile size was not set.");
+
             Runtime.TileSize = TileSize;
             if (TileSize.X != TileSize.Y)
             {

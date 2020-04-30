@@ -29,7 +29,6 @@ namespace WolfyEngine.Controls
 
             if (entity.HasComponent<AnimationComponent>())
             {
-                Console.WriteLine("Getting animation component.....");
                 _animationComponent = entity.GetComponent<AnimationComponent>();
 
                 var animation = _animationComponent.Animations.First().Value;

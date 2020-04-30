@@ -62,9 +62,7 @@ namespace WolfyECS
 
     public EntityComponent GetComponent(Entity entity)
     {
-        Console.WriteLine("Id in map is: " + EntityMap[entity.Id]);
         var comp = Components[EntityMap[entity.Id]];
-        Console.WriteLine(comp);
         return Components[EntityMap[entity.Id]];
     }
 

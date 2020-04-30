@@ -252,7 +252,8 @@ namespace WolfyECS
         public T GetComponent<T>(Entity e) where T : EntityComponent
         {
             var manager = GetComponentManager<T>();
-            return manager.GetComponent(e) as T;
+            var comp = manager.GetComponent(e);
+            return (T)comp;
         }
 
         public List<EntityComponent> GetComponents(Entity e)

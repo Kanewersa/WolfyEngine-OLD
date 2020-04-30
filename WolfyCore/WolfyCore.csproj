@@ -112,6 +112,7 @@
     <Compile Include="Engine\Utils\EntityScheme.cs" />
     <Compile Include="Engine\Utils\ReflectiveEnumerator.cs" />
     <Compile Include="Engine\Utils\SchemeManager.cs" />
+    <Compile Include="Engine\Utils\WolfyHelper.cs" />
     <Compile Include="Engine\Utils\WolfyManager.cs" />
     <Compile Include="Engine\Vector2D.cs" />
     <Compile Include="Engine\Vector3D.cs" />

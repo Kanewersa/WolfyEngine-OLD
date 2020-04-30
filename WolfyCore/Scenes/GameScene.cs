@@ -50,11 +50,8 @@ namespace WolfyShared.Scenes
             };
 
             var mapId = GameController.Instance.Settings.StartingMap;
-            Console.WriteLine("Starting map: " + mapId);
             CurrentMap = MapsController.Instance.GetMap(mapId);
-            Console.WriteLine("Name: " + CurrentMap.Name);
 
-            Console.WriteLine("Entities count: " + CurrentMap.Entities.Count);
             CurrentMap.Initialize(graphics, CurrentWorld);
 
             Camera.SetMapBoundaries(new Vector2(
@@ -89,7 +86,6 @@ namespace WolfyShared.Scenes
 
             foreach (var entity in CurrentMap.Entities)
             {
-                Console.WriteLine("Checking entity: " + entity);
                 if(entity.HasComponent<CollisionComponent>())
                     CollisionSystem.RegisterEntity(entity);
                 if (entity.HasComponent<MovementComponent>())
@@ -154,7 +150,6 @@ namespace WolfyShared.Scenes
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
-            //MeasureTime.Start("Update took: ");
 
             if (Paused) return;
 
@@ -169,7 +164,6 @@ namespace WolfyShared.Scenes
             CurrentMap.Update(gameTime);
             Camera.Update(Player.GetComponent<AnimationComponent>());
             VisibleArea = Camera.GetVisibleArea();
-            //MeasureTime.Stop();
         }
 
         

@@ -1,5 +1,7 @@
 ﻿using System;
 using WolfyEngine;
+using WolfyShared;
+using WolfyShared.Engine;
 
 namespace WolfyGame
 {
@@ -16,6 +18,10 @@ namespace WolfyGame
         {
             // Initialize WolfyEngine
             WolfyManager.WolfyInitialize();
+
+            // TODO Move tile size property from project scope to game settings
+            Runtime.TileSize = new Vector2D(32,32);
+            Runtime.GridSize = 32;
 
             using (var game = new WolfyGame())
                 game.Run();

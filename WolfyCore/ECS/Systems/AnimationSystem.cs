@@ -24,7 +24,8 @@ namespace WolfyShared.ECS
             foreach (var entity in Entities)
             {
                 var comp = entity.GetComponent<AnimationComponent>();
-                Console.WriteLine(comp);
+                Console.WriteLine("Got animation component:");
+                Console.WriteLine(comp.GetType());
                 comp.AnimationManager.Initialize(comp.Animations["Walk"]);
                 comp.Animations["Walk"].Image.Initialize(graphics);
             }

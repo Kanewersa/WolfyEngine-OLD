@@ -154,14 +154,21 @@ namespace WolfyEngine.Engine
         public static void ProtoInitialize(List<Type> types)
         {
             // Load entity component subtypes
-            //var types = ReflectiveEnumerator.GetSubTypes<EntityComponent>();
             foreach (var type in types)
             {
-                RuntimeTypeModel.Default[typeof(EntityComponent)]
-                    .AddSubType(type.GetHashCode(), type);
+                var name = type.Name;
+                if (name.EndsWith("Component"))
+                    name = name.Replace("Component", "");
+                
+                var id = WolfyHelper.GetUniqueInt(name);
                 var genericType = typeof(EntityComponent<>).MakeGenericType(type);
+
                 RuntimeTypeModel.Default[typeof(EntityComponent)]
-                    .AddSubType(genericType.GetHashCode(), genericType);
+                    .AddSubType(id, type);
+
+                // 13 => small, random number
+                RuntimeTypeModel.Default[typeof(EntityComponent)]
+                    .AddSubType(id + 13, genericType);
             }
 
             // Load entity system subtypes
@@ -171,11 +178,6 @@ namespace WolfyEngine.Engine
                 RuntimeTypeModel.Default[typeof(EntitySystem)]
                     .AddSubType(type.GetHashCode(), type);
             }
-
-            // Load <Entity, int> dictionary
-            /*var typ = RuntimeTypeModel.Default.Add(typeof(KeyValuePair<Entity, int>), false);
-            typ.Add(11, "key").AsReferenceDefault = true;
-            typ.AddField(12, "value");*/
         }
 
 
