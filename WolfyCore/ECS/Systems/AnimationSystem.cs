@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using ProtoBuf;
 using WolfyECS;
@@ -19,7 +20,7 @@ namespace WolfyShared.ECS
             RequireComponent<AnimationComponent>();
         }
 
-        public override void DrawInitialize(GraphicsDevice graphics)
+        public override void LoadContent(ContentManager content)
         {
             foreach (var entity in Entities)
             {
@@ -27,7 +28,8 @@ namespace WolfyShared.ECS
                 Console.WriteLine("Got animation component:");
                 Console.WriteLine(comp.GetType());
                 comp.AnimationManager.Initialize(comp.Animations["Walk"]);
-                comp.Animations["Walk"].Image.Initialize(graphics);
+
+                //comp.Animations["Walk"].Image.Initialize(graphics);
             }
         }
         

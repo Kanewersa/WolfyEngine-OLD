@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using ProtoBuf;
 using WolfyShared.Controllers;
@@ -53,7 +54,6 @@ namespace WolfyShared.Game
                 }
             }
 
-            // TODO Loading tiles from tileset is probably necessary only inside editor
             for (var y = 0; y < Size.Y; y++)
             {
                 for (var x = 0; x < Size.X; x++)
@@ -64,7 +64,12 @@ namespace WolfyShared.Game
                 }
             }
 
-            Tileset.Initialize(graphics);
+            Tileset.Initialize();
+        }
+
+        public override void LoadContent(ContentManager content)
+        {
+            Tileset.LoadContent(content);
         }
 
         public override void Draw(SpriteBatch spriteBatch, Rectangle visibleArea)

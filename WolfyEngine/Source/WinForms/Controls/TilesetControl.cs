@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 using MonoGame.Forms.Controls;
 using WolfyEngine.Utils;
 using WolfyShared;
@@ -128,7 +129,14 @@ namespace WolfyEngine.Controls
                 OnControlClick?.Invoke(rect);
             };
 
+            _selector.Initialize(GraphicsDevice);
+            LoadContent(Editor.Content);
             OnInitialize?.Invoke();
+        }
+
+        protected void LoadContent(ContentManager content)
+        {
+            _selector.LoadContent(content);
         }
 
         protected override void Draw()
@@ -162,6 +170,7 @@ namespace WolfyEngine.Controls
             }
 
             layer.Initialize(GraphicsDevice);
+            layer.LoadContent(Editor.Content);
             //_currentImage.Initialize(GraphicsDevice);
             // Set control size to fit the texture
             Width = _currentImage.Texture.Width;
@@ -169,20 +178,6 @@ namespace WolfyEngine.Controls
             
 
             Invalidate();
-        }
-
-        public void Test()
-        {
-            var tileset = _currentLayer.Tileset;
-
-            foreach (var row in tileset.Rows)
-            {
-                foreach (var tile in row.Tiles)
-                {
-                    Console.WriteLine("X: " + tile.Source.X + ", Y: " + tile.Source.Y);
-                    
-                }
-            }
         }
     }
 }

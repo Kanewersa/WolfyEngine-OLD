@@ -201,6 +201,11 @@ namespace WolfyECS
             _systems.Add(entitySystem);
         }
 
+        public List<EntitySystem> GetSystems()
+        {
+            return _systems;
+        }
+
         public void UpdateEntityMask(Entity e, ComponentMask oldMask)
         {
             var newMask = _entityMasks[e.Id];

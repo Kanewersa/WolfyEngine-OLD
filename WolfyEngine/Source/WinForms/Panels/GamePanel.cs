@@ -17,8 +17,6 @@ namespace WolfyEngine.Controls
 {
     public partial class GamePanel : DarkDocument
     {
-        public GameControl GameControl => gameControl;
-
         private SchemeManager _schemeManager;
         private Map _currentMap;
         private World _world;
@@ -228,11 +226,6 @@ namespace WolfyEngine.Controls
             gameControl.Tool = GameControl.Tools.Fill;
             FillButton.Checked = true;
             PencilButton.Checked = false;
-        }
-
-        private void darkButton1_Click(object sender, EventArgs e)
-        {
-            
         }
     }
 }

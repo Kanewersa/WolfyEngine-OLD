@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using WolfyShared.Engine;
 
@@ -9,12 +10,14 @@ namespace WolfyEngine.Utils
     {
         private List<Image> _images;
 
+        public bool Enabled { get; set; } = true;
+
         private readonly string[] _imagesPaths =
         {
-            "Assets/Editor/selector1.png",
-            "Assets/Editor/selector2.png",
-            "Assets/Editor/selector3.png",
-            "Assets/Editor/selector4.png"
+            "Assets/Editor/selector1",
+            "Assets/Editor/selector2",
+            "Assets/Editor/selector3",
+            "Assets/Editor/selector4"
         };
 
         public Selector(float scale)
@@ -29,12 +32,21 @@ namespace WolfyEngine.Utils
 
         public void Initialize(GraphicsDevice graphics)
         {
+            
+        }
+
+        public void LoadContent(ContentManager content)
+        {
             foreach (var image in _images)
-                image.Initialize(graphics);
+            {
+                image.LoadContent(content);
+            }
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
+            if (!Enabled) return;
+
             foreach (var image in _images)
                 image.Draw(spriteBatch);
         }

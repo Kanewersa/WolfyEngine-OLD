@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using ProtoBuf;
 using WolfyShared.Engine;
@@ -16,6 +17,9 @@ namespace WolfyShared.Game
         [ProtoIgnore] public Vector2D TileSize => Runtime.TileSize;
 
         public virtual void Initialize(GraphicsDevice graphics)
+        { }
+
+        public virtual void LoadContent(ContentManager content)
         { }
 
         public virtual void Draw(SpriteBatch spriteBatch, Rectangle visibleArea)

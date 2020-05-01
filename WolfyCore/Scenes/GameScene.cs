@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using WolfyECS;
 using WolfyEngine;
@@ -66,7 +67,7 @@ namespace WolfyShared.Scenes
 
             foreach (var pair in movementAnimation)
             {
-                pair.Value.Image.Initialize(graphics);
+               // pair.Value.Image.Initialize(graphics);
             }
             //###################################################################
 
@@ -96,9 +97,6 @@ namespace WolfyShared.Scenes
                     RandomMovementSystem.RegisterEntity(entity);
             }
 
-            // TODO Image initialization should be moved to separate class/manager
-            AnimationSystem.DrawInitialize(graphics);
-
             // Should be called after systems are added and initialized
             Player = CurrentWorld.CreateEntity("Player");
             Player.AddComponent<InputComponent>();
@@ -119,6 +117,12 @@ namespace WolfyShared.Scenes
             animation.Animations = movementAnimation;
             animation.AnimationManager =
                 new AnimationManager(animation.Animations.First().Value);
+        }
+
+        public override void LoadContent(ContentManager content)
+        {
+            // TODO Image initialization should be moved to separate class/manager
+            AnimationSystem.LoadContent(content);
         }
 
         public override void Draw(SpriteBatch spriteBatch, GameTime gameTime)

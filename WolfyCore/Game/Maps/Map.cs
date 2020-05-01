@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using ProtoBuf;
 using WolfyECS;
@@ -42,6 +43,14 @@ namespace WolfyShared.Game
             foreach (var entity in Entities)
             {
                 entity.Initialize(world);
+            }
+        }
+
+        public void LoadContent(ContentManager content)
+        {
+            foreach (var layer in Layers)
+            {
+                layer.LoadContent(content);
             }
         }
 

@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
 using ProtoBuf;
 using System.Drawing;
+using Microsoft.Xna.Framework.Content;
 using WolfyShared.Engine;
 using Image = WolfyShared.Engine.Image;
 
@@ -38,9 +39,14 @@ namespace WolfyShared.Game
                 Rows[i] = new TileRow(width, i, TileSize.X);
         }
 
-        public void Initialize(GraphicsDevice graphics)
+        public void Initialize()
         {
-            Image.Initialize(graphics);
+            
+        }
+
+        public void LoadContent(ContentManager content)
+        {
+            Image.LoadContent(content);
         }
 
         public void Unload()

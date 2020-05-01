@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using ProtoBuf;
 
@@ -26,19 +27,20 @@ namespace WolfyShared.Engine
 
         public Image(string path) { Path = path; }
 
-        public void Initialize(GraphicsDevice graphics)
+        public void LoadContent(ContentManager content)
         {
             if (Texture != null)
-            {
-                Console.WriteLine("Image " + Texture.Name + " was already initialized!");
-                return;
-                //throw new Exception("Image was already initialized!");
-            }
+                Console.WriteLine("Image " + Texture.Name + " was already loaded!");
+            
+            if (string.IsNullOrEmpty(Path))
+                throw new FileNotFoundException("Texture file is missing or wrong path! Path: " + Path);
 
-            if (!string.IsNullOrEmpty(Path))
-                Texture = GraphicsManager.LoadFromFileStream(Path, graphics);
-            else
-                throw new FileNotFoundException("Texture is missing or wrong path! Path: " + Path);
+            if (Path.EndsWith(".png"))
+            {
+                Path = Path.Remove(Path.Length - 4);
+            }
+            
+            Texture = content.Load<Texture2D>(Path);
 
             if (SourceRectangle == Rectangle.Empty)
                 SourceRectangle = Texture.Bounds;

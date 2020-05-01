@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 using MonoGame.Forms.Controls;
 using WolfyShared;
 using WolfyShared.Engine;
@@ -49,26 +50,16 @@ namespace WolfyEngine.Controls
             base.Initialize();
 
             _imageScale = TileSize.X / 64;
-
             PassageFalse = new Image
-                {Path = "Assets/Icons/PassageFalseIcon.png", Scale = _imageScale, Alpha = _imageAlpha};
+                {Path = "Assets/Icons/PassageFalseIcon", Scale = _imageScale, Alpha = _imageAlpha};
             PassageTrue = new Image
-                {Path = "Assets/Icons/PassageTrueIcon.png", Scale = _imageScale, Alpha = _imageAlpha};
-            Bush = new Image {Path = "Assets/Icons/BushIcon.png", Scale = _imageScale, Alpha = _imageAlpha};
-            Dot = new Image {Path = "Assets/Icons/DotIcon.png", Scale = _imageScale, Alpha = _imageAlpha};
-            ShadowNone = new Image{Path = "Assets/Icons/Zero.png", Scale = _imageScale, Alpha = _imageAlpha };
-            ShadowOne = new Image { Path = "Assets/Icons/One.png", Scale = _imageScale, Alpha = _imageAlpha };
-            ShadowTwo = new Image { Path = "Assets/Icons/Two.png", Scale = _imageScale, Alpha = _imageAlpha };
-            ShadowThree = new Image { Path = "Assets/Icons/Three.png", Scale = _imageScale, Alpha = _imageAlpha };
-
-            PassageFalse.Initialize(GraphicsDevice);
-            PassageTrue.Initialize(GraphicsDevice);
-            Bush.Initialize(GraphicsDevice);
-            Dot.Initialize(GraphicsDevice);
-            ShadowNone.Initialize(GraphicsDevice);
-            ShadowOne.Initialize(GraphicsDevice);
-            ShadowTwo.Initialize(GraphicsDevice);
-            ShadowThree.Initialize(GraphicsDevice);
+                {Path = "Assets/Icons/PassageTrueIcon", Scale = _imageScale, Alpha = _imageAlpha};
+            Bush = new Image {Path = "Assets/Icons/BushIcon", Scale = _imageScale, Alpha = _imageAlpha};
+            Dot = new Image {Path = "Assets/Icons/DotIcon", Scale = _imageScale, Alpha = _imageAlpha};
+            ShadowNone = new Image{Path = "Assets/Icons/Zero", Scale = _imageScale, Alpha = _imageAlpha };
+            ShadowOne = new Image { Path = "Assets/Icons/One", Scale = _imageScale, Alpha = _imageAlpha };
+            ShadowTwo = new Image { Path = "Assets/Icons/Two", Scale = _imageScale, Alpha = _imageAlpha };
+            ShadowThree = new Image { Path = "Assets/Icons/Three", Scale = _imageScale, Alpha = _imageAlpha };
 
             CurrentImage = DrawPassage;
             CurrentBool = SetPassage;
@@ -77,7 +68,20 @@ namespace WolfyEngine.Controls
             MouseLeave += delegate { EditorMouseLeave(); };
             MouseClick += TilesetEditorControl_MouseClick;
 
+            LoadContent(Editor.Content);
             InitializeCurrentTileset();
+        }
+
+        protected void LoadContent(ContentManager content)
+        {
+            PassageFalse.LoadContent(content);
+            PassageTrue.LoadContent(content);
+            Bush.LoadContent(content);
+            Dot.LoadContent(content);
+            ShadowNone.LoadContent(content);
+            ShadowOne.LoadContent(content);
+            ShadowTwo.LoadContent(content);
+            ShadowThree.LoadContent(content);
         }
 
         private void TilesetEditorControl_MouseClick(object sender, System.Windows.Forms.MouseEventArgs e)
@@ -206,7 +210,8 @@ namespace WolfyEngine.Controls
         {
             if (_currentTileset == null || _currentImage.Path == null
                                         || Editor == null) return;
-            _currentTileset.Initialize(GraphicsDevice);
+            _currentTileset.Initialize();
+            _currentTileset.LoadContent(Editor.Content);
             Width = _currentTileset.Image.Texture.Width;
             Height = _currentTileset.Image.Texture.Height;
         }

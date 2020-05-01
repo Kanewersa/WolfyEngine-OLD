@@ -35,7 +35,7 @@ namespace WolfyGame
         {
             IsMouseVisible = true;
             Window.AllowUserResizing = true;
-            IsFixedTimeStep = false;
+            IsFixedTimeStep = true;
             graphics.SynchronizeWithVerticalRetrace = false;
 
             graphics.PreferredBackBufferHeight = 1024;

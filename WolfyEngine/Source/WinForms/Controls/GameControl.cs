@@ -4,6 +4,7 @@ using System.Linq;
 using System.Windows.Forms;
 using DarkUI.Forms;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 using MonoGame.Forms.Controls;
 using WolfyECS;
 using WolfyEngine.Utils;
@@ -17,45 +18,30 @@ namespace WolfyEngine.Controls
 {
     public class GameControl : InvalidationControl
     {
-        public enum EditorMode
-        {
-            Tiles,
-            Entities
-        }
-
-        public enum Tools
-        {
-            Pencil,
-            Fill
-        }
+        public enum EditorMode { Tiles, Entities }
+        public enum Tools { Pencil, Fill }
 
         public event ControlEventHandler OnInitialize;
         public event Vector2EventHandler OnCoordinatesChanged;
         public event MouseEventHandler OnRightClick;
-
         public event EntityEventHandler OnEntitySelect;
 
+        public bool StartingMap { get; private set; }
+        public new Vector2 MousePosition { get; private set; }
+        public Rectangle SelectedTileRegion { get; private set; }
+        public bool MouseOnScreen { get; private set; }
+        public new bool MouseDown { get; private set; }
+        public Image EntityGridImage { get; private set; }
+        public Image SelectedTileImage { get; private set; }
+        public Image StartingPointImage { get; private set; }
+        public World World { get; private set; }
 
         public EditorMode Mode { get; private set; }
         public Tools Tool { get; set; }
-
         public Map CurrentMap { get; set; }
-        private bool _startingMap;
-        private Selector _selector;
-        private Vector2 _mousePosition;
-        private Rectangle _selectedTileRegion;
-        private float _currentZoom;
-        private bool _mouseOnScreen, _mouseDown;
-        private Image _entityGridImage;
-        private Image _selectedTileImage;
-        private Image _startingPointImage;
-        private World _world;
-
         public Vector2D TileSize => Runtime.TileSize;
-
         public BaseLayer CurrentLayer { get; private set; }
-
-        public bool Paused { get; set; } = false;
+        public Selector Selector { get; private set; }
 
         private Vector2 _tileCoordinates;
         public Vector2 TileCoordinates
@@ -67,45 +53,41 @@ namespace WolfyEngine.Controls
                 OnCoordinatesChanged?.Invoke(value);
             }
         }
-
-        // Editor background color
         public Color Color { get; set; } = new Color(60, 63, 65);
 
         public GameControl()
         {
+            Selector = new Selector((float)Runtime.GridSize/48);
+
             Mode = EditorMode.Entities;
             Tool = Tools.Pencil;
 
-            _currentZoom = 1f;
-            _selectedTileRegion = new Rectangle(0, 0, 1, 1);
-            _entityGridImage = new Image("Assets/Icons/EntityGridIcon.png")
+            SelectedTileRegion = new Rectangle(0, 0, 1, 1);
+            EntityGridImage = new Image("Assets/Icons/EntityGridIcon")
             {
                 Scale = .5f
             };
-            _selectedTileImage = new Image("Assets/Icons/SelectedTileIcon.png")
+            SelectedTileImage = new Image("Assets/Icons/SelectedTileIcon")
             {
                 Scale = .5f,
                 Alpha = .5f
             };
-            _startingPointImage = new Image("Assets/Icons/StartingPointIcon.png")
+            StartingPointImage = new Image("Assets/Icons/StartingPointIcon")
             {
                 Scale = .5f
             };
             
-
-            _selector = new Selector(0.666f);
-
-            MouseEnter += delegate { _mouseOnScreen = true; };
+            MouseEnter += delegate { MouseOnScreen = true; };
             MouseLeave += delegate
             {
-                _mouseOnScreen = false;
+                MouseOnScreen = false;
                 Draw();
                 Invalidate();
             };
 
             MouseMove += GameControl_MouseMove;
-            MouseDown += GameControl_MouseDown;
-            MouseUp += delegate { _mouseDown = false; };
+            ((Control) this).MouseDown += GameControl_MouseDown;
+            MouseUp += delegate { MouseDown = false; };
             MouseClick += GameControl_MouseClick;
             MouseDoubleClick += GameControl_MouseDoubleClick;
         }
@@ -150,29 +132,29 @@ namespace WolfyEngine.Controls
                 switch (Tool)
                 {
                     case Tools.Pencil:
-                        (CurrentLayer as TileLayer)?.ReplaceTiles(_mousePosition, _selectedTileRegion);
+                        (CurrentLayer as TileLayer)?.ReplaceTiles(MousePosition, SelectedTileRegion);
                         break;
                     case Tools.Fill:
-                        if (_selectedTileRegion.Width > 0 || _selectedTileRegion.Height > 0)
+                        if (SelectedTileRegion.Width > 0 || SelectedTileRegion.Height > 0)
                         {
                             DarkMessageBox.ShowWarning(
                                 "To use Fill tool select just one tile in tileset view!",
                                 "Too big region selected.");
                             return;
                         }
-                        (CurrentLayer as TileLayer)?.FillTiles(_mousePosition, _selectedTileRegion);
+                        (CurrentLayer as TileLayer)?.FillTiles(MousePosition, SelectedTileRegion);
                         break;
                     default:
                         throw new ArgumentOutOfRangeException();
                 }
             }
 
-            _mouseDown = true;
+            MouseDown = true;
         }
 
         private void GameControl_MouseMove(object sender, MouseEventArgs e)
         {
-            if(_mouseDown)
+            if(MouseDown)
                 GameControl_MouseDown(this, null);
 
             HandleSelector(e);
@@ -181,16 +163,16 @@ namespace WolfyEngine.Controls
         private void HandleSelector(MouseEventArgs e)
         {
             if (CurrentMap == null || CurrentLayer == null) return;
-            _mousePosition = new Vector2((int)(e.X / TileSize.X / _currentZoom), (int)(e.Y / CurrentMap.TileSize.Y / _currentZoom));
-            TileCoordinates = _mousePosition;
-            _mousePosition *= TileSize.X;
-            var width = _selectedTileRegion.Width * TileSize.X;
-            var height = _selectedTileRegion.Height * TileSize.Y;
+            MousePosition = new Vector2((int)(e.X / TileSize.X), (int)(e.Y / CurrentMap.TileSize.Y));
+            TileCoordinates = MousePosition;
+            MousePosition *= TileSize.X;
+            var width = SelectedTileRegion.Width * TileSize.X;
+            var height = SelectedTileRegion.Height * TileSize.Y;
 
-            _selector.SetPosition(_mousePosition,
-                new Vector2(_mousePosition.X + width, _mousePosition.Y),
-                new Vector2(_mousePosition.X, _mousePosition.Y + height),
-                new Vector2(_mousePosition.X + width, _mousePosition.Y + height));
+            Selector.SetPosition(MousePosition,
+                new Vector2(MousePosition.X + width, MousePosition.Y),
+                new Vector2(MousePosition.X, MousePosition.Y + height),
+                new Vector2(MousePosition.X + width, MousePosition.Y + height));
 
             Invalidate();
         }
@@ -199,28 +181,27 @@ namespace WolfyEngine.Controls
         {
             base.Initialize();
 
-            _entityGridImage.Initialize(GraphicsDevice);
-            _selectedTileImage.Initialize(GraphicsDevice);
-            _selector.Initialize(GraphicsDevice);
-            _startingPointImage.Initialize(GraphicsDevice);
-
+            LoadContent(Editor.Content);
             OnInitialize?.Invoke();
+        }
+
+        protected void LoadContent(ContentManager content)
+        {
+            EntityGridImage.LoadContent(content);
+            SelectedTileImage.LoadContent(content);
+            Selector.LoadContent(content);
+            StartingPointImage.LoadContent(content);
         }
 
         protected override void Draw()
         {
             base.Draw();
-
             if (Editor == null) return;
 
+            // Draw background color to imitate transparency
             GraphicsDevice.Clear(Color);
 
             Editor.spriteBatch.Begin();
-
-            CurrentMap?.Draw(Editor.spriteBatch);
-
-            if(_mouseOnScreen && CurrentLayer is TileLayer)
-                _selector.Draw(Editor.spriteBatch);
 
             if (CurrentMap == null)
             {
@@ -228,37 +209,43 @@ namespace WolfyEngine.Controls
                 return;
             }
 
-            if (CurrentLayer is EntityLayer)
-            {
-                for (var y = 0; y < CurrentLayer.Size.Y; y++)
-                {
-                    for (var x = 0; x < CurrentLayer.Size.X; x++)
-                    {
-                        _entityGridImage.Position = new Vector2(x * TileSize.X,
-                            y * TileSize.Y);
-                        _entityGridImage.Draw(Editor.spriteBatch);
-                    }
-                }
+            CurrentMap?.Draw(Editor.spriteBatch);
 
-                if(_selectedTile != null)
-                {
-                    _selectedTileImage.Position = new Vector2(
-                        _selectedTileCords.X * TileSize.X,
-                        _selectedTileCords.Y * TileSize.Y);
-                    _selectedTileImage.Draw(Editor.spriteBatch);
-                }
-
-                if (_startingMap)
-                    _startingPointImage.Draw(Editor.spriteBatch);
-                
-            }
+            if (MouseOnScreen && CurrentLayer is TileLayer)
+                Selector.Draw(Editor.spriteBatch);
+            else if (CurrentLayer is EntityLayer)
+                DrawEntityLayer();
 
             Editor.spriteBatch.End();
         }
 
+        private void DrawEntityLayer()
+        {
+            for (var y = 0; y < CurrentLayer.Size.Y; y++)
+            {
+                for (var x = 0; x < CurrentLayer.Size.X; x++)
+                {
+                    EntityGridImage.Position = new Vector2(x * TileSize.X,
+                        y * TileSize.Y);
+                    EntityGridImage.Draw(Editor.spriteBatch);
+                }
+            }
+
+            if (_selectedTile != null)
+            {
+                SelectedTileImage.Position = new Vector2(
+                    _selectedTileCords.X * TileSize.X,
+                    _selectedTileCords.Y * TileSize.Y);
+                SelectedTileImage.Draw(Editor.spriteBatch);
+            }
+
+            if (StartingMap)
+                StartingPointImage.Draw(Editor.spriteBatch);
+        }
+
         public void SetTileRegion(Rectangle rect)
         {
-            _selectedTileRegion = rect;
+            SelectedTileRegion = rect;
         }
 
         public void LoadMap(Map map)
@@ -279,7 +266,8 @@ namespace WolfyEngine.Controls
             Width = map.Size.X * TileSize.X;
             Height = map.Size.Y * TileSize.Y;
 
-            map?.Initialize(Editor.graphics, _world);
+            map?.Initialize(Editor.graphics, World);
+            map?.LoadContent(Editor.Content);
 
             if(map.Layers.Any())
                 CurrentLayer = map.Layers[0];
@@ -289,16 +277,16 @@ namespace WolfyEngine.Controls
 
         public void LoadWorld(World world)
         {
-            _world = world;
+            World = world;
         }
 
         public void SetStartingPosition()
         {
-            _startingMap = CurrentMap.Id == GameController.Instance.Settings.StartingMap;
+            StartingMap = CurrentMap.Id == GameController.Instance.Settings.StartingMap;
 
-            if (!_startingMap) return;
+            if (!StartingMap) return;
             var coordinates = GameController.Instance.Settings.StartingCoordinates;
-            _startingPointImage.Position =
+            StartingPointImage.Position =
                 new Vector2(coordinates.X * TileSize.X, coordinates.Y * TileSize.Y);
         }
 
@@ -318,13 +306,14 @@ namespace WolfyEngine.Controls
 
             CurrentLayer = layer;
             layer.Initialize(GraphicsDevice);
+            layer.LoadContent(Editor.Content);
         }
 
         public T GetCurrentLayer<T>() where T : BaseLayer
         {
             if(CurrentLayer is T layer)
                 return layer;
-            else throw new Exception("Current layer was not " + typeof(T));
+            throw new Exception("Current layer was not " + typeof(T));
         }
     }
 }

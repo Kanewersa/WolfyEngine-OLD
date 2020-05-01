@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using ProtoBuf;
 
@@ -25,7 +26,7 @@ namespace WolfyECS
         public virtual void Initialize()
         { }
 
-        public virtual void DrawInitialize(GraphicsDevice graphics)
+        public virtual void LoadContent(ContentManager content)
         { }
 
         public virtual void Update(GameTime gameTime)

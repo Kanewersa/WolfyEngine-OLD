@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace WolfyShared.Scenes
@@ -15,6 +16,11 @@ namespace WolfyShared.Scenes
         }
 
         public virtual void Initialize(GraphicsDevice graphics)
+        {
+
+        }
+
+        public virtual void LoadContent(ContentManager content)
         {
 
         }

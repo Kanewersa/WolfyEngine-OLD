@@ -40,7 +40,6 @@
             this.removeEntityToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.setStartingPointToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.darkButton1 = new DarkUI.Controls.DarkButton();
             this.scrollablePanel.SuspendLayout();
             this.darkToolStrip.SuspendLayout();
             this.EntityContextMenu.SuspendLayout();
@@ -49,13 +48,12 @@
             // scrollablePanel
             // 
             this.scrollablePanel.AutoScroll = true;
-            this.scrollablePanel.Controls.Add(this.darkButton1);
             this.scrollablePanel.Controls.Add(this.gameControl);
             this.scrollablePanel.Controls.Add(this.darkToolStrip);
             this.scrollablePanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.scrollablePanel.Location = new System.Drawing.Point(0, 0);
             this.scrollablePanel.Name = "scrollablePanel";
-            this.scrollablePanel.Size = new System.Drawing.Size(469, 534);
+            this.scrollablePanel.Size = new System.Drawing.Size(575, 534);
             this.scrollablePanel.TabIndex = 1;
             // 
             // gameControl
@@ -65,7 +63,6 @@
             this.gameControl.Location = new System.Drawing.Point(0, 24);
             this.gameControl.Margin = new System.Windows.Forms.Padding(0);
             this.gameControl.Name = "gameControl";
-            this.gameControl.Paused = false;
             this.gameControl.Size = new System.Drawing.Size(195, 258);
             this.gameControl.TabIndex = 0;
             this.gameControl.Text = "Game control";
@@ -84,7 +81,7 @@
             this.darkToolStrip.Location = new System.Drawing.Point(0, 0);
             this.darkToolStrip.Name = "darkToolStrip";
             this.darkToolStrip.Padding = new System.Windows.Forms.Padding(5, 0, 1, 0);
-            this.darkToolStrip.Size = new System.Drawing.Size(469, 28);
+            this.darkToolStrip.Size = new System.Drawing.Size(575, 28);
             this.darkToolStrip.TabIndex = 2;
             this.darkToolStrip.Text = "darkToolStrip1";
             // 
@@ -179,16 +176,6 @@
             this.setStartingPointToolStripMenuItem.Text = "Set starting point";
             this.setStartingPointToolStripMenuItem.Click += new System.EventHandler(this.setStartingPointToolStripMenuItem_Click);
             // 
-            // darkButton1
-            // 
-            this.darkButton1.Location = new System.Drawing.Point(394, 0);
-            this.darkButton1.Name = "darkButton1";
-            this.darkButton1.Padding = new System.Windows.Forms.Padding(5);
-            this.darkButton1.Size = new System.Drawing.Size(75, 23);
-            this.darkButton1.TabIndex = 3;
-            this.darkButton1.Text = "darkButton1";
-            this.darkButton1.Click += new System.EventHandler(this.darkButton1_Click);
-            // 
             // GamePanel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -197,7 +184,7 @@
             this.Cursor = System.Windows.Forms.Cursors.Default;
             this.DockText = "Game Editor";
             this.Name = "GamePanel";
-            this.Size = new System.Drawing.Size(469, 534);
+            this.Size = new System.Drawing.Size(575, 534);
             this.scrollablePanel.ResumeLayout(false);
             this.darkToolStrip.ResumeLayout(false);
             this.darkToolStrip.PerformLayout();
@@ -220,6 +207,5 @@
         private System.Windows.Forms.ToolStripButton PencilButton;
         private System.Windows.Forms.ToolStripButton FillButton;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator;
-        private DarkUI.Controls.DarkButton darkButton1;
     }
 }

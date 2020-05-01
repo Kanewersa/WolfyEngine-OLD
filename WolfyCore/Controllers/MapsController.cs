@@ -44,8 +44,7 @@ namespace WolfyShared.Controllers
                 MapName = map.Name,
                 MapId = MapsData.GetNextId()
             };
-            // TODO Filename should contain extension
-            info.FileName = "Map" + info.MapId;
+            info.FileName = "Map" + info.MapId + ".wolf";
             MapsData.Info.Add(info.MapId, info);
             map.Id = info.MapId;
             LoadedMaps.Add(map.Id, map);
