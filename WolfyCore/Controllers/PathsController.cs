@@ -1,6 +1,6 @@
 ﻿using System.IO;
 
-namespace WolfyShared.Controllers
+namespace WolfyCore.Controllers
 {
     public class PathsController
     {
@@ -27,7 +27,7 @@ namespace WolfyShared.Controllers
                 TilesetsDataPath = Path.Combine(TilesetsPath, "TilesetsData.wolf");
 
                 GameSettingsPath = Path.Combine(DataPath, "GameData.wolf");
-                WorldPath = Path.Combine(DataPath, "World.wolf");
+                WorldPath = Path.Combine(DataPath, "Worlds.wolf");
                 SerializationHelperPath = Path.Combine(DataPath, "Serialization.wolf");
 
                 /*ContentWorkingPath = Path.Combine(GraphicsPath, "working");

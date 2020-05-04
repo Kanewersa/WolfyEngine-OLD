@@ -6,9 +6,9 @@ using System.Linq;
 using DarkUI.Forms;
 using WolfyECS;
 using WolfyEngine.Forms;
-using WolfyShared.Controllers;
-using WolfyShared.ECS;
-using WolfyShared.Engine;
+using WolfyCore.Controllers;
+using WolfyCore.ECS;
+using WolfyCore.Engine;
 using Image = System.Drawing.Image;
 
 namespace WolfyEngine.Controls

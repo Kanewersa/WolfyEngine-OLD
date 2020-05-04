@@ -4,8 +4,8 @@ using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using WolfyEngine.Engine;
 using WolfyEngine.Forms;
-using WolfyShared;
-using WolfyShared.Controllers;
+using WolfyCore;
+using WolfyCore.Controllers;
 
 namespace WolfyEngine
 {

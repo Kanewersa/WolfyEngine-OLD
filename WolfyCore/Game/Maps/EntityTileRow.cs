@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using ProtoBuf;
 
-namespace WolfyShared.Game
+namespace WolfyCore.Game
 {
     [ProtoContract] public class EntityTileRow
     {

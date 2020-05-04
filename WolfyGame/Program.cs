@@ -1,7 +1,7 @@
 ﻿using System;
 using WolfyEngine;
-using WolfyShared;
-using WolfyShared.Engine;
+using WolfyCore;
+using WolfyCore.Engine;
 
 namespace WolfyGame
 {

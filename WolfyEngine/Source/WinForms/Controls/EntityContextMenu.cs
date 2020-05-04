@@ -1,6 +1,6 @@
 ﻿using System.Windows.Forms;
 using DarkUI.Renderers;
-using WolfyShared.Engine;
+using WolfyCore.Engine;
 
 namespace WolfyEngine.Controls
 {

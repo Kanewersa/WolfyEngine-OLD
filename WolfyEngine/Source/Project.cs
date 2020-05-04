@@ -1,10 +1,10 @@
 ﻿using System;
 using DarkUI.Forms;
 using ProtoBuf;
+using WolfyCore.Engine;
 using WolfyEngine.Engine;
-using WolfyShared.Engine;
 
-namespace WolfyShared
+namespace WolfyCore
 {
     public delegate void ProjectEventHandler(Project project);
 

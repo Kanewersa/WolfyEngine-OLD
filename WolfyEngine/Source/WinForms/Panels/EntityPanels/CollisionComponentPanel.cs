@@ -1,6 +1,6 @@
 ﻿using System;
 using WolfyECS;
-using WolfyShared.ECS;
+using WolfyCore.ECS;
 
 namespace WolfyEngine.Controls
 {

@@ -1,8 +1,8 @@
 ﻿using System;
 using DarkUI.Docking;
 using WolfyECS;
-using WolfyShared.ECS;
-using WolfyShared.Engine;
+using WolfyCore.ECS;
+using WolfyCore.Engine;
 using Random = System.Random;
 
 namespace WolfyEngine.Controls

@@ -3,10 +3,10 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using ProtoBuf;
-using WolfyShared.Controllers;
-using WolfyShared.Engine;
+using WolfyCore.Controllers;
+using WolfyCore.Engine;
 
-namespace WolfyShared.Game
+namespace WolfyCore.Game
 {
     [ProtoContract] public class TileLayer : BaseLayer
     {

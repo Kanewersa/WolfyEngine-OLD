@@ -5,7 +5,7 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using ProtoBuf;
 
-namespace WolfyShared.Engine
+namespace WolfyCore.Engine
 {
     [ProtoContract] public class Image : IDisposable
     {

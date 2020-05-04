@@ -1,5 +1,5 @@
 ﻿using DarkUI.Docking;
-using WolfyShared.Game;
+using WolfyCore.Game;
 
 namespace WolfyEngine.Controls
 {

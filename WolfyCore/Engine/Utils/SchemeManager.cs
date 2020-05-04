@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using WolfyShared.ECS;
+using WolfyCore.ECS;
 
 namespace WolfyEngine
 {

@@ -2,12 +2,12 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ProtoBuf;
+using WolfyCore.Engine;
 using WolfyECS;
-using WolfyShared.Engine;
-using Image = WolfyShared.Engine.Image;
+using Image = WolfyCore.Engine.Image;
 using Rectangle = Microsoft.Xna.Framework.Rectangle;
 
-namespace WolfyShared.ECS
+namespace WolfyCore.ECS
 {
     [ProtoContract] public class AnimationComponent : EntityComponent
     {
@@ -18,7 +18,7 @@ namespace WolfyShared.ECS
         //[ProtoMember(4)] public Vector2 PositionOffset { get; set; }
         [ProtoMember(5)] public AnimationManager AnimationManager { get; set; }
         [ProtoMember(6)] public Dictionary<string, Animation> Animations { get; set; }
-        [ProtoMember(7)] public Image Image { get; set; }
+        [ProtoMember(7)] public Engine.Image Image { get; set; }
         [ProtoIgnore] public Texture2D Texture => Image.Texture;
 
         public virtual Rectangle Bounds =>

@@ -1,6 +1,6 @@
 ﻿using WolfyEngine.Engine;
 
-namespace WolfyShared
+namespace WolfyCore
 {
     public class ProgramSettings
     {

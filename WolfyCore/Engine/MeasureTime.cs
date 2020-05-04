@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 
-namespace WolfyShared.Engine
+namespace WolfyCore.Engine
 {
     public static class MeasureTime
     {

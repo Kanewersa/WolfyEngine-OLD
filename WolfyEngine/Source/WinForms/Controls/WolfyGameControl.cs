@@ -6,45 +6,57 @@ using Microsoft.Xna.Framework.Graphics;
 using MonoGame.Forms.Controls;
 using WolfyECS;
 using WolfyEngine.Utils;
-using WolfyShared;
-using WolfyShared.Game;
+using WolfyCore;
+using WolfyCore.Game;
+using WolfyCore.Scenes;
 
 namespace WolfyEngine.Controls
 {
     public partial class WolfyGameControl : MonoGameControl
     {
+        public GameScene Scene { get; set; }
+        public bool GameRunning { get; set; }
         public Selector Selector { get; }
         public Map CurrentMap { get; private set; }
         public World World { get; private set; }
-        public Camera Camera { get; private set; }
 
-        public bool GameRunning { get; set; }
+        private GameTime _gameTime;
+
+        private bool _paused;
+
+        public bool Paused
+        {
+            get => _paused;
+            set
+            {
+                _paused = value;
+                Scene.Paused = value;
+            }
+        }
 
         public WolfyGameControl()
         {
             Selector = new Selector((float)Runtime.GridSize/48);
+
+            Scene = new GameScene(Width, Height, World);
         }
 
         protected override void Initialize()
         {
             base.Initialize();
 
-            Camera = new Camera()
-            {
-                ScreenWidth = Width,
-                ScreenHeight = Height
-            };
-
-            Camera.SetMapBoundaries(new Vector2(
-                CurrentMap.Size.X * Runtime.GridSize,
-                CurrentMap.Size.Y * Runtime.GridSize));
-
-            Selector.Initialize(Editor.graphics);
+            Selector.Initialize(GraphicsDevice);
+            Scene.SetWorld(World);
+            Scene.SetMap(CurrentMap);
+            Scene.Initialize(GraphicsDevice);
+            
+            LoadContent(Editor.Content);
         }
 
         protected void LoadContent(ContentManager content)
         {
             Selector.LoadContent(content);
+            Scene.LoadContent(content);
         }
 
         protected override void Draw()
@@ -52,22 +64,8 @@ namespace WolfyEngine.Controls
             base.Draw();
             if (!GameRunning) return;
 
-            Editor.spriteBatch.Begin(transformMatrix: Camera.Transform, samplerState: SamplerState.PointClamp);
-
-            if (Paused)
-            {
-                // TODO Do nothing
-            }
-            else
-            {
-                CurrentMap.Draw(Editor.spriteBatch);
-                //AnimationSystem.Draw(_gameTime, Editor.spriteBatch);
-            }
-
-            Editor.spriteBatch.End();
+            Scene.Draw(Editor.spriteBatch, _gameTime);
         }
-
-        private GameTime _gameTime;
 
         protected override void Update(GameTime gameTime)
         {
@@ -75,10 +73,7 @@ namespace WolfyEngine.Controls
             _gameTime = gameTime;
             if (!GameRunning) return;
 
-            World.Update(gameTime);
-            CurrentMap.Update(gameTime);
-            Camera.Update();
-            VisibleArea = Camera.GetVisibleArea();
+            Scene.Update(gameTime);
         }
 
         public void StartGame(ContentManager content)
@@ -89,21 +84,24 @@ namespace WolfyEngine.Controls
             var newSystemTypes = ReflectiveEnumerator.GetSubTypes<EntitySystem>();
             var notExistingTypes = newSystemTypes.Except(systemTypes).ToList();
 
-            if (notExistingTypes.Any())
-            {
-                foreach (var type in notExistingTypes)
-                {
-                    var system = (EntitySystem)Activator.CreateInstance(type);
-                    World.AddSystem(system);
-                }
-            }
-
             foreach (var system in systems)
             {
                 system.Initialize();
                 system.LoadContent(content);
             }
 
+            if (notExistingTypes.Any())
+            {
+                foreach (var type in notExistingTypes)
+                {
+                    var system = (EntitySystem)Activator.CreateInstance(type);
+                    World.AddSystem(system);
+                    system.Initialize();
+                    system.LoadContent(content);
+                }
+            }
+
+            // TODO Add entities to correct systems
         }
 
         public void LoadWorld(World world)

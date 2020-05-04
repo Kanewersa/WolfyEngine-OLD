@@ -6,7 +6,7 @@ using ProtoBuf;
 using WolfyECS;
 
 
-namespace WolfyShared.ECS
+namespace WolfyCore.ECS
 {
     [ProtoContract] public class AnimationSystem : EntitySystem
     {

@@ -2,10 +2,10 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using ProtoBuf;
+using WolfyCore.Engine;
 using WolfyECS;
-using WolfyShared.Engine;
 
-namespace WolfyShared.ECS
+namespace WolfyCore.ECS
 {
     [ProtoContract] public class InputSystem : EntitySystem
     {

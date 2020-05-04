@@ -2,10 +2,10 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ProtoBuf;
+using WolfyCore.Engine;
 using WolfyECS;
-using WolfyShared.Engine;
 
-namespace WolfyShared.Game
+namespace WolfyCore.Game
 {
     [ProtoContract] public class EntityLayer : BaseLayer
     {

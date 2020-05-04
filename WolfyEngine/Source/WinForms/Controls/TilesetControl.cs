@@ -4,10 +4,10 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using MonoGame.Forms.Controls;
 using WolfyEngine.Utils;
-using WolfyShared;
-using WolfyShared.Engine;
-using WolfyShared.Game;
-using ControlEventHandler = WolfyShared.Engine.ControlEventHandler;
+using WolfyCore;
+using WolfyCore.Engine;
+using WolfyCore.Game;
+using ControlEventHandler = WolfyCore.Engine.ControlEventHandler;
 
 namespace WolfyEngine.Controls
 {

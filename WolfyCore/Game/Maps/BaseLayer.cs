@@ -2,9 +2,9 @@
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using ProtoBuf;
-using WolfyShared.Engine;
+using WolfyCore.Engine;
 
-namespace WolfyShared.Game
+namespace WolfyCore.Game
 {
     [ProtoContract]
     [ProtoInclude(100, typeof(TileLayer))]

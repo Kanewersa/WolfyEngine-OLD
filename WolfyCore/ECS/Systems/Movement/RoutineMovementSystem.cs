@@ -1,11 +1,11 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
 using ProtoBuf;
+using WolfyCore.Engine;
 using WolfyECS;
-using WolfyShared.Engine;
-using Random = WolfyShared.Engine.Random;
+using Random = WolfyCore.Engine.Random;
 
-namespace WolfyShared.ECS
+namespace WolfyCore.ECS
 {
     [ProtoContract] public class RoutineMovementSystem : EntitySystem
     {
@@ -33,7 +33,7 @@ namespace WolfyShared.ECS
                 {
                     movement.IsMoving = true;
 
-                    movement.EnumDirection = Random.GetRandomDirection();
+                    movement.EnumDirection = Engine.Random.GetRandomDirection();
 
                     movement.Direction = movement.EnumDirection switch
                     {

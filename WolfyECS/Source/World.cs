@@ -7,26 +7,45 @@ using ProtoBuf;
 
 namespace WolfyECS
 {
-    [ProtoContract(AsReferenceDefault = true)]
+    [ProtoContract]
     public class World
     {
         [ProtoMember(1)] private EntityManager _entityManager;
         [ProtoMember(2)] private List<EntitySystem> _systems;
-
         [ProtoMember(3)]
         private ComponentManager[] _componentManagers;
 
         [ProtoMap(DisableMap = true)]
-        [ProtoMember(4)] private Dictionary<uint, ComponentMask> _entityMasks;
+        [ProtoMember(4)] private Dictionary<Entity, ComponentMask> _entityMasks;
 
         private const int ComponentsLimit = 64;
 
+        [ProtoMember(5)] internal readonly int WorldId;
+
+        public static World WorldInstance;
+        private static readonly IdDispenser _worldIdDispenser;
+
+        public const int WorldsLimit = 16;
+
+        static World()
+        {
+            _worldIdDispenser = new IdDispenser(WorldsLimit);
+            //Worlds = new World[WorldsLimit];
+        }
+
+        public static void SetWorld(World world)
+        {
+            WorldInstance = world;
+        }
+
         public World()
         {
-            _entityManager = new EntityManager(this);
+            WorldId = (int)_worldIdDispenser.GetId();
+            _entityManager = new EntityManager(this.WorldId);
+
             _systems = new List<EntitySystem>();
             _componentManagers = new ComponentManager[ComponentsLimit];
-            _entityMasks = new Dictionary<uint, ComponentMask>();
+            _entityMasks = new Dictionary<Entity, ComponentMask>();
         }
 
         /// <summary>
@@ -40,7 +59,6 @@ namespace WolfyECS
 
             foreach(var system in _systems)
                 system.Initialize();
-            _entityManager.Initialize(this);
         }
 
         /// <summary>
@@ -156,10 +174,18 @@ namespace WolfyECS
 
         public void Update(GameTime gameTime)
         {
+            foreach (var system in _systems)
+            {
+                system.Update(gameTime);
+            }
         }
 
         public void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
+            foreach (var system in _systems)
+            {
+                system.Draw(gameTime, spriteBatch);
+            }
         }
 
         public ComponentManager[] GetComponentManagers()
@@ -169,16 +195,16 @@ namespace WolfyECS
 
         #region Entities methods
 
-        public Entity CreateEntity(string name = null)
+        public Entity CreateEntity()
         {
-            var entity = _entityManager.CreateEntity(name);
-            _entityMasks.Add(entity.Id, new ComponentMask(0));
+            var entity = _entityManager.CreateEntity();
+            _entityMasks.Add(entity, new ComponentMask(0));
             return entity;
         }
 
-        public int EntityCount()
+        public uint EntityCount()
         {
-            return _entityMasks.Count;
+            return _entityManager.EntityCount;
         }
 
         public void DestroyEntity(Entity entity)
@@ -190,7 +216,7 @@ namespace WolfyECS
                 system.UnregisterEntity(entity);
             foreach (var componentManager in _componentManagers)
                 componentManager?.DestroyComponent(entity);
-            _entityMasks.Remove(entity.Id);
+            _entityMasks.Remove(entity);
         }
 
         #endregion
@@ -208,7 +234,7 @@ namespace WolfyECS
 
         public void UpdateEntityMask(Entity e, ComponentMask oldMask)
         {
-            var newMask = _entityMasks[e.Id];
+            var newMask = _entityMasks[e];
 
             foreach (var system in _systems)
             {
@@ -231,8 +257,8 @@ namespace WolfyECS
             manager.AddComponent(e, component);
             
             // Check if systems are interested in component
-            var oldMask = _entityMasks[e.Id];
-            _entityMasks[e.Id] = _entityMasks[e.Id].AddComponent<T>();
+            var oldMask = _entityMasks[e];
+            _entityMasks[e] = _entityMasks[e].AddComponent<T>();
             UpdateEntityMask(e, oldMask);
             return component;
         }
@@ -243,8 +269,8 @@ namespace WolfyECS
             manager.AddComponent(e, component);
 
             // Check if systems are interested in component
-            var oldMask = _entityMasks[e.Id];
-            _entityMasks[e.Id] = _entityMasks[e.Id].AddComponent<T>();
+            var oldMask = _entityMasks[e];
+            _entityMasks[e] = _entityMasks[e].AddComponent<T>();
             UpdateEntityMask(e, oldMask);
         }
 
@@ -254,11 +280,12 @@ namespace WolfyECS
             return manager.HasComponent(e);
         }
 
+
         public T GetComponent<T>(Entity e) where T : EntityComponent
         {
             var manager = GetComponentManager<T>();
             var comp = manager.GetComponent(e);
-            return (T)comp;
+            return (T) comp;
         }
 
         public List<EntityComponent> GetComponents(Entity e)
@@ -276,8 +303,8 @@ namespace WolfyECS
             manager.DestroyComponent(e);
             
             // Check if systems are interested in components
-            var oldMask = _entityMasks[e.Id];
-            _entityMasks[e.Id] = _entityMasks[e.Id].RemoveComponent<T>();
+            var oldMask = _entityMasks[e];
+            _entityMasks[e] = _entityMasks[e].RemoveComponent<T>();
             UpdateEntityMask(e, oldMask);
         }
 

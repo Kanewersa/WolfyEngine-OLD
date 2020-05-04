@@ -13,7 +13,7 @@ namespace WolfyECS
         [ProtoMember(1)] public ComponentMask Signature { get; set; }
         
         // Entities that fit the system Signature
-        [ProtoMember(2, AsReference = true)] public List<Entity> Entities { get; set; }
+        [ProtoMember(2)] public List<Entity> Entities { get; set; }
         
         [ProtoMember(3, AsReference = true)] private World _world;
         

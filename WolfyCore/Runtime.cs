@@ -1,6 +1,6 @@
-﻿using WolfyShared.Engine;
+﻿using WolfyCore.Engine;
 
-namespace WolfyShared
+namespace WolfyCore
 {
     public static class Runtime
     {

@@ -4,18 +4,18 @@ using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using WolfyCore.ECS;
+using WolfyCore.Engine;
+using WolfyCore.Game;
 using WolfyECS;
 using WolfyEngine;
-using WolfyShared.Controllers;
-using WolfyShared.ECS;
-using WolfyShared.Engine;
-using WolfyShared.Game;
+using WolfyCore.Controllers;
 
-namespace WolfyShared.Scenes
+namespace WolfyCore.Scenes
 {
     public class GameScene : Scene
     {
-        public bool Paused { get; private set; }
+        public bool Paused { get; set; }
         public Camera Camera { get; private set; }
         public Rectangle VisibleArea { get; private set; }
         public Map CurrentMap { get; private set; }
@@ -44,16 +44,14 @@ namespace WolfyShared.Scenes
         {
             base.Initialize(graphics);
 
+            if(CurrentMap == null)
+                throw new Exception("Current map was not set.");
+
             Camera = new Camera()
             {
                 ScreenWidth = this.ScreenWidth,
                 ScreenHeight = this.ScreenHeight
             };
-
-            var mapId = GameController.Instance.Settings.StartingMap;
-            CurrentMap = MapsController.Instance.GetMap(mapId);
-
-            CurrentMap.Initialize(graphics, CurrentWorld);
 
             Camera.SetMapBoundaries(new Vector2(
                 CurrentMap.Size.X * CurrentMap.TileSize.X,
@@ -65,13 +63,13 @@ namespace WolfyShared.Scenes
                 { "Walk", new Animation("001-Fighter01.png", 4, 4) }
             };
 
-            foreach (var pair in movementAnimation)
-            {
-               // pair.Value.Image.Initialize(graphics);
-            }
+            // LOAD CONTENT
+            //foreach (var pair in movementAnimation)
+            //{
+            //    pair.Value.Image.Initialize(graphics);
+            //}
+            //
             //###################################################################
-
-            var coordinates = GameController.Instance.Settings.StartingCoordinates;
 
             CollisionSystem.SetMap(CurrentMap);
             
@@ -96,27 +94,6 @@ namespace WolfyShared.Scenes
                 if (entity.HasComponent<RandomMovementComponent>())
                     RandomMovementSystem.RegisterEntity(entity);
             }
-
-            // Should be called after systems are added and initialized
-            Player = CurrentWorld.CreateEntity("Player");
-            Player.AddComponent<InputComponent>();
-            Player.AddComponent<CollisionComponent>();
-            Player.AddComponent<MovementComponent>();
-            Player.AddComponent<AnimationComponent>();
-
-            var movement = Player.GetComponent<MovementComponent>();
-            movement.Speed = 100;
-            movement.GridPosition = (Vector2)coordinates;
-            movement.Direction = new Vector2(0,0);
-            movement.Transform = (Vector2) coordinates * CurrentMap.TileSize.X;
-            
-            var animation = Player.GetComponent<AnimationComponent>();
-            animation.Position = movement.Transform;
-            animation.StartPosition = movement.Transform;
-            animation.EndPosition = movement.Transform;
-            animation.Animations = movementAnimation;
-            animation.AnimationManager =
-                new AnimationManager(animation.Animations.First().Value);
         }
 
         public override void LoadContent(ContentManager content)
@@ -170,6 +147,14 @@ namespace WolfyShared.Scenes
             VisibleArea = Camera.GetVisibleArea();
         }
 
-        
+        public void SetWorld(World world)
+        {
+            CurrentWorld = world;
+        }
+
+        public void SetMap(Map map)
+        {
+            CurrentMap = map;
+        }
     }
 }

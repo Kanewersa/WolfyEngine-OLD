@@ -1,6 +1,6 @@
 ﻿using DarkUI.Docking;
-using WolfyShared.Controllers;
-using WolfyShared.Game;
+using WolfyCore.Controllers;
+using WolfyCore.Game;
 using Rectangle = Microsoft.Xna.Framework.Rectangle;
 
 namespace WolfyEngine.Controls

@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ProtoBuf;
 
-namespace WolfyShared.Engine
+namespace WolfyCore.Engine
 {
     [ProtoContract] public class AnimationManager
     {

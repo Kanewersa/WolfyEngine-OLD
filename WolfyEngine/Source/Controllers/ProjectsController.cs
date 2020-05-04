@@ -1,9 +1,9 @@
 ﻿using System;
 using DarkUI.Forms;
+using WolfyCore.Engine;
 using WolfyEngine.Engine;
-using WolfyShared.Engine;
 
-namespace WolfyShared.Controllers
+namespace WolfyCore.Controllers
 {
     public class ProjectsController
     {

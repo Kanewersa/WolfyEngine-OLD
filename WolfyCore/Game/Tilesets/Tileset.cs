@@ -2,10 +2,10 @@
 using ProtoBuf;
 using System.Drawing;
 using Microsoft.Xna.Framework.Content;
-using WolfyShared.Engine;
-using Image = WolfyShared.Engine.Image;
+using WolfyCore.Engine;
+using Image = WolfyCore.Engine.Image;
 
-namespace WolfyShared.Game
+namespace WolfyCore.Game
 {
     [ProtoContract] public class Tileset
     {
@@ -13,7 +13,7 @@ namespace WolfyShared.Game
         [ProtoMember(1)] public int Id { get; set; }
         [ProtoMember(2)] public string Name { get; set; }
         [ProtoIgnore] public Vector2D TileSize => Runtime.TileSize;
-        [ProtoMember(4)] public Image Image { get; set; }
+        [ProtoMember(4)] public Engine.Image Image { get; set; }
         [ProtoMember(5)] public TileRow[] Rows { get; set; }
         [ProtoMember(6)] public Vector2D Size { get; set; }
 
@@ -21,7 +21,7 @@ namespace WolfyShared.Game
         public Tileset(string name, string imagePath)
         {
             Name = name;
-            Image = new Image(imagePath);
+            Image = new Engine.Image(imagePath);
 
             // Get texture size
             int height, width;

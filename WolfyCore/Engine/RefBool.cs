@@ -1,6 +1,6 @@
 ﻿using ProtoBuf;
 
-namespace WolfyShared.Engine
+namespace WolfyCore.Engine
 {
     [ProtoContract] public class RefBool
     {

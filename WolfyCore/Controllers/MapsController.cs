@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.IO;
+using WolfyCore.Game;
 using WolfyEngine.Engine;
-using WolfyShared.Game;
 
-namespace WolfyShared.Controllers
+namespace WolfyCore.Controllers
 {
     public class MapsController
     {

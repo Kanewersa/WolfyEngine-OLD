@@ -1,7 +1,7 @@
 ﻿using ProtoBuf;
-using WolfyShared.Engine;
+using WolfyCore.Engine;
 
-namespace WolfyShared.Game
+namespace WolfyCore.Game
 {
     [ProtoContract] public class TileRow
     {

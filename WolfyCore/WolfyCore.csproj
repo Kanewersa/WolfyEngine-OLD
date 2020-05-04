@@ -90,6 +90,7 @@
     <Compile Include="ECS\Components\Movement\MovementComponent.cs" />
     <Compile Include="ECS\Components\Movement\RandomMovementComponent.cs" />
     <Compile Include="ECS\Components\Movement\RoutineMovementComponent.cs" />
+    <Compile Include="ECS\Components\NameComponent.cs" />
     <Compile Include="ECS\Systems\AnimationSystem.cs" />
     <Compile Include="ECS\Systems\CollisionSystem.cs" />
     <Compile Include="ECS\Systems\InputSystem.cs" />

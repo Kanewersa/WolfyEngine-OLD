@@ -1,7 +1,7 @@
 ﻿using DarkUI.Forms;
 using WolfyEngine.Controls;
-using WolfyShared.Engine;
-using WolfyShared.Game;
+using WolfyCore.Engine;
+using WolfyCore.Game;
 
 namespace WolfyEngine.Forms
 {

@@ -7,8 +7,8 @@ using System.Linq;
 using System.Windows.Forms;
 using DarkUI.Controls;
 using DarkUI.Forms;
-using WolfyShared;
-using WolfyShared.Controllers;
+using WolfyCore;
+using WolfyCore.Controllers;
 
 namespace WolfyEngine.Forms
 {

@@ -2,9 +2,9 @@
 using System.Drawing;
 using System.IO;
 using DarkUI.Forms;
-using WolfyShared;
-using WolfyShared.Controllers;
-using WolfyShared.Game;
+using WolfyCore;
+using WolfyCore.Controllers;
+using WolfyCore.Game;
 
 namespace WolfyEngine.Forms
 {

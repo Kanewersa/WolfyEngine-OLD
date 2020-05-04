@@ -2,9 +2,9 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using MonoGame.Forms.Controls;
-using WolfyShared;
-using WolfyShared.Engine;
-using WolfyShared.Game;
+using WolfyCore;
+using WolfyCore.Engine;
+using WolfyCore.Game;
 
 namespace WolfyEngine.Controls
 {

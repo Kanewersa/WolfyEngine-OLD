@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework.Input;
 
-namespace WolfyShared.Engine
+namespace WolfyCore.Engine
 {
     public class Input
     {

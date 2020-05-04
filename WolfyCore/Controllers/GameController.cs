@@ -1,18 +1,22 @@
 ﻿using System.IO;
+using System.Linq;
+using Microsoft.Xna.Framework;
+using WolfyCore.ECS;
+using WolfyCore.Game;
 using WolfyECS;
 using WolfyEngine;
 using WolfyEngine.Engine;
-using WolfyShared.Game;
+using WolfyCore.Engine;
 
-namespace WolfyShared.Controllers
+namespace WolfyCore.Controllers
 {
     public class GameController
     {
         private static GameController _instance;
         public static GameController Instance => _instance ??= new GameController();
 
+        public World World { get; set; }
         public GameSettings Settings { get; set; }
-        public World World { get; private set; }
 
         private string GameSettingsPath => PathsController.Instance.GameSettingsPath;
         private string WorldPath => PathsController.Instance.WorldPath;
@@ -28,18 +32,37 @@ namespace WolfyShared.Controllers
             Settings = File.Exists(GameSettingsPath)
                 ? Serialization.ProtoDeserialize<GameSettings>(GameSettingsPath)
                 : new GameSettings();
+                
             World = File.Exists(WorldPath)
                 ? Serialization.ProtoDeserialize<World>(WorldPath)
-                : new World();
+                : CreateNewWorld();
 
+            World.SetWorld(World);
             World.Initialize(WolfyManager.ComponentTypes);
             WolfyManager.InitializeFamilies();
+        }
+
+        private World CreateNewWorld()
+        {
+            var world = new World();
+
+            CreatePlayer(world);
+            
+            return world;
+        }
+
+        private Entity CreatePlayer(World world)
+        {
+            var player = world.CreateEntity();
+            var name = player.AddComponent<NameComponent>();
+            name.Name = "Player";
+            return player;
         }
 
         public void Save()
         {
             Serialization.ProtoSerialize(Settings, GameSettingsPath);
-            Serialization.ProtoSerialize(World, WorldPath);
+            Serialization.ProtoSerialize(World.WorldInstance, WorldPath);
         }
     }
 }

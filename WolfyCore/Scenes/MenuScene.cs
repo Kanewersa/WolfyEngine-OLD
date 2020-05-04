@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace WolfyShared.Scenes
+namespace WolfyCore.Scenes
 {
     public class MenuScene : Scene
     {

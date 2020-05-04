@@ -6,7 +6,7 @@ using Microsoft.Xna.Framework.Graphics;
 using System.Windows.Forms;
 using MonoGame.RuntimeBuilder;
 
-namespace WolfyShared.Controllers
+namespace WolfyCore.Controllers
 {
     public class ContentBuilder
     {

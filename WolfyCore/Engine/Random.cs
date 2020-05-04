@@ -1,4 +1,4 @@
-﻿namespace WolfyShared.Engine
+﻿namespace WolfyCore.Engine
 {
     public static class Random
     {

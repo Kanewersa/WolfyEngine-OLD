@@ -3,10 +3,10 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using ProtoBuf;
+using WolfyCore.Engine;
 using WolfyECS;
-using WolfyShared.Engine;
 
-namespace WolfyShared.Game
+namespace WolfyCore.Game
 {
     [ProtoContract] public class Map
     {
@@ -39,11 +39,6 @@ namespace WolfyShared.Game
 
             if(Entities == null)
                 Entities = new List<Entity>();
-
-            foreach (var entity in Entities)
-            {
-                entity.Initialize(world);
-            }
         }
 
         public void LoadContent(ContentManager content)

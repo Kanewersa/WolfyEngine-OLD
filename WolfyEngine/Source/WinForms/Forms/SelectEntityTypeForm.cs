@@ -1,6 +1,6 @@
 ﻿using System;
 using DarkUI.Forms;
-using WolfyShared.Engine;
+using WolfyCore.Engine;
 
 namespace WolfyEngine.Forms
 {

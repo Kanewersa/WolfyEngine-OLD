@@ -7,9 +7,9 @@ using DarkUI.Forms;
 using Microsoft.Xna.Framework;
 using WolfyECS;
 using WolfyEngine.Controls;
-using WolfyShared.ECS;
-using WolfyShared.Engine;
-using WolfyShared.Game;
+using WolfyCore.ECS;
+using WolfyCore.Engine;
+using WolfyCore.Game;
 
 namespace WolfyEngine.Forms
 {
@@ -85,8 +85,8 @@ namespace WolfyEngine.Forms
         private void DisplayEntityInfo()
         {
             MainSection.SectionHeader =
-                "Entity " + Entity.Id + "  |  " + Entity.Name;
-            EntityNameTextBox.Text = Entity.Name;
+                "Entity " + Entity.Id + "  |  " + "Name unavailable"; //Entity.Name;
+            EntityNameTextBox.Text = "Name unavailable"; //Entity.Name;
             LoadComponentsList();
         }
 
@@ -190,7 +190,7 @@ namespace WolfyEngine.Forms
             }
             SavedEntity = true;
 
-            Entity.Name = EntityNameTextBox.Text;
+            //Entity.Name = EntityNameTextBox.Text;
 
             OnSave?.Invoke(Entity, Vector2.Zero);
 

@@ -7,24 +7,19 @@ namespace WolfyECS
 {
     [ProtoContract(AsReferenceDefault = true)] public class Entity
     {
-        [ProtoIgnore] private World _world;
-        
-        [ProtoMember(2)] public uint Id { get; }
-        [ProtoMember(3)] public string Name { get; set; }
-        
+        [ProtoMember(1)] public uint Id { get; }
+        [ProtoMember(2)] private int _worldId;
+
+        [ProtoIgnore] private World World => World.WorldInstance;
+
         public Entity() { }
 
-        internal Entity(uint id, World world)
+        internal Entity(uint id, int worldId)
         {
             Id = id;
-            _world = world;
+            _worldId = worldId;
         }
 
-        public void Initialize(World world)
-        {
-            _world = world;
-        }
-        
         /// <summary>
         /// Creates and returns the new component of type T.
         /// </summary>
@@ -32,7 +27,7 @@ namespace WolfyECS
         /// <returns></returns>
         public T AddComponent<T>() where T : EntityComponent, new()
         {
-            return _world.AddComponent<T>(this);
+            return World.AddComponent<T>(this);
         }
 
         /// <summary>
@@ -42,7 +37,7 @@ namespace WolfyECS
         /// <param name="component"></param>
         public void AddComponent<T>(T component) where T : EntityComponent, new()
         {
-            _world.AddComponent<T>(this, component);
+            World.AddComponent<T>(this, component);
         }
 
         /// <summary>
@@ -52,7 +47,7 @@ namespace WolfyECS
         /// <returns></returns>
         public bool HasComponent<T>() where T : EntityComponent
         {
-            return _world.HasComponent<T>(this);
+            return World.HasComponent<T>(this);
         }
 
         /// <summary>
@@ -62,7 +57,7 @@ namespace WolfyECS
         /// <returns></returns>
         public T GetComponent<T>() where T : EntityComponent
         {
-            return _world.GetComponent<T>(this);
+            return World.GetComponent<T>(this);
         }
 
         /// <summary>
@@ -83,7 +78,7 @@ namespace WolfyECS
         /// <returns></returns>
         public List<EntityComponent> GetComponents()
         {
-            return _world.GetComponents(this);
+            return World.GetComponents(this);
         }
 
         /// <summary>
@@ -92,7 +87,7 @@ namespace WolfyECS
         /// <typeparam name="T"></typeparam>
         public void RemoveComponent<T>() where T : EntityComponent
         {
-            _world.RemoveComponent<T>(this);
+            World.RemoveComponent<T>(this);
         }
 
         /// <summary>
@@ -110,7 +105,7 @@ namespace WolfyECS
         /// </summary>
         public void Destroy()
         {
-            _world.DestroyEntity(this);
+            World.DestroyEntity(this);
         }
     }
 }

@@ -2,7 +2,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-using WolfyShared.Engine;
+using WolfyCore.Engine;
 
 namespace WolfyEngine.Utils
 {

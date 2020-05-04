@@ -8,10 +8,10 @@ using DarkUI.Win32;
 using WolfyEngine.Controls;
 using WolfyEngine.Engine;
 using WolfyEngine.Properties;
-using WolfyShared;
-using WolfyShared.Controllers;
-using WolfyShared.Engine;
-using WolfyShared.Game;
+using WolfyCore;
+using WolfyCore.Controllers;
+using WolfyCore.Engine;
+using WolfyCore.Game;
 using Timer = System.Windows.Forms.Timer;
 
 namespace WolfyEngine.Forms

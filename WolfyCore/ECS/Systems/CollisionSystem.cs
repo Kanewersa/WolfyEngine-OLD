@@ -2,10 +2,10 @@
 using System.Linq;
 using Microsoft.Xna.Framework;
 using ProtoBuf;
+using WolfyCore.Game;
 using WolfyECS;
-using WolfyShared.Game;
 
-namespace WolfyShared.ECS
+namespace WolfyCore.ECS
 {
     [ProtoContract] public class CollisionSystem : EntitySystem
     {

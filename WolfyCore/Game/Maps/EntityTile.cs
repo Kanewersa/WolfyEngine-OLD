@@ -1,7 +1,7 @@
 ﻿using ProtoBuf;
 using WolfyECS;
 
-namespace WolfyShared.Game
+namespace WolfyCore.Game
 {
     [ProtoContract] public class EntityTile
     {

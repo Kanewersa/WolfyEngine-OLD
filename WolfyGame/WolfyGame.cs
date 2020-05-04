@@ -2,8 +2,8 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using WolfyEngine;
-using WolfyShared.Controllers;
-using WolfyShared.Scenes;
+using WolfyCore.Controllers;
+using WolfyCore.Scenes;
 
 namespace WolfyGame
 {

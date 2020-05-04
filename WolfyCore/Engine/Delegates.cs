@@ -1,9 +1,9 @@
 ﻿using Microsoft.Xna.Framework;
+using WolfyCore.Game;
 using WolfyECS;
 using WolfyEngine;
-using WolfyShared.Game;
 
-namespace WolfyShared.Engine
+namespace WolfyCore.Engine
 {
     public delegate void LayerEventHandler(BaseLayer layer);
 

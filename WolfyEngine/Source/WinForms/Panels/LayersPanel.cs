@@ -5,9 +5,9 @@ using DarkUI.Controls;
 using DarkUI.Docking;
 using DarkUI.Forms;
 using WolfyEngine.Forms;
-using WolfyShared.Controllers;
-using WolfyShared.Engine;
-using WolfyShared.Game;
+using WolfyCore.Controllers;
+using WolfyCore.Engine;
+using WolfyCore.Game;
 
 namespace WolfyEngine.Controls
 {

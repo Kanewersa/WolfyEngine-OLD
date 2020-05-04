@@ -2,7 +2,7 @@
 using System.Linq;
 using ProtoBuf;
 
-namespace WolfyShared.Game
+namespace WolfyCore.Game
 {
     [ProtoContract] public class TilesetsData
     {

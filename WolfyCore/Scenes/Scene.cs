@@ -2,7 +2,7 @@
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace WolfyShared.Scenes
+namespace WolfyCore.Scenes
 {
     public abstract class Scene
     {

@@ -5,9 +5,9 @@ using System.IO;
 using System.Linq;
 using DarkUI.Controls;
 using DarkUI.Forms;
-using WolfyShared.Controllers;
-using WolfyShared.Engine;
-using WolfyShared.Game;
+using WolfyCore.Controllers;
+using WolfyCore.Engine;
+using WolfyCore.Game;
 
 namespace WolfyEngine.Forms
 {

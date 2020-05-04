@@ -2,7 +2,7 @@
 using Microsoft.Xna.Framework;
 using ProtoBuf;
 
-namespace WolfyShared.Engine
+namespace WolfyCore.Engine
 {
     /// <summary>
     /// 2D vector with integer coordinates

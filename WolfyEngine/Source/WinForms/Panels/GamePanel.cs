@@ -5,10 +5,10 @@ using DarkUI.Docking;
 using Microsoft.Xna.Framework;
 using WolfyECS;
 using WolfyEngine.Forms;
-using WolfyShared;
-using WolfyShared.Controllers;
-using WolfyShared.Engine;
-using WolfyShared.Game;
+using WolfyCore;
+using WolfyCore.Controllers;
+using WolfyCore.Engine;
+using WolfyCore.Game;
 using Color = Microsoft.Xna.Framework.Color;
 using Point = System.Drawing.Point;
 using Rectangle = Microsoft.Xna.Framework.Rectangle;
@@ -32,7 +32,7 @@ namespace WolfyEngine.Controls
 
         public void LoadWorld()
         {
-            _world = GameController.Instance.World;
+            _world = World.WorldInstance;
             if(_world == null)
                 throw new Exception("World doesn't exist.");
 
@@ -132,10 +132,11 @@ namespace WolfyEngine.Controls
                         foreach (var comp in comps)
                             Console.WriteLine(comp);*/
                 }
-                if(ent != null)
-                    toolStripCoordinatesLabel.Text = "X: " + x + " | Y: " + y + " | Entity: " + ent.Name;
+
+                if (ent != null)
+                    toolStripCoordinatesLabel.Text = "X: " + x + " | Y: " + y + " | Entity: "; //+ ent.Name;
                 else toolStripCoordinatesLabel.Text = "X: " + x + " | Y: " + y + " | Entity: None";
-                
+
             }
             
         }

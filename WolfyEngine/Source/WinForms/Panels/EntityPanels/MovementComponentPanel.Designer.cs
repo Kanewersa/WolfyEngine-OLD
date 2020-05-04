@@ -1,5 +1,5 @@
 ﻿using System;
-using WolfyShared.Engine;
+using WolfyCore.Engine;
 
 namespace WolfyEngine.Controls
 {
@@ -49,9 +49,9 @@ namespace WolfyEngine.Controls
             this.MovementTypeBox.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
             this.MovementTypeBox.FormattingEnabled = true;
             this.MovementTypeBox.Items.AddRange(new object[] {
-            WolfyShared.Engine.MovementType.Fixed,
-            WolfyShared.Engine.MovementType.Random,
-            WolfyShared.Engine.MovementType.Follow});
+            WolfyCore.Engine.MovementType.Fixed,
+            WolfyCore.Engine.MovementType.Random,
+            WolfyCore.Engine.MovementType.Follow});
             this.MovementTypeBox.Location = new System.Drawing.Point(11, 31);
             this.MovementTypeBox.Name = "MovementTypeBox";
             this.MovementTypeBox.Size = new System.Drawing.Size(84, 21);

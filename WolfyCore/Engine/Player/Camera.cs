@@ -1,8 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
-using WolfyShared.ECS;
+using WolfyCore.ECS;
 
-namespace WolfyShared.Game
+namespace WolfyCore.Game
 {
     public class Camera
     {
