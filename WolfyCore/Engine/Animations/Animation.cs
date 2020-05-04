@@ -32,7 +32,7 @@ namespace WolfyCore.Engine
             
 
             IsLooping = true;
-            FrameSpeed = .2f;
+            FrameSpeed = .5f;
         }
         
     }

@@ -23,14 +23,14 @@ namespace WolfyCore.Engine
         [ProtoIgnore] public Vector2D TileSize => Runtime.TileSize;
         [ProtoMember(3)] public Vector2 Position { get; set; }
         [ProtoMember(4)] public Vector2 PositionOffset { get; set; }
-        [ProtoMember(5)] public Direction Direction { get; set; }
+        [ProtoMember(5)] public int Direction { get; set; }
 
         public AnimationManager() { }
 
         public AnimationManager(Animation animation)
         {
             Animation = animation;
-            Direction = Direction.Down;
+            Direction = 2;
         }
 
         public void Initialize(Animation animation)
@@ -74,17 +74,10 @@ namespace WolfyCore.Engine
             PositionOffset = new Vector2(width, height);
         }
 
-        public void SetDirection(Direction direction)
+        public void SetDirection(int direction)
         {
             Direction = direction;
-            Animation.CurrentDirection = Direction switch
-            {
-                Direction.Up => 3,
-                Direction.Down => 0,
-                Direction.Left => 1,
-                Direction.Right => 2,
-                _ => throw new ArgumentOutOfRangeException()
-            };
+            Animation.CurrentDirection = direction;
         }
 
         public void Update(GameTime gameTime)

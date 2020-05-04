@@ -5,7 +5,8 @@ namespace WolfyCore.ECS
 {
     [ProtoContract] public class RandomMovementComponent : EntityComponent
     {
-        [ProtoMember(1)] public float Timer { get; set; }
+        [ProtoMember(1)] public float Timer;
+        [ProtoMember(2)] public float Frequency;
 
         public RandomMovementComponent() { }
     }

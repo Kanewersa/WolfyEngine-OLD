@@ -71,8 +71,6 @@ namespace WolfyCore.Scenes
             //
             //###################################################################
 
-            CollisionSystem.SetMap(CurrentMap);
-            
             // Setup world
 
             CurrentWorld.AddSystem(InputSystem);

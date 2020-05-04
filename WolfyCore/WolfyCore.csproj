@@ -82,6 +82,7 @@
     <Compile Include="Controllers\MapsController.cs" />
     <Compile Include="Controllers\PathsController.cs" />
     <Compile Include="Controllers\TilesetsController.cs" />
+    <Compile Include="ECS\Components\Actions\MovementActionComponent.cs" />
     <Compile Include="ECS\Components\AnimationComponent.cs" />
     <Compile Include="ECS\Components\CollisionComponent.cs" />
     <Compile Include="ECS\Components\InputComponent.cs" />
@@ -97,6 +98,7 @@
     <Compile Include="ECS\Systems\Movement\MovementSystem.cs" />
     <Compile Include="ECS\Systems\Movement\RandomMovementSystem.cs" />
     <Compile Include="ECS\Systems\Movement\RoutineMovementSystem.cs" />
+    <Compile Include="ECS\Systems\TransformComponent.cs" />
     <Compile Include="Engine\Animations\Animation.cs" />
     <Compile Include="Engine\Animations\AnimationManager.cs" />
     <Compile Include="Engine\ComponentType.cs" />

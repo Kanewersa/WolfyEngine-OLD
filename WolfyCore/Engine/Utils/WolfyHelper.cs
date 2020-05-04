@@ -1,4 +1,5 @@
 ﻿using System;
+using Microsoft.Xna.Framework;
 
 namespace WolfyEngine
 {
@@ -75,6 +76,23 @@ namespace WolfyEngine
                 'Z' => 26,
                 _ => throw new ArgumentOutOfRangeException("Unknown character used: " + ch)
             };
+        }
+
+        /// <summary>
+        /// Translates Vector2 to int direction.
+        /// </summary>
+        /// <param name="direction"></param>
+        /// <returns></returns>
+        public static int GetDirection(Vector2 direction)
+        {
+            var x = (int)direction.X;
+            var y = (int)direction.Y;
+
+            if (x == 0)
+            {
+                return y > 0 ? 2 : 0;
+            }
+            return x == 1 ? 1 : 3;
         }
     }
 }

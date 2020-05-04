@@ -14,6 +14,7 @@ namespace WolfyCore.ECS
         {
             RequireComponent<MovementComponent>();
             RequireComponent<RandomMovementComponent>();
+            RequireComponent<TransformComponent>();
         }
 
         public override void Update(GameTime gameTime)
@@ -23,26 +24,22 @@ namespace WolfyCore.ECS
                 var random = entity.GetComponent<RandomMovementComponent>();
                 var movement = entity.GetComponent<MovementComponent>();
 
-                if (movement.IsMoving || movement.WasMoving) return;
+                if (entity.HasComponent<MovementActionComponent>()) return;
+                //if (movement.IsMoving || movement.WasMoving) return;
 
                 random.Timer -= (float)gameTime.ElapsedGameTime.TotalSeconds;
 
                 if (!(random.Timer < 0)) continue;
 
-                movement.IsMoving = true;
+                var transform = entity.GetComponent<TransformComponent>();
+                var movementAction = entity.AddComponent<MovementActionComponent>();
+                var direction = Random.GetRandomDirection();
 
-                movement.EnumDirection = Engine.Random.GetRandomDirection();
+                movementAction.Set(transform.GridTransform, transform.GridTransform + direction, false);
 
-                movement.Direction = movement.EnumDirection switch
-                {
-                    Direction.Down => new Vector2(0, 32),
-                    Direction.Left => new Vector2(-32, 0),
-                    Direction.Right => new Vector2(32, 0),
-                    Direction.Up => new Vector2(0, -32),
-                    _ => throw new ArgumentOutOfRangeException()
-                };
+                movement.DirectionVector = direction;
 
-                random.Timer = movement.Frequency;
+                random.Timer = random.Frequency;
             }
         }
     }

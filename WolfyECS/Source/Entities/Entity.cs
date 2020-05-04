@@ -5,14 +5,13 @@ using ProtoBuf;
 
 namespace WolfyECS
 {
-    [ProtoContract(AsReferenceDefault = true)] public class Entity
+    [ProtoContract] public struct Entity
     {
         [ProtoMember(1)] public uint Id { get; }
         [ProtoMember(2)] private int _worldId;
 
         [ProtoIgnore] private World World => World.WorldInstance;
 
-        public Entity() { }
 
         internal Entity(uint id, int worldId)
         {
@@ -106,6 +105,16 @@ namespace WolfyECS
         public void Destroy()
         {
             World.DestroyEntity(this);
+        }
+
+        public static bool operator ==(Entity a, Entity b)
+        {
+            return a.Id == b.Id;
+        }
+
+        public static bool operator !=(Entity a, Entity b)
+        {
+            return !(a == b);
         }
     }
 }

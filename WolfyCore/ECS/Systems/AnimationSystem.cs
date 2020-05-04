@@ -16,8 +16,9 @@ namespace WolfyCore.ECS
 
         public override void Initialize()
         {
-            RequireComponent<MovementComponent>();
+            RequireComponent<TransformComponent>();
             RequireComponent<AnimationComponent>();
+            RequireComponent<MovementComponent>();
         }
 
         public override void LoadContent(ContentManager content)
@@ -25,8 +26,6 @@ namespace WolfyCore.ECS
             foreach (var entity in Entities)
             {
                 var comp = entity.GetComponent<AnimationComponent>();
-                Console.WriteLine("Got animation component:");
-                Console.WriteLine(comp.GetType());
                 comp.AnimationManager.Initialize(comp.Animations["Walk"]);
 
                 //comp.Animations["Walk"].Image.Initialize(graphics);
@@ -37,27 +36,22 @@ namespace WolfyCore.ECS
         {
             foreach (var entity in Entities)
             {
-                var movement = entity.GetComponent<MovementComponent>();
+                var transform = entity.GetComponent<TransformComponent>();
                 var animation = entity.GetComponent<AnimationComponent>();
+                var movement = entity.GetComponent<MovementComponent>();
 
-                var wasMoving = movement.WasMoving;
+                var dir = movement.Direction;
+                var isMoving = entity.HasComponent<MovementActionComponent>();
 
-                SetAnimations(wasMoving, animation);
+                SetAnimations(isMoving, animation);
 
                 animation.AnimationManager.Update(gameTime);
 
-                animation.EndPosition = movement.Transform;
-
-                if (wasMoving)
+                if (isMoving)
                 {
-                    animation.AnimationManager.SetDirection(movement.EnumDirection);
-                    animation.Position += movement.NormalizedDirection * movement.Speed * _timer;
-                    if (Vector2.Distance(animation.StartPosition, animation.Position) >= 32)
-                    {
-                        animation.Position = animation.EndPosition;
-                        animation.StartPosition = animation.EndPosition;
-                        movement.WasMoving = false;
-                    }
+                    // TODO Direction should be changeable even when entity is not moving.
+                    animation.AnimationManager.SetDirection(dir);
+                    animation.Position = transform.Transform;
                 }
             }
         }

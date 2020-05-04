@@ -130,6 +130,11 @@ namespace WolfyCore.Game
             Image.Color = Color.White;
         }
 
+        public override bool TileOccupied(Vector2 position)
+        {
+            return !Rows[(int) position.Y].Tiles[(int) position.X].Passage;
+        }
+
         public void ReplaceTiles(Vector2 position, Rectangle selectedRegion)
         {
             var startIndex = new Vector2(position.X / TileSize.X, position.Y / TileSize.Y);

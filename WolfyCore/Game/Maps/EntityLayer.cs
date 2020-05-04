@@ -39,5 +39,10 @@ namespace WolfyCore.Game
         {
             
         }
+
+        public override bool TileOccupied(Vector2 position)
+        {
+            return Rows[(int) position.Y].Tiles[(int) position.X].Entity != null;
+        }
     }
 }

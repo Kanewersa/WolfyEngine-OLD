@@ -10,20 +10,30 @@ namespace WolfyCore.ECS
 
         public override void Initialize()
         {
+            RequireComponent<MovementActionComponent>();
             RequireComponent<MovementComponent>();
+            RequireComponent<TransformComponent>();
         }
         
         public override void Update(GameTime gameTime)
         {
             foreach (var entity in Entities)
             {
+                var action = entity.GetComponent<MovementActionComponent>();
+                if (!action.IsMoving) return;
+
+                var transform = entity.GetComponent<TransformComponent>();
                 var movement = entity.GetComponent<MovementComponent>();
 
-                if (!movement.IsMoving) continue;
-                movement.GridPosition += movement.GridDirection;
-                movement.Transform += movement.Direction;
-                movement.WasMoving = true;
-                movement.IsMoving = false; 
+                var delta = (float)gameTime.ElapsedGameTime.TotalSeconds;
+                transform.Transform += movement.DirectionVector / 100 * movement.Speed * delta;
+
+                if (Vector2.Distance(action.StartTransform, transform.Transform) >= Runtime.GridSize)
+                {
+                    transform.Transform = action.TargetTransform;
+                    entity.RemoveComponent<MovementActionComponent>();
+                }
+
             }
         }
     }

@@ -2,6 +2,7 @@
 using System.Linq;
 using Microsoft.Xna.Framework;
 using ProtoBuf;
+using WolfyCore.Controllers;
 using WolfyCore.Game;
 using WolfyECS;
 
@@ -11,69 +12,59 @@ namespace WolfyCore.ECS
     {
         public CollisionSystem() { }
 
-        [ProtoIgnore] public Map CurrentMap { get; private set; }
-
-        public void SetMap(Map map) { CurrentMap = map; }
-
-        private bool CanPass(TileLayer layer, Vector2 position)
-        {
-            return layer.Rows[(int)position.Y].Tiles[(int)position.X].Passage;
-        }
-
-        private bool CanPass(EntityLayer layer, Vector2 position)
-        {
-            if (position.X < 0 || position.Y < 0) return false;
-            return true;
-            //return layer.Rows[(int) position.Y].Tiles[(int) position.X].Entity == null;
-        }
-
-        private bool CanPassLayer(BaseLayer layer, Vector2 position)
-        {
-            return layer switch
-            {
-                TileLayer til => CanPass(til, position),
-                EntityLayer ent => CanPass(ent, position),
-                _ => throw new Exception("Unknown layer type.")
-            };
-        }
-        
         public override void Initialize()
         {
-            RequireComponent<MovementComponent>();
+            RequireComponent<CollisionComponent>();
+            RequireComponent<MovementActionComponent>();
+            RequireComponent<TransformComponent>();
         }
 
         public override void Update(GameTime gameTime)
         {
             foreach (var entity in Entities)
             {
+                var movementAction = entity.GetComponent<MovementActionComponent>();
                 var collision = entity.GetComponent<CollisionComponent>();
-                if (!collision.IsCollider) continue;
+                var transform = entity.GetComponent<TransformComponent>();
 
-                var movement = entity.GetComponent<MovementComponent>();
-                
-                if (!movement.IsMoving) continue;
-                
-                // Check collision
-                var position = movement.GridPosition;
-                position += movement.GridDirection;
-                if (   position.X < 0 
-                       || position.Y < 0
-                       || position.X >= CurrentMap.Size.X
-                       || position.Y >= CurrentMap.Size.Y)
+                // If entity doesn't care about collision
+                if (!collision.IsCollider)
                 {
-                    movement.IsMoving = false;
-                    continue;
+                    // TODO Instead of true/false variable make the collision component...
+                    // present when entity should have collision and delete it if it shouldn't.
                 }
 
-                movement.IsMoving = CurrentMap.Layers.All(
-                    layer => CanPassLayer(layer, position));
+                // Check if entity can move to target position
+                var map = GetMap(transform.CurrentMap);
+                var canMove = map.Occupied(movementAction.TargetTransform/Runtime.GridSize);
 
-                if (!movement.IsMoving) continue;
+                if (canMove)
+                {
+                    // Let the entity move on
+                    movementAction.IsMoving = true;
+                    transform.GridTransform = movementAction.TargetGridTransform;
+                    // Set entity on map
+                    map.MoveEntity(entity, movementAction.StartGridTransform, movementAction.TargetGridTransform);
+                }
+                else
+                {
+                    // Reset entity position
+                    transform.Transform = movementAction.StartTransform;
 
-                var lay = (EntityLayer) CurrentMap.Layers.First(x => x is EntityLayer);
-                if (lay.Rows[(int)position.Y].Tiles[(int)position.X].Entity != null)
-                    movement.IsMoving = false;
+                    // Remove movement action component
+                    entity.RemoveIfHasComponent<MovementActionComponent>();
+                }
             }
+        }
+
+        private EntityLayer GetEntityLayer(int mapId)
+        {
+            return (EntityLayer) MapsController.Instance.GetMap(mapId).Layers.FirstOrDefault(x => x is EntityLayer);
+        }
+
+        private Map GetMap(int mapId)
+        {
+            return MapsController.Instance.GetMap(mapId);
         }
     }
 }

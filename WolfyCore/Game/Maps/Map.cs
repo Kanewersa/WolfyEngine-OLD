@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -69,6 +71,36 @@ namespace WolfyCore.Game
         public void Update(GameTime gameTime)
         {
             Layers.ForEach(layer => layer.Update(gameTime));
+        }
+
+        /// <summary>
+        /// Returns true if any layer is occupied on given position or
+        /// position is beyond map borders.
+        /// </summary>
+        /// <param name="position"></param>
+        public bool Occupied(Vector2 position)
+        {
+            foreach(var layer in Layers)
+                if (layer.TileOccupied(position))
+                    return true;
+
+            if (position.X < 0
+                || position.Y < 0
+                || position.X >= Size.X
+                || position.Y >= Size.Y)
+                return true;
+
+            return false;
+        }
+
+        public void MoveEntity(Entity e, Vector2 oldPosition, Vector2 newPosition)
+        {
+            var layer = (EntityLayer) Layers.FirstOrDefault(x => x is EntityLayer);
+            if(layer == null)
+                throw new NullReferenceException("Entity layer was null");
+
+            layer.Rows[(int) oldPosition.Y].Tiles[(int) oldPosition.X].Entity = new Entity();
+            layer.Rows[(int) newPosition.Y].Tiles[(int) newPosition.X].Entity = e;
         }
     }
 }

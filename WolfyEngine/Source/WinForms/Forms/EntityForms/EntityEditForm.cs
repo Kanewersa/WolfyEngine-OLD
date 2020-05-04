@@ -43,7 +43,7 @@ namespace WolfyEngine.Forms
             World = world;
             Scheme = scheme;
 
-            Entity = World.CreateEntity("Entity " + (World.EntityCount() + 1));
+            Entity = World.CreateEntity();
 
             foreach (var type in scheme.ComponentTypes)
             {

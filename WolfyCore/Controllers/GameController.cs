@@ -1,12 +1,9 @@
 ﻿using System.IO;
-using System.Linq;
-using Microsoft.Xna.Framework;
 using WolfyCore.ECS;
 using WolfyCore.Game;
 using WolfyECS;
 using WolfyEngine;
 using WolfyEngine.Engine;
-using WolfyCore.Engine;
 
 namespace WolfyCore.Controllers
 {

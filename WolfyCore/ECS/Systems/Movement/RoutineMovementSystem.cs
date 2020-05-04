@@ -12,40 +12,34 @@ namespace WolfyCore.ECS
         public RoutineMovementSystem() { }
         public override void Initialize()
         {
-            RequireComponent<RoutineMovementComponent>();
             RequireComponent<MovementComponent>();
+            RequireComponent<RandomMovementComponent>();
+            RequireComponent<TransformComponent>();
         }
         
         public override void Update(GameTime gameTime)
         {
             foreach (var entity in Entities)
             {
-                var routine = entity.GetComponent<RoutineMovementComponent>();
+                var random = entity.GetComponent<RandomMovementComponent>();
                 var movement = entity.GetComponent<MovementComponent>();
 
-                var elapsed = (float)gameTime.ElapsedGameTime.TotalSeconds;
+                if (entity.HasComponent<MovementActionComponent>()) return;
+                //if (movement.IsMoving || movement.WasMoving) return;
 
-                if (movement.IsMoving || movement.WasMoving) return;
+                random.Timer -= (float)gameTime.ElapsedGameTime.TotalSeconds;
 
-                routine.Timer -= elapsed;
+                if (!(random.Timer < 0)) continue;
 
-                if (routine.Timer < 0)
-                {
-                    movement.IsMoving = true;
+                var transform = entity.GetComponent<TransformComponent>();
+                var movementAction = entity.AddComponent<MovementActionComponent>();
+                var direction = Random.GetRandomDirection();
 
-                    movement.EnumDirection = Engine.Random.GetRandomDirection();
+                movementAction.Set(transform.GridTransform, transform.GridTransform + direction, false);
 
-                    movement.Direction = movement.EnumDirection switch
-                    {
-                        Direction.Down => new Vector2(0, 32),
-                        Direction.Left => new Vector2(-32, 0),
-                        Direction.Right => new Vector2(32, 0),
-                        Direction.Up => new Vector2(0, -32),
-                        _ => throw new ArgumentOutOfRangeException()
-                    };
+                movement.DirectionVector = direction;
 
-                    routine.Timer = movement.Frequency;
-                }
+                random.Timer = random.Frequency;
             }
         }
     }

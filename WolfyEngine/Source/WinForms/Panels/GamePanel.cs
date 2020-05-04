@@ -46,7 +46,7 @@ namespace WolfyEngine.Controls
 
         private void GameControl_OnEntitySelect(Entity entity, Vector2 position)
         {
-            if (entity == null)
+            if (entity == new Entity())
             {
                 EntityScheme selectedScheme = null;
 
@@ -125,15 +125,7 @@ namespace WolfyEngine.Controls
 
                 var ent = elay.Rows[(int)y].Tiles[(int)x].Entity;
 
-                if(ent != null)
-                {
-                    /*var comps = ent.GetComponents();
-                    if (comps.Count > 0)
-                        foreach (var comp in comps)
-                            Console.WriteLine(comp);*/
-                }
-
-                if (ent != null)
+                if (ent != new Entity())
                     toolStripCoordinatesLabel.Text = "X: " + x + " | Y: " + y + " | Entity: "; //+ ent.Name;
                 else toolStripCoordinatesLabel.Text = "X: " + x + " | Y: " + y + " | Entity: None";
 
