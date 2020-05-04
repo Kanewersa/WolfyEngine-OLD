@@ -7,32 +7,36 @@ namespace WolfyECS
 {
     [ProtoContract] public class ComponentManager
     {
-    [ProtoMember(1)] public Dictionary<uint, int> EntityMap { get; set; }
+        [ProtoMember(1)] public BiDictionary<Entity, int> EntityMap { get; set; }
+    //[ProtoMember(1)] public Dictionary<Entity, int> EntityMap { get; set; }
     [ProtoMember(2)] private int _size = 1;
+    [ProtoMember(3)] private Entity _lastEntity;
 
     [ProtoIgnore] private EntityComponent[] _components;
 
-    [ProtoMember(3, OverwriteList = true)]
+    [ProtoMember(4, OverwriteList = true)]
     public EntityComponent[] Components
     {
         get => _components;
         set => _components = value;
     }
 
-    [ProtoMember(4)] public string ComponentType { get; set; }
+    [ProtoMember(5)] public string ComponentType { get; set; }
 
     private const int MaxComponents = 1024;
 
     public ComponentManager(string type)
     {
         ComponentType = type;
-        EntityMap = new Dictionary<uint, int>();
+        //EntityMap = new Dictionary<Entity, int>();
+        EntityMap = new BiDictionary<Entity, int>();
         Components = new EntityComponent[MaxComponents];
     }
 
     public ComponentManager()
     {
-        EntityMap = new Dictionary<uint, int>();
+        //EntityMap = new Dictionary<Entity, int>();
+        EntityMap = new BiDictionary<Entity, int>();
         Components = new EntityComponent[MaxComponents];
     }
 
@@ -44,7 +48,7 @@ namespace WolfyECS
         Components[index] = component;
 
         // Add pointer to the component index inside array
-        EntityMap.Add(entity.Id, index);
+        EntityMap.Add(entity, index);
 
         _size++;
         return index;
@@ -52,9 +56,9 @@ namespace WolfyECS
 
     public bool HasComponent(Entity entity)
     {
-        if (EntityMap.ContainsKey(entity.Id))
+        if (EntityMap.ContainsKey(entity))
         {
-            return Components[EntityMap[entity.Id]] != null;
+            return Components[EntityMap[entity]] != null;
         }
 
         return false;
@@ -62,25 +66,21 @@ namespace WolfyECS
 
     public EntityComponent GetComponent(Entity entity)
     {
-        var comp = Components[EntityMap[entity.Id]];
-        return Components[EntityMap[entity.Id]];
+        var comp = Components[EntityMap[entity]];
+        return Components[EntityMap[entity]];
     }
 
     public void DestroyComponent(Entity entity)
     {
-        if(!EntityMap.ContainsKey(entity.Id)) return;
+        if(!EntityMap.ContainsKey(entity)) return;
         
-        int index = EntityMap[entity.Id];
+        int index = EntityMap[entity];
         int lastComponent = _size - 1;
         Components[index] = Components[lastComponent];
-        EntityMap.Remove(entity.Id);
+        EntityMap.Remove(entity);
         _size--;
-        // TODO Searching key by value in a dictionary is not effective
-        // Reversed dictionary may be a solution but it requires extra memory
-        // however it might be worth it if components are removed frequently from entities
-        uint movedEntity = EntityMap.FirstOrDefault(x => x.Value == lastComponent).Key;
-        if(EntityMap.ContainsKey(movedEntity))
-            EntityMap[movedEntity] = index;
+        Entity movedEntity = EntityMap[lastComponent];
+        EntityMap[movedEntity] = index;
     }
 
     [ProtoAfterDeserialization]
