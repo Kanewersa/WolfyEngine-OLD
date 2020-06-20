@@ -185,11 +185,9 @@ namespace WolfyEngine.Forms
         private void SaveButton_Click(object sender, EventArgs e)
         {
             foreach (var panel in _componentWindows)
-            {
                 panel.Save();
-            }
+            
             SavedEntity = true;
-
             //Entity.Name = EntityNameTextBox.Text;
 
             OnSave?.Invoke(Entity, Vector2.Zero);

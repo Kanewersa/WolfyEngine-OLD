@@ -25,8 +25,10 @@ namespace WolfyCore.Controllers
         /// <summary>
         /// Loads the tilesets data for current project
         /// </summary>
-        public void InitializeProject()
+        public void InitializeProject(bool empty)
         {
+            if (empty) return;
+
             TilesetsData = File.Exists(_tilesetsDataPath)
                 ? Serialization.ProtoDeserialize<TilesetsData>(_tilesetsDataPath)
                 : new TilesetsData();

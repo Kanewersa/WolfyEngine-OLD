@@ -1,13 +1,17 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using ProtoBuf;
 
 namespace WolfyECS
 {
     [ProtoContract] public class ComponentManager
     {
-        [ProtoMember(1)] public BiDictionary<Entity, int> EntityMap { get; set; }
-        [ProtoMember(2)] private int _size = 1;
-        [ProtoMember(3)] private Entity _lastEntity;
+        [ProtoMap(DisableMap = true)]
+        [ProtoMember(1)] public Dictionary<Entity, int> EntityMap { get; set; }
+        [ProtoMap(DisableMap = true)]
+        [ProtoMember(2)] public Dictionary<int, Entity> ReversedMap { get; set; }
+        [ProtoMember(3)] private int _size = 0;
 
         [ProtoIgnore] private EntityComponent[] _components;
 
@@ -18,32 +22,49 @@ namespace WolfyECS
             set => _components = value;
         }
 
-        [ProtoMember(5)] public string ComponentType { get; set; }
+        //[ProtoMember(6)] public string ComponentType { get; set; }
+        [ProtoMember(5)] public EntityComponent ComponentType { get; private set; }
+        [ProtoMember(6)] public bool Temporary { get; private set; }
 
         private const int MaxComponents = 1024;
 
-        public ComponentManager(string type)
+        public ComponentManager(EntityComponent componentType)
         {
-            ComponentType = type;
-            EntityMap = new BiDictionary<Entity, int>();
+            ComponentType = componentType;
+            EntityMap = new Dictionary<Entity, int>();
+            ReversedMap = new Dictionary<int, Entity>();
             Components = new EntityComponent[MaxComponents];
         }
 
         public ComponentManager()
         {
-            EntityMap = new BiDictionary<Entity, int>();
+            EntityMap = new Dictionary<Entity, int>();
+            ReversedMap = new Dictionary<int, Entity>();
             Components = new EntityComponent[MaxComponents];
+        }
+
+        public ComponentManager(bool temporary)
+        {
+            Temporary = temporary;
+        }
+
+        public void Initialize(int family)
+        {
+            if (Temporary) return;
+            Console.WriteLine("Setting family of: " + ComponentType.GetType().FullName);
+            ComponentType.SetFamily(family);
         }
 
         public int AddComponent(Entity entity, EntityComponent component)
         {
-            int index = _size - 1;
+            int index = _size;
 
             // Add component to the components array
             Components[index] = component;
 
             // Add pointer to the component index inside array
             EntityMap.Add(entity, index);
+            ReversedMap.Add(index, entity);
 
             _size++;
             return index;
@@ -61,21 +82,38 @@ namespace WolfyECS
 
         public EntityComponent GetComponent(Entity entity)
         {
-            var comp = Components[EntityMap[entity]];
             return Components[EntityMap[entity]];
         }
 
         public void DestroyComponent(Entity entity)
         {
-            if(!EntityMap.ContainsKey(entity)) return;
-            
-            int index = EntityMap[entity];
-            int lastComponent = _size - 1;
-            Components[index] = Components[lastComponent];
-            EntityMap.Remove(entity);
-            _size--;
-            Entity movedEntity = EntityMap[lastComponent];
-            EntityMap[movedEntity] = index;
+            if (!EntityMap.ContainsKey(entity))
+                throw new Exception("Tried to delete component that doesn't exist!");
+
+            int index = EntityMap[entity]; // Get index of component to delete
+            int lastComponent = _size - 1; // Get index of last component
+
+            EntityMap.Remove(entity); // Remove pointer to component
+
+            if (lastComponent == index)
+            {
+                ReversedMap.Remove(index); // Remove pointer to entity
+            }
+            else
+            {
+                Components[index] = Components[lastComponent];  // Replace deleted component with last component
+                Entity lastEntity = ReversedMap[lastComponent]; // Get last entity
+                EntityMap[lastEntity] = index;                  // Replace pointer for last entity
+                ReversedMap.Remove(lastComponent);              // Remove last component pointer
+                ReversedMap[index] = lastEntity;                // Replace last entity pointer wit h
+            }
+
+            _size--; // Decrease size
+        }
+
+        public int ComponentsCount()
+        {
+            return _size - 1;
         }
 
         [ProtoAfterDeserialization]
@@ -83,17 +121,8 @@ namespace WolfyECS
         {
             if (Components.Length < MaxComponents)
             {
-                    Array.Resize(ref _components, MaxComponents);
+                Array.Resize(ref _components, MaxComponents);
             }
         }
-
-        // TODO Create lambda expression for components iteration
-        /*public void IterateAll(Func lambda)
-        {
-            for (int i = 1; i < _size; i++)
-            {
-                lambda(Components[i]);
-            }
-        }*/
     }
 }

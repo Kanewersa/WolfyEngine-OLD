@@ -1,12 +1,22 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using ProtoBuf;
 
 namespace WolfyECS
 {
-    public class BiDictionary<TKey, TValue> : IEnumerable<KeyValuePair<TKey, TValue>>
+    [ProtoContract] public class BiDictionary<TKey, TValue> : IEnumerable<KeyValuePair<TKey, TValue>>
     {
-        Dictionary<TKey, TValue> KeyMap { get; }
-        Dictionary<TValue, TKey> ValueMap { get; }
+        [ProtoMember(1)] Dictionary<TKey, TValue> KeyMap { get; }
+        [ProtoMember(2)] Dictionary<TValue, TKey> ValueMap { get; }
+
+        public BiDictionary()
+        {
+            if(KeyMap == null)
+                KeyMap = new Dictionary<TKey, TValue>();
+
+            if(ValueMap == null)
+                ValueMap = new Dictionary<TValue, TKey>();
+        }
 
         public BiDictionary(int capacity = 5)
         {

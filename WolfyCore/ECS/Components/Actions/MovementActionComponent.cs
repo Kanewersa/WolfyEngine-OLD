@@ -23,6 +23,7 @@ namespace WolfyCore.ECS
         /// </summary>
         /// <param name="startTransform"></param>
         /// <param name="targetTransform"></param>
+        /// <param name="isMoving"></param>
         public void Set(Vector2 startTransform, Vector2 targetTransform, bool isMoving)
         {
             StartGridTransform = startTransform;

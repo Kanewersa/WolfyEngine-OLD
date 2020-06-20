@@ -3,7 +3,7 @@ using WolfyECS;
 
 namespace WolfyCore.ECS
 {
-    [ProtoContract] public class NameComponent : EntityComponent
+    [ProtoContract] public class InGameNameComponent : EntityComponent
     {
         [ProtoMember(1)] public string Name { get; set; }
     }

@@ -14,30 +14,33 @@ namespace WolfyEngine.Controls
     public partial class WolfyGameControl : MonoGameControl
     {
         public GameScene Scene { get; set; }
-        public bool GameRunning { get; set; }
         public Selector Selector { get; }
         public Map CurrentMap { get; private set; }
         public World World { get; private set; }
 
         private GameTime _gameTime;
 
-        private bool _paused;
-
-        public bool Paused
-        {
-            get => _paused;
-            set
-            {
-                _paused = value;
-                Scene.Paused = value;
-            }
-        }
+        public bool Paused { get; set; }
 
         public WolfyGameControl()
         {
             Selector = new Selector((float)Runtime.GridSize/48);
+        }
 
+        public void InitializeScene()
+        {
             Scene = new GameScene(Width, Height, World);
+            Scene.SetMap(CurrentMap);
+            Scene.Initialize(GraphicsDevice);
+            Scene.LoadContent(Editor.Content);
+
+            MouseHoverUpdatesOnly = false;
+            AlwaysEnableKeyboardInput = true;
+        }
+
+        public void UnloadScene()
+        {
+            Scene = null;
         }
 
         protected override void Initialize()
@@ -45,39 +48,31 @@ namespace WolfyEngine.Controls
             base.Initialize();
 
             Selector.Initialize(GraphicsDevice);
-            Scene.SetWorld(World);
-            Scene.SetMap(CurrentMap);
-            Scene.Initialize(GraphicsDevice);
-            
             LoadContent(Editor.Content);
         }
 
         protected void LoadContent(ContentManager content)
         {
             Selector.LoadContent(content);
-            Scene.LoadContent(content);
         }
 
         protected override void Draw()
         {
             base.Draw();
-            if (!GameRunning) return;
-
             Scene.Draw(Editor.spriteBatch, _gameTime);
         }
 
         protected override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
+            Focus();
             _gameTime = gameTime;
-            if (!GameRunning) return;
-
+            if (Paused) return;
             Scene.Update(gameTime);
         }
 
         public void StartGame(ContentManager content)
         {
-            GameRunning = true;
             var systems = World.GetSystems();
             var systemTypes = systems.ConvertAll(x => x.GetType());
             var newSystemTypes = ReflectiveEnumerator.GetSubTypes<EntitySystem>();
@@ -110,10 +105,9 @@ namespace WolfyEngine.Controls
 
         public void LoadMap(Map map)
         {
+            CurrentMap = map;
             CurrentMap.Initialize(Editor.graphics, World);
             CurrentMap.LoadContent(Editor.Content);
-            CurrentMap = map;
-
         }
     }
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using ProtoBuf;
 
@@ -12,7 +13,7 @@ namespace WolfyECS
     {
         [ProtoMember(1)] private EntityManager _entityManager;
         [ProtoMember(2)] private List<EntitySystem> _systems;
-        [ProtoMember(3)]
+        [ProtoMember(3, OverwriteList = true)]
         private ComponentManager[] _componentManagers;
 
         [ProtoMap(DisableMap = true)]
@@ -20,7 +21,7 @@ namespace WolfyECS
 
         private const int ComponentsLimit = 64;
 
-        [ProtoMember(5)] internal readonly int WorldId;
+        [ProtoMember(5)] public readonly int WorldId;
 
         public static World WorldInstance;
         private static readonly IdDispenser _worldIdDispenser;
@@ -33,6 +34,18 @@ namespace WolfyECS
             //Worlds = new World[WorldsLimit];
         }
 
+        public void Debug()
+        {
+            foreach (var system in _systems)
+            {
+                Console.WriteLine("System " + system.GetType() + " has entities: " + system.Entities.Count);
+            }
+
+            Console.WriteLine("World has entities: " + EntityCount()
+                              
+                              );
+        }
+
         public static void SetWorld(World world)
         {
             WorldInstance = world;
@@ -42,7 +55,6 @@ namespace WolfyECS
         {
             WorldId = (int)_worldIdDispenser.GetId();
             _entityManager = new EntityManager(this.WorldId);
-
             _systems = new List<EntitySystem>();
             _componentManagers = new ComponentManager[ComponentsLimit];
             _entityMasks = new Dictionary<Entity, ComponentMask>();
@@ -51,124 +63,27 @@ namespace WolfyECS
         /// <summary>
         /// Initializes the world.
         /// </summary>
-        public void Initialize(List<Type> componentTypes)
+        public void Initialize()
         {
-            if (ComponentsChanged(componentTypes))
-                SortComponentManagers(componentTypes);
-            
+            // Load families for every present entity component type
+            for (int f = 1; f < _componentManagers.Length; f++)
+            {
+                if (_componentManagers[f] == null)
+                    break;
 
+                _componentManagers[f].Initialize(f);
+            }
+
+            // Load all systems
             foreach(var system in _systems)
                 system.Initialize();
         }
 
-        /// <summary>
-        /// Returns true if component types in project changed.
-        /// </summary>
-        /// <param name="componentTypes"></param>
-        /// <returns></returns>
-        private bool ComponentsChanged(List<Type> componentTypes)
+        public void LoadContent(ContentManager content)
         {
-            List<string> oldTypes = new List<string>(ComponentsLimit);
-            List<string> newTypes = new List<string>(ComponentsLimit);
-
-            if (_componentManagers == null) return false;
-            foreach (var component in componentTypes)
+            foreach (var system in _systems)
             {
-                newTypes.Add(component.Name);
-            }
-
-            for (int i = 1; i < ComponentsLimit; i++)
-            {
-                if (_componentManagers[i] == null) break;
-                oldTypes.Add(_componentManagers[i].ComponentType);
-            }
-
-            return !oldTypes.SequenceEqual(newTypes);
-        }
-
-        private void SortComponentManagers(List<Type> componentTypes)
-        {
-            var managersCount = 0;
-
-            // Get managers count
-            for (int i = 1; i < ComponentsLimit; i++)
-            {
-                if (_componentManagers[i] == null)
-                    break;
-                managersCount++;
-            }
-
-            // Add missing types
-
-            for (int i = 0; i < componentTypes.Count; i++)
-            {
-                var hasComponent = false;
-
-                for (int j = 1; j < managersCount; j++)
-                {
-                    if (componentTypes[i].Name == _componentManagers[j].ComponentType)
-                    {
-                        hasComponent = true;
-                        break;
-                    }
-                }
-
-                if (!hasComponent)
-                {
-                    managersCount++;
-
-                    // Make space in array for new component
-                    if(_componentManagers[ComponentsLimit-1] != null)
-                        throw new Exception("Components limit reached!");
-
-                    for (int j = ComponentsLimit-1; j > i; j--)
-                    {
-                        if (_componentManagers[j] == null) continue;
-
-                        _componentManagers[j + 1] = _componentManagers[j];
-                    }
-
-                    _componentManagers[i + 1] =
-                        new ComponentManager(componentTypes[i].Name);
-                }
-            }
-
-            // Get obsolete types
-            var obsoleteIndexes = new List<int>(ComponentsLimit);
-
-            for (int i = 1; i < managersCount; i++)
-            {
-                var hasComponent = false;
-
-                foreach (var type in componentTypes)
-                {
-                    if (_componentManagers[i].ComponentType == type.Name)
-                    {
-                        hasComponent = true;
-                        break;
-                    }
-                }
-
-                if(!hasComponent)
-                {
-                    obsoleteIndexes.Add(i);
-                }
-            }
-
-            // Remove obsolete types
-            foreach (var index in obsoleteIndexes)
-            {
-                if(managersCount <= 1)
-                    throw new Exception("Tried to delete last available component type.");
-
-                // Move all elements after the index one to the left
-                for (int i = index; i < ComponentsLimit-1; i++)
-                {
-                    if (_componentManagers[i] == null) break;
-                    _componentManagers[i] = _componentManagers[i + 1];
-                }
-
-                managersCount--;
+                system.LoadContent(content);
             }
         }
 
@@ -186,6 +101,11 @@ namespace WolfyECS
             {
                 system.Draw(gameTime, spriteBatch);
             }
+        }
+
+        public ComponentMask GetMask(Entity entity)
+        {
+            return _entityMasks[entity];
         }
 
         public ComponentManager[] GetComponentManagers()
@@ -252,6 +172,8 @@ namespace WolfyECS
 
         public T AddComponent<T>(Entity e) where T : EntityComponent, new()
         {
+            Console.WriteLine("Adding component: " + typeof(T).FullName);
+            Console.WriteLine("To entity: " + e.Id);
             var manager = GetComponentManager<T>();
             var component = new T();
             manager.AddComponent(e, component);
@@ -260,10 +182,11 @@ namespace WolfyECS
             var oldMask = _entityMasks[e];
             _entityMasks[e] = _entityMasks[e].AddComponent<T>();
             UpdateEntityMask(e, oldMask);
+            Console.WriteLine("New entity mask is: " + _entityMasks[e].Mask);
             return component;
         }
 
-        public void AddComponent<T>(Entity e, T component) where T : EntityComponent
+        public void AddComponent<T>(Entity e, T component) where T : EntityComponent, new()
         {
             var manager = GetComponentManager<T>();
             manager.AddComponent(e, component);
@@ -274,15 +197,15 @@ namespace WolfyECS
             UpdateEntityMask(e, oldMask);
         }
 
-        public bool HasComponent<T>(Entity e) where T : EntityComponent
+        public bool HasComponent<T>(Entity e) where T : EntityComponent, new()
         {
             var manager = GetComponentManager<T>();
             return manager.HasComponent(e);
         }
 
 
-        public T GetComponent<T>(Entity e) where T : EntityComponent
-        {
+        public T GetComponent<T>(Entity e) where T : EntityComponent, new()
+        { 
             var manager = GetComponentManager<T>();
             var comp = manager.GetComponent(e);
             return (T) comp;
@@ -297,7 +220,7 @@ namespace WolfyECS
             return list;
         }
 
-        public void RemoveComponent<T>(Entity e) where T : EntityComponent
+        public void RemoveComponent<T>(Entity e) where T : EntityComponent, new()
         {
             var manager = GetComponentManager<T>();
             manager.DestroyComponent(e);
@@ -310,42 +233,70 @@ namespace WolfyECS
 
         #endregion
 
-        private ComponentManager GetComponentManager<T>() where T : EntityComponent
+        private ComponentManager CreateComponentManager<T>(int index) where T : EntityComponent, new()
+        {
+            return _componentManagers[index] = new ComponentManager(new EntityComponent<T>());
+        }
+
+        private ComponentManager GetComponentManager<T>() where T : EntityComponent, new()
         {
             var family = Family.GetComponentFamily<T>();
             if (family > _componentManagers.Length)
                 Array.Resize(ref _componentManagers, family + ComponentsLimit);
             
-            if (_componentManagers.ElementAtOrDefault(family) == null)
+            // TODO Instantiate component managers to make null check unnecessary
+            if (_componentManagers[family] == null ||
+                _componentManagers[family] != null && _componentManagers[family].Temporary)
             {
-                var manager = new ComponentManager(typeof(T).Name);
-                _componentManagers[family] = manager;
-                return manager;
+                return CreateComponentManager<T>(family);
             }
 
             return _componentManagers[family];
         }
 
+        
+        /*
         [ProtoBeforeDeserialization]
         private void FillMissingComponent()
         {
-            _componentManagers = new ComponentManager[1];
-            _componentManagers[0] = new ComponentManager();
-        }
+            /*_componentManagers = new ComponentManager[1];
+            _componentManagers[0] = new ComponentManager();#1#
+            Console.WriteLine("Before deserialization...");
 
-        [ProtoAfterDeserialization]
+            for (int i = 0; i < _componentManagers.Length; i++)
+            {
+                if (_componentManagers[i] == null)
+                    Console.WriteLine("IS NULL! : " + i);
+            }
+        }*/
+
+        /*[ProtoAfterDeserialization]
         private void FillComponentsArray()
         {
-            if (_componentManagers.Length < ComponentsLimit)
+            Console.WriteLine("After deserialization...");
+            /*if (_componentManagers.Length < ComponentsLimit)
             {
                 Array.Resize(ref _componentManagers, ComponentsLimit);
+            }#1#
+
+            for (int i = 0; i < _componentManagers.Length; i++)
+            {
+                if(_componentManagers[i] == null)
+                    Console.WriteLine("IS NULL! : " + i);
             }
-        }
+        }*/
 
         [ProtoBeforeSerialization]
-        private void RemoveRedundantComponent()
+        private void FillEmptyComponents()
         {
-            _componentManagers[0] = null;
+            for (int i = 0; i < _componentManagers.Length; i++)
+            {
+                if (_componentManagers[i] == null)
+                {
+                    _componentManagers[i] = new ComponentManager(true);
+                    //Console.WriteLine("Created new temporary manager with id: " + i);
+                }
+            }
         }
     }
 }

@@ -17,44 +17,47 @@ namespace WolfyCore.ECS
             RequireComponent<CollisionComponent>();
             RequireComponent<MovementActionComponent>();
             RequireComponent<TransformComponent>();
+            Console.WriteLine(this + " has mask: " + Signature.Mask);
         }
 
         public override void Update(GameTime gameTime)
         {
-            foreach (var entity in Entities)
+            IterateEntities(entity =>
             {
                 var movementAction = entity.GetComponent<MovementActionComponent>();
                 var collision = entity.GetComponent<CollisionComponent>();
                 var transform = entity.GetComponent<TransformComponent>();
 
-                // If entity doesn't care about collision
-                if (!collision.IsCollider)
+                if (!movementAction.IsMoving)
                 {
-                    // TODO Instead of true/false variable make the collision component...
-                    // present when entity should have collision and delete it if it shouldn't.
-                }
+                    // If entity doesn't care about collision
+                    if (!collision.IsCollider)
+                    {
+                        // TODO Instead of true/false variable make the collision component...
+                        // ... present when entity should have collision and delete it if it shouldn't.
+                    }
 
-                // Check if entity can move to target position
-                var map = GetMap(transform.CurrentMap);
-                var canMove = map.Occupied(movementAction.TargetTransform/Runtime.GridSize);
+                    // Check if entity can move to target position
+                    var map = GetMap(transform.CurrentMap);
+                    var canMove = !map.Occupied(movementAction.TargetGridTransform);
+                    if (canMove)
+                    {
+                        // Let the entity move on
+                        movementAction.IsMoving = true;
+                        transform.GridTransform = movementAction.TargetGridTransform;
+                        // Set entity on map
+                        map.MoveEntity(entity, movementAction.StartGridTransform, movementAction.TargetGridTransform);
+                    }
+                    else
+                    {
+                        // Reset entity position
+                        transform.Transform = movementAction.StartTransform;
 
-                if (canMove)
-                {
-                    // Let the entity move on
-                    movementAction.IsMoving = true;
-                    transform.GridTransform = movementAction.TargetGridTransform;
-                    // Set entity on map
-                    map.MoveEntity(entity, movementAction.StartGridTransform, movementAction.TargetGridTransform);
+                        // Remove movement action component
+                        entity.RemoveIfHasComponent<MovementActionComponent>();
+                    }
                 }
-                else
-                {
-                    // Reset entity position
-                    transform.Transform = movementAction.StartTransform;
-
-                    // Remove movement action component
-                    entity.RemoveIfHasComponent<MovementActionComponent>();
-                }
-            }
+            });
         }
 
         private EntityLayer GetEntityLayer(int mapId)

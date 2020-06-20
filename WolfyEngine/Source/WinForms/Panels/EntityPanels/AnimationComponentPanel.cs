@@ -35,14 +35,13 @@ namespace WolfyEngine.Controls
                 // TODO Make graphics and animations usage more clear
                 _graphicsPath = animation.Image.Path;
                 if(_graphicsPath != string.Empty)
-                    if(File.Exists(_graphicsPath))
+                    if (!WolfyHelper.IsFileLocked(new FileInfo(_graphicsPath)))
                         GraphicsPictureBox.Image = Image.FromFile(_graphicsPath);
                     else
-                    {
                         DarkMessageBox.ShowWarning(
                             "Could not find file " + _graphicsPath + ".",
                             "File not found.");
-                    }   
+
 
                 FrameCountNumericUpDown.Value = animation.FrameCount;
                 DirectionsCountNumericUpDown.Value = animation.DirectionsCount;
@@ -56,7 +55,7 @@ namespace WolfyEngine.Controls
 
         public override void Save()
         {
-            _animationComponent = Entity.GetIfHasComponent<AnimationComponent>();
+            _animationComponent = Entity.GetOrCreateComponent<AnimationComponent>();
 
             var frames = (int) FrameCountNumericUpDown.Value;
             var directions = (int) DirectionsCountNumericUpDown.Value;

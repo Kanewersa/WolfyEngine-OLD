@@ -17,7 +17,6 @@ namespace WolfyCore.Game
         [ProtoIgnore] private Image Image => Tileset.Image;
         [ProtoIgnore] public Tileset Tileset { get; set; }
         [ProtoIgnore] private Vector2D _emptyTile = new Vector2D(-1, -1);
-        [ProtoIgnore] private readonly int _drawOffset = 2;
         [ProtoIgnore] private Color _temporaryColor = Color.White;
         [ProtoIgnore] private float _temporaryTransparency = 1f;
 
@@ -72,19 +71,11 @@ namespace WolfyCore.Game
             Tileset.LoadContent(content);
         }
 
-        public override void Draw(SpriteBatch spriteBatch, Rectangle visibleArea)
+        public override void Draw(SpriteBatch spriteBatch, GameTime gameTime, Rectangle visibleArea)
         {
-            var totalDrawY = visibleArea.Height + _drawOffset;
-            var totalDrawX = visibleArea.Width + _drawOffset;
-
-            if (totalDrawX + _drawOffset > Size.X)
-                totalDrawX = Size.X;
-            if (totalDrawY + _drawOffset > Size.Y)
-                totalDrawY = Size.Y;
-
-            for (var y = visibleArea.Y; y < totalDrawY; y++)
+            for (var y = visibleArea.Y; y < visibleArea.Height; y++)
             {
-                for (var x = visibleArea.X; x < totalDrawX; x++)
+                for (var x = visibleArea.X; x < visibleArea.Width; x++)
                 {
                     if (y < 0 || x < 0) return;
                     var currentTile = Rows[y].Tiles[x];

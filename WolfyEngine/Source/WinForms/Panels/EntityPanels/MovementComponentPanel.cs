@@ -3,6 +3,7 @@ using DarkUI.Docking;
 using WolfyECS;
 using WolfyCore.ECS;
 using WolfyCore.Engine;
+using WolfyCore.Engine.Exceptions;
 using Random = System.Random;
 
 namespace WolfyEngine.Controls
@@ -32,7 +33,13 @@ namespace WolfyEngine.Controls
                 MovementTypeBox.SelectedIndex =
                     MovementTypeBox.FindStringExact(_movementComponent.MovementType.ToString());
                 SpeedNumericUpDown.Value = (decimal) _movementComponent.Speed;
-                FrequencyNumericUpDown.Value = (decimal) _movementComponent.Frequency;
+
+                if (entity.HasComponent<InputComponent>())
+                {
+                    // Keyboard-controlled entity is a special case of movement type
+                    MovementTypeBox.SelectedIndex = MovementTypeBox.Items.IndexOf(MovementTypeBox.Items[MovementTypeBox.Items.Count - 1]);
+                    return;
+                }
 
                 LoadMovementType(_movementComponent.MovementType);
             }
@@ -41,8 +48,8 @@ namespace WolfyEngine.Controls
                 // Random movement is default movement type
                 MovementTypeBox.SelectedIndex =
                     MovementTypeBox.FindStringExact(MovementType.Random.ToString());
-                SpeedNumericUpDown.Value = 0;
-                FrequencyNumericUpDown.Value = 0;
+                SpeedNumericUpDown.Value = 5;
+                FrequencyNumericUpDown.Value = 5;
                 LoadMovementType(MovementType.Random);
             }
         }
@@ -58,9 +65,13 @@ namespace WolfyEngine.Controls
                     FollowRangeNumericUpDown.Enabled = false;
                     break;
                 case MovementType.Follow:
-                    _followMovementComponent = Entity.GetIfHasComponent<FollowMovementComponent>();
+                    _followMovementComponent = Entity.GetOrCreateComponent<FollowMovementComponent>();
                     FollowRangeNumericUpDown.Enabled = true;
                     FollowRangeNumericUpDown.Value = _followMovementComponent.Range;
+                    break;
+                case MovementType.UserControlled:
+                    MovementTypeBox.Enabled = false;
+                    FollowRangeNumericUpDown.Enabled = false;
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
@@ -75,9 +86,9 @@ namespace WolfyEngine.Controls
 
         public override void Save()
         {
-            _movementComponent = Entity.GetIfHasComponent<MovementComponent>();
+            _movementComponent = Entity.GetOrCreateComponent<MovementComponent>();
 
-            _movementComponent.Frequency = (float)FrequencyNumericUpDown.Value;
+            //_movementComponent.Frequency = (float)FrequencyNumericUpDown.Value;
             _movementComponent.Speed = (float)SpeedNumericUpDown.Value;
             _movementComponent.MovementType = (MovementType) MovementTypeBox.SelectedValue;
 
@@ -85,7 +96,7 @@ namespace WolfyEngine.Controls
             {
                 case MovementType.Follow:
                 {
-                    _followMovementComponent = Entity.GetIfHasComponent<FollowMovementComponent>();
+                    _followMovementComponent = Entity.GetOrCreateComponent<FollowMovementComponent>();
 
                     _followMovementComponent.Range = (int) FollowRangeNumericUpDown.Value;
 
@@ -94,17 +105,24 @@ namespace WolfyEngine.Controls
                     break;
                 }
                 case MovementType.Random:
-                    _randomMovementComponent = Entity.GetIfHasComponent<RandomMovementComponent>();
+                    _randomMovementComponent = Entity.GetOrCreateComponent<RandomMovementComponent>();
 
                     Entity.RemoveIfHasComponent<FollowMovementComponent>();
                     Entity.RemoveIfHasComponent<FixedMovementComponent>();
                     break;
                 case MovementType.Fixed:
-                    _fixedMovementComponent = Entity.GetIfHasComponent<FixedMovementComponent>();
+                    _fixedMovementComponent = Entity.GetOrCreateComponent<FixedMovementComponent>();
 
                     Entity.RemoveIfHasComponent<FollowMovementComponent>();
                     Entity.RemoveIfHasComponent<RandomMovementComponent>();
                     // TODO Implement fixed movement
+                    break;
+                case MovementType.UserControlled:
+                    if (!Entity.HasComponent<InputComponent>())
+                        throw new WolfyEcsException("User controlled entity doesn't have InputComponent.");
+                    Entity.RemoveIfHasComponent<FollowMovementComponent>();
+                    Entity.RemoveIfHasComponent<RandomMovementComponent>();
+                    Entity.RemoveIfHasComponent<FixedMovementComponent>();
                     break;
                 default:
                     throw new ArgumentOutOfRangeException("Unknown movement type");

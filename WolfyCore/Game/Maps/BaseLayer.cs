@@ -22,7 +22,7 @@ namespace WolfyCore.Game
         public virtual void LoadContent(ContentManager content)
         { }
 
-        public virtual void Draw(SpriteBatch spriteBatch, Rectangle visibleArea)
+        public virtual void Draw(SpriteBatch spriteBatch, GameTime gameTime, Rectangle visibleArea)
         { }
 
         // TODO Obsolete method

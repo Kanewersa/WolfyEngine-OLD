@@ -67,6 +67,7 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Source\Collections\BiDictionary.cs" />
+    <Compile Include="Source\Collections\EntityMap.cs" />
     <Compile Include="Source\Components\ComponentManager.cs" />
     <Compile Include="Source\Components\ComponentMask.cs" />
     <Compile Include="Source\Components\EntityComponent.cs" />

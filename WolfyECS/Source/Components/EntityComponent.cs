@@ -1,27 +1,39 @@
 ﻿using System;
+using System.Collections.Generic;
 using ProtoBuf;
-using ProtoBuf.Meta;
 
 namespace WolfyECS
 {
     public struct ComponentCounter
     {
         public static int Counter = 1;
+        public static bool[] UsedIds = new bool[128];
+        //public static Dictionary<int, Type> ComponentTypes = new Dictionary<int, Type>(256);
     }
-    
+
     [ProtoContract] public class EntityComponent<T> : EntityComponent
     {
         [ProtoIgnore] private static int _familyId = 0;
         public static int Family()
         {
             if (_familyId != 0) return _familyId;
+
             _familyId = ComponentCounter.Counter++;
+            while (ComponentCounter.UsedIds[_familyId])
+            {
+                _familyId = ComponentCounter.Counter++;
+            }
+
+            Console.WriteLine(typeof(T).Name + " has new family id of: " + _familyId);
             return _familyId;
         }
 
-        public static void SetFamily(int family)
+        public override void SetFamily(int family)
         {
-            if(_familyId != 0) throw new Exception("Family was already assigned.");
+            if(_familyId != 0) return;
+            Console.WriteLine(typeof(T).Name + " has family id: " + family);
+            ComponentCounter.UsedIds[family] = true;
+
             _familyId = family;
         }
 
@@ -29,7 +41,14 @@ namespace WolfyECS
         { }
     }
 
+    // TODO EntityComponent should be abstract but protobuf throws exception that EntityComponent is being instantiated.
     [ProtoContract]
     public class EntityComponent
-    { }
+    {
+        public EntityComponent() { }
+        public virtual void SetFamily(int family)
+        {
+
+        }
+    }
 }

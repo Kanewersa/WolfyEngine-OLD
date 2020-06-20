@@ -17,7 +17,8 @@ namespace WolfyCore.Game
         [ProtoIgnore] public Vector2D TileSize => Runtime.TileSize;
         [ProtoMember(4)] public Vector2D Size { get; set; }
         [ProtoMember(5)] public List<BaseLayer> Layers { get; set; } = new List<BaseLayer>();
-        [ProtoMember(6, AsReference = true)] public List<Entity> Entities { get; set; }
+        [ProtoMember(6)] public List<Entity> Entities { get; set; }
+        [ProtoIgnore] private readonly int DrawOffset = 2;
 
         public Map() { }
 
@@ -51,16 +52,22 @@ namespace WolfyCore.Game
             }
         }
 
-        public void Draw(SpriteBatch spriteBatch, Rectangle visibleArea)
+        public void Draw(SpriteBatch spriteBatch, GameTime gameTime, Rectangle visibleArea)
         {
             var startX = visibleArea.X / TileSize.X;
             var startY = visibleArea.Y / TileSize.Y;
-            var endX = visibleArea.Width / TileSize.X + startX;
-            var endY = visibleArea.Height / TileSize.Y + startY;
+
+            var endX = visibleArea.Width / TileSize.X + startX + DrawOffset;
+            var endY = visibleArea.Height / TileSize.Y + startY + DrawOffset;
+
+            if (endX + DrawOffset > Size.X)
+                endX = Size.X;
+            if (endY + DrawOffset > Size.Y)
+                endY = Size.Y;
 
             var visibleTiles = new Rectangle(startX, startY, endX, endY);
 
-            Layers.ForEach(layer => layer.Draw(spriteBatch, visibleTiles));
+            Layers.ForEach(layer => layer.Draw(spriteBatch, gameTime, visibleTiles));
         }
 
         public void Draw(SpriteBatch spriteBatch)
@@ -80,15 +87,15 @@ namespace WolfyCore.Game
         /// <param name="position"></param>
         public bool Occupied(Vector2 position)
         {
-            foreach(var layer in Layers)
-                if (layer.TileOccupied(position))
-                    return true;
-
             if (position.X < 0
                 || position.Y < 0
                 || position.X >= Size.X
                 || position.Y >= Size.Y)
                 return true;
+
+            foreach (var layer in Layers)
+                if (layer.TileOccupied(position))
+                    return true;
 
             return false;
         }

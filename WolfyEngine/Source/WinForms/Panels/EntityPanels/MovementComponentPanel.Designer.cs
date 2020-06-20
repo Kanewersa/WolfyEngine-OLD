@@ -82,7 +82,7 @@ namespace WolfyEngine.Controls
             // 
             this.FrequencyNumericUpDown.Location = new System.Drawing.Point(14, 83);
             this.FrequencyNumericUpDown.Maximum = new decimal(new int[] {
-            8,
+            10,
             0,
             0,
             0});
@@ -104,7 +104,7 @@ namespace WolfyEngine.Controls
             // 
             this.SpeedNumericUpDown.Location = new System.Drawing.Point(14, 139);
             this.SpeedNumericUpDown.Maximum = new decimal(new int[] {
-            8,
+            10,
             0,
             0,
             0});

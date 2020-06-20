@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using Microsoft.Xna.Framework;
 
 namespace WolfyEngine
@@ -8,6 +9,26 @@ namespace WolfyEngine
     /// </summary>
     public static class WolfyHelper
     {
+        /// <summary>
+        /// Returns true if file is being written to, doesn't exist or is being used by another process.
+        /// </summary>
+        /// <param name="file"></param>
+        /// <returns></returns>
+        public static bool IsFileLocked(FileInfo file)
+        {
+            try
+            {
+                using FileStream stream = file.Open(FileMode.Open, FileAccess.Read, FileShare.None);
+                stream.Close();
+            }
+            catch (IOException)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
         public static int GetUniqueInt(string str)
         {
             if(str == null)
@@ -89,10 +110,8 @@ namespace WolfyEngine
             var y = (int)direction.Y;
 
             if (x == 0)
-            {
-                return y > 0 ? 2 : 0;
-            }
-            return x == 1 ? 1 : 3;
+                return y > 0 ? 0 : 3;
+            return x == 1 ? 2 : 1;
         }
     }
 }

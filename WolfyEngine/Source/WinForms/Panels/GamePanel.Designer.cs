@@ -29,11 +29,16 @@
         private void InitializeComponent()
         {
             this.scrollablePanel = new WolfyEngine.Controls.ScrollablePanel();
-            this.gameControl = new WolfyEngine.Controls.GameControl();
+            this.wolfyGameControl = new WolfyEngine.Controls.WolfyGameControl();
+            this.gameEditorControl = new WolfyEngine.Controls.GameControl();
             this.darkToolStrip = new DarkUI.Controls.DarkToolStrip();
             this.PencilButton = new System.Windows.Forms.ToolStripButton();
             this.FillButton = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator = new System.Windows.Forms.ToolStripSeparator();
+            this.StartGameButton = new System.Windows.Forms.ToolStripButton();
+            this.PauseGameButton = new System.Windows.Forms.ToolStripButton();
+            this.StopGameButton = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripCoordinatesLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.EntityContextMenu = new WolfyEngine.Controls.EntityContextMenu();
             this.newEntityToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -48,7 +53,8 @@
             // scrollablePanel
             // 
             this.scrollablePanel.AutoScroll = true;
-            this.scrollablePanel.Controls.Add(this.gameControl);
+            this.scrollablePanel.Controls.Add(this.wolfyGameControl);
+            this.scrollablePanel.Controls.Add(this.gameEditorControl);
             this.scrollablePanel.Controls.Add(this.darkToolStrip);
             this.scrollablePanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.scrollablePanel.Location = new System.Drawing.Point(0, 0);
@@ -56,17 +62,31 @@
             this.scrollablePanel.Size = new System.Drawing.Size(575, 534);
             this.scrollablePanel.TabIndex = 1;
             // 
-            // gameControl
+            // wolfyGameControl
             // 
-            this.gameControl.CurrentMap = null;
-            this.gameControl.GraphicsProfile = Microsoft.Xna.Framework.Graphics.GraphicsProfile.HiDef;
-            this.gameControl.Location = new System.Drawing.Point(0, 24);
-            this.gameControl.Margin = new System.Windows.Forms.Padding(0);
-            this.gameControl.Name = "gameControl";
-            this.gameControl.Size = new System.Drawing.Size(195, 258);
-            this.gameControl.TabIndex = 0;
-            this.gameControl.Text = "Game control";
-            this.gameControl.Tool = WolfyEngine.Controls.GameControl.Tools.Pencil;
+            this.wolfyGameControl.Enabled = false;
+            this.wolfyGameControl.GraphicsProfile = Microsoft.Xna.Framework.Graphics.GraphicsProfile.HiDef;
+            this.wolfyGameControl.Location = new System.Drawing.Point(351, 28);
+            this.wolfyGameControl.MouseHoverUpdatesOnly = false;
+            this.wolfyGameControl.Name = "wolfyGameControl";
+            this.wolfyGameControl.Paused = false;
+            this.wolfyGameControl.Scene = null;
+            this.wolfyGameControl.Size = new System.Drawing.Size(221, 258);
+            this.wolfyGameControl.TabIndex = 3;
+            this.wolfyGameControl.Text = "Wolfy Game Control";
+            this.wolfyGameControl.Visible = false;
+            // 
+            // gameEditorControl
+            // 
+            this.gameEditorControl.CurrentMap = null;
+            this.gameEditorControl.GraphicsProfile = Microsoft.Xna.Framework.Graphics.GraphicsProfile.HiDef;
+            this.gameEditorControl.Location = new System.Drawing.Point(0, 28);
+            this.gameEditorControl.Margin = new System.Windows.Forms.Padding(0);
+            this.gameEditorControl.Name = "gameEditorControl";
+            this.gameEditorControl.Size = new System.Drawing.Size(195, 258);
+            this.gameEditorControl.TabIndex = 0;
+            this.gameEditorControl.Text = "Game control";
+            this.gameEditorControl.Tool = WolfyEngine.Controls.GameControl.Tools.Pencil;
             // 
             // darkToolStrip
             // 
@@ -77,6 +97,10 @@
             this.PencilButton,
             this.FillButton,
             this.toolStripSeparator,
+            this.StartGameButton,
+            this.PauseGameButton,
+            this.StopGameButton,
+            this.toolStripSeparator2,
             this.toolStripCoordinatesLabel});
             this.darkToolStrip.Location = new System.Drawing.Point(0, 0);
             this.darkToolStrip.Name = "darkToolStrip";
@@ -120,6 +144,50 @@
             this.toolStripSeparator.Margin = new System.Windows.Forms.Padding(0, 0, 2, 0);
             this.toolStripSeparator.Name = "toolStripSeparator";
             this.toolStripSeparator.Size = new System.Drawing.Size(6, 28);
+            // 
+            // StartGameButton
+            // 
+            this.StartGameButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
+            this.StartGameButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.StartGameButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
+            this.StartGameButton.Image = global::WolfyEngine.Icons.play;
+            this.StartGameButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.StartGameButton.Name = "StartGameButton";
+            this.StartGameButton.Size = new System.Drawing.Size(23, 25);
+            this.StartGameButton.Text = "toolStripButton1";
+            this.StartGameButton.Click += new System.EventHandler(this.StartGameButton_Click);
+            // 
+            // PauseGameButton
+            // 
+            this.PauseGameButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
+            this.PauseGameButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.PauseGameButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
+            this.PauseGameButton.Image = global::WolfyEngine.Icons.pause;
+            this.PauseGameButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.PauseGameButton.Name = "PauseGameButton";
+            this.PauseGameButton.Size = new System.Drawing.Size(23, 25);
+            this.PauseGameButton.Text = "toolStripButton1";
+            this.PauseGameButton.Click += new System.EventHandler(this.PauseGameButton_Click);
+            // 
+            // StopGameButton
+            // 
+            this.StopGameButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
+            this.StopGameButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.StopGameButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
+            this.StopGameButton.Image = global::WolfyEngine.Icons.stopsquare;
+            this.StopGameButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.StopGameButton.Name = "StopGameButton";
+            this.StopGameButton.Size = new System.Drawing.Size(23, 25);
+            this.StopGameButton.Text = "toolStripButton1";
+            this.StopGameButton.Click += new System.EventHandler(this.StopGameButton_Click);
+            // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
+            this.toolStripSeparator2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
+            this.toolStripSeparator2.Margin = new System.Windows.Forms.Padding(0, 0, 2, 0);
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 28);
             // 
             // toolStripCoordinatesLabel
             // 
@@ -195,7 +263,7 @@
 
         #endregion
 
-        private GameControl gameControl;
+        private GameControl gameEditorControl;
         private ScrollablePanel scrollablePanel;
         private EntityContextMenu EntityContextMenu;
         private System.Windows.Forms.ToolStripMenuItem newEntityToolStripMenuItem;
@@ -207,5 +275,10 @@
         private System.Windows.Forms.ToolStripButton PencilButton;
         private System.Windows.Forms.ToolStripButton FillButton;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator;
+        private System.Windows.Forms.ToolStripButton StartGameButton;
+        private System.Windows.Forms.ToolStripButton PauseGameButton;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
+        private System.Windows.Forms.ToolStripButton StopGameButton;
+        private WolfyGameControl wolfyGameControl;
     }
 }

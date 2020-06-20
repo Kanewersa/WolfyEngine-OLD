@@ -1,4 +1,5 @@
-﻿using ProtoBuf;
+﻿using System;
+using ProtoBuf;
 
 namespace WolfyECS
 {
@@ -11,8 +12,14 @@ namespace WolfyECS
         
         [ProtoMember(1)] public int Mask { get; set; }
 
+        public void Debug()
+        {
+            Console.WriteLine(Mask);
+        }
+
         public ComponentMask AddComponent<T>() where T : EntityComponent
         {
+            var fam = Family.GetComponentFamily<T>();
             Mask |= 1 << Family.GetComponentFamily<T>();
             return this;
         }

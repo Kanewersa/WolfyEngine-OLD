@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using Microsoft.Xna.Framework;
 using ProtoBuf;
 using WolfyECS;
 
@@ -17,24 +18,24 @@ namespace WolfyCore.ECS
         
         public override void Update(GameTime gameTime)
         {
-            foreach (var entity in Entities)
+            IterateEntities(entity =>
             {
                 var action = entity.GetComponent<MovementActionComponent>();
-                if (!action.IsMoving) return;
-
-                var transform = entity.GetComponent<TransformComponent>();
-                var movement = entity.GetComponent<MovementComponent>();
-
-                var delta = (float)gameTime.ElapsedGameTime.TotalSeconds;
-                transform.Transform += movement.DirectionVector / 100 * movement.Speed * delta;
-
-                if (Vector2.Distance(action.StartTransform, transform.Transform) >= Runtime.GridSize)
+                if (action.IsMoving)
                 {
-                    transform.Transform = action.TargetTransform;
-                    entity.RemoveComponent<MovementActionComponent>();
-                }
+                    var transform = entity.GetComponent<TransformComponent>();
+                    var movement = entity.GetComponent<MovementComponent>();
 
-            }
+                    var delta = (float)gameTime.ElapsedGameTime.TotalSeconds;
+                    transform.Transform += movement.DirectionVector * delta * Runtime.GridSize * movement.Speed / 5;
+
+                    if (Vector2.Distance(action.StartTransform, transform.Transform) >= Runtime.GridSize)
+                    {
+                        transform.Transform = action.TargetTransform;
+                        entity.RemoveComponent<MovementActionComponent>();
+                    }
+                }
+            });
         }
     }
 }

@@ -109,6 +109,9 @@ namespace WolfyEngine.Controls
 
         private void GameControl_MouseClick(object sender, MouseEventArgs e)
         {
+            if (CurrentMap == null)
+                return;
+
             if (Mode == EditorMode.Entities)
             {
                 var (x, y) = TileCoordinates;

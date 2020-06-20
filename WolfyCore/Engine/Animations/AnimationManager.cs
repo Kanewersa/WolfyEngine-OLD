@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using ProtoBuf;
 
@@ -8,7 +9,7 @@ namespace WolfyCore.Engine
     [ProtoContract] public class AnimationManager
     {
         [ProtoIgnore] private Animation _animation;
-        [ProtoIgnore] public Animation Animation
+        [ProtoMember(2)] public Animation Animation
         {
             get => _animation;
             private set
@@ -36,6 +37,11 @@ namespace WolfyCore.Engine
         public void Initialize(Animation animation)
         {
             Animation = animation;
+        }
+
+        public void LoadContent(ContentManager content)
+        {
+            _animation?.LoadContent(content);
         }
 
         public void Draw(SpriteBatch spriteBatch)
@@ -84,7 +90,7 @@ namespace WolfyCore.Engine
         {
             _timer += (float)gameTime.ElapsedGameTime.TotalSeconds;
 
-            if (_timer > Animation.FrameSpeed)
+            if (_timer > 1f/Animation.FrameCount)//Animation.FrameSpeed)
             {
                 _timer = 0f;
 
@@ -92,7 +98,6 @@ namespace WolfyCore.Engine
 
                 if (Animation.CurrentFrame >= Animation.FrameCount)
                     Animation.CurrentFrame = 0;
-
             }
         }
     }

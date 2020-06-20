@@ -39,7 +39,6 @@ namespace WolfyCore.ECS
                     throw new Exception("Entity in " + this + "is missing movement component.");
 
                 _currentKeyboardState = Keyboard.GetState();
-                
                 input.ArrowDown = _currentKeyboardState.IsKeyDown(Keys.Down);
                 input.ArrowLeft = _currentKeyboardState.IsKeyDown(Keys.Left);
                 input.ArrowRight = _currentKeyboardState.IsKeyDown(Keys.Right);
@@ -68,7 +67,6 @@ namespace WolfyCore.ECS
 
             var movementAction = e.AddComponent<MovementActionComponent>();
             
-
             movementAction.Set(transform.GridTransform, transform.GridTransform + direction, false);
 
             movement.DirectionVector = direction;

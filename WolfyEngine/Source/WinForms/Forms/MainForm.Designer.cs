@@ -48,6 +48,8 @@
             this.statusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.springLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.memoryUsageLabel = new System.Windows.Forms.ToolStripStatusLabel();
+            this.button1 = new System.Windows.Forms.Button();
+            this.playerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.darkMenuStrip.SuspendLayout();
             this.statusStrip.SuspendLayout();
             this.SuspendLayout();
@@ -160,7 +162,7 @@
             this.gameEditorToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
             this.gameEditorToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
             this.gameEditorToolStripMenuItem.Name = "gameEditorToolStripMenuItem";
-            this.gameEditorToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
+            this.gameEditorToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.gameEditorToolStripMenuItem.Text = "Game Editor";
             this.gameEditorToolStripMenuItem.Click += new System.EventHandler(this.GameEditorToolStripMenuItem_Click);
             // 
@@ -169,7 +171,7 @@
             this.tilesetEditorToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
             this.tilesetEditorToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
             this.tilesetEditorToolStripMenuItem.Name = "tilesetEditorToolStripMenuItem";
-            this.tilesetEditorToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
+            this.tilesetEditorToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.tilesetEditorToolStripMenuItem.Text = "Tileset Editor";
             this.tilesetEditorToolStripMenuItem.Click += new System.EventHandler(this.TilesetEditorToolStripMenuItem_Click);
             // 
@@ -178,7 +180,7 @@
             this.layersToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
             this.layersToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
             this.layersToolStripMenuItem.Name = "layersToolStripMenuItem";
-            this.layersToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
+            this.layersToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.layersToolStripMenuItem.Text = "Layers";
             this.layersToolStripMenuItem.Click += new System.EventHandler(this.LayersToolStripMenuItem_Click);
             // 
@@ -187,13 +189,15 @@
             this.mapsToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
             this.mapsToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
             this.mapsToolStripMenuItem.Name = "mapsToolStripMenuItem";
-            this.mapsToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
+            this.mapsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.mapsToolStripMenuItem.Text = "Maps";
             this.mapsToolStripMenuItem.Click += new System.EventHandler(this.MapsToolStripMenuItem_Click);
             // 
             // settingsToolStripMenuItem
             // 
             this.settingsToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
+            this.settingsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.playerToolStripMenuItem});
             this.settingsToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
             this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
             this.settingsToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
@@ -247,11 +251,31 @@
             this.memoryUsageLabel.Size = new System.Drawing.Size(58, 16);
             this.memoryUsageLabel.Text = "Memory: ";
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(523, 0);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 23;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // playerToolStripMenuItem
+            // 
+            this.playerToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
+            this.playerToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
+            this.playerToolStripMenuItem.Name = "playerToolStripMenuItem";
+            this.playerToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.playerToolStripMenuItem.Text = "Player";
+            this.playerToolStripMenuItem.Click += new System.EventHandler(this.playerToolStripMenuItem_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1340, 871);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.assetManagerButton);
             this.Controls.Add(this.darkDockPanel);
             this.Controls.Add(this.darkMenuStrip);
@@ -289,6 +313,8 @@
         private System.Windows.Forms.ToolStripMenuItem openProjectMenuItem;
         private System.Windows.Forms.ToolStripMenuItem saveProjectMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.ToolStripMenuItem playerToolStripMenuItem;
     }
 }
 

@@ -13,11 +13,13 @@ namespace WolfyECS
         [ProtoIgnore] private World World => World.WorldInstance;
 
 
-        internal Entity(uint id, int worldId)
+        public Entity(uint id, int worldId)
         {
             Id = id;
             _worldId = worldId;
         }
+
+        public static Entity Empty => new Entity(0, -1);
 
         /// <summary>
         /// Creates and returns the new component of type T.
@@ -44,7 +46,7 @@ namespace WolfyECS
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
-        public bool HasComponent<T>() where T : EntityComponent
+        public bool HasComponent<T>() where T : EntityComponent, new()
         {
             return World.HasComponent<T>(this);
         }
@@ -54,7 +56,7 @@ namespace WolfyECS
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
-        public T GetComponent<T>() where T : EntityComponent
+        public T GetComponent<T>() where T : EntityComponent, new()
         {
             return World.GetComponent<T>(this);
         }
@@ -64,11 +66,23 @@ namespace WolfyECS
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
-        public T GetIfHasComponent<T>() where T : EntityComponent, new()
+        public T GetOrCreateComponent<T>() where T : EntityComponent, new()
         {
             return HasComponent<T>()
                 ? GetComponent<T>() 
                 : AddComponent<T>();
+        }
+
+        /// <summary>
+        /// Returns true if entity has component of <see cref="T"/> type and outs the component.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
+        public bool GetIfHasComponent<T>(out T component) where T : EntityComponent, new()
+        {
+            var has = HasComponent<T>();
+            component = has ? GetComponent<T>() : null;
+            return has;
         }
 
         /// <summary>
@@ -84,7 +98,7 @@ namespace WolfyECS
         /// Removes component of given type from entity.
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        public void RemoveComponent<T>() where T : EntityComponent
+        public void RemoveComponent<T>() where T : EntityComponent, new()
         {
             World.RemoveComponent<T>(this);
         }
@@ -93,7 +107,7 @@ namespace WolfyECS
         /// Removes component of given type if entity has one.
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        public void RemoveIfHasComponent<T>() where T : EntityComponent
+        public void RemoveIfHasComponent<T>() where T : EntityComponent, new()
         {
             if (HasComponent<T>())
                 RemoveComponent<T>();
@@ -115,6 +129,11 @@ namespace WolfyECS
         public static bool operator !=(Entity a, Entity b)
         {
             return !(a == b);
+        }
+
+        public void GetMask()
+        {
+            World.GetMask(this).Debug();
         }
     }
 }

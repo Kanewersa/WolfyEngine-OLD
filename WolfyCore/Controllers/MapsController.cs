@@ -26,8 +26,10 @@ namespace WolfyCore.Controllers
         /// <summary>
         /// Loads the maps data for current project
         /// </summary>
-        public void InitializeProject()
+        public void InitializeProject(bool empty)
         {
+            if (empty) return;
+
             MapsData = File.Exists(_mapsDataPath)
                 ? Serialization.ProtoDeserialize<MapsData>(_mapsDataPath)
                 : new MapsData();

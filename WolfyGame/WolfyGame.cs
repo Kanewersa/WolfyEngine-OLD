@@ -53,7 +53,8 @@ namespace WolfyGame
             GameController.Instance.InitializeProject();
 
             // Initialize families after GameController is initialized
-            WolfyManager.InitializeFamilies();
+            // TODO Obsolete family initialization
+            //WolfyManager.InitializeFamilies();
 
             // Initialize the scene
             Scene = new GameScene(ScreenWidth, ScreenHeight, GameController.Instance.World);

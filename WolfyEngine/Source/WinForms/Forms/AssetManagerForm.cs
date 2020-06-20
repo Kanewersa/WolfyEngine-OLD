@@ -185,11 +185,17 @@ namespace WolfyEngine.Forms
         private void MoveBuiltContent(string[] source)
         {
             // Move pre-built files to proper folder
-
             foreach (var file in source)
             {
+               
                 var info = new FileInfo(file);
-                info.CopyTo(SelectedFolder + "\\" + info.Name);
+                Console.WriteLine("Coyping " + info.FullName + " to " + SelectedFolder);
+                var targetPath = Path.Combine(SelectedFolder, info.Name);
+                // TODO Asset manager: Perform file comparison to determine if target file should be overwritten.
+                if (targetPath == info.FullName)
+                    continue;
+                
+                info.CopyTo(targetPath, true);
             }
 
             // Move all built to proper folder
@@ -213,10 +219,19 @@ namespace WolfyEngine.Forms
 
                 if (File.Exists(path))
                     File.Delete(path);
-                
+
                 info.MoveTo(path);
             }
 
+            // Remove redundant files
+            var workingFiles = Directory.GetFiles(
+                Path.Combine(Application.StartupPath, "working"),
+                "*.*",
+                SearchOption.TopDirectoryOnly);
+
+            foreach (var file in workingFiles)
+                File.Delete(file);
+            
             InitializeFilesList();
         }
 
@@ -225,7 +240,6 @@ namespace WolfyEngine.Forms
             if (SelectedFile == null) return;
 
             BuildContent(new [] { SelectedFile });
-
         }
 
         private void ReloadDirectoryButton_Click(object sender, EventArgs e)

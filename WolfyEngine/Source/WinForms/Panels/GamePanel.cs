@@ -1,12 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Windows.Forms;
 using DarkUI.Docking;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using WolfyECS;
 using WolfyEngine.Forms;
 using WolfyCore;
 using WolfyCore.Controllers;
+using WolfyCore.ECS;
 using WolfyCore.Engine;
 using WolfyCore.Game;
 using Color = Microsoft.Xna.Framework.Color;
@@ -21,13 +24,40 @@ namespace WolfyEngine.Controls
         private Map _currentMap;
         private World _world;
 
+        public event EventHandler<bool> OnGameStateChanged;
+
+        private bool _gameRunning;
+        private bool _gamePaused = false;
+
+        private bool GameRunning
+        {
+            get => _gameRunning;
+            set
+            {
+                _gameRunning = value;
+                OnGameStateChanged?.Invoke(this, value);
+            }
+        }
+
+        private bool GamePaused
+        {
+            get => _gamePaused;
+            set
+            {
+                _gamePaused = value;
+                if (wolfyGameControl.Visible)
+                    wolfyGameControl.Paused = value;
+            }
+        }
+
         public GamePanel()
         {
             InitializeComponent();
-            gameControl.OnCoordinatesChanged += SetCoordinatesInfo;
-            gameControl.OnRightClick += GameControl_OnRightClick;
-            gameControl.OnEntitySelect += GameControl_OnEntitySelect;
+            gameEditorControl.OnCoordinatesChanged += SetCoordinatesInfo;
+            gameEditorControl.OnRightClick += GameControl_OnRightClick;
+            gameEditorControl.OnEntitySelect += GameControl_OnEntitySelect;
             _schemeManager = new SchemeManager();
+            RefreshButtons();
         }
 
         public void LoadWorld()
@@ -36,17 +66,18 @@ namespace WolfyEngine.Controls
             if(_world == null)
                 throw new Exception("World doesn't exist.");
 
-            gameControl.LoadWorld(_world);
+            gameEditorControl.LoadWorld(_world);
         }
 
-        public void InitializeProject()
+        public void InitializeProject(Project project)
         {
+            darkToolStrip.Enabled = false;
             LoadWorld();
         }
 
         private void GameControl_OnEntitySelect(Entity entity, Vector2 position)
         {
-            if (entity == new Entity())
+            if (entity == Entity.Empty)
             {
                 EntityScheme selectedScheme = null;
 
@@ -68,15 +99,22 @@ namespace WolfyEngine.Controls
                     form.Initialize(selectedScheme, _world);
                     form.OnSave += delegate(Entity newEntity, Vector2 vector2)
                     {
-                        var layer = gameControl.GetCurrentLayer<EntityLayer>();
+                        var layer = gameEditorControl.GetCurrentLayer<EntityLayer>();
                         layer.Rows[(int)position.Y]
                             .Tiles[(int)position.X].Entity = newEntity;
                         if(layer.Entities == null)
                             layer.Entities = new List<Entity>();
                         layer.Entities.Add(newEntity);
-                        if(gameControl.CurrentMap.Entities == null)
-                            gameControl.CurrentMap.Entities = new List<Entity>();
-                        gameControl.CurrentMap.Entities.Add(newEntity);
+                        if(gameEditorControl.CurrentMap.Entities == null)
+                            gameEditorControl.CurrentMap.Entities = new List<Entity>();
+                        gameEditorControl.CurrentMap.Entities.Add(newEntity);
+
+                        // Add transform component to newly created entity
+                        var transform = newEntity.GetOrCreateComponent<TransformComponent>();
+                        transform.CurrentMap = _currentMap.Id;
+                        transform.GridTransform = position;
+                        transform.Transform = position * Runtime.GridSize;
+
                     };
                     form.ShowDialog();
                 }
@@ -104,7 +142,7 @@ namespace WolfyEngine.Controls
         private void SetCoordinatesInfo(Vector2 vector)
         {
             var (x, y) = vector;
-            if (gameControl.CurrentLayer is TileLayer lay)
+            if (gameEditorControl.CurrentLayer is TileLayer lay)
             {
                 if (y > lay.Size.Y - 1|| x > lay.Size.X - 1 || y < 0 || x < 0) return;
                 if (lay.Rows[(int)y].Tiles[(int) x] == null) return;
@@ -118,7 +156,7 @@ namespace WolfyEngine.Controls
                 toolStripCoordinatesLabel.Text = "X: " + x + " | Y: " + y + " | Passage: " + pas.Value
                     + " | Equal: " + refEquals;
             }
-            else if (gameControl.CurrentLayer is EntityLayer elay)
+            else if (gameEditorControl.CurrentLayer is EntityLayer elay)
             {
                 if (y > elay.Size.Y - 1 || x > elay.Size.X - 1 || y < 0 || x < 0) return;
                 if (elay.Rows[(int)y].Tiles[(int)x] == null) return;
@@ -136,18 +174,19 @@ namespace WolfyEngine.Controls
         public void LoadMap(Map map)
         {
             _currentMap = map;
-            gameControl.LoadMap(map);
+            gameEditorControl.LoadMap(map);
+            RefreshButtons();
         }
 
         public void LoadLayer(BaseLayer layer)
         {
-            gameControl.LoadLayer(layer);
+            gameEditorControl.LoadLayer(layer);
             SetTransparency(layer);
         }
 
         public void ChangeSelection(Rectangle rect)
         {
-            gameControl.SetTileRegion(rect);
+            gameEditorControl.SetTileRegion(rect);
         }
 
         private void RestoreLayers()
@@ -157,7 +196,7 @@ namespace WolfyEngine.Controls
                 if (!(layer is TileLayer lay)) continue;
                 lay.SetColor(Color.White, 1f);
             }
-            gameControl.Invalidate();
+            gameEditorControl.Invalidate();
         }
 
         private void SetTransparency(BaseLayer desiredLayer)
@@ -186,7 +225,7 @@ namespace WolfyEngine.Controls
                 if (layers[i] is TileLayer lay)
                     lay.SetColor(Color.White, .4f);
             
-            gameControl.Invalidate();
+            gameEditorControl.Invalidate();
         }
 
         private void newEntityToolStripMenuItem_Click(object sender, System.EventArgs e)
@@ -203,22 +242,93 @@ namespace WolfyEngine.Controls
         {
             GameController.Instance.Settings.StartingMap = _currentMap.Id;
             GameController.Instance.Settings.StartingCoordinates = EntityContextMenu.CurrentCoordinates;
-            gameControl.SetStartingPosition();
-            gameControl.Invalidate();
+            gameEditorControl.SetStartingPosition();
+            gameEditorControl.Invalidate();
         }
 
         private void PencilButton_Click(object sender, System.EventArgs e)
         {
-            gameControl.Tool = GameControl.Tools.Pencil;
+            gameEditorControl.Tool = GameControl.Tools.Pencil;
             PencilButton.Checked = true;
             FillButton.Checked = false;
         }
 
         private void FillButton_Click(object sender, System.EventArgs e)
         {
-            gameControl.Tool = GameControl.Tools.Fill;
+            gameEditorControl.Tool = GameControl.Tools.Fill;
             FillButton.Checked = true;
             PencilButton.Checked = false;
+        }
+
+        public void RefreshButtons()
+        {
+            if (_currentMap == null)
+            {
+                darkToolStrip.Enabled = false;
+                return;
+            }
+
+            darkToolStrip.Enabled = true;
+            
+            if (GameRunning)
+            {
+                StartGameButton.Enabled = GamePaused;
+                PauseGameButton.Enabled = !GamePaused;
+                StopGameButton.Enabled = true;
+            }
+            else
+            {
+                StartGameButton.Enabled = true;
+                PauseGameButton.Enabled = false;
+                StopGameButton.Enabled = false;
+            }
+        }
+
+        private void StartGameButton_Click(object sender, EventArgs e)
+        {
+            // Start game here
+            if (!GameRunning)
+            {
+                wolfyGameControl.Location = new Point(0, darkToolStrip.Height);
+
+                if (gameEditorControl.Size.Width > Size.Width)
+                    wolfyGameControl.Size = gameEditorControl.Size.Height > Size.Height ? Size : new Size(Size.Width, gameEditorControl.Height);
+                else
+                    wolfyGameControl.Size = gameEditorControl.Size.Height > Size.Height ? new Size(gameEditorControl.Width, Size.Height) : gameEditorControl.Size;
+
+                wolfyGameControl.Visible = true;
+                wolfyGameControl.LoadMap(_currentMap);
+                wolfyGameControl.LoadWorld(World.WorldInstance);
+                wolfyGameControl.InitializeScene();
+                Console.WriteLine("Initialized scene!");
+
+                GameRunning = true;
+            }
+            else if (GamePaused)
+                GamePaused = false;
+
+            RefreshButtons();
+        }
+
+
+        private void PauseGameButton_Click(object sender, EventArgs e)
+        {
+            // Pause game here
+            GamePaused = true;
+
+            RefreshButtons();
+        }
+
+        private void StopGameButton_Click(object sender, EventArgs e)
+        {
+            // Stop game here
+            GamePaused = false;
+            GameRunning = false;
+
+            wolfyGameControl.UnloadScene();
+            wolfyGameControl.Visible = false;
+            
+            RefreshButtons();
         }
     }
 }

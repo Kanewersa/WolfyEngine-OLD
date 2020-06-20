@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -9,7 +8,6 @@ using WolfyCore.Engine;
 using WolfyCore.Game;
 using WolfyECS;
 using WolfyEngine;
-using WolfyCore.Controllers;
 
 namespace WolfyCore.Scenes
 {
@@ -19,25 +17,12 @@ namespace WolfyCore.Scenes
         public Camera Camera { get; private set; }
         public Rectangle VisibleArea { get; private set; }
         public Map CurrentMap { get; private set; }
-
-        public Entity Player;
-        public InputSystem InputSystem { get; set; }
-        public MovementSystem MovementSystem { get; set; }
-        public CollisionSystem CollisionSystem { get; set; }
-        public AnimationSystem AnimationSystem { get; set; }
-        public RandomMovementSystem RandomMovementSystem { get; set; }
-        
-        public World CurrentWorld { get; set; }
+        private Entity Player { get; set; }
+        public World World { get; set; }
 
         public GameScene(int screenWidth, int screenHeight, World world) : base(screenWidth, screenHeight)
         {
-            InputSystem = new InputSystem();
-            MovementSystem = new MovementSystem();
-            CollisionSystem = new CollisionSystem();
-            AnimationSystem = new AnimationSystem();
-            RandomMovementSystem = new RandomMovementSystem();
-
-            CurrentWorld = world;
+            World = world;
         }
 
         public override void Initialize(GraphicsDevice graphics)
@@ -47,6 +32,8 @@ namespace WolfyCore.Scenes
             if(CurrentMap == null)
                 throw new Exception("Current map was not set.");
 
+            Player = new Entity(1, World.WorldId);
+
             Camera = new Camera()
             {
                 ScreenWidth = this.ScreenWidth,
@@ -54,50 +41,16 @@ namespace WolfyCore.Scenes
             };
 
             Camera.SetMapBoundaries(new Vector2(
-                CurrentMap.Size.X * CurrentMap.TileSize.X,
-                CurrentMap.Size.Y * CurrentMap.TileSize.Y));
+                CurrentMap.Size.X * Runtime.GridSize,
+                CurrentMap.Size.Y * Runtime.GridSize));
 
-            //###################################################################
-            var movementAnimation = new Dictionary<string, Animation>
-            {
-                { "Walk", new Animation("001-Fighter01.png", 4, 4) }
-            };
-
-            // LOAD CONTENT
-            //foreach (var pair in movementAnimation)
-            //{
-            //    pair.Value.Image.Initialize(graphics);
-            //}
-            //
-            //###################################################################
-
-            // Setup world
-
-            CurrentWorld.AddSystem(InputSystem);
-            CurrentWorld.AddSystem(CollisionSystem);
-            CurrentWorld.AddSystem(MovementSystem);
-            CurrentWorld.AddSystem(AnimationSystem);
-            CurrentWorld.AddSystem(RandomMovementSystem);
             
-            CurrentWorld.Initialize(WolfyManager.ComponentTypes);
-
-            foreach (var entity in CurrentMap.Entities)
-            {
-                if(entity.HasComponent<CollisionComponent>())
-                    CollisionSystem.RegisterEntity(entity);
-                if (entity.HasComponent<MovementComponent>())
-                    MovementSystem.RegisterEntity(entity);
-                if (entity.HasComponent<AnimationComponent>())
-                    AnimationSystem.RegisterEntity(entity);
-                if (entity.HasComponent<RandomMovementComponent>())
-                    RandomMovementSystem.RegisterEntity(entity);
-            }
+            World.Initialize();
         }
 
         public override void LoadContent(ContentManager content)
         {
-            // TODO Image initialization should be moved to separate class/manager
-            AnimationSystem.LoadContent(content);
+            World.LoadContent(content);
         }
 
         public override void Draw(SpriteBatch spriteBatch, GameTime gameTime)
@@ -112,8 +65,8 @@ namespace WolfyCore.Scenes
             }
             else
             {
-                CurrentMap.Draw(spriteBatch, VisibleArea);
-                AnimationSystem.Draw(gameTime, spriteBatch);
+                CurrentMap.Draw(spriteBatch, gameTime, VisibleArea);
+                World.Draw(spriteBatch, gameTime);
             }
 
             spriteBatch.End();
@@ -132,22 +85,24 @@ namespace WolfyCore.Scenes
 
             if (Paused) return;
 
-            RandomMovementSystem.Update(gameTime);
+            /*RandomMovementSystem.Update(gameTime);
             InputSystem.Update(gameTime);
             CollisionSystem.Update(gameTime);
             MovementSystem.Update(gameTime);
-            AnimationSystem.Update(gameTime);
+            AnimationSystem.Update(gameTime);*/
 
             // TODO Update equipment here
             
             CurrentMap.Update(gameTime);
+            World.Update(gameTime);
+            // TODO Fix camera update
             Camera.Update(Player.GetComponent<AnimationComponent>());
             VisibleArea = Camera.GetVisibleArea();
         }
 
         public void SetWorld(World world)
         {
-            CurrentWorld = world;
+            World = world;
         }
 
         public void SetMap(Map map)

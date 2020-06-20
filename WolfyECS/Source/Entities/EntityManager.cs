@@ -22,6 +22,11 @@ namespace WolfyECS
             return new Entity(_dispenser.GetId(), World.WorldId);
         }
 
+        public Entity CreateEntity(World world)
+        {
+            return new Entity(_dispenser.GetId(), world.WorldId);
+        }
+
         public void DestroyEntity(Entity entity)
         {
             _dispenser.AddId(entity.Id);

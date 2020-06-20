@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Windows.Forms;
 using DarkUI.Docking;
 using DarkUI.Forms;
@@ -10,8 +11,10 @@ using WolfyEngine.Engine;
 using WolfyEngine.Properties;
 using WolfyCore;
 using WolfyCore.Controllers;
+using WolfyCore.ECS;
 using WolfyCore.Engine;
 using WolfyCore.Game;
+using WolfyECS;
 using Timer = System.Windows.Forms.Timer;
 
 namespace WolfyEngine.Forms
@@ -70,11 +73,13 @@ namespace WolfyEngine.Forms
             TilesetPainterPanel.OnControlClick += TilesetPanel_OnControlClick;
             darkDockPanel.ContentAdded += DarkDockPanel_ContentAdded;
             darkDockPanel.ContentRemoved += DarkDockPanel_ContentRemoved;
+            GamePanel.OnGameStateChanged += GamePanel_OnGameStateChanged;
 
             BuildViewMenu();
 
             ProjectsController.Instance.OnProjectChanged += InitializeProject;
             ProjectsController.Instance.LoadLastProject();
+
             SetMemoryTimer();
 
             // Maximize the form after start
@@ -86,6 +91,14 @@ namespace WolfyEngine.Forms
 
             // Set shortcuts
             saveProjectMenuItem.ShortcutKeys = Keys.Control | Keys.S; // Save project
+        }
+
+        private void GamePanel_OnGameStateChanged(object sender, bool e)
+        {
+            foreach (var window in _toolWindows.Where(window => !(window is GamePanel)))
+            {
+                window.Enabled = !e;
+            }
         }
 
         private void DarkDockPanel_ContentRemoved(object sender, DockContentEventArgs e)
@@ -160,16 +173,20 @@ namespace WolfyEngine.Forms
             // Change current project status label
             currentProjectLabel.Text = project != null ? "Current project: " + project.Name : "Current project: None";
 
+            bool isProjectEmpty = project == null;
+
             // Initialize project in controllers
-            TilesetsController.Instance.InitializeProject();
-            MapsController.Instance.InitializeProject();
-            GameController.Instance.InitializeProject();
+            TilesetsController.Instance.InitializeProject(isProjectEmpty);
+            MapsController.Instance.InitializeProject(isProjectEmpty);
+            GameController.Instance.InitializeProject(isProjectEmpty);
+
+            // Load content builder
             ContentBuilder.Instance.Initialize();
 
             // Initialize project in controls
             MapsPanel.InitializeProject(project);
             TilesetsPanel.InitializeProject(project);
-            GamePanel.InitializeProject();
+            GamePanel.InitializeProject(project);
         }
 
         #region Memory display
@@ -272,5 +289,27 @@ namespace WolfyEngine.Forms
         }
 
         #endregion
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Console.WriteLine("Entities count: " + GameController.Instance.GetEntities());
+            var entity = new Entity(1, 1);
+            Console.WriteLine("First entity mask: ");
+            
+            var world = GameController.Instance.World;
+            world.Debug();
+        }
+
+        private void playerToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            using (var form = new EntityEditForm())
+            {
+                var player = new Entity(1,1);
+                var comp = player.GetComponent<MovementComponent>();
+                comp.Speed = 5;
+                form.Initialize(player, player.GetComponents(), World.WorldInstance);
+                form.ShowDialog();
+            }
+        }
     }
 }

@@ -26,21 +26,19 @@ namespace WolfyCore.ECS
             foreach (var entity in Entities)
             {
                 var comp = entity.GetComponent<AnimationComponent>();
+                // TODO Allow setting default animation
                 comp.AnimationManager.Initialize(comp.Animations["Walk"]);
-
-                //comp.Animations["Walk"].Image.Initialize(graphics);
+                comp.LoadContent(content);
             }
         }
         
         public override void Update(GameTime gameTime)
         {
-            foreach (var entity in Entities)
+            IterateEntities(entity =>
             {
-                var transform = entity.GetComponent<TransformComponent>();
                 var animation = entity.GetComponent<AnimationComponent>();
                 var movement = entity.GetComponent<MovementComponent>();
 
-                var dir = movement.Direction;
                 var isMoving = entity.HasComponent<MovementActionComponent>();
 
                 SetAnimations(isMoving, animation);
@@ -49,11 +47,12 @@ namespace WolfyCore.ECS
 
                 if (isMoving)
                 {
+                    var transform = entity.GetComponent<TransformComponent>();
                     // TODO Direction should be changeable even when entity is not moving.
-                    animation.AnimationManager.SetDirection(dir);
+                    animation.AnimationManager.SetDirection(movement.Direction);
                     animation.Position = transform.Transform;
                 }
-            }
+            });
         }
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
@@ -61,12 +60,7 @@ namespace WolfyCore.ECS
             foreach (var entity in Entities)
             {
                 var animation = entity.GetComponent<AnimationComponent>();
-
-                if (animation.Image != null && animation.Texture != null)
-                    spriteBatch.Draw(animation.Texture, animation.Position, Color.White);
-                else if(animation.AnimationManager != null)
-                    animation.AnimationManager.Draw(spriteBatch);
-                else throw new Exception("");
+                animation.Draw(spriteBatch);
             }
         }
 

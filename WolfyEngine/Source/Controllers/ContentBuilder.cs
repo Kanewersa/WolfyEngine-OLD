@@ -22,7 +22,7 @@ namespace WolfyCore.Controllers
         public void Initialize()
         {
             RuntimeBuilder = new RuntimeBuilder(
-                Application.StartupPath,
+                Path.Combine(Application.StartupPath, "working"),
                 Path.Combine(Application.StartupPath, "obj"),
                 Path.Combine(Application.StartupPath, "output"),
                 TargetPlatform,

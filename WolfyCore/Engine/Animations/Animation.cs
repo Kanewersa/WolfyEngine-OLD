@@ -1,4 +1,6 @@
-﻿using Microsoft.Xna.Framework.Graphics;
+﻿using System;
+using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Graphics;
 using ProtoBuf;
 
 namespace WolfyCore.Engine
@@ -13,6 +15,7 @@ namespace WolfyCore.Engine
         
         [ProtoIgnore] public int FrameHeight => Texture.Height / DirectionsCount;
         [ProtoIgnore] public int FrameWidth => Texture.Width / FrameCount;
+
         [ProtoMember(5)] public float FrameSpeed { get; set; }
 
         [ProtoMember(6)] public bool IsLooping { get; set; }
@@ -29,10 +32,15 @@ namespace WolfyCore.Engine
             CurrentDirection = 0;
             FrameCount = frameCount;
             DirectionsCount = directionsCount;
-            
 
             IsLooping = true;
             FrameSpeed = .5f;
+        }
+
+        public void LoadContent(ContentManager content)
+        {
+            Console.WriteLine("Loading content...");
+            Image.LoadContent(content);
         }
         
     }

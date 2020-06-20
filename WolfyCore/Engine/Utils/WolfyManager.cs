@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using ProtoBuf.Meta;
+using WolfyCore.ECS;
 using WolfyECS;
 using WolfyEngine.Engine;
 
@@ -8,6 +10,7 @@ namespace WolfyEngine
     public static class WolfyManager
     {
         public static List<Type> ComponentTypes { get; private set; }
+        public static List<Type> SystemTypes { get; private set; }
 
         /// <summary>
         /// Performs all operations needed to initialize WolfyEngine.
@@ -16,6 +19,45 @@ namespace WolfyEngine
         {
             // Set entity component subtypes
             ComponentTypes = ReflectiveEnumerator.GetSubTypes<EntityComponent>();
+            SystemTypes = ReflectiveEnumerator.GetSubTypes<EntitySystem>();
+
+            // TODO Fix dynamic subtypes loading for protobuf
+            // Add systems to protobuf
+            var entitySystem = RuntimeTypeModel.Default[typeof(EntitySystem)];
+            entitySystem.AddSubType(101, typeof(AnimationSystem));
+            entitySystem.AddSubType(102, typeof(CollisionSystem));
+            entitySystem.AddSubType(103, typeof(InputSystem));
+            entitySystem.AddSubType(104, typeof(MovementSystem));
+            entitySystem.AddSubType(105, typeof(RandomMovementSystem));
+            entitySystem.AddSubType(106, typeof(RoutineMovementSystem));
+
+            // Add components
+            var entityComponent = RuntimeTypeModel.Default[typeof(EntityComponent)];
+            entityComponent.AddSubType(101, typeof(AnimationComponent));
+            entityComponent.AddSubType(102, typeof(CollisionComponent));
+            entityComponent.AddSubType(103, typeof(InGameNameComponent));
+            entityComponent.AddSubType(104, typeof(InputComponent));
+            entityComponent.AddSubType(105, typeof(TransformComponent));
+            entityComponent.AddSubType(106, typeof(MovementComponent));
+            entityComponent.AddSubType(107, typeof(MovementActionComponent));
+            entityComponent.AddSubType(108, typeof(FixedMovementComponent));
+            entityComponent.AddSubType(109, typeof(FollowMovementComponent));
+            entityComponent.AddSubType(110, typeof(RandomMovementComponent));
+            entityComponent.AddSubType(111, typeof(RoutineMovementComponent));
+
+            // Add components generics
+            entityComponent.AddSubType(201, typeof(EntityComponent<AnimationComponent>));
+            entityComponent.AddSubType(202, typeof(EntityComponent<CollisionComponent>));
+            entityComponent.AddSubType(203, typeof(EntityComponent<InGameNameComponent>));
+            entityComponent.AddSubType(204, typeof(EntityComponent<InputComponent>));
+            entityComponent.AddSubType(205, typeof(EntityComponent<TransformComponent>));
+            entityComponent.AddSubType(206, typeof(EntityComponent<MovementComponent>));
+            entityComponent.AddSubType(207, typeof(EntityComponent<MovementActionComponent>));
+            entityComponent.AddSubType(208, typeof(EntityComponent<FixedMovementComponent>));
+            entityComponent.AddSubType(209, typeof(EntityComponent<FollowMovementComponent>));
+            entityComponent.AddSubType(210, typeof(EntityComponent<RandomMovementComponent>));
+            entityComponent.AddSubType(211, typeof(EntityComponent<RoutineMovementComponent>));
+            return;
 
             Serialization.ProtoInitialize(ComponentTypes);
         }

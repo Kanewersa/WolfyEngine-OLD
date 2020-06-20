@@ -12,6 +12,7 @@
     {
         Random,
         Fixed,
-        Follow
+        Follow,
+        UserControlled,
     }
 }

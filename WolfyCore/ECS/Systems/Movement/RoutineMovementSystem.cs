@@ -19,7 +19,7 @@ namespace WolfyCore.ECS
         
         public override void Update(GameTime gameTime)
         {
-            foreach (var entity in Entities)
+            IterateEntities(entity =>
             {
                 var random = entity.GetComponent<RandomMovementComponent>();
                 var movement = entity.GetComponent<MovementComponent>();
@@ -29,18 +29,19 @@ namespace WolfyCore.ECS
 
                 random.Timer -= (float)gameTime.ElapsedGameTime.TotalSeconds;
 
-                if (!(random.Timer < 0)) continue;
+                if (random.Timer < 0)
+                {
+                    var transform = entity.GetComponent<TransformComponent>();
+                    var movementAction = entity.AddComponent<MovementActionComponent>();
+                    var direction = Random.GetRandomDirection();
 
-                var transform = entity.GetComponent<TransformComponent>();
-                var movementAction = entity.AddComponent<MovementActionComponent>();
-                var direction = Random.GetRandomDirection();
+                    movementAction.Set(transform.GridTransform, transform.GridTransform + direction, false);
 
-                movementAction.Set(transform.GridTransform, transform.GridTransform + direction, false);
+                    movement.DirectionVector = direction;
 
-                movement.DirectionVector = direction;
-
-                random.Timer = random.Frequency;
-            }
+                    random.Timer = random.Frequency;
+                }
+            });
         }
     }
 }

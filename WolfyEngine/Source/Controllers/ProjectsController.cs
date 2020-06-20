@@ -28,14 +28,20 @@ namespace WolfyCore.Controllers
                 _currentProject = value;
                 if (_currentProject == null)
                 {
-                    DarkMessageBox.ShowError(
+                    // TODO Open project creation here
+                    /*DarkMessageBox.ShowError(
                         "Selected project is invalid. The application will close.",
                         "Invalid project!");
                     System.Windows.Forms.Application.Exit();
-                    throw new Exception("Could not load empty project.");
+                    throw new Exception("Could not load empty project.");*/
                 }
-                SetLastProject();
-                PathsController.Instance.SetMainPath(_currentProject.Path);
+                else
+                {
+                    SetLastProject();
+                    CurrentProject.Initialize();
+                    PathsController.Instance.SetMainPath(_currentProject.Path);
+                }
+                
                 OnProjectChanged?.Invoke(CurrentProject);
             }
         }
@@ -85,10 +91,15 @@ namespace WolfyCore.Controllers
 
         public void LoadLastProject()
         {
-            if (Settings.LastProject == null) return;
-
-            CurrentProject = Settings.LastProject;
-            CurrentProject?.Initialize();
+            if (Settings.LastProject == null)
+            {
+                CurrentProject = null;
+            }
+            else
+            {
+                CurrentProject = Settings.LastProject;
+                CurrentProject?.Initialize();
+            }
         }
     }
 }

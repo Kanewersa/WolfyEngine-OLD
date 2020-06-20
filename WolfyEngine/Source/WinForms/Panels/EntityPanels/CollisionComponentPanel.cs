@@ -31,7 +31,7 @@ namespace WolfyEngine.Controls
 
         public override void Save()
         {
-            _collisionComponent = Entity.GetIfHasComponent<CollisionComponent>();
+            _collisionComponent = Entity.GetOrCreateComponent<CollisionComponent>();
 
             _collisionComponent.IsCollider = IsColliderCheckBox.Checked;
         }
