@@ -24,7 +24,7 @@ namespace WolfyEngine.Controls
 
         public WolfyGameControl()
         {
-            Selector = new Selector((float)Runtime.GridSize/48);
+            Selector = new Selector();
         }
 
         public void InitializeScene()

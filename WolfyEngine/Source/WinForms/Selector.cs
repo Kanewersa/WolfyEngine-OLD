@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using WolfyCore;
 using WolfyCore.Engine;
 
 namespace WolfyEngine.Utils
@@ -20,19 +21,22 @@ namespace WolfyEngine.Utils
             "Assets/Editor/selector4"
         };
 
-        public Selector(float scale)
+        public Selector()
         {
             _images = new List<Image>();
             for (var i = 0; i < 4; i++)
             {
                 _images.Add(new Image(_imagesPaths[i]));
-                _images[i].Scale = scale;
+                _images[i].Scale = (float)Runtime.GridSize/48;
             }
         }
 
         public void Initialize(GraphicsDevice graphics)
         {
-            
+            for (var i = 0; i < 4; i++)
+            {
+                _images[i].Scale = (float)Runtime.GridSize/48;
+            }
         }
 
         public void LoadContent(ContentManager content)

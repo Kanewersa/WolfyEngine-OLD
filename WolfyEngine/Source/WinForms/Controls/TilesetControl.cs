@@ -42,7 +42,7 @@ namespace WolfyEngine.Controls
             _currentZoom = 1f;
             _selectedTileRegion = new Rectangle(0,0,0,0);
 
-            _selector = new Selector(0.666f);
+            _selector = new Selector();
         }
 
         private void TilesetControl_MouseMove(object sender, System.Windows.Forms.MouseEventArgs e)

@@ -57,7 +57,7 @@ namespace WolfyEngine.Controls
 
         public GameControl()
         {
-            Selector = new Selector((float)Runtime.GridSize/48);
+            Selector = new Selector();
 
             Mode = EditorMode.Entities;
             Tool = Tools.Pencil;
@@ -185,6 +185,7 @@ namespace WolfyEngine.Controls
             base.Initialize();
 
             LoadContent(Editor.Content);
+            Selector.Initialize(Editor.graphics);
             OnInitialize?.Invoke();
         }
 
