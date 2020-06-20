@@ -156,6 +156,7 @@ namespace WolfyEngine.Controls
                     img.Alpha = _currentTileset.Rows[y].Tiles[x].Hovered ? 1.0f : 0.6f;
 
                     img.Position = new Vector2(x * TileSize.X, y * TileSize.X);
+                    img.Scale = (float)Runtime.GridSize/img.Texture.Width;
                     img.Draw(Editor.spriteBatch);
                 }
             }
