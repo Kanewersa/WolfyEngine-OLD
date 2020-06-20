@@ -90,6 +90,8 @@ namespace WolfyCore.Controllers
 
             var input = player.AddComponent<InputComponent>();
 
+            var camera = player.AddComponent<CameraComponent>();
+
             var transform = player.AddComponent<TransformComponent>();
             transform.CurrentMap = 0;
             transform.GridTransform = Vector2.Zero;

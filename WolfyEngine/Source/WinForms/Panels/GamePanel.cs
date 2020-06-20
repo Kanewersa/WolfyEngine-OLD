@@ -71,7 +71,12 @@ namespace WolfyEngine.Controls
 
         public void InitializeProject(Project project)
         {
-            darkToolStrip.Enabled = false;
+            if (project == null)
+            {
+                darkToolStrip.Enabled = false;
+                return;
+            }
+            
             LoadWorld();
         }
 
@@ -300,7 +305,9 @@ namespace WolfyEngine.Controls
                 wolfyGameControl.LoadMap(_currentMap);
                 wolfyGameControl.LoadWorld(World.WorldInstance);
                 wolfyGameControl.InitializeScene();
-                Console.WriteLine("Initialized scene!");
+
+                Runtime.GameScreenWidth = wolfyGameControl.Width;
+                Runtime.GameScreenHeight = wolfyGameControl.Height;
 
                 GameRunning = true;
             }

@@ -176,6 +176,7 @@ namespace WolfyEngine.Forms
             bool isProjectEmpty = project == null;
 
             // Initialize project in controllers
+            // TODO Empty project should not be allowed
             TilesetsController.Instance.InitializeProject(isProjectEmpty);
             MapsController.Instance.InitializeProject(isProjectEmpty);
             GameController.Instance.InitializeProject(isProjectEmpty);

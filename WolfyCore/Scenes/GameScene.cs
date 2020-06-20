@@ -57,19 +57,11 @@ namespace WolfyCore.Scenes
         {
             base.Draw(spriteBatch, gameTime);
 
-            spriteBatch.Begin(transformMatrix: Camera.Transform, samplerState: SamplerState.PointClamp);
-
             if (Paused)
             {
                 // TODO Pause game
             }
-            else
-            {
-                CurrentMap.Draw(spriteBatch, gameTime, VisibleArea);
-                World.Draw(spriteBatch, gameTime);
-            }
-
-            spriteBatch.End();
+            else World.Draw(spriteBatch, gameTime);
         }
 
         public override void UpdateResolution(int width, int height)
@@ -85,19 +77,12 @@ namespace WolfyCore.Scenes
 
             if (Paused) return;
 
-            /*RandomMovementSystem.Update(gameTime);
-            InputSystem.Update(gameTime);
-            CollisionSystem.Update(gameTime);
-            MovementSystem.Update(gameTime);
-            AnimationSystem.Update(gameTime);*/
-
             // TODO Update equipment here
             
-            CurrentMap.Update(gameTime);
             World.Update(gameTime);
             // TODO Fix camera update
-            Camera.Update(Player.GetComponent<AnimationComponent>());
-            VisibleArea = Camera.GetVisibleArea();
+            //Camera.Update(Player.GetComponent<AnimationComponent>());
+            //VisibleArea = Camera.GetVisibleArea();
         }
 
         public void SetWorld(World world)

@@ -1,30 +1,33 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
-using WolfyCore.ECS;
+using ProtoBuf;
+using WolfyCore.Engine;
+using WolfyECS;
 
-namespace WolfyCore.Game
+namespace WolfyCore.ECS
 {
-    public class Camera
+    [ProtoContract] public class CameraComponent : EntityComponent
     {
-        public float Zoom { get; set; }
-        public Vector2 Position { get; protected set; }
-        public Vector2 Bounds { get; protected set; }
-        public Rectangle VisibleArea { get; protected set; }
-        public Vector2 MapBounds { get; protected set; }
-        public Matrix Transform { get; protected set; }
-        public int ScreenWidth { get; set; }
-        public int ScreenHeight { get; set; }
+        [ProtoMember(1)] public float Zoom { get; set; }
+        [ProtoMember(2)] public Vector2 Position { get; protected set; }
+        [ProtoMember(3)] public Vector2 Bounds { get; protected set; }
+        [ProtoMember(4)] public Vector2D MapBounds { get; protected set; }
+        [ProtoMember(5)] public Matrix Transform { get; protected set; }
+        [ProtoIgnore] public int ScreenWidth => Runtime.GameScreenWidth;
+        [ProtoIgnore] public int ScreenHeight => Runtime.GameScreenHeight;
 
-        private float _currentMouseWheelValue, previousMouseWheelValue;
+        [ProtoIgnore] private float _currentMouseWheelValue;
+        [ProtoIgnore] private float _previousMouseWheelValue;
 
-        public Camera()
+        public CameraComponent()
         {
             Zoom = 1f;
         }
 
         public Rectangle GetVisibleArea()
         {
+            Console.WriteLine("Calculating visible area...");
             var inverseViewMatrix = Matrix.Invert(Transform);
             var tl = Vector2.Transform(Vector2.Zero, inverseViewMatrix);
             var tr = Vector2.Transform(new Vector2(Bounds.X, 0), inverseViewMatrix);
@@ -36,6 +39,11 @@ namespace WolfyCore.Game
             var max = new Vector2(
                 MathHelper.Max(tl.X, MathHelper.Max(tr.X, MathHelper.Max(bl.X, br.X))),
                 MathHelper.Max(tl.Y, MathHelper.Max(tr.Y, MathHelper.Max(bl.Y, br.Y))));
+
+            Console.WriteLine("TL: " + tl);
+            Console.WriteLine("TR: " + tr);
+            Console.WriteLine("BL: " + bl);
+            Console.WriteLine("BR: " + br);
 
             if (MapBounds.X < Bounds.X / Zoom)
             {
@@ -65,7 +73,7 @@ namespace WolfyCore.Game
 
         public void FollowTarget(AnimationComponent target)
         {
-            var bounds = new Vector2(ScreenWidth / 2, ScreenHeight/ 2);
+            var bounds = new Vector2(ScreenWidth / 2, ScreenHeight / 2);
 
             var pos = new Vector2(
                 target.Position.X + target.Bounds.Width / 2,
@@ -78,13 +86,13 @@ namespace WolfyCore.Game
 
             if (pos.X + bounds.X / Zoom > MapBounds.X)
                 pos.X = MapBounds.X - bounds.X / Zoom;
-            
+
             if (pos.Y - bounds.Y / Zoom < 0)
                 pos.Y = bounds.Y / Zoom;
-            
+
             if (pos.Y + bounds.Y / Zoom > MapBounds.Y)
                 pos.Y = MapBounds.Y - bounds.Y / Zoom;
-            
+
             // If map is smaller then screen
             // then map should be centered on the screen
 
@@ -111,7 +119,7 @@ namespace WolfyCore.Game
             Bounds = bounds * 2;
         }
 
-        public void SetMapBoundaries(Vector2 bounds)
+        public void SetMapBoundaries(Vector2D bounds)
         {
             MapBounds = bounds;
         }
@@ -121,20 +129,20 @@ namespace WolfyCore.Game
             Update();
 
             if (target == null)
-                throw new Exception("Could not find camera target.");
+                throw new Exception("Could not find camera target!");
 
             FollowTarget(target);
         }
 
         public void Update()
         {
-            previousMouseWheelValue = _currentMouseWheelValue;
+            _previousMouseWheelValue = _currentMouseWheelValue;
             _currentMouseWheelValue = Mouse.GetState().ScrollWheelValue;
 
-            if (_currentMouseWheelValue > previousMouseWheelValue)
+            if (_currentMouseWheelValue > _previousMouseWheelValue)
                 AdjustZoom(.05f);
 
-            if (_currentMouseWheelValue < previousMouseWheelValue)
+            if (_currentMouseWheelValue < _previousMouseWheelValue)
                 AdjustZoom(-.05f);
         }
     }

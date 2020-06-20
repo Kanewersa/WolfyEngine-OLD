@@ -82,6 +82,10 @@ namespace WolfyECS
 
         public EntityComponent GetComponent(Entity entity)
         {
+            if (!EntityMap.ContainsKey(entity))
+            {
+                throw new Exception("Component is not present in component manager. Component type: " + ComponentType.GetType().FullName);
+            }
             return Components[EntityMap[entity]];
         }
 

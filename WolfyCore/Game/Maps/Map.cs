@@ -66,7 +66,6 @@ namespace WolfyCore.Game
                 endY = Size.Y;
 
             var visibleTiles = new Rectangle(startX, startY, endX, endY);
-
             Layers.ForEach(layer => layer.Draw(spriteBatch, gameTime, visibleTiles));
         }
 

@@ -57,11 +57,7 @@ namespace WolfyCore.ECS
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            foreach (var entity in Entities)
-            {
-                var animation = entity.GetComponent<AnimationComponent>();
-                animation.Draw(spriteBatch);
-            }
+
         }
 
         private void SetAnimations(bool isMoving, AnimationComponent component)

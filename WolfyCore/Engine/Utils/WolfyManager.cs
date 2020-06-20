@@ -30,6 +30,7 @@ namespace WolfyEngine
             entitySystem.AddSubType(104, typeof(MovementSystem));
             entitySystem.AddSubType(105, typeof(RandomMovementSystem));
             entitySystem.AddSubType(106, typeof(RoutineMovementSystem));
+            entitySystem.AddSubType(107, typeof(RenderSystem));
 
             // Add components
             var entityComponent = RuntimeTypeModel.Default[typeof(EntityComponent)];
@@ -44,6 +45,7 @@ namespace WolfyEngine
             entityComponent.AddSubType(109, typeof(FollowMovementComponent));
             entityComponent.AddSubType(110, typeof(RandomMovementComponent));
             entityComponent.AddSubType(111, typeof(RoutineMovementComponent));
+            entityComponent.AddSubType(112, typeof(CameraComponent));
 
             // Add components generics
             entityComponent.AddSubType(201, typeof(EntityComponent<AnimationComponent>));
@@ -57,9 +59,7 @@ namespace WolfyEngine
             entityComponent.AddSubType(209, typeof(EntityComponent<FollowMovementComponent>));
             entityComponent.AddSubType(210, typeof(EntityComponent<RandomMovementComponent>));
             entityComponent.AddSubType(211, typeof(EntityComponent<RoutineMovementComponent>));
-            return;
-
-            Serialization.ProtoInitialize(ComponentTypes);
+            entityComponent.AddSubType(212, typeof(EntityComponent<CameraComponent>));
         }
 
         public static void InitializeFamilies()
