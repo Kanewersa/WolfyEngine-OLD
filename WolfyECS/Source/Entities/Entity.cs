@@ -7,12 +7,23 @@ namespace WolfyECS
 {
     [ProtoContract] public struct Entity
     {
+        /// <summary>
+        /// Unique Id of Entity.
+        /// </summary>
         [ProtoMember(1)] public uint Id { get; }
+
+        /// <summary>
+        /// Id of the world entity belongs to.
+        /// </summary>
         [ProtoMember(2)] private int _worldId;
 
         [ProtoIgnore] private World World => World.WorldInstance;
 
-
+        /// <summary>
+        /// Creates entity with given Id and assigns it a world.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="worldId"></param>
         public Entity(uint id, int worldId)
         {
             Id = id;

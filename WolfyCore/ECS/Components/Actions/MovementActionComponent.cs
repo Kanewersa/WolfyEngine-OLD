@@ -16,7 +16,22 @@ namespace WolfyCore.ECS
         /// </summary>
         [ProtoMember(3)] public bool IsMoving;
 
+        /// <summary>
+        /// Default constructor
+        /// </summary>
         public MovementActionComponent() { }
+
+        /// <summary>
+        /// Creates movement action with start and target transforms.
+        /// </summary>
+        /// <param name="startTransform"></param>
+        /// <param name="targetTransform"></param>
+        public MovementActionComponent(Vector2 startTransform, Vector2 targetTransform)
+        {
+            StartGridTransform = startTransform;
+            TargetGridTransform = targetTransform;
+            IsMoving = false;
+        }
 
         /// <summary>
         /// Sets the properties of component.
@@ -28,7 +43,7 @@ namespace WolfyCore.ECS
         {
             StartGridTransform = startTransform;
             TargetGridTransform = targetTransform;
-            IsMoving = isMoving;
+            IsMoving = false;
         }
     }
 }

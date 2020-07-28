@@ -27,7 +27,6 @@ namespace WolfyCore.ECS
 
         public Rectangle GetVisibleArea()
         {
-            Console.WriteLine("Calculating visible area...");
             var inverseViewMatrix = Matrix.Invert(Transform);
             var tl = Vector2.Transform(Vector2.Zero, inverseViewMatrix);
             var tr = Vector2.Transform(new Vector2(Bounds.X, 0), inverseViewMatrix);
@@ -39,11 +38,6 @@ namespace WolfyCore.ECS
             var max = new Vector2(
                 MathHelper.Max(tl.X, MathHelper.Max(tr.X, MathHelper.Max(bl.X, br.X))),
                 MathHelper.Max(tl.Y, MathHelper.Max(tr.Y, MathHelper.Max(bl.Y, br.Y))));
-
-            Console.WriteLine("TL: " + tl);
-            Console.WriteLine("TR: " + tr);
-            Console.WriteLine("BL: " + bl);
-            Console.WriteLine("BR: " + br);
 
             if (MapBounds.X < Bounds.X / Zoom)
             {

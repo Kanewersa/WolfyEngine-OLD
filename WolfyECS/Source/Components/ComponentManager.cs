@@ -26,7 +26,7 @@ namespace WolfyECS
         [ProtoMember(5)] public EntityComponent ComponentType { get; private set; }
         [ProtoMember(6)] public bool Temporary { get; private set; }
 
-        private const int MaxComponents = 1024;
+        private const int MaxComponents = 65536;
 
         public ComponentManager(EntityComponent componentType)
         {
@@ -51,7 +51,6 @@ namespace WolfyECS
         public void Initialize(int family)
         {
             if (Temporary) return;
-            Console.WriteLine("Setting family of: " + ComponentType.GetType().FullName);
             ComponentType.SetFamily(family);
         }
 
@@ -92,7 +91,7 @@ namespace WolfyECS
         public void DestroyComponent(Entity entity)
         {
             if (!EntityMap.ContainsKey(entity))
-                throw new Exception("Tried to delete component that doesn't exist!");
+                return;
 
             int index = EntityMap[entity]; // Get index of component to delete
             int lastComponent = _size - 1; // Get index of last component

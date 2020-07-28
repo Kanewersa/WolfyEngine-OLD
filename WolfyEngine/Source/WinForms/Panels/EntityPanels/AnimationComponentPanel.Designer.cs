@@ -37,6 +37,7 @@
             this.FrameCountTitle = new DarkUI.Controls.DarkTitle();
             this.FrameCountNumericUpDown = new DarkUI.Controls.DarkNumericUpDown();
             this.SelectGraphicsButton = new DarkUI.Controls.DarkButton();
+            this.darkMenuStrip1 = new DarkUI.Controls.DarkMenuStrip();
             this.GraphicsSection.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.GraphicsPictureBox)).BeginInit();
             this.darkSectionPanel1.SuspendLayout();
@@ -168,13 +169,26 @@
             this.SelectGraphicsButton.Text = "Select graphics";
             this.SelectGraphicsButton.Click += new System.EventHandler(this.SelectGraphicsButton_Click);
             // 
+            // darkMenuStrip1
+            // 
+            this.darkMenuStrip1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
+            this.darkMenuStrip1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
+            this.darkMenuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.darkMenuStrip1.Name = "darkMenuStrip1";
+            this.darkMenuStrip1.Padding = new System.Windows.Forms.Padding(3, 2, 0, 2);
+            this.darkMenuStrip1.Size = new System.Drawing.Size(581, 24);
+            this.darkMenuStrip1.TabIndex = 9;
+            this.darkMenuStrip1.Text = "darkMenuStrip1";
+            // 
             // AnimationComponentPanel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.Transparent;
             this.Controls.Add(this.SelectGraphicsButton);
             this.Controls.Add(this.darkSectionPanel1);
             this.Controls.Add(this.GraphicsSection);
+            this.Controls.Add(this.darkMenuStrip1);
             this.DockText = "Animation";
             this.Name = "AnimationComponentPanel";
             this.Size = new System.Drawing.Size(581, 474);
@@ -186,6 +200,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.DirectionsCountNumericUpDown)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.FrameCountNumericUpDown)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -200,5 +215,6 @@
         private DarkUI.Controls.DarkTitle FrameCountTitle;
         private DarkUI.Controls.DarkNumericUpDown FrameCountNumericUpDown;
         private DarkUI.Controls.DarkButton SelectGraphicsButton;
+        private DarkUI.Controls.DarkMenuStrip darkMenuStrip1;
     }
 }

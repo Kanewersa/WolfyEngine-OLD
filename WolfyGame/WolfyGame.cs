@@ -48,9 +48,9 @@ namespace WolfyGame
             Window.ClientSizeChanged += Window_ClientSizeChanged;
 
             PathsController.Instance.SetMainPath("");
-            TilesetsController.Instance.InitializeProject();
+            /*TilesetsController.Instance.InitializeProject();
             MapsController.Instance.InitializeProject();
-            GameController.Instance.InitializeProject();
+            GameController.Instance.InitializeProject();*/
 
             // Initialize families after GameController is initialized
             // TODO Obsolete family initialization

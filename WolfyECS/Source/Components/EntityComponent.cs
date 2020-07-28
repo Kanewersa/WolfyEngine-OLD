@@ -24,14 +24,12 @@ namespace WolfyECS
                 _familyId = ComponentCounter.Counter++;
             }
 
-            Console.WriteLine(typeof(T).Name + " has new family id of: " + _familyId);
             return _familyId;
         }
 
         public override void SetFamily(int family)
         {
             if(_familyId != 0) return;
-            Console.WriteLine(typeof(T).Name + " has family id: " + family);
             ComponentCounter.UsedIds[family] = true;
 
             _familyId = family;

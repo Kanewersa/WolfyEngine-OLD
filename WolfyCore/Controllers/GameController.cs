@@ -37,7 +37,6 @@ namespace WolfyCore.Controllers
                 ? Serialization.ProtoDeserialize<GameSettings>(GameSettingsPath)
                 : new GameSettings();
                 
-            Console.WriteLine("Initializing world...");
             World = File.Exists(WorldPath)
                 ? Serialization.ProtoDeserialize<World>(WorldPath)
                 : CreateNewWorld();
@@ -71,7 +70,6 @@ namespace WolfyCore.Controllers
         {
             foreach (var type in WolfyManager.SystemTypes)
             {
-                Console.WriteLine("Creating system: " + type);
                 var system = (EntitySystem)Activator.CreateInstance(type);
                 world.AddSystem(system);
                 system.Initialize();

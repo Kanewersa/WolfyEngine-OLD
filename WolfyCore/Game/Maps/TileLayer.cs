@@ -74,7 +74,6 @@ namespace WolfyCore.Game
 
         public override void Draw(SpriteBatch spriteBatch, GameTime gameTime, Rectangle visibleArea)
         {
-            Console.WriteLine("Drawing tile layer...");
             for (var y = visibleArea.Y; y < visibleArea.Height; y++)
             {
                 for (var x = visibleArea.X; x < visibleArea.Width; x++)

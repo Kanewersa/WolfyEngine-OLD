@@ -13,7 +13,7 @@ namespace WolfyCore.ECS
         public override void Initialize()
         {
             RequireComponent<MovementComponent>();
-            RequireComponent<RandomMovementComponent>();
+            RequireComponent<RoutineMovementComponent>();
             RequireComponent<TransformComponent>();
         }
         
@@ -21,7 +21,7 @@ namespace WolfyCore.ECS
         {
             IterateEntities(entity =>
             {
-                var random = entity.GetComponent<RandomMovementComponent>();
+                /*var random = entity.GetComponent<RoutineMovementComponent>();
                 var movement = entity.GetComponent<MovementComponent>();
 
                 if (entity.HasComponent<MovementActionComponent>()) return;
@@ -39,8 +39,8 @@ namespace WolfyCore.ECS
 
                     movement.DirectionVector = direction;
 
-                    random.Timer = random.Frequency;
-                }
+                    //random.Timer = random.Frequency;
+                }*/
             });
         }
     }

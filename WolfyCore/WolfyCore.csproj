@@ -34,6 +34,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DarkUI, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\DarkUI.2.0.1\lib\DarkUI.dll</HintPath>
+    </Reference>
     <Reference Include="MonoGame.Forms.DX, Version=2.3.9.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\MonoGame.Forms.DX.2.3.9\lib\net451\MonoGame.Forms.DX.dll</HintPath>
     </Reference>
@@ -82,6 +85,14 @@
     <Compile Include="Controllers\MapsController.cs" />
     <Compile Include="Controllers\PathsController.cs" />
     <Compile Include="Controllers\TilesetsController.cs" />
+    <Compile Include="ECS\Actions\Conditions\BaseVariable.cs" />
+    <Compile Include="ECS\Actions\Conditions\VariableCondition.cs" />
+    <Compile Include="ECS\Actions\MovementAction.cs" />
+    <Compile Include="ECS\Actions\TeleportAction.cs" />
+    <Compile Include="ECS\Actions\Conditions\BoolCondition.cs" />
+    <Compile Include="ECS\Actions\WolfyBool.cs" />
+    <Compile Include="ECS\Actions\WolfyVariable.cs" />
+    <Compile Include="ECS\Components\ActionComponent.cs" />
     <Compile Include="ECS\Components\Actions\MovementActionComponent.cs" />
     <Compile Include="ECS\Components\AnimationComponent.cs" />
     <Compile Include="ECS\Components\CameraComponent.cs" />
@@ -93,6 +104,8 @@
     <Compile Include="ECS\Components\Movement\RandomMovementComponent.cs" />
     <Compile Include="ECS\Components\Movement\RoutineMovementComponent.cs" />
     <Compile Include="ECS\Components\InGameNameComponent.cs" />
+    <Compile Include="ECS\Components\StartActionComponent.cs" />
+    <Compile Include="ECS\Systems\ActionSystem.cs" />
     <Compile Include="ECS\Systems\AnimationSystem.cs" />
     <Compile Include="ECS\Systems\CollisionSystem.cs" />
     <Compile Include="ECS\Systems\InputSystem.cs" />
@@ -114,6 +127,7 @@
     <Compile Include="Engine\Player\Input.cs" />
     <Compile Include="Engine\Random.cs" />
     <Compile Include="Engine\RefBool.cs" />
+    <Compile Include="Engine\RefFloat.cs" />
     <Compile Include="Engine\Serialization\Serialization.cs" />
     <Compile Include="Engine\Utils\EntityScheme.cs" />
     <Compile Include="Engine\Utils\ReflectiveEnumerator.cs" />
@@ -123,6 +137,8 @@
     <Compile Include="Engine\Vector2D.cs" />
     <Compile Include="Engine\Vector3D.cs" />
     <Compile Include="Game\GameSettings.cs" />
+    <Compile Include="Game\Inventory\GameItem.cs" />
+    <Compile Include="Game\Inventory\Inventory.cs" />
     <Compile Include="Game\Maps\BaseLayer.cs" />
     <Compile Include="Game\Maps\EntityLayer.cs" />
     <Compile Include="Game\Maps\EntityTile.cs" />

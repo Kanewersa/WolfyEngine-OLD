@@ -46,9 +46,6 @@ namespace WolfyCore.ECS
 
                 CameraTransform = camera.Transform;
 
-                Console.WriteLine("Drawing map...");
-                Console.WriteLine("Entity position is: " + transform.GridTransform);
-                Console.WriteLine("Visible area is: " + camera.GetVisibleArea());
                 map.Draw(spriteBatch, gameTime, camera.GetVisibleArea());
             });
             spriteBatch.End();

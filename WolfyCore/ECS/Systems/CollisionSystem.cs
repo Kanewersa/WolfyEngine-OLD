@@ -17,7 +17,6 @@ namespace WolfyCore.ECS
             RequireComponent<CollisionComponent>();
             RequireComponent<MovementActionComponent>();
             RequireComponent<TransformComponent>();
-            Console.WriteLine(this + " has mask: " + Signature.Mask);
         }
 
         public override void Update(GameTime gameTime)

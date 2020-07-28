@@ -11,12 +11,12 @@ namespace WolfyECS
     public abstract class EntitySystem
     {
         // Specifies which components are important for the system
-        [ProtoMember(1)] public ComponentMask Signature { get; set; }
+        [ProtoMember(100)] public ComponentMask Signature { get; set; }
         
         // Entities that fit the system Signature
-        [ProtoMember(2)] public List<Entity> Entities { get; set; }
+        [ProtoMember(101)] public List<Entity> Entities { get; set; }
         
-        [ProtoMember(3)] public int WorldId { get; set; }
+        [ProtoMember(102)] public int WorldId { get; set; }
         [ProtoIgnore] protected World World => World.WorldInstance;
         
         protected EntitySystem()

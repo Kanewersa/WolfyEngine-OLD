@@ -99,14 +99,22 @@ namespace WolfyCore.Game
             return false;
         }
 
+        /// <summary>
+        /// Moves given entity to new position on the map.
+        /// </summary>
+        /// <param name="e"></param>
+        /// <param name="oldPosition"></param>
+        /// <param name="newPosition"></param>
         public void MoveEntity(Entity e, Vector2 oldPosition, Vector2 newPosition)
         {
             var layer = (EntityLayer) Layers.FirstOrDefault(x => x is EntityLayer);
             if(layer == null)
-                throw new NullReferenceException("Entity layer was null");
+                throw new NullReferenceException("Entity layer was null.");
 
-            layer.Rows[(int) oldPosition.Y].Tiles[(int) oldPosition.X].Entity = new Entity();
-            layer.Rows[(int) newPosition.Y].Tiles[(int) newPosition.X].Entity = e;
+            layer.Rows[(int) oldPosition.Y].Tiles[(int) oldPosition.X].Entity = Entity.Empty;
+            
+            if (newPosition != -Vector2.One)
+                layer.Rows[(int) newPosition.Y].Tiles[(int) newPosition.X].Entity = e;
         }
     }
 }

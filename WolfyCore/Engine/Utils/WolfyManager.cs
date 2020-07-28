@@ -46,6 +46,7 @@ namespace WolfyEngine
             entityComponent.AddSubType(110, typeof(RandomMovementComponent));
             entityComponent.AddSubType(111, typeof(RoutineMovementComponent));
             entityComponent.AddSubType(112, typeof(CameraComponent));
+            entityComponent.AddSubType(113, typeof(ActionComponent));
 
             // Add components generics
             entityComponent.AddSubType(201, typeof(EntityComponent<AnimationComponent>));
@@ -60,6 +61,13 @@ namespace WolfyEngine
             entityComponent.AddSubType(210, typeof(EntityComponent<RandomMovementComponent>));
             entityComponent.AddSubType(211, typeof(EntityComponent<RoutineMovementComponent>));
             entityComponent.AddSubType(212, typeof(EntityComponent<CameraComponent>));
+            entityComponent.AddSubType(213, typeof(EntityComponent<ActionComponent>));
+
+            // Add wolfy actions
+            var wolfyAction = RuntimeTypeModel.Default[typeof(WolfyAction)];
+            wolfyAction.AddSubType(101, typeof(MovementAction));
+            wolfyAction.AddSubType(102, typeof(TeleportAction));
+
         }
 
         public static void InitializeFamilies()
@@ -70,7 +78,6 @@ namespace WolfyEngine
                 dynamic instance = Activator.CreateInstance(genericType);
                 var method = instance.GetType().GetMethod("Family");
                 var id = method.Invoke(null, new object[] {} );
-                Console.WriteLine(type.Name + " has id " + id);
             }
         }
 

@@ -29,7 +29,6 @@ namespace WolfyCore.Game
 
         public override void Draw(SpriteBatch spriteBatch, GameTime gameTime, Rectangle visibleArea)
         {
-            Console.WriteLine("Drawing entity layer...");
             for (var y = visibleArea.Y; y < visibleArea.Height; y++)
             {
                 for (var x = visibleArea.X; x < visibleArea.Width; x++)
@@ -58,7 +57,7 @@ namespace WolfyCore.Game
 
         public override bool TileOccupied(Vector2 position)
         {
-            return Rows[(int) position.Y].Tiles[(int) position.X].Entity != new Entity();
+            return Rows[(int) position.Y].Tiles[(int) position.X].Entity != Entity.Empty;
         }
     }
 }

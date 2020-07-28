@@ -29,7 +29,6 @@ namespace WolfyCore.Engine
 
         public void LoadContent(ContentManager content)
         {
-            Console.WriteLine("Loading image: " + Path);
             if (Texture != null)
                 Console.WriteLine("Image " + Texture.Name + " was already loaded!");
             

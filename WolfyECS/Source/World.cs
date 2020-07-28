@@ -11,26 +11,26 @@ namespace WolfyECS
     [ProtoContract]
     public class World
     {
-        [ProtoMember(1)] private EntityManager _entityManager;
-        [ProtoMember(2)] private List<EntitySystem> _systems;
+        [ProtoMember(1)] private readonly EntityManager _entityManager;
+        [ProtoMember(2)] private readonly List<EntitySystem> _systems;
         [ProtoMember(3, OverwriteList = true)]
         private ComponentManager[] _componentManagers;
 
         [ProtoMap(DisableMap = true)]
-        [ProtoMember(4)] private Dictionary<Entity, ComponentMask> _entityMasks;
+        [ProtoMember(4)] private readonly Dictionary<Entity, ComponentMask> _entityMasks;
 
         private const int ComponentsLimit = 64;
 
         [ProtoMember(5)] public readonly int WorldId;
 
         public static World WorldInstance;
-        private static readonly IdDispenser _worldIdDispenser;
+        private static readonly IdDispenser WorldIdDispenser;
 
         public const int WorldsLimit = 16;
 
         static World()
         {
-            _worldIdDispenser = new IdDispenser(WorldsLimit);
+            WorldIdDispenser = new IdDispenser(WorldsLimit);
             //Worlds = new World[WorldsLimit];
         }
 
@@ -41,9 +41,7 @@ namespace WolfyECS
                 Console.WriteLine("System " + system.GetType() + " has entities: " + system.Entities.Count);
             }
 
-            Console.WriteLine("World has entities: " + EntityCount()
-                              
-                              );
+            Console.WriteLine("World has entities: " + EntityCount());
         }
 
         public static void SetWorld(World world)
@@ -53,7 +51,7 @@ namespace WolfyECS
 
         public World()
         {
-            WorldId = (int)_worldIdDispenser.GetId();
+            WorldId = (int)WorldIdDispenser.GetId();
             _entityManager = new EntityManager(this.WorldId);
             _systems = new List<EntitySystem>();
             _componentManagers = new ComponentManager[ComponentsLimit];
@@ -172,8 +170,6 @@ namespace WolfyECS
 
         public T AddComponent<T>(Entity e) where T : EntityComponent, new()
         {
-            Console.WriteLine("Adding component: " + typeof(T).FullName);
-            Console.WriteLine("To entity: " + e.Id);
             var manager = GetComponentManager<T>();
             var component = new T();
             manager.AddComponent(e, component);
@@ -182,7 +178,6 @@ namespace WolfyECS
             var oldMask = _entityMasks[e];
             _entityMasks[e] = _entityMasks[e].AddComponent<T>();
             UpdateEntityMask(e, oldMask);
-            Console.WriteLine("New entity mask is: " + _entityMasks[e].Mask);
             return component;
         }
 
@@ -254,48 +249,13 @@ namespace WolfyECS
             return _componentManagers[family];
         }
 
-        
-        /*
-        [ProtoBeforeDeserialization]
-        private void FillMissingComponent()
-        {
-            /*_componentManagers = new ComponentManager[1];
-            _componentManagers[0] = new ComponentManager();#1#
-            Console.WriteLine("Before deserialization...");
-
-            for (int i = 0; i < _componentManagers.Length; i++)
-            {
-                if (_componentManagers[i] == null)
-                    Console.WriteLine("IS NULL! : " + i);
-            }
-        }*/
-
-        /*[ProtoAfterDeserialization]
-        private void FillComponentsArray()
-        {
-            Console.WriteLine("After deserialization...");
-            /*if (_componentManagers.Length < ComponentsLimit)
-            {
-                Array.Resize(ref _componentManagers, ComponentsLimit);
-            }#1#
-
-            for (int i = 0; i < _componentManagers.Length; i++)
-            {
-                if(_componentManagers[i] == null)
-                    Console.WriteLine("IS NULL! : " + i);
-            }
-        }*/
-
         [ProtoBeforeSerialization]
         private void FillEmptyComponents()
         {
             for (int i = 0; i < _componentManagers.Length; i++)
             {
                 if (_componentManagers[i] == null)
-                {
                     _componentManagers[i] = new ComponentManager(true);
-                    //Console.WriteLine("Created new temporary manager with id: " + i);
-                }
             }
         }
     }

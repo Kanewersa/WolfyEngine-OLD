@@ -39,7 +39,6 @@ namespace WolfyCore.Engine
 
         public void LoadContent(ContentManager content)
         {
-            Console.WriteLine("Loading content...");
             Image.LoadContent(content);
         }
         

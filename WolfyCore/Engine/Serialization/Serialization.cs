@@ -78,7 +78,6 @@ namespace WolfyEngine.Engine
         /// <returns></returns>
         public static T ProtoDeserialize<T>(string path)
         {
-            
             using (var file = File.OpenRead(path))
             {
                 return Serializer.Deserialize<T>(file);
