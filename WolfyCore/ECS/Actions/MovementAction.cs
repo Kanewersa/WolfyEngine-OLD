@@ -1,8 +1,9 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
+using WolfyCore.ECS;
 using WolfyECS;
 
-namespace WolfyCore.ECS
+namespace WolfyCore.Actions
 {
     public class MovementAction : WolfyAction
     {

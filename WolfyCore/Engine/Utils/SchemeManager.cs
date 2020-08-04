@@ -8,6 +8,7 @@ namespace WolfyEngine
     {
         public List<EntityScheme> Schemes { get; set; }
 
+        // TODO Optimize entity schemes.
         public SchemeManager()
         {
             Schemes = new List<EntityScheme>();
@@ -18,14 +19,16 @@ namespace WolfyEngine
                 {
                     ComponentType.Animation,
                     ComponentType.Collision,
-                    ComponentType.Movement
+                    ComponentType.Movement,
+                    ComponentType.Action
                 });
                 // Create static object scheme
             CreateScheme("Static",
                 new List<ComponentType>
                 {
                     ComponentType.Animation,
-                    ComponentType.Collision
+                    ComponentType.Collision,
+                    ComponentType.Action
                 });
         }
 

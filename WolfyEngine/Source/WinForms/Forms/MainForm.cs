@@ -12,7 +12,6 @@ using WolfyEngine.Properties;
 using WolfyCore;
 using WolfyCore.Controllers;
 using WolfyCore.ECS;
-using WolfyCore.Engine;
 using WolfyCore.Game;
 using WolfyECS;
 using Timer = System.Windows.Forms.Timer;

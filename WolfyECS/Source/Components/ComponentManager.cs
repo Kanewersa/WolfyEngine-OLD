@@ -7,40 +7,22 @@ namespace WolfyECS
 {
     [ProtoContract] public class ComponentManager
     {
-        [ProtoMap(DisableMap = true)]
-        [ProtoMember(1)] public Dictionary<Entity, int> EntityMap { get; set; }
-        [ProtoMap(DisableMap = true)]
-        [ProtoMember(2)] public Dictionary<int, Entity> ReversedMap { get; set; }
-        [ProtoMember(3)] private int _size = 0;
-
-        [ProtoIgnore] private EntityComponent[] _components;
-
-        [ProtoMember(4, OverwriteList = true)]
-        public EntityComponent[] Components
-        {
-            get => _components;
-            set => _components = value;
-        }
-
-        //[ProtoMember(6)] public string ComponentType { get; set; }
+        [ProtoMember(1)] public ComponentsMap Components { get; set; }
+        [ProtoMember(2)] public ComponentsMap FrozenComponents { get; set; }
         [ProtoMember(5)] public EntityComponent ComponentType { get; private set; }
         [ProtoMember(6)] public bool Temporary { get; private set; }
 
-        private const int MaxComponents = 65536;
+        private const int MaxComponents = 4096;
 
         public ComponentManager(EntityComponent componentType)
         {
             ComponentType = componentType;
-            EntityMap = new Dictionary<Entity, int>();
-            ReversedMap = new Dictionary<int, Entity>();
-            Components = new EntityComponent[MaxComponents];
+            Components = new ComponentsMap(MaxComponents);
         }
 
         public ComponentManager()
         {
-            EntityMap = new Dictionary<Entity, int>();
-            ReversedMap = new Dictionary<int, Entity>();
-            Components = new EntityComponent[MaxComponents];
+            Components = new ComponentsMap(MaxComponents);
         }
 
         public ComponentManager(bool temporary)
@@ -54,78 +36,34 @@ namespace WolfyECS
             ComponentType.SetFamily(family);
         }
 
-        public int AddComponent(Entity entity, EntityComponent component)
+        public void AddComponent(Entity entity, EntityComponent component)
         {
-            int index = _size;
-
-            // Add component to the components array
-            Components[index] = component;
-
-            // Add pointer to the component index inside array
-            EntityMap.Add(entity, index);
-            ReversedMap.Add(index, entity);
-
-            _size++;
-            return index;
+            Components.AddComponent(entity, component);
         }
 
         public bool HasComponent(Entity entity)
         {
-            if (EntityMap.ContainsKey(entity))
-            {
-                return Components[EntityMap[entity]] != null;
-            }
-
-            return false;
+            return Components.HasComponent(entity);
         }
 
         public EntityComponent GetComponent(Entity entity)
         {
-            if (!EntityMap.ContainsKey(entity))
-            {
-                throw new Exception("Component is not present in component manager. Component type: " + ComponentType.GetType().FullName);
-            }
-            return Components[EntityMap[entity]];
+            return Components.GetComponent(entity);
         }
 
         public void DestroyComponent(Entity entity)
         {
-            if (!EntityMap.ContainsKey(entity))
-                return;
-
-            int index = EntityMap[entity]; // Get index of component to delete
-            int lastComponent = _size - 1; // Get index of last component
-
-            EntityMap.Remove(entity); // Remove pointer to component
-
-            if (lastComponent == index)
-            {
-                ReversedMap.Remove(index); // Remove pointer to entity
-            }
-            else
-            {
-                Components[index] = Components[lastComponent];  // Replace deleted component with last component
-                Entity lastEntity = ReversedMap[lastComponent]; // Get last entity
-                EntityMap[lastEntity] = index;                  // Replace pointer for last entity
-                ReversedMap.Remove(lastComponent);              // Remove last component pointer
-                ReversedMap[index] = lastEntity;                // Replace last entity pointer wit h
-            }
-
-            _size--; // Decrease size
+            Components.DestroyComponent(entity);
         }
 
-        public int ComponentsCount()
+        public void FreezeComponent(Entity entity)
         {
-            return _size - 1;
+            FrozenComponents.AddComponent(entity, Components.DestroyComponent(entity));
         }
 
-        [ProtoAfterDeserialization]
-        private void FillComponentsArray()
+        public void EnableComponent(Entity entity)
         {
-            if (Components.Length < MaxComponents)
-            {
-                Array.Resize(ref _components, MaxComponents);
-            }
+            Components.AddComponent(entity, FrozenComponents.DestroyComponent(entity));
         }
     }
 }

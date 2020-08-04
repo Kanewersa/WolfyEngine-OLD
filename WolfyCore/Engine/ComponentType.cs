@@ -4,6 +4,7 @@
     {
         Movement,
         Collision,
-        Animation
+        Animation,
+        Action
     }
 }

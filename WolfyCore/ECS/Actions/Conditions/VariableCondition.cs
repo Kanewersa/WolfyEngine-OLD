@@ -1,4 +1,5 @@
 ﻿using ProtoBuf;
+using WolfyCore.Actions;
 using WolfyECS;
 
 namespace WolfyCore.ECS

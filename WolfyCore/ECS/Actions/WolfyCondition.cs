@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using ProtoBuf;
 
-namespace WolfyECS
+namespace WolfyCore.Actions
 {
     /// <summary>
     /// A special case of WolfyAction which contains other actions and
@@ -42,6 +42,12 @@ namespace WolfyECS
         public List<WolfyAction> GetElseActions()
         {
             return ElseActions;
+        }
+
+        public void SetActions(List<WolfyAction> ifActions, List<WolfyAction> elseActions)
+        {
+            IfActions = ifActions;
+            ElseActions = elseActions;
         }
     }
 }

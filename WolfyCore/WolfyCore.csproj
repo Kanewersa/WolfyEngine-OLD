@@ -52,6 +52,9 @@
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="Nito.Collections.Deque, Version=1.0.4.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Nito.Collections.Deque.1.0.4\lib\netstandard2.0\Nito.Collections.Deque.dll</HintPath>
+    </Reference>
     <Reference Include="protobuf-net, Version=2.4.0.0, Culture=neutral, PublicKeyToken=257b51d87d2e4d67, processorArchitecture=MSIL">
       <HintPath>..\packages\protobuf-net.2.4.6\lib\net40\protobuf-net.dll</HintPath>
     </Reference>
@@ -85,12 +88,16 @@
     <Compile Include="Controllers\MapsController.cs" />
     <Compile Include="Controllers\PathsController.cs" />
     <Compile Include="Controllers\TilesetsController.cs" />
+    <Compile Include="ECS\Actions\ActionsManager.cs" />
+    <Compile Include="ECS\Actions\BaseVariable.cs" />
     <Compile Include="ECS\Actions\Conditions\BaseVariable.cs" />
     <Compile Include="ECS\Actions\Conditions\VariableCondition.cs" />
     <Compile Include="ECS\Actions\MovementAction.cs" />
     <Compile Include="ECS\Actions\TeleportAction.cs" />
     <Compile Include="ECS\Actions\Conditions\BoolCondition.cs" />
+    <Compile Include="ECS\Actions\WolfyAction.cs" />
     <Compile Include="ECS\Actions\WolfyBool.cs" />
+    <Compile Include="ECS\Actions\WolfyCondition.cs" />
     <Compile Include="ECS\Actions\WolfyVariable.cs" />
     <Compile Include="ECS\Components\ActionComponent.cs" />
     <Compile Include="ECS\Components\Actions\MovementActionComponent.cs" />

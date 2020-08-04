@@ -111,6 +111,18 @@
     <Compile Include="Source\ProgramSettings.cs" />
     <Compile Include="Source\Project.cs" />
     <Compile Include="Source\Controllers\ProjectsController.cs" />
+    <Compile Include="Source\WinForms\Controls\ActionControls\NewActionsListDisplay.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Source\WinForms\Controls\ActionControls\NewActionsListDisplay.Designer.cs">
+      <DependentUpon>NewActionsListDisplay.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Source\WinForms\Controls\ActionControls\NewConditionsListDisplay.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Source\WinForms\Controls\ActionControls\NewConditionsListDisplay.Designer.cs">
+      <DependentUpon>NewConditionsListDisplay.cs</DependentUpon>
+    </Compile>
     <Compile Include="Source\WinForms\Controls\EntityContextMenu.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -126,12 +138,26 @@
     <Compile Include="Source\WinForms\Controls\WolfyActionsListView.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Source\WinForms\Forms\ActionsForms\ActionBinding.cs" />
     <Compile Include="Source\WinForms\Forms\ActionsForms\MovementForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Source\WinForms\Forms\ActionsForms\MovementForm.Designer.cs">
       <DependentUpon>MovementForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Source\WinForms\Forms\ActionsForms\NewActionForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Source\WinForms\Forms\ActionsForms\NewActionForm.Designer.cs">
+      <DependentUpon>NewActionForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Source\WinForms\Forms\ActionsForms\TeleportForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Source\WinForms\Forms\ActionsForms\TeleportForm.Designer.cs">
+      <DependentUpon>TeleportForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Source\WinForms\Forms\EntityForms\ComponentBinding.cs" />
     <Compile Include="Source\WinForms\Forms\EntityForms\EntityEditForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -168,6 +194,7 @@
     <Compile Include="Source\WinForms\Panels\EntityPanels\ActionComponentPanel.Designer.cs">
       <DependentUpon>ActionComponentPanel.cs</DependentUpon>
     </Compile>
+    <Compile Include="Source\WinForms\Panels\EntityPanels\ActionListViewItem.cs" />
     <Compile Include="Source\WinForms\Panels\EntityPanels\AnimationComponentPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -295,6 +322,15 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Icons.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Source\WinForms\Controls\ActionControls\NewActionsListDisplay.resx">
+      <DependentUpon>NewActionsListDisplay.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Source\WinForms\Controls\ActionControls\NewConditionsListDisplay.resx">
+      <DependentUpon>NewConditionsListDisplay.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Source\WinForms\Forms\ActionsForms\NewActionForm.resx">
+      <DependentUpon>NewActionForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Source\WinForms\Forms\EntityForms\EntityEditForm.resx">
       <DependentUpon>EntityEditForm.cs</DependentUpon>

@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using ProtoBuf;
+using WolfyCore.Actions;
 using WolfyECS;
 
 namespace WolfyCore.ECS

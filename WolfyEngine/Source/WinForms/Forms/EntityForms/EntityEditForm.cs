@@ -61,12 +61,12 @@ namespace WolfyEngine.Forms
             DisplayEntityInfo();
         }
 
-        public void Initialize(Entity entity, List<EntityComponent> components, World world)
+        public void Initialize(Entity entity, List<EntityComponent> entityComponents, World world)
         {
             World = world;
             Entity = entity;
 
-            foreach (var component in components)
+            foreach (var component in entityComponents)
             {
                 var panel = CreateComponentPanel(component, entity);
                 if (panel != null)
@@ -92,76 +92,23 @@ namespace WolfyEngine.Forms
 
         private ComponentPanel CreateComponentPanel(ComponentType type, Entity entity)
         {
-            switch (type)
-            {
-                case ComponentType.Movement:
-                    var panel = new MovementComponentPanel();
-                    panel.Initialize(entity);
-                    return panel;
-                case ComponentType.Collision:
-                    var panel2 = new CollisionComponentPanel();
-                    panel2.Initialize(entity);
-                    return panel2;
-                case ComponentType.Animation:
-                    var panel3 = new AnimationComponentPanel();
-                    panel3.Initialize(entity);
-                    return panel3;
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(type), type, null);
-            }
+            var panel = ComponentBinding.GetPanelInstance(type);
+            panel.Initialize(entity);
+            return panel;
         }
 
         private ComponentPanel CreateComponentPanel(EntityComponent component, Entity entity)
         {
-            switch (component)
-            {
-                case EntityComponent<MovementComponent> gc1:
-                    var gpanel = new MovementComponentPanel();
-                    gpanel.Initialize(entity);
-                    return gpanel;
-                case EntityComponent<CollisionComponent> gc2:
-                    var gpanel2 = new CollisionComponentPanel();
-                    gpanel2.Initialize(entity);
-                    return gpanel2;
-                case EntityComponent<AnimationComponent> gc3:
-                    var gpanel3 = new AnimationComponentPanel();
-                    gpanel3.Initialize(entity);
-                    return gpanel3;
-                case MovementComponent c1:
-                    var panel = new MovementComponentPanel();
-                    panel.Initialize(entity);
-                    return panel;
-                case CollisionComponent c2:
-                    var panel2 = new CollisionComponentPanel();
-                    panel2.Initialize(entity);
-                    return panel2;
-                case AnimationComponent c3:
-                    var panel3 = new AnimationComponentPanel();
-                    panel3.Initialize(entity);
-                    return panel3;
-                default:
-                    return null;
-            }
+            var componentPanel = ComponentBinding.GetPanelInstance(component);
+            if (componentPanel == null) return null;
+            componentPanel.Initialize(entity);
+            return componentPanel;
         }
 
         private void RemoveComponentPanel(ComponentType type, Entity entity)
         {
             ComponentPanel panel = null;
-
-            switch (type)
-            {
-                case ComponentType.Movement:
-                    panel = _componentWindows.SingleOrDefault(
-                        x => x.GetType() == typeof(MovementComponentPanel));
-                    break;
-                case ComponentType.Collision:
-                    break;
-                case ComponentType.Animation:
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(type), type, null);
-            }
-
+            panel = _componentWindows.SingleOrDefault(x => x.GetType() == ComponentBinding.GetPanelType(type));
             if (panel != null)
             {
                 _componentWindows.Remove(panel);

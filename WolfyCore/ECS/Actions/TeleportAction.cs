@@ -1,9 +1,10 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
 using ProtoBuf;
+using WolfyCore.ECS;
 using WolfyECS;
 
-namespace WolfyCore.ECS
+namespace WolfyCore.Actions
 {
     [ProtoContract] public class TeleportAction : WolfyAction
     {
@@ -36,7 +37,7 @@ namespace WolfyCore.ECS
 
         public override string GetDescription()
         {
-            return "Teleport " + Target + " to map " + _newMapId + " with position " + _newPosition;
+            return "Teleport " + Target + " to map " + _newMapId + " on position " + _newPosition;
         }
     }
 }

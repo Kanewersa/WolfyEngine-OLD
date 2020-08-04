@@ -11,12 +11,14 @@ namespace WolfyECS
     public abstract class EntitySystem
     {
         // Specifies which components are important for the system
-        [ProtoMember(100)] public ComponentMask Signature { get; set; }
+        [ProtoMember(500)] public ComponentMask Signature { get; set; }
         
         // Entities that fit the system Signature
-        [ProtoMember(101)] public List<Entity> Entities { get; set; }
+        // TODO Make adding and removing entities from systems faster by changing data structure
+        [ProtoMember(501)] public List<Entity> Entities { get; set; }
+        [ProtoMember(502)] public List<Entity> FrozenEntities { get; set; }
         
-        [ProtoMember(102)] public int WorldId { get; set; }
+        [ProtoMember(503)] public int WorldId { get; set; }
         [ProtoIgnore] protected World World => World.WorldInstance;
         
         protected EntitySystem()
@@ -87,6 +89,18 @@ namespace WolfyECS
         public void UnregisterEntity(Entity entity)
         {
             Entities.Remove(entity);
+        }
+
+        public void FreezeEntity(Entity entity)
+        {
+            FrozenEntities.Add(entity);
+            Entities.Remove(entity);
+        }
+
+        public void EnableEntity(Entity entity, bool matchingMask)
+        {
+            FrozenEntities.Remove(entity);
+            if (matchingMask) Entities.Add(entity);
         }
 
         /// <summary>

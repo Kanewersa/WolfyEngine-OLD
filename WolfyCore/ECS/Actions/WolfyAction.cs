@@ -1,7 +1,7 @@
-﻿using DarkUI.Forms;
-using ProtoBuf;
+﻿using ProtoBuf;
+using WolfyECS;
 
-namespace WolfyECS
+namespace WolfyCore.Actions
 {
     /// <summary>
     /// Action performed on certain entity.
@@ -11,17 +11,17 @@ namespace WolfyECS
         /// <summary>
         /// The target entity on which action should be executed.
         /// </summary>
-        [ProtoMember(101)] public Entity Target;
+        [ProtoMember(501)] public Entity Target;
 
         /// <summary>
         /// Determines if action should wait for another action to complete before its execution.
         /// </summary>
-        [ProtoMember(102)] public bool Asynchronous;
+        [ProtoMember(502)] public bool Asynchronous;
 
         /// <summary>
         /// Determines if action was completed.
         /// </summary>
-        [ProtoMember(103)] public bool Completed;
+        [ProtoMember(503)] public bool Completed;
 
         /// <summary>
         /// Executes the action.
@@ -38,6 +38,7 @@ namespace WolfyECS
         /// </summary>
         /// <returns></returns>
         public abstract string GetDescription();
+
 
         /// <summary>
         /// Completes the action.

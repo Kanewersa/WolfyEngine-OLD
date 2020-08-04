@@ -1,7 +1,7 @@
 ﻿using ProtoBuf;
 using WolfyCore.Engine;
 
-namespace WolfyCore.ECS
+namespace WolfyCore.Actions
 {
     [ProtoContract] public class WolfyVariable
     {

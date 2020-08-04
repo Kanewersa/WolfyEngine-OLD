@@ -106,12 +106,7 @@ namespace WolfyECS
             return _entityMasks[entity];
         }
 
-        public ComponentManager[] GetComponentManagers()
-        {
-            return _componentManagers;
-        }
-
-        #region Entities methods
+        #region Entities
 
         public Entity CreateEntity()
         {
@@ -137,9 +132,28 @@ namespace WolfyECS
             _entityMasks.Remove(entity);
         }
 
+        public void FreezeEntity(Entity entity)
+        {
+            foreach (var system in _systems)
+                system.FreezeEntity(entity);
+            foreach (var componentManager in _componentManagers)
+                componentManager.FreezeComponent(entity);
+        }
+
+        public void EnableEntity(Entity entity)
+        {
+            foreach (var system in _systems)
+            {
+                bool matchingMask = system.Signature.Matches(_entityMasks[entity]);
+                system.EnableEntity(entity, matchingMask);
+            }
+            foreach (var componentManager in _componentManagers)
+                componentManager.EnableComponent(entity);
+        }
+
         #endregion
-        
-        
+
+
         public void AddSystem(EntitySystem entitySystem)
         {
             _systems.Add(entitySystem);
@@ -166,7 +180,7 @@ namespace WolfyECS
             }
         }
 
-        #region Components methods
+        #region Components
 
         public T AddComponent<T>(Entity e) where T : EntityComponent, new()
         {
@@ -228,6 +242,8 @@ namespace WolfyECS
 
         #endregion
 
+        #region Component Managers
+
         private ComponentManager CreateComponentManager<T>(int index) where T : EntityComponent, new()
         {
             return _componentManagers[index] = new ComponentManager(new EntityComponent<T>());
@@ -238,7 +254,7 @@ namespace WolfyECS
             var family = Family.GetComponentFamily<T>();
             if (family > _componentManagers.Length)
                 Array.Resize(ref _componentManagers, family + ComponentsLimit);
-            
+
             // TODO Instantiate component managers to make null check unnecessary
             if (_componentManagers[family] == null ||
                 _componentManagers[family] != null && _componentManagers[family].Temporary)
@@ -248,6 +264,9 @@ namespace WolfyECS
 
             return _componentManagers[family];
         }
+
+        #endregion
+
 
         [ProtoBeforeSerialization]
         private void FillEmptyComponents()

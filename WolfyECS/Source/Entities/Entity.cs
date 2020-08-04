@@ -132,6 +132,11 @@ namespace WolfyECS
             World.DestroyEntity(this);
         }
 
+        public void Freeze()
+        {
+            World.FreezeEntity(this);
+        }
+
         public static bool operator ==(Entity a, Entity b)
         {
             return a.Id == b.Id;

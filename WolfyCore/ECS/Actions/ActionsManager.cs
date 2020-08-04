@@ -3,7 +3,7 @@ using System.Linq;
 using Nito.Collections;
 using ProtoBuf;
 
-namespace WolfyECS
+namespace WolfyCore.Actions
 {
     /// <summary>
     /// Manages all WolfyActions.
@@ -20,7 +20,7 @@ namespace WolfyECS
         /// </summary>
         [ProtoIgnore] private Deque<WolfyAction> _pendingActions;
 
-        // TODO Create serializable LinkedList to replace wrappers.
+        // TODO Create serializable Deque to replace wrappers.
         [ProtoMember(2)]
         public WolfyAction[] Actions
         {

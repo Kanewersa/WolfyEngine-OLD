@@ -72,14 +72,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Source\Actions\ActionsManager.cs" />
-    <Compile Include="Source\Actions\BaseVariable.cs" />
-    <Compile Include="Source\Actions\WolfyAction.cs" />
-    <Compile Include="Source\Actions\WolfyCondition.cs" />
     <Compile Include="Source\Collections\BiDictionary.cs" />
     <Compile Include="Source\Collections\EntityMap.cs" />
     <Compile Include="Source\Components\ComponentManager.cs" />
     <Compile Include="Source\Components\ComponentMask.cs" />
+    <Compile Include="Source\Components\ComponentsMap.cs" />
     <Compile Include="Source\Components\EntityComponent.cs" />
     <Compile Include="Source\Components\Family.cs" />
     <Compile Include="Source\Entities\Entity.cs" />

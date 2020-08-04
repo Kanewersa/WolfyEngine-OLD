@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using ProtoBuf.Meta;
+using WolfyCore.Actions;
 using WolfyCore.ECS;
 using WolfyECS;
 using WolfyEngine.Engine;
@@ -31,6 +32,7 @@ namespace WolfyEngine
             entitySystem.AddSubType(105, typeof(RandomMovementSystem));
             entitySystem.AddSubType(106, typeof(RoutineMovementSystem));
             entitySystem.AddSubType(107, typeof(RenderSystem));
+            entitySystem.AddSubType(108, typeof(ActionSystem));
 
             // Add components
             var entityComponent = RuntimeTypeModel.Default[typeof(EntityComponent)];
