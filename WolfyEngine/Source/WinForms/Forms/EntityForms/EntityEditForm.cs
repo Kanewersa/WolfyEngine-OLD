@@ -1,15 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
 using DarkUI.Controls;
 using DarkUI.Forms;
 using Microsoft.Xna.Framework;
+using WolfyCore.ECS;
 using WolfyECS;
 using WolfyEngine.Controls;
-using WolfyCore.ECS;
 using WolfyCore.Engine;
-using WolfyCore.Game;
 
 namespace WolfyEngine.Forms
 {
@@ -38,12 +36,13 @@ namespace WolfyEngine.Forms
                 World.DestroyEntity(Entity);
         }
 
-        public void Initialize(EntityScheme scheme, World world)
+        public void Initialize(EntityScheme scheme, World world, TransformComponent transform)
         {
             World = world;
             Scheme = scheme;
 
             Entity = World.CreateEntity();
+            Entity.AddComponent(transform);
 
             foreach (var type in scheme.ComponentTypes)
             {
@@ -52,12 +51,7 @@ namespace WolfyEngine.Forms
                     _componentWindows.Add(panel);
             }
 
-            _componentWindows =_componentWindows.
-                OrderBy(x => x.Name).ToList();
-
-            foreach (var panel in _componentWindows)
-                ComponentsDockPanel.AddContent(panel);
-
+            SetDockContent();
             DisplayEntityInfo();
         }
 
@@ -73,13 +67,19 @@ namespace WolfyEngine.Forms
                     _componentWindows.Add(panel);
             }
 
+            SetDockContent();
+            DisplayEntityInfo();
+        }
+
+        private void SetDockContent()
+        {
             _componentWindows = _componentWindows.
                 OrderBy(x => x.Name).ToList();
 
             foreach (var panel in _componentWindows)
                 ComponentsDockPanel.AddContent(panel);
 
-            DisplayEntityInfo();
+            ComponentsDockPanel.ActiveContent = _componentWindows.First();
         }
 
         private void DisplayEntityInfo()

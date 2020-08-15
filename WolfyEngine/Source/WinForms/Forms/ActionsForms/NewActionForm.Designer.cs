@@ -33,7 +33,7 @@
             this.ActionsTabButton = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.ConditionsTabButton = new System.Windows.Forms.ToolStripButton();
-            this.ToolStripSeparator = new DarkUI.Controls.DarkSeparator();
+            this.LayoutPanel = new System.Windows.Forms.Panel();
             this.TabsToolStrip.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -87,24 +87,25 @@
             this.ConditionsTabButton.Text = "Conditions";
             this.ConditionsTabButton.Click += new System.EventHandler(this.ConditionsTabButton_Click);
             // 
-            // ToolStripSeparator
+            // LayoutPanel
             // 
-            this.ToolStripSeparator.Dock = System.Windows.Forms.DockStyle.Top;
-            this.ToolStripSeparator.Location = new System.Drawing.Point(0, 28);
-            this.ToolStripSeparator.Name = "ToolStripSeparator";
-            this.ToolStripSeparator.Size = new System.Drawing.Size(522, 2);
-            this.ToolStripSeparator.TabIndex = 1;
-            this.ToolStripSeparator.Text = "darkSeparator1";
+            this.LayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.LayoutPanel.Location = new System.Drawing.Point(0, 28);
+            this.LayoutPanel.Margin = new System.Windows.Forms.Padding(0);
+            this.LayoutPanel.Name = "LayoutPanel";
+            this.LayoutPanel.Size = new System.Drawing.Size(522, 600);
+            this.LayoutPanel.TabIndex = 2;
             // 
             // NewActionForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(522, 628);
-            this.Controls.Add(this.ToolStripSeparator);
+            this.Controls.Add(this.LayoutPanel);
             this.Controls.Add(this.TabsToolStrip);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "NewActionForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Create new action";
             this.TabsToolStrip.ResumeLayout(false);
             this.TabsToolStrip.PerformLayout();
@@ -115,9 +116,9 @@
         #endregion
 
         private DarkUI.Controls.DarkToolStrip TabsToolStrip;
-        private DarkUI.Controls.DarkSeparator ToolStripSeparator;
         private System.Windows.Forms.ToolStripButton ActionsTabButton;
         private System.Windows.Forms.ToolStripButton ConditionsTabButton;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.Panel LayoutPanel;
     }
 }

@@ -10,12 +10,12 @@ namespace WolfyECS
         /// <summary>
         /// Unique Id of Entity.
         /// </summary>
-        [ProtoMember(1)] public uint Id { get; }
+        [ProtoMember(1)] public ushort Id { get; }
 
         /// <summary>
         /// Id of the world entity belongs to.
         /// </summary>
-        [ProtoMember(2)] private int _worldId;
+        //[ProtoMember(2)] private short _worldId;
 
         [ProtoIgnore] private World World => World.WorldInstance;
 
@@ -24,13 +24,14 @@ namespace WolfyECS
         /// </summary>
         /// <param name="id"></param>
         /// <param name="worldId"></param>
-        public Entity(uint id, int worldId)
+        public Entity(ushort id, short worldId)
         {
             Id = id;
-            _worldId = worldId;
+            //_worldId = worldId;
         }
 
         public static Entity Empty => new Entity(0, -1);
+        public static Entity Player => new Entity(1, 1);
 
         /// <summary>
         /// Creates and returns the new component of type T.

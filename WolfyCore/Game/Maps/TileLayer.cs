@@ -90,7 +90,7 @@ namespace WolfyCore.Game
                 }
             }
 
-            Image.Position = new Vector2(0,0);
+            Image.Position = Vector2.Zero;
             Image.SourceRectangle =
                 new Rectangle(0,0,Image.Texture.Width, Image.Texture.Height);
         }
@@ -122,7 +122,7 @@ namespace WolfyCore.Game
             Image.Color = Color.White;
         }
 
-        public override bool TileOccupied(Vector2 position)
+        public override bool? TileOccupied(Vector2 position)
         {
             return !Rows[(int) position.Y].Tiles[(int) position.X].Passage;
         }

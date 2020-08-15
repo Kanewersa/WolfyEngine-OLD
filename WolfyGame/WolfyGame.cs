@@ -57,7 +57,7 @@ namespace WolfyGame
             //WolfyManager.InitializeFamilies();
 
             // Initialize the scene
-            Scene = new GameScene(ScreenWidth, ScreenHeight, GameController.Instance.World);
+            Scene = new GameScene(GameController.Instance.World);
             Scene.Initialize(graphics.GraphicsDevice);
             base.Initialize();
         }
@@ -71,7 +71,7 @@ namespace WolfyGame
             ScreenHeight = graphics.PreferredBackBufferHeight;
             ScreenWidth = graphics.PreferredBackBufferWidth;
 
-            Scene.UpdateResolution(ScreenWidth, ScreenHeight);
+            //Scene.UpdateResolution(ScreenWidth, ScreenHeight);
         }
 
         /// <summary>

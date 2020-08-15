@@ -80,11 +80,11 @@ namespace WolfyCore.Game
         }
 
         /// <summary>
-        /// Returns true if any layer is occupied on given position or
+        /// Returns true if any layer is occupied at given position or
         /// position is beyond map borders.
         /// </summary>
         /// <param name="position"></param>
-        public bool Occupied(Vector2 position)
+        public bool? Occupied(Vector2 position)
         {
             if (position.X < 0
                 || position.Y < 0
@@ -93,10 +93,32 @@ namespace WolfyCore.Game
                 return true;
 
             foreach (var layer in Layers)
-                if (layer.TileOccupied(position))
+            {
+                if (layer.TileOccupied(position) == true)
                     return true;
+                if (layer.TileOccupied(position) == null)
+                    return null;
+            }
 
             return false;
+        }
+
+        /// <summary>
+        /// Returns the entity at given position.
+        /// </summary>
+        /// <param name="position"></param>
+        /// <returns></returns>
+        public Entity GetEntity(Vector2 position)
+        {
+            foreach (var layer in Layers)
+            {
+                if (layer is EntityLayer entityLayer)
+                {
+                    return entityLayer.GetEntity(position);
+                }
+            }
+
+            return Entity.Empty;
         }
 
         /// <summary>

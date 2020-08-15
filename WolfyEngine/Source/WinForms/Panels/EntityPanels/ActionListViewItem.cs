@@ -8,8 +8,8 @@ namespace WolfyEngine.Controls
     {
         public WolfyAction Action { get; set; }
         public ActionListViewItem Parent { get; set; }
-        public List<ActionListViewItem> IfChildren { get; set; }
-        public List<ActionListViewItem> ElseChildren { get; set; }
+        public List<ActionListViewItem> IfChildren { get; set; } = new List<ActionListViewItem>();
+        public List<ActionListViewItem> ElseChildren { get; set; } = new List<ActionListViewItem>();
         public bool IsIfAction { get; set; }
 
         public ActionListViewItem(WolfyAction action, bool isIfAction = false, ActionListViewItem parent = null)
@@ -79,6 +79,11 @@ namespace WolfyEngine.Controls
             });
 
             parent.SetActions(ifActions, elseActions);
+        }
+
+        public string GetDescription()
+        {
+            return Action.GetDescription();
         }
     }
 }

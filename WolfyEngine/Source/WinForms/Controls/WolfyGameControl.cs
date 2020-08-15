@@ -5,7 +5,6 @@ using Microsoft.Xna.Framework.Content;
 using MonoGame.Forms.Controls;
 using WolfyECS;
 using WolfyEngine.Utils;
-using WolfyCore;
 using WolfyCore.Game;
 using WolfyCore.Scenes;
 
@@ -29,8 +28,8 @@ namespace WolfyEngine.Controls
 
         public void InitializeScene()
         {
-            Scene = new GameScene(Width, Height, World);
-            Scene.SetMap(CurrentMap);
+            Scene = new GameScene(World);
+            //Scene.SetMap(CurrentMap);
             Scene.Initialize(GraphicsDevice);
             Scene.LoadContent(Editor.Content);
 

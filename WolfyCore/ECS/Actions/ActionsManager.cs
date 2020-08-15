@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Nito.Collections;
 using ProtoBuf;
@@ -32,6 +33,11 @@ namespace WolfyCore.Actions
         /// Determines if there is an action being executed.
         /// </summary>
         private bool ExecutingAction => CurrentAction != null;
+
+        /// <summary>
+        /// Returns true when there are no pending actions.
+        /// </summary>
+        public bool Empty => _pendingActions.Count == 0;
 
         /// <summary>
         /// Default constructor.

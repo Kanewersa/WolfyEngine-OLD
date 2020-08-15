@@ -1,6 +1,6 @@
 ﻿namespace WolfyEngine.Controls
 {
-    partial class ComponentPanel
+    partial class MapSelectControl
     {
         /// <summary> 
         /// Wymagana zmienna projektanta.
@@ -28,18 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.SuspendLayout();
-            // 
-            // ComponentPanel
-            // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
-            this.DefaultDockArea = DarkUI.Docking.DarkDockArea.Document;
-            this.Name = "ComponentPanel";
-            this.Size = new System.Drawing.Size(489, 398);
-            this.ResumeLayout(false);
-
+            components = new System.ComponentModel.Container();
         }
 
         #endregion

@@ -34,7 +34,7 @@ namespace WolfyEngine.Controls
                 var animation = _animationComponent.Animations.First().Value;
                 // TODO Make graphics and animations usage more clear
                 _graphicsPath = animation.Image.Path;
-                if(_graphicsPath != string.Empty)
+                if(!string.IsNullOrEmpty(_graphicsPath))
                     if (!WolfyHelper.IsFileLocked(new FileInfo(_graphicsPath)))
                         GraphicsPictureBox.Image = Image.FromFile(_graphicsPath);
                     else

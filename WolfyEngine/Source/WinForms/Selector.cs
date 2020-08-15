@@ -11,6 +11,16 @@ namespace WolfyEngine.Utils
     {
         private List<Image> _images;
 
+        public Color Color
+        {
+            get => _color;
+            set
+            {
+                _color = value;
+                _images.ForEach((img) => { img.Color = value; });
+            }
+        }
+
         public bool Enabled { get; set; } = true;
 
         private readonly string[] _imagesPaths =
@@ -20,6 +30,8 @@ namespace WolfyEngine.Utils
             "Assets/Editor/selector3",
             "Assets/Editor/selector4"
         };
+
+        private Color _color;
 
         public Selector()
         {

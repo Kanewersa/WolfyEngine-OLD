@@ -6,14 +6,10 @@ namespace WolfyCore.Scenes
 {
     public abstract class Scene
     {
-        public int ScreenWidth { get; set; }
-        public int ScreenHeight { get; set; }
 
-        protected Scene(int screenWidth, int screenHeight)
-        {
-            ScreenWidth = screenWidth;
-            ScreenHeight = screenHeight;
-        }
+
+        protected Scene()
+        { }
 
         public virtual void Initialize(GraphicsDevice graphics)
         {
@@ -28,12 +24,6 @@ namespace WolfyCore.Scenes
         public virtual void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
             
-        }
-
-        public virtual void UpdateResolution(int width, int height)
-        {
-            ScreenHeight = height;
-            ScreenWidth = width;
         }
 
         public virtual void Update(GameTime gameTime)

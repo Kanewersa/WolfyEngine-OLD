@@ -14,7 +14,7 @@ namespace WolfyEngine.Controls
     {
         public static Dictionary<Type, DarkForm> Forms = new Dictionary<Type, DarkForm>
         {
-            { typeof(MovementAction), new MovementForm() }
+            //{ typeof(MovementAction), new MovementForm() }
         };
 
         public List<WolfyAction> Actions { get; set; }

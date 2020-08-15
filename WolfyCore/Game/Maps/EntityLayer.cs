@@ -18,12 +18,27 @@ namespace WolfyCore.Game
         public EntityLayer(string name, Vector2D mapSize)
         {
             Name = name;
-            Rows = new List<EntityTileRow>();
+            Rows = new List<EntityTileRow>(mapSize.Y);
             Size = mapSize;
             Entities = new List<Entity>();
             for (var i = 0; i < mapSize.Y; i++)
             {
                 Rows.Add(new EntityTileRow(mapSize.X));
+            }
+        }
+
+        public override void Initialize(GraphicsDevice graphics)
+        {
+            Rows = new List<EntityTileRow>(Size.Y);
+            for (var i = 0; i < Size.Y; i++)
+            {
+                Rows.Add(new EntityTileRow(Size.X));
+            }
+
+            foreach (var entity in Entities)
+            {
+                var transform = entity.GetComponent<TransformComponent>().GridTransform;
+                Rows[(int)transform.Y].Tiles[(int)transform.X].Entity = entity;
             }
         }
 
@@ -55,9 +70,19 @@ namespace WolfyCore.Game
             
         }
 
-        public override bool TileOccupied(Vector2 position)
+        public override bool? TileOccupied(Vector2 position)
         {
-            return Rows[(int) position.Y].Tiles[(int) position.X].Entity != Entity.Empty;
+            return Rows[(int) position.Y].Tiles[(int) position.X].Entity != Entity.Empty ? (bool?) null : false;
+        }
+
+        /// <summary>
+        /// Returns the entity at given position.
+        /// </summary>
+        /// <param name="position"></param>
+        /// <returns></returns>
+        public Entity GetEntity(Vector2 position)
+        {
+            return Rows[(int) position.Y].Tiles[(int) position.X].Entity;
         }
     }
 }

@@ -21,7 +21,7 @@ namespace WolfyECS
 
         private const int ComponentsLimit = 64;
 
-        [ProtoMember(5)] public readonly int WorldId;
+        [ProtoMember(5)] public readonly sbyte WorldId;
 
         public static World WorldInstance;
         private static readonly IdDispenser WorldIdDispenser;
@@ -51,7 +51,7 @@ namespace WolfyECS
 
         public World()
         {
-            WorldId = (int)WorldIdDispenser.GetId();
+            WorldId = (sbyte) WorldIdDispenser.GetId();
             _entityManager = new EntityManager(this.WorldId);
             _systems = new List<EntitySystem>();
             _componentManagers = new ComponentManager[ComponentsLimit];

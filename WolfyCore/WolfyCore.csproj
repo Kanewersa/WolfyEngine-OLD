@@ -93,6 +93,7 @@
     <Compile Include="ECS\Actions\Conditions\BaseVariable.cs" />
     <Compile Include="ECS\Actions\Conditions\VariableCondition.cs" />
     <Compile Include="ECS\Actions\MovementAction.cs" />
+    <Compile Include="ECS\Actions\Other\DialogAction.cs" />
     <Compile Include="ECS\Actions\TeleportAction.cs" />
     <Compile Include="ECS\Actions\Conditions\BoolCondition.cs" />
     <Compile Include="ECS\Actions\WolfyAction.cs" />

@@ -95,12 +95,12 @@ namespace WolfyCore.Controllers
             transform.GridTransform = Vector2.Zero;
             transform.Transform = Vector2.Zero;
 
-            var animation = player.AddComponent<AnimationComponent>();
-
             var collision = player.AddComponent<CollisionComponent>();
             collision.IsCollider = true;
 
             player.GetMask();
+
+            var animation = player.AddComponent<AnimationComponent>();
             var animations = new Dictionary<string, Animation>()
             {
                 { "Walk", new Animation("001-Fighter01", 4, 4) }

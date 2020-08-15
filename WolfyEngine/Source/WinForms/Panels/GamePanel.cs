@@ -101,7 +101,14 @@ namespace WolfyEngine.Controls
 
                 using (var form = new EntityEditForm())
                 {
-                    form.Initialize(selectedScheme, _world);
+                    var transform = new TransformComponent
+                    {
+                        CurrentMap = _currentMap.Id,
+                        GridTransform = position,
+                        Transform = position * Runtime.GridSize
+                    };
+
+                    form.Initialize(selectedScheme, _world, transform);
                     form.OnSave += delegate(Entity newEntity, Vector2 vector2)
                     {
                         var layer = gameEditorControl.GetCurrentLayer<EntityLayer>();
@@ -113,12 +120,6 @@ namespace WolfyEngine.Controls
                         if(gameEditorControl.CurrentMap.Entities == null)
                             gameEditorControl.CurrentMap.Entities = new List<Entity>();
                         gameEditorControl.CurrentMap.Entities.Add(newEntity);
-
-                        // Add transform component to newly created entity
-                        var transform = newEntity.GetOrCreateComponent<TransformComponent>();
-                        transform.CurrentMap = _currentMap.Id;
-                        transform.GridTransform = position;
-                        transform.Transform = position * Runtime.GridSize;
 
                     };
                     form.ShowDialog();
@@ -144,7 +145,7 @@ namespace WolfyEngine.Controls
             EntityContextMenu.Show(this, new Point(e.X, e.Y + darkToolStrip.Height));
         }
 
-        private void SetCoordinatesInfo(Vector2 vector)
+        private void SetCoordinatesInfo(object sender, Vector2 vector)
         {
             var (x, y) = vector;
             if (gameEditorControl.CurrentLayer is TileLayer lay)
@@ -294,6 +295,8 @@ namespace WolfyEngine.Controls
             // Start game here
             if (!GameRunning)
             {
+                GameRunning = true;
+
                 wolfyGameControl.Location = new Point(0, darkToolStrip.Height);
 
                 if (gameEditorControl.Size.Width > Size.Width)
@@ -308,8 +311,6 @@ namespace WolfyEngine.Controls
 
                 Runtime.GameScreenWidth = wolfyGameControl.Width;
                 Runtime.GameScreenHeight = wolfyGameControl.Height;
-
-                GameRunning = true;
             }
             else if (GamePaused)
                 GamePaused = false;

@@ -22,7 +22,7 @@ namespace WolfyEngine.Controls
         public enum Tools { Pencil, Fill }
 
         public event ControlEventHandler OnInitialize;
-        public event Vector2EventHandler OnCoordinatesChanged;
+        public event EventHandler<Vector2> OnCoordinatesChanged;
         public event MouseEventHandler OnRightClick;
         public event EntityEventHandler OnEntitySelect;
 
@@ -50,7 +50,7 @@ namespace WolfyEngine.Controls
             private set
             {
                 _tileCoordinates = value;
-                OnCoordinatesChanged?.Invoke(value);
+                OnCoordinatesChanged?.Invoke(this, value);
             }
         }
         public Color Color { get; set; } = new Color(60, 63, 65);
@@ -166,7 +166,7 @@ namespace WolfyEngine.Controls
         private void HandleSelector(MouseEventArgs e)
         {
             if (CurrentMap == null || CurrentLayer == null) return;
-            MousePosition = new Vector2((int)(e.X / TileSize.X), (int)(e.Y / CurrentMap.TileSize.Y));
+            MousePosition = new Vector2((int)(e.X / TileSize.X), (int)(e.Y / TileSize.Y));
             TileCoordinates = MousePosition;
             MousePosition *= TileSize.X;
             var width = SelectedTileRegion.Width * TileSize.X;

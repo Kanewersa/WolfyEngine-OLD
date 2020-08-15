@@ -32,7 +32,7 @@ namespace WolfyCore.Game
         public virtual void Update(GameTime gameTime)
         { }
 
-        public abstract bool TileOccupied(Vector2 position);
+        public abstract bool? TileOccupied(Vector2 position);
 
     }
 }

@@ -24,7 +24,7 @@ namespace WolfyCore.Controllers
         }
 
         /// <summary>
-        /// Loads the maps data for current project
+        /// Loads the maps data for current project.
         /// </summary>
         public void InitializeProject(bool empty)
         {
@@ -36,7 +36,7 @@ namespace WolfyCore.Controllers
         }
 
         /// <summary>
-        /// Adds given map to the project
+        /// Adds given map to the project.
         /// </summary>
         /// <param name="map"></param>
         public void AddMap(Map map)
@@ -55,7 +55,7 @@ namespace WolfyCore.Controllers
         }
 
         /// <summary>
-        /// Removes the map with given id
+        /// Removes the map with given id.
         /// </summary>
         /// <param name="id"></param>
         public void RemoveMap(int id)
@@ -71,7 +71,7 @@ namespace WolfyCore.Controllers
         }
 
         /// <summary>
-        /// Proto-serializes given map
+        /// Proto-serializes given map.
         /// </summary>
         /// <param name="map"></param>
         public void SaveMap(Map map)
@@ -82,7 +82,7 @@ namespace WolfyCore.Controllers
         }
 
         /// <summary>
-        /// Deserializes and returns map with given id
+        /// Deserializes and returns map with given id.
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
@@ -93,7 +93,7 @@ namespace WolfyCore.Controllers
                 LastMap = LoadedMaps[id];
                 return LastMap;
             }
-            var file= MapsData.Info[id].FileName;
+            var file = MapsData.Info[id].FileName;
             var path = Path.Combine(_mapsPath, file);
             var map = Serialization.ProtoDeserialize<Map>(path);
             LoadedMaps.Add(id, map);
@@ -102,7 +102,7 @@ namespace WolfyCore.Controllers
         }
 
         /// <summary>
-        /// Saves MapsData and all maps
+        /// Saves MapsData and all loaded maps.
         /// </summary>
         public void Save()
         {

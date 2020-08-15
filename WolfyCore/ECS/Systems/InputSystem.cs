@@ -44,6 +44,7 @@ namespace WolfyCore.ECS
                 input.ArrowRight = _currentKeyboardState.IsKeyDown(Keys.Right);
                 input.ArrowUp = _currentKeyboardState.IsKeyDown(Keys.Up);
                 input.LeftShift = _currentKeyboardState.IsKeyDown(Keys.LeftShift);
+                input.Enter = _currentKeyboardState.IsKeyDown(Keys.Enter);
 
                 if (input.ArrowUp)
                     MoveEntity(entity, new Vector2(0, -1));

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using DarkUI.Forms;
 using WolfyCore.Engine;
 using WolfyEngine.Engine;
@@ -78,12 +79,17 @@ namespace WolfyCore.Controllers
             }
         }
 
+        public void ReloadProject()
+        {
+            OpenProject(Path.Combine(CurrentProject.Path, CurrentProject.Name + ".proj"));
+        }
+
         public void OpenProject(Project project)
         {
             CurrentProject = project;
             CurrentProject.Initialize();
         }
-
+ 
         public void SaveCurrentProject()
         {
             CurrentProject.Save();

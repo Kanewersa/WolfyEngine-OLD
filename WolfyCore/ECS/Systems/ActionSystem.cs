@@ -25,8 +25,16 @@ namespace WolfyCore.ECS
             IterateEntities(entity =>
             {
                 var actionComponent = entity.GetComponent<ActionComponent>();
-                ActionsManager.PushActions(actionComponent.Actions);
-                entity.RemoveComponent<StartActionComponent>();
+                if (!actionComponent.Executed)
+                {
+                    ActionsManager.PushActions(actionComponent.Actions);
+                }
+
+                if (ActionsManager.Empty)
+                {
+                    entity.RemoveComponent<StartActionComponent>();
+                    entity.RemoveComponent<ActionComponent>();
+                }
             });
 
             ActionsManager.Update();

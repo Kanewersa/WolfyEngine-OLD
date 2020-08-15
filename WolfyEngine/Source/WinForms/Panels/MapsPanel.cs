@@ -3,7 +3,6 @@ using System.Linq;
 using DarkUI.Controls;
 using DarkUI.Docking;
 using WolfyEngine.Forms;
-using WolfyCore;
 using WolfyCore.Controllers;
 using WolfyCore.Game;
 
@@ -26,9 +25,14 @@ namespace WolfyEngine.Controls
             _nodeKeys = new Dictionary<DarkTreeNode, int>();
         }
 
-        public void InitializeProject(Project project)
+        public void Initialize(bool disableByDefault = false, bool displayToolStrip = true)
         {
-            if (project == null)
+            if (!displayToolStrip)
+            {
+                toolStrip.Hide();
+            }
+
+            if (disableByDefault)
             {
                 toolStrip.Enabled = false;
                 return;
@@ -37,6 +41,7 @@ namespace WolfyEngine.Controls
             RefreshTree();
             toolStrip.Enabled = true;
         }
+
 
         private void BuildTree()
         {

@@ -22,12 +22,12 @@ namespace WolfyEngine.Forms
     {
         private List<DarkDockContent> _toolWindows = new List<DarkDockContent>();
 
-        private GamePanel GamePanel { get; set; }
-        private TilesetEditorPanel TilesetEditorPanel { get; set; }
-        private TilesetPainterPanel TilesetPainterPanel { get; set; }
-        private LayersPanel LayersPanel { get; set; }
-        private TilesetsPanel TilesetsPanel { get; set; }
-        private MapsPanel MapsPanel { get; set; }
+        private GamePanel GamePanel { get; }
+        private TilesetEditorPanel TilesetEditorPanel { get; }
+        private TilesetPainterPanel TilesetPainterPanel { get; }
+        private LayersPanel LayersPanel { get; }
+        private TilesetsPanel TilesetsPanel { get; }
+        private MapsPanel MapsPanel { get; }
         public MainForm()
         {
             AutoScaleMode = AutoScaleMode.None;
@@ -92,11 +92,18 @@ namespace WolfyEngine.Forms
             saveProjectMenuItem.ShortcutKeys = Keys.Control | Keys.S; // Save project
         }
 
-        private void GamePanel_OnGameStateChanged(object sender, bool e)
+        private void GamePanel_OnGameStateChanged(object sender, bool gameRunning)
         {
+            SaveProjectMenuItem_Click(this, null);
+
             foreach (var window in _toolWindows.Where(window => !(window is GamePanel)))
             {
-                window.Enabled = !e;
+                window.Enabled = !gameRunning;
+            }
+
+            if (!gameRunning)
+            {
+                ProjectsController.Instance.ReloadProject();
             }
         }
 
@@ -184,7 +191,7 @@ namespace WolfyEngine.Forms
             ContentBuilder.Instance.Initialize();
 
             // Initialize project in controls
-            MapsPanel.InitializeProject(project);
+            MapsPanel.Initialize(project == null);
             TilesetsPanel.InitializeProject(project);
             GamePanel.InitializeProject(project);
         }
@@ -204,7 +211,6 @@ namespace WolfyEngine.Forms
             { 
                 memoryUsageLabel.Text = "Memory: " + proc.PrivateMemorySize64/1048576 + " MB";
             }
-           
         }
 
         #endregion
@@ -290,23 +296,79 @@ namespace WolfyEngine.Forms
 
         #endregion
 
+        public World World;
+
         private void button1_Click(object sender, EventArgs e)
         {
-            Console.WriteLine("Entities count: " + GameController.Instance.GetEntities());
+            /*for (int i = 0; i < 1024; i++)
+            {
+                var world = new World();
+
+                World.SetWorld(world);
+
+                var sys = new MovementSystem();
+                var sys2 = new ActionSystem();
+                var sys3 = new RenderSystem();
+                var sys4 = new CollisionSystem();
+
+                world.AddSystem(sys);
+                world.AddSystem(sys2);
+                world.AddSystem(sys3);
+                world.AddSystem(sys4);
+
+                for (int j = 0; j < 100; j++)
+                {
+                    var entity = world.CreateEntity();
+                    entity.AddComponent<TransformComponent>();
+                    entity.AddComponent<ActionComponent>();
+                    entity.AddComponent<AnimationComponent>();
+                    entity.AddComponent<InGameNameComponent>();
+                    entity.AddComponent<RandomMovementComponent>();
+                }
+
+                world.Initialize();
+                Worlds.Add(world);
+            }*/
+
+            World = new World();
+            World.SetWorld(World);
+            var sys = new MovementSystem();
+            var sys2 = new ActionSystem();
+            var sys3 = new RenderSystem();
+            var sys4 = new CollisionSystem();
+
+            World.AddSystem(sys);
+            World.AddSystem(sys2);
+            World.AddSystem(sys3);
+            World.AddSystem(sys4);
+            
+
+            for (int i = 0; i < 1000; i++)
+            {
+                var entity = World.CreateEntity();
+                entity.AddComponent<TransformComponent>();
+                entity.AddComponent<ActionComponent>();
+                entity.AddComponent<AnimationComponent>();
+                entity.AddComponent<InGameNameComponent>();
+                entity.AddComponent<RandomMovementComponent>();
+            }
+
+
+            /*Console.WriteLine("Entities count: " + GameController.Instance.GetEntities());
             var entity = new Entity(1, 1);
             Console.WriteLine("First entity mask: ");
             
             var world = GameController.Instance.World;
-            world.Debug();
+            world.Debug();*/
         }
 
         private void playerToolStripMenuItem_Click(object sender, EventArgs e)
         {
             using (var form = new EntityEditForm())
             {
-                var player = new Entity(1,1);
-                var comp = player.GetComponent<MovementComponent>();
-                comp.Speed = 5;
+                var player = new Entity(1, World.WorldInstance.WorldId);
+                /*var comp = player.GetComponent<MovementComponent>();
+                comp.Speed = 5;*/
                 form.Initialize(player, player.GetComponents(), World.WorldInstance);
                 form.ShowDialog();
             }

@@ -11,7 +11,7 @@ namespace WolfyEngine.Controls
             InitializeComponent();
         }
 
-        public virtual void Initialize(Entity entity) { }
+        public virtual void Initialize(Entity entity) { Entity = entity; }
 
         public virtual void Unload(Entity entity) { }
 

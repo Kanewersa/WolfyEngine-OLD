@@ -5,7 +5,7 @@ namespace WolfyCore.Scenes
 {
     public class MenuScene : Scene
     {
-        public MenuScene(int screenWidth, int screenHeight) : base(screenWidth, screenHeight)
+        public MenuScene(int screenWidth, int screenHeight)
         {
 
         }

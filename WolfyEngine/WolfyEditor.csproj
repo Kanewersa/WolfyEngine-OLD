@@ -108,9 +108,16 @@
       <DependentUpon>Icons.resx</DependentUpon>
     </Compile>
     <Compile Include="Source\Controllers\ContentBuilder.cs" />
+    <Compile Include="Source\GridRenderer.cs" />
     <Compile Include="Source\ProgramSettings.cs" />
     <Compile Include="Source\Project.cs" />
     <Compile Include="Source\Controllers\ProjectsController.cs" />
+    <Compile Include="Source\WinForms\Controls\ActionControls\ListDisplay.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Source\WinForms\Controls\ActionControls\ListDisplay.Designer.cs">
+      <DependentUpon>ListDisplay.cs</DependentUpon>
+    </Compile>
     <Compile Include="Source\WinForms\Controls\ActionControls\NewActionsListDisplay.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -126,6 +133,12 @@
     <Compile Include="Source\WinForms\Controls\EntityContextMenu.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Source\WinForms\Controls\MapSelectControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Source\WinForms\Controls\MapSelectControl.Designer.cs">
+      <DependentUpon>MapSelectControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="Source\WinForms\Controls\TilesetEditorControl.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -139,11 +152,17 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Source\WinForms\Forms\ActionsForms\ActionBinding.cs" />
-    <Compile Include="Source\WinForms\Forms\ActionsForms\MovementForm.cs">
+    <Compile Include="Source\WinForms\Forms\ActionsForms\BaseActionForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Source\WinForms\Forms\ActionsForms\MovementForm.Designer.cs">
-      <DependentUpon>MovementForm.cs</DependentUpon>
+    <Compile Include="Source\WinForms\Forms\ActionsForms\BaseActionForm.Designer.cs">
+      <DependentUpon>BaseActionForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Source\WinForms\Forms\ActionsForms\Movement\TeleportActionForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Source\WinForms\Forms\ActionsForms\Movement\TeleportActionForm.Designer.cs">
+      <DependentUpon>TeleportActionForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Source\WinForms\Forms\ActionsForms\NewActionForm.cs">
       <SubType>Form</SubType>
@@ -151,11 +170,11 @@
     <Compile Include="Source\WinForms\Forms\ActionsForms\NewActionForm.Designer.cs">
       <DependentUpon>NewActionForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Source\WinForms\Forms\ActionsForms\TeleportForm.cs">
+    <Compile Include="Source\WinForms\Forms\ActionsForms\Other\StartDialogForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Source\WinForms\Forms\ActionsForms\TeleportForm.Designer.cs">
-      <DependentUpon>TeleportForm.cs</DependentUpon>
+    <Compile Include="Source\WinForms\Forms\ActionsForms\Other\StartDialogForm.Designer.cs">
+      <DependentUpon>StartDialogForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Source\WinForms\Forms\EntityForms\ComponentBinding.cs" />
     <Compile Include="Source\WinForms\Forms\EntityForms\EntityEditForm.cs">
@@ -163,6 +182,12 @@
     </Compile>
     <Compile Include="Source\WinForms\Forms\EntityForms\EntityEditForm.Designer.cs">
       <DependentUpon>EntityEditForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Source\WinForms\Forms\MapSelectForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Source\WinForms\Forms\MapSelectForm.Designer.cs">
+      <DependentUpon>MapSelectForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Source\WinForms\Forms\NewLayerForm.cs">
       <SubType>Form</SubType>
@@ -218,6 +243,12 @@
     </Compile>
     <Compile Include="Source\WinForms\Panels\EntityPanels\MovementComponentPanel.Designer.cs">
       <DependentUpon>MovementComponentPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Source\WinForms\Panels\MapSelectPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Source\WinForms\Panels\MapSelectPanel.Designer.cs">
+      <DependentUpon>MapSelectPanel.cs</DependentUpon>
     </Compile>
     <Compile Include="Source\WinForms\Panels\ScrollablePanel.cs">
       <SubType>Component</SubType>
@@ -329,11 +360,23 @@
     <EmbeddedResource Include="Source\WinForms\Controls\ActionControls\NewConditionsListDisplay.resx">
       <DependentUpon>NewConditionsListDisplay.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Source\WinForms\Forms\ActionsForms\BaseActionForm.resx">
+      <DependentUpon>BaseActionForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Source\WinForms\Forms\ActionsForms\Movement\TeleportActionForm.resx">
+      <DependentUpon>TeleportActionForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Source\WinForms\Forms\ActionsForms\NewActionForm.resx">
       <DependentUpon>NewActionForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Source\WinForms\Forms\ActionsForms\Other\StartDialogForm.resx">
+      <DependentUpon>StartDialogForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Source\WinForms\Forms\EntityForms\EntityEditForm.resx">
       <DependentUpon>EntityEditForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Source\WinForms\Forms\MapSelectForm.resx">
+      <DependentUpon>MapSelectForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Source\WinForms\Forms\NewLayerForm.resx">
       <DependentUpon>NewLayerForm.cs</DependentUpon>
@@ -367,6 +410,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Source\WinForms\Panels\LayersPanel.resx">
       <DependentUpon>LayersPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Source\WinForms\Panels\MapSelectPanel.resx">
+      <DependentUpon>MapSelectPanel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Source\WinForms\Panels\MapsPanel.resx">
       <DependentUpon>MapsPanel.cs</DependentUpon>

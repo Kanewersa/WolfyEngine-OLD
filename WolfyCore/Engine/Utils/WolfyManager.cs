@@ -69,6 +69,7 @@ namespace WolfyEngine
             var wolfyAction = RuntimeTypeModel.Default[typeof(WolfyAction)];
             wolfyAction.AddSubType(101, typeof(MovementAction));
             wolfyAction.AddSubType(102, typeof(TeleportAction));
+            wolfyAction.AddSubType(103, typeof(DialogAction));
 
         }
 

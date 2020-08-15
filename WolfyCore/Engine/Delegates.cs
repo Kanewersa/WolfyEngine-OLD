@@ -17,5 +17,5 @@ namespace WolfyCore.Engine
 
     public delegate void EntitySchemeHandler(EntityScheme scheme);
 
-    public delegate void Vector2EventHandler(Vector2 vector);
+    public delegate void TransformEvent(int mapId, Vector2 transform);
 }
