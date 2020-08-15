@@ -29,6 +29,8 @@ namespace WolfyCore.Game
 
         public override void Initialize(GraphicsDevice graphics)
         {
+            if(Entities == null) Entities = new List<Entity>();
+
             Rows = new List<EntityTileRow>(Size.Y);
             for (var i = 0; i < Size.Y; i++)
             {
@@ -37,8 +39,10 @@ namespace WolfyCore.Game
 
             foreach (var entity in Entities)
             {
+                Console.WriteLine("Setting position of {0}", entity.Id);
                 var transform = entity.GetComponent<TransformComponent>().GridTransform;
                 Rows[(int)transform.Y].Tiles[(int)transform.X].Entity = entity;
+                Console.WriteLine("Position is: {0}", transform);
             }
         }
 
@@ -62,7 +66,17 @@ namespace WolfyCore.Game
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            
+            for (var y = 0; y < Size.Y; y++)
+            {
+                for (var x = 0; x < Size.X; x++)
+                {
+                    var entity = Rows[y].Tiles[x].Entity;
+                    if (entity == Entity.Empty)
+                        continue;
+
+                    // TODO Draw entities in editor.
+                }
+            }
         }
 
         public override void Update(GameTime gameTime)

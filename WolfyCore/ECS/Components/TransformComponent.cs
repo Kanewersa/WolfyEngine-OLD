@@ -1,4 +1,6 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using System.Runtime.Serialization;
+using Microsoft.Xna.Framework;
 using ProtoBuf;
 using WolfyCore.Controllers;
 using WolfyCore.Game;
@@ -22,14 +24,14 @@ namespace WolfyCore.ECS
         [ProtoMember(2)] public Vector2 GridTransform;
 
         /// <summary>
-        /// Index of the map entity is in.
+        /// Index of the map entity is on.
         /// </summary>
         [ProtoMember(3)] public int CurrentMap;
 
         public TransformComponent() { }
 
         /// <summary>
-        /// Returns instance of current map.
+        /// Returns the instance of current map.
         /// </summary>
         /// <returns></returns>
         public Map GetMap()

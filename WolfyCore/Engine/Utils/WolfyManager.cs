@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Microsoft.Xna.Framework;
 using ProtoBuf.Meta;
 using WolfyCore.Actions;
 using WolfyCore.ECS;
@@ -21,6 +22,9 @@ namespace WolfyEngine
             // Set entity component subtypes
             ComponentTypes = ReflectiveEnumerator.GetSubTypes<EntityComponent>();
             SystemTypes = ReflectiveEnumerator.GetSubTypes<EntitySystem>();
+
+            // Allow Vector2 serialization
+            RuntimeTypeModel.Default.Add(typeof(Vector2), false).Add(1, "X").Add(2, "Y");
 
             // TODO Fix dynamic subtypes loading for protobuf
             // Add systems to protobuf

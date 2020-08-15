@@ -117,10 +117,6 @@ namespace WolfyEngine.Controls
                         if(layer.Entities == null)
                             layer.Entities = new List<Entity>();
                         layer.Entities.Add(newEntity);
-                        if(gameEditorControl.CurrentMap.Entities == null)
-                            gameEditorControl.CurrentMap.Entities = new List<Entity>();
-                        gameEditorControl.CurrentMap.Entities.Add(newEntity);
-
                     };
                     form.ShowDialog();
                 }

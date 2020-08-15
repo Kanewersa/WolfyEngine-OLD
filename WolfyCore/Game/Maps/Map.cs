@@ -17,7 +17,8 @@ namespace WolfyCore.Game
         [ProtoIgnore] public Vector2D TileSize => Runtime.TileSize;
         [ProtoMember(4)] public Vector2D Size { get; set; }
         [ProtoMember(5)] public List<BaseLayer> Layers { get; set; } = new List<BaseLayer>();
-        [ProtoMember(6)] public List<Entity> Entities { get; set; }
+        [ProtoMember(6)] public EntityLayer EntityLayer { get; set; }
+        [ProtoIgnore] public List<Entity> Entities => EntityLayer.Entities;
         [ProtoIgnore] private readonly int DrawOffset = 2;
 
         public Map() { }
@@ -26,22 +27,18 @@ namespace WolfyCore.Game
         {
             Name = name;
             Size = mapSize;
-            Layers = new List<BaseLayer>
-            {
-                new EntityLayer("Entities layer", mapSize) { Order = 1 }
-            };
-            Entities = new List<Entity>();
+            EntityLayer = new EntityLayer("Entities layer", mapSize) { Order = 1 };
+            Layers = new List<BaseLayer> { EntityLayer };
         }
 
         public void Initialize(GraphicsDevice graphics, World world)
         {
+            EntityLayer = Layers.First(x => x is EntityLayer) as EntityLayer;
+
             foreach (var layer in Layers)
             {
                 layer.Initialize(graphics);
             }
-
-            if(Entities == null)
-                Entities = new List<Entity>();
         }
 
         public void LoadContent(ContentManager content)
