@@ -5,6 +5,7 @@ using DarkUI.Docking;
 using WolfyEngine.Forms;
 using WolfyCore.Controllers;
 using WolfyCore.Game;
+using WolfyECS;
 
 namespace WolfyEngine.Controls
 {
@@ -108,6 +109,12 @@ namespace WolfyEngine.Controls
             OnMapChanged?.Invoke(map);
             RefreshTree();
             mapsTree.Nodes[0].Expanded = true;
+
+            if (mapsTree.Nodes.Count <= 1)
+            {
+                map.Entities.Add(Entity.Player);
+            }
+
             mapsTree.SelectNode(mapsTree.Nodes[0].Nodes.Last());
         }
     }

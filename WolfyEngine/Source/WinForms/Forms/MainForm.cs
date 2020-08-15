@@ -94,7 +94,10 @@ namespace WolfyEngine.Forms
 
         private void GamePanel_OnGameStateChanged(object sender, bool gameRunning)
         {
-            SaveProjectMenuItem_Click(this, null);
+            if (gameRunning)
+            {
+                SaveProjectMenuItem_Click(this, null);
+            }
 
             foreach (var window in _toolWindows.Where(window => !(window is GamePanel)))
             {

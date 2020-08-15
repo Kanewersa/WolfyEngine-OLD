@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using DarkUI.Forms;
 using WolfyCore.Engine;
@@ -61,6 +62,34 @@ namespace WolfyCore.Controllers
             var project = new Project(name, path, new Vector2D(result, result));
             project.Save();
             CurrentProject = project;
+            ImportDefaultAssets(project);
+        }
+
+        /// <summary>
+        /// Imports some default assets to the project.
+        /// TODO: Import defaults assets only during development.
+        /// </summary>
+        private void ImportDefaultAssets(Project project)
+        {
+            var spritesPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Content", "Assets", "Sprites");
+            var directory = new DirectoryInfo(spritesPath);
+            var files = directory.GetFiles("*");
+            Directory.CreateDirectory(PathsController.Instance.SpritesPath);
+
+            foreach (var sprite in files)
+            {
+                sprite.CopyTo(Path.Combine(PathsController.Instance.SpritesPath, sprite.Name));
+            }
+
+            var tilesetsPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Content", "Assets", "Tilesets");
+            directory = new DirectoryInfo(tilesetsPath);
+            files = directory.GetFiles("*");
+            Directory.CreateDirectory(PathsController.Instance.TilesetsGraphicsPath);
+
+            foreach (var tileset in files)
+            {
+                tileset.CopyTo(Path.Combine(PathsController.Instance.TilesetsGraphicsPath, tileset.Name));
+            }
         }
 
         public void OpenProject(string path)
