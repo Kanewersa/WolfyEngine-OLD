@@ -10,7 +10,7 @@ namespace WolfyCore.ECS
     {
         [ProtoMember(1)] public Vector2 DirectionVector;
         [ProtoIgnore] public int Direction => WolfyHelper.GetDirection(DirectionVector);
-        [ProtoMember(2)] public bool IsMoving;
+        [ProtoMember(2)] public bool LockedMovement;
         [ProtoMember(3)] public float Speed;
 
         // Editor fields

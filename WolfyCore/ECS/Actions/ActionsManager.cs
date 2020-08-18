@@ -56,6 +56,7 @@ namespace WolfyCore.Actions
             {
                 if (CurrentAction.Completed)
                 {
+                    Console.WriteLine("Finished action! {0} actions left.", _pendingActions.Count);
                     EndCurrentAction();
                     return;
                 }
@@ -93,6 +94,7 @@ namespace WolfyCore.Actions
         /// </summary>
         private void EndCurrentAction()
         {
+            CurrentAction.Completed = false;
             CurrentAction = null;
             _pendingActions.RemoveFromFront();
         }
@@ -111,7 +113,7 @@ namespace WolfyCore.Actions
         /// Adds all actions in given list to pending actions.
         /// </summary>
         /// <param name="actions"></param>
-        public void PushActions(List<WolfyAction> actions)
+        public void PushActions(List<WolfyAction> actions = null)
         {
             _pendingActions.InsertRange(0, actions);
         }

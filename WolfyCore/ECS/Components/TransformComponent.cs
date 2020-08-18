@@ -1,6 +1,4 @@
-﻿using System;
-using System.Runtime.Serialization;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using ProtoBuf;
 using WolfyCore.Controllers;
 using WolfyCore.Game;

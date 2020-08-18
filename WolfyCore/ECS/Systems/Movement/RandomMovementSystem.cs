@@ -21,11 +21,11 @@ namespace WolfyCore.ECS
         {
             IterateEntities(entity =>
             {
-                var random = entity.GetComponent<RandomMovementComponent>();
-                var movement = entity.GetComponent<MovementComponent>();
-
                 if (entity.HasComponent<MovementActionComponent>()) return;
-                //if (movement.IsMoving || movement.WasMoving) return;
+                var movement = entity.GetComponent<MovementComponent>();
+                if (movement.LockedMovement) return;
+
+                var random = entity.GetComponent<RandomMovementComponent>();
 
                 random.Timer -= (float)gameTime.ElapsedGameTime.TotalSeconds;
 
@@ -33,13 +33,14 @@ namespace WolfyCore.ECS
                 {
                     var transform = entity.GetComponent<TransformComponent>();
                     var movementAction = entity.AddComponent<MovementActionComponent>();
+
                     var direction = Random.GetRandomDirection();
 
                     movementAction.Set(transform.GridTransform, transform.GridTransform + direction, false);
 
                     movement.DirectionVector = direction;
 
-                    random.Timer = random.Frequency;
+                    random.Timer = random.Delay;
                 }
             });
         }

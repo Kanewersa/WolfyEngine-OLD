@@ -182,12 +182,31 @@ namespace WolfyECS
 
         #region Components
 
+        public void EnableComponent<T>(Entity e) where T : EntityComponent, new()
+        {
+            GetComponentManager<T>().EnableComponent(e);
+
+            // Check if systems are interested in components
+            var oldMask = _entityMasks[e];
+            _entityMasks[e] = _entityMasks[e].RemoveComponent<T>();
+            UpdateEntityMask(e, oldMask);
+        }
+
+        public void FreezeComponent<T>(Entity e) where T : EntityComponent, new()
+        {
+            GetComponentManager<T>().FreezeComponent(e);
+
+            // Check if systems are interested in components
+            var oldMask = _entityMasks[e];
+            _entityMasks[e] = _entityMasks[e].RemoveComponent<T>();
+            UpdateEntityMask(e, oldMask);
+        }
+
         public T AddComponent<T>(Entity e) where T : EntityComponent, new()
         {
-            var manager = GetComponentManager<T>();
             var component = new T();
-            manager.AddComponent(e, component);
-            
+            GetComponentManager<T>().AddComponent(e, component);
+
             // Check if systems are interested in component
             var oldMask = _entityMasks[e];
             _entityMasks[e] = _entityMasks[e].AddComponent<T>();
@@ -197,8 +216,7 @@ namespace WolfyECS
 
         public void AddComponent<T>(Entity e, T component) where T : EntityComponent, new()
         {
-            var manager = GetComponentManager<T>();
-            manager.AddComponent(e, component);
+            GetComponentManager<T>().AddComponent(e, component);
 
             // Check if systems are interested in component
             var oldMask = _entityMasks[e];
@@ -208,16 +226,13 @@ namespace WolfyECS
 
         public bool HasComponent<T>(Entity e) where T : EntityComponent, new()
         {
-            var manager = GetComponentManager<T>();
-            return manager.HasComponent(e);
+            return GetComponentManager<T>().HasComponent(e);
         }
 
 
         public T GetComponent<T>(Entity e) where T : EntityComponent, new()
-        { 
-            var manager = GetComponentManager<T>();
-            var comp = manager.GetComponent(e);
-            return (T) comp;
+        {
+            return (T)GetComponentManager<T>().GetComponent(e);
         }
 
         public List<EntityComponent> GetComponents(Entity e)
@@ -231,9 +246,8 @@ namespace WolfyECS
 
         public void RemoveComponent<T>(Entity e) where T : EntityComponent, new()
         {
-            var manager = GetComponentManager<T>();
-            manager.DestroyComponent(e);
-            
+            GetComponentManager<T>().DestroyComponent(e);
+
             // Check if systems are interested in components
             var oldMask = _entityMasks[e];
             _entityMasks[e] = _entityMasks[e].RemoveComponent<T>();

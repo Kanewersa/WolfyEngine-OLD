@@ -5,6 +5,7 @@ using ProtoBuf;
 using WolfyCore.Controllers;
 using WolfyCore.Game;
 using WolfyECS;
+using WolfyEngine;
 
 namespace WolfyCore.ECS
 {
@@ -66,8 +67,11 @@ namespace WolfyCore.ECS
 
                         if(metEntity.GetIfHasComponent(out ActionComponent action))
                         {
+                            Console.WriteLine("Met entity has {0} actions.", action.Actions.Count);
                             entity.AddComponent(action);
-                            entity.AddComponent<StartActionComponent>();
+                            var startAction = new StartActionComponent(metEntity);
+                            entity.AddComponent(startAction);
+                            metEntity.GetComponent<MovementComponent>().LockedMovement = true;
                         }
                     }
                 }

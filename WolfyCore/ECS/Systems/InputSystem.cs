@@ -60,6 +60,7 @@ namespace WolfyCore.ECS
         private void MoveEntity(Entity e, Vector2 direction)
         {
             if (e.HasComponent<MovementActionComponent>()
+                || e.HasComponent<StartActionComponent>()
                 || !e.HasComponent<TransformComponent>()
                 || !e.HasComponent<MovementComponent>()) return;
 

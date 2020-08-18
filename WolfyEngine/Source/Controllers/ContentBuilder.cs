@@ -15,7 +15,7 @@ namespace WolfyCore.Controllers
 
         private RuntimeBuilder RuntimeBuilder { get; set; }
 
-        public TargetPlatform TargetPlatform = TargetPlatform.DesktopGL;
+        public TargetPlatform TargetPlatform = TargetPlatform.Windows;
         public GraphicsProfile GraphicsProfile = GraphicsProfile.HiDef;
         public bool CompressContent { get; set; } = true; 
 
@@ -31,6 +31,9 @@ namespace WolfyCore.Controllers
             {
                 Logger = new StringBuilderLogger()
             };
+
+            // Add GeonBit.UI data types
+            RuntimeBuilder.AddReferences("C:\\Users\\Kanew\\source\\repos\\WolfyEngine\\packages\\GeonBit.UI.3.4.0.1\\lib\\geonbitui\\DataTypes.dll");
         }
 
         public async Task BuildContent(string[] files)

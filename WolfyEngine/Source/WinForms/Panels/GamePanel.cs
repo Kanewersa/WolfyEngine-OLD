@@ -4,7 +4,6 @@ using System.Drawing;
 using System.Windows.Forms;
 using DarkUI.Docking;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using WolfyECS;
 using WolfyEngine.Forms;
 using WolfyCore;
@@ -295,15 +294,19 @@ namespace WolfyEngine.Controls
 
                 wolfyGameControl.Location = new Point(0, darkToolStrip.Height);
 
-                if (gameEditorControl.Size.Width > Size.Width)
+                wolfyGameControl.Size = new Size(Size.Width - 32, Size.Height - 32);
+                // TODO: Fix wolfyGameControl size on resize.
+                /*if (gameEditorControl.Size.Width > Size.Width)
                     wolfyGameControl.Size = gameEditorControl.Size.Height > Size.Height ? Size : new Size(Size.Width, gameEditorControl.Height);
                 else
-                    wolfyGameControl.Size = gameEditorControl.Size.Height > Size.Height ? new Size(gameEditorControl.Width, Size.Height) : gameEditorControl.Size;
+                    wolfyGameControl.Size = gameEditorControl.Size.Height > Size.Height ? new Size(gameEditorControl.Width, Size.Height) : gameEditorControl.Size;*/
 
                 wolfyGameControl.Visible = true;
                 wolfyGameControl.LoadMap(_currentMap);
                 wolfyGameControl.LoadWorld(World.WorldInstance);
                 wolfyGameControl.InitializeScene();
+                wolfyGameControl.InitializeGui();
+                gameEditorControl.Visible = false;
 
                 Runtime.GameScreenWidth = wolfyGameControl.Width;
                 Runtime.GameScreenHeight = wolfyGameControl.Height;
@@ -330,7 +333,9 @@ namespace WolfyEngine.Controls
             GameRunning = false;
 
             wolfyGameControl.UnloadScene();
+            wolfyGameControl.UnloadGui();
             wolfyGameControl.Visible = false;
+            gameEditorControl.Visible = true;
             
             RefreshButtons();
         }

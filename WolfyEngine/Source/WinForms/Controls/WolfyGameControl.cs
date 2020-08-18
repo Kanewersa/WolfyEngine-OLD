@@ -1,12 +1,16 @@
 ﻿using System;
 using System.Linq;
+using System.Windows.Forms;
+using GeonBit.UI;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Input;
 using MonoGame.Forms.Controls;
 using WolfyECS;
 using WolfyEngine.Utils;
 using WolfyCore.Game;
 using WolfyCore.Scenes;
+using Entity = GeonBit.UI.Entities.Entity;
 
 namespace WolfyEngine.Controls
 {
@@ -42,10 +46,20 @@ namespace WolfyEngine.Controls
             Scene = null;
         }
 
+        public void UnloadGui()
+        {
+            UserInterface.Active = null;
+        }
+
+        public void InitializeGui()
+        {
+            UserInterface.Initialize(Editor.Content, BuiltinThemes.hd);
+            // TODO: Create gui layout here!
+        }
+
         protected override void Initialize()
         {
             base.Initialize();
-
             Selector.Initialize(GraphicsDevice);
             LoadContent(Editor.Content);
         }
@@ -59,15 +73,36 @@ namespace WolfyEngine.Controls
         {
             base.Draw();
             Scene.Draw(Editor.spriteBatch, _gameTime);
+
+            // Draw the gui
+            if (UserInterface.Active != null)
+            {
+                UserInterface.Active.Draw(Editor.spriteBatch);
+                UserInterface.Active.DrawCursor(Editor.spriteBatch);
+            }
         }
 
         protected override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
+
+            if (UserInterface.Active != null)
+            {
+                UserInterface.Active.Update(gameTime);
+                UserInterface.Active.MouseInputProvider.Update(gameTime);
+
+                var positionDiff = new Point(PointToScreen(Location).X - Location.X, PointToScreen(Location).Y - Location.Y);
+                UserInterface.Active.MouseInputProvider.UpdateMousePosition(new Vector2(MousePosition.X - positionDiff.X,
+                                                                                        MousePosition.Y - positionDiff.Y));
+                // TODO: Update gui here!
+            }
+
+
             Focus();
             _gameTime = gameTime;
             if (Paused) return;
             Scene.Update(gameTime);
+            
         }
 
         public void StartGame(ContentManager content)
