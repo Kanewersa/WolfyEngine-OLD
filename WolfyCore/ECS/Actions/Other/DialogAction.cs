@@ -12,7 +12,7 @@ namespace WolfyCore.Actions
 {
     [ProtoContract] public class DialogAction : WolfyAction
     {
-        [ProtoMember(1)] private readonly string _content;
+        [ProtoMember(1)] public string Content;
         [ProtoIgnore] private static Panel _messagePanel;
         [ProtoIgnore] private static TypeWriterAnimator _typeWriterAnimator;
         [ProtoIgnore] private static float _dialogFastForwardTimer = 10f;
@@ -23,7 +23,7 @@ namespace WolfyCore.Actions
         {
             Asynchronous = false;
             Target = target;
-            _content = content;
+            Content = content;
         }
 
         /// <summary>
@@ -39,7 +39,7 @@ namespace WolfyCore.Actions
             var text = _messagePanel.AddChild(new Paragraph(@""));
             _typeWriterAnimator = (TypeWriterAnimator) text.AttachAnimator(new TypeWriterAnimator()
             {
-                TextToType = _content
+                TextToType = Content
             });
             _typeWriterAnimator.SpeedFactor = 10f;
         }
@@ -69,7 +69,7 @@ namespace WolfyCore.Actions
 
         public override string GetDescription()
         {
-            return "Dialog: " + _content;
+            return "Dialog: " + Content;
         }
     }
 }

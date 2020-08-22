@@ -21,5 +21,12 @@ namespace WolfyEngine.Forms
         {
             return TextBox.Text.Length >= 1;
         }
+
+        public override void LoadAction(WolfyAction action)
+        {
+            var dialog = (DialogAction)action;
+
+            TextBox.Text = dialog.Content;
+        }
     }
 }

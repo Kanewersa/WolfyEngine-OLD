@@ -79,17 +79,18 @@
             this.ActionsListView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ActionsListView.Location = new System.Drawing.Point(0, 0);
             this.ActionsListView.Name = "ActionsListView";
-            this.ActionsListView.Size = new System.Drawing.Size(606, 499);
+            this.ActionsListView.Size = new System.Drawing.Size(606, 473);
             this.ActionsListView.TabIndex = 2;
             this.ActionsListView.Text = "Action";
+            this.ActionsListView.DoubleClick += new System.EventHandler(this.OpenSelectActionForm);
             // 
             // ActionComponentPanel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Transparent;
-            this.Controls.Add(this.ToolStrip);
             this.Controls.Add(this.ActionsListView);
+            this.Controls.Add(this.ToolStrip);
             this.DockText = "Action";
             this.Name = "ActionComponentPanel";
             this.Size = new System.Drawing.Size(606, 499);

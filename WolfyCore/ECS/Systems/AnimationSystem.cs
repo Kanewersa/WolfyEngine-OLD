@@ -44,14 +44,9 @@ namespace WolfyCore.ECS
                 SetAnimations(isMoving, animation);
 
                 animation.AnimationManager.Update(gameTime);
-
-                if (isMoving)
-                {
-                    var transform = entity.GetComponent<TransformComponent>();
-                    // TODO Direction should be changeable even when entity is not moving.
-                    animation.AnimationManager.SetDirection(movement.Direction);
-                    animation.Position = transform.Transform;
-                }
+                var transform = entity.GetComponent<TransformComponent>();
+                animation.Position = transform.Transform;
+                animation.SetDirection(movement.Direction);
             });
         }
 

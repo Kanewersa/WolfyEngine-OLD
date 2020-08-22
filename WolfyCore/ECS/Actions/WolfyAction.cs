@@ -39,7 +39,6 @@ namespace WolfyCore.Actions
         /// <returns></returns>
         public abstract string GetDescription();
 
-
         /// <summary>
         /// Completes the action.
         /// </summary>

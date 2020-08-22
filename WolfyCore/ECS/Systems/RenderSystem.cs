@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using ProtoBuf;
 using WolfyECS;
@@ -12,7 +13,7 @@ namespace WolfyCore.ECS
     [ProtoContract] public class RenderSystem : EntitySystem
     {
         public Matrix CameraTransform { get; private set; }
-
+        public Effect ColorFilter { get; private set; }
         public RenderSystem()
         {
             CameraTransform = new Matrix(0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0);
@@ -24,6 +25,12 @@ namespace WolfyCore.ECS
             RequireComponent<CameraComponent>();
         }
 
+        public override void LoadContent(ContentManager content)
+        {
+            // TODO: LUT Shaders
+            //ColorFilter = content.Load<Effect>("path/to/effect");
+        }
+
         public override void Update(GameTime gameTime)
         {
 
@@ -31,7 +38,7 @@ namespace WolfyCore.ECS
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            spriteBatch.Begin(transformMatrix: CameraTransform, samplerState: SamplerState.PointClamp);
+            spriteBatch.Begin(transformMatrix: CameraTransform, samplerState: SamplerState.PointClamp, blendState: BlendState.AlphaBlend);
             IterateEntities(entity =>
             {
                 var transform = entity.GetComponent<TransformComponent>();

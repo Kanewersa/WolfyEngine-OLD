@@ -21,6 +21,8 @@ namespace WolfyEngine.Forms
             Entity = entity;
         }
 
+        public virtual void LoadAction(WolfyAction action) { throw new Exception("LoadAction was not overridden in " + GetType()); }
+
         protected virtual WolfyAction CreateAction() { return null; }
 
         protected virtual bool ValidateAction() { return true; }

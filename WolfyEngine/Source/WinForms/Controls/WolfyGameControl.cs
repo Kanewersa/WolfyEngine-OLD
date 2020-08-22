@@ -72,6 +72,8 @@ namespace WolfyEngine.Controls
         protected override void Draw()
         {
             base.Draw();
+            GraphicsDevice.Clear(Color.Black);
+
             Scene.Draw(Editor.spriteBatch, _gameTime);
 
             // Draw the gui

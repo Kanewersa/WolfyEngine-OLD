@@ -1,8 +1,8 @@
-﻿using System;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using ProtoBuf;
+using System;
 
 namespace WolfyCore.Engine
 {
@@ -16,7 +16,7 @@ namespace WolfyCore.Engine
             {
                 _animation = value;
                 if(Animation.Image.Texture != null)
-                    GetAnimationOffset(_animation);
+                    SetAnimationOffset(_animation);
             }
         }
 
@@ -41,7 +41,15 @@ namespace WolfyCore.Engine
 
         public void LoadContent(ContentManager content)
         {
-            _animation?.LoadContent(content);
+            if (_animation != null)
+            {
+                _animation?.LoadContent(content);
+                SetAnimationOffset(_animation);
+            }
+            else
+            {
+                throw new Exception("Could not load animation in AnimationManager.");
+            }
         }
 
         public void Draw(SpriteBatch spriteBatch)
@@ -73,11 +81,11 @@ namespace WolfyCore.Engine
             Animation.CurrentFrame = 0;
         }
 
-        private void GetAnimationOffset(Animation animation)
+        private void SetAnimationOffset(Animation animation)
         {
-            var width = -(animation.FrameWidth - TileSize.X) / 2;
-            var height = -(animation.FrameHeight - TileSize.Y);
-            PositionOffset = new Vector2(width, height);
+            PositionOffset = new Vector2(
+                -(animation.FrameWidth - TileSize.X) / 2.0f,
+                -(animation.FrameHeight - TileSize.Y));
         }
 
         public void SetDirection(int direction)

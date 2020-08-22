@@ -44,5 +44,14 @@ namespace WolfyCore.ECS
         {
             AnimationManager.Draw(spriteBatch);
         }
+
+        /// <summary>
+        /// Sets the direction in <see cref="AnimationManager"/>.
+        /// </summary>
+        /// <param name="direction"></param>
+        public void SetDirection(int direction)
+        {
+            AnimationManager.SetDirection(direction);
+        }
     }
 }

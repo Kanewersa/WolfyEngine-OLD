@@ -39,10 +39,8 @@ namespace WolfyCore.Game
 
             foreach (var entity in Entities)
             {
-                Console.WriteLine("Setting position of {0}", entity.Id);
                 var transform = entity.GetComponent<TransformComponent>().GridTransform;
                 Rows[(int)transform.Y].Tiles[(int)transform.X].Entity = entity;
-                Console.WriteLine("Position is: {0}", transform);
             }
         }
 

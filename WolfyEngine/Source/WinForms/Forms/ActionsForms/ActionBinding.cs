@@ -8,7 +8,8 @@ namespace WolfyEngine.Forms
     {
         private static readonly Dictionary<Type, Type> ActionTypes = new Dictionary<Type, Type>
         {
-            //{ typeof(TeleportAction), typeof(TeleportForm) },
+            { typeof(TeleportAction), typeof(TeleportActionForm) },
+            { typeof(DialogAction), typeof(StartDialogForm) }
             //{ typeof(MovementAction), typeof(MovementForm) }
         };
 

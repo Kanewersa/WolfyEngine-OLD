@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
 using ProtoBuf;
+using WolfyCore.Controllers;
 using WolfyCore.ECS;
 using WolfyECS;
 
@@ -8,8 +9,8 @@ namespace WolfyCore.Actions
 {
     [ProtoContract] public class TeleportAction : WolfyAction
     {
-        [ProtoMember(1)] private readonly int _newMapId;
-        [ProtoMember(2)] private readonly Vector2 _newPosition;
+        [ProtoMember(1)] public int NewMapId;
+        [ProtoMember(2)] public Vector2 NewPosition;
 
         public TeleportAction() { }
 
@@ -17,8 +18,8 @@ namespace WolfyCore.Actions
         {
             Asynchronous = false;
             Target = target;
-            _newMapId = newMapId;
-            _newPosition = newPosition;
+            NewMapId = newMapId;
+            NewPosition = newPosition;
         }
 
         public override void Execute()
@@ -27,8 +28,14 @@ namespace WolfyCore.Actions
                 throw new Exception("Could not perform TeleportAction on target entity. Entity didn't have transform component.");
 
             var transform = Target.GetComponent<TransformComponent>();
-            transform.CurrentMap = _newMapId;
-            transform.GridTransform = _newPosition;
+
+            var map = MapsController.Instance.GetMap(NewMapId);
+            map.MoveEntity(Target, transform.GridTransform, NewPosition);
+
+            transform.CurrentMap = NewMapId;
+            transform.GridTransform = NewPosition;
+            transform.Transform = transform.GridTransform * Runtime.GridSize;
+
             Completed = true;
         }
 
@@ -37,7 +44,7 @@ namespace WolfyCore.Actions
 
         public override string GetDescription()
         {
-            return "Teleport " + Target + " to map " + _newMapId + " on position " + _newPosition;
+            return "Teleport " + Target + " to map " + NewMapId + " on position " + NewPosition;
         }
     }
 }

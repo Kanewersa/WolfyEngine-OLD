@@ -31,6 +31,8 @@ namespace WolfyEngine.Controls
         public Rectangle SelectedTileRegion { get; private set; }
         public bool MouseOnScreen { get; private set; }
         public new bool MouseDown { get; private set; }
+
+        public Image EntityImage { get; private set; }
         public Image EntityGridImage { get; private set; }
         public Image SelectedTileImage { get; private set; }
         public Image StartingPointImage { get; private set; }
@@ -63,6 +65,11 @@ namespace WolfyEngine.Controls
             Tool = Tools.Pencil;
 
             SelectedTileRegion = new Rectangle(0, 0, 1, 1);
+
+            EntityImage = new Image("Assets/Icons/EntityIcon")
+            {
+                Scale = .5f
+            };
             EntityGridImage = new Image("Assets/Icons/EntityGridIcon")
             {
                 Scale = .5f
@@ -191,6 +198,7 @@ namespace WolfyEngine.Controls
 
         protected void LoadContent(ContentManager content)
         {
+            EntityImage.LoadContent(content);
             EntityGridImage.LoadContent(content);
             SelectedTileImage.LoadContent(content);
             Selector.LoadContent(content);
@@ -218,12 +226,12 @@ namespace WolfyEngine.Controls
             if (MouseOnScreen && CurrentLayer is TileLayer)
                 Selector.Draw(Editor.spriteBatch);
             else if (CurrentLayer is EntityLayer)
-                DrawEntityLayer();
+                DrawEntityLayer(CurrentLayer as EntityLayer);
 
             Editor.spriteBatch.End();
         }
 
-        private void DrawEntityLayer()
+        private void DrawEntityLayer(EntityLayer layer)
         {
             for (var y = 0; y < CurrentLayer.Size.Y; y++)
             {
@@ -232,6 +240,21 @@ namespace WolfyEngine.Controls
                     EntityGridImage.Position = new Vector2(x * TileSize.X,
                         y * TileSize.Y);
                     EntityGridImage.Draw(Editor.spriteBatch);
+
+                    var entity = layer.Rows[y].Tiles[x].Entity;
+                    if (entity == Entity.Empty) 
+                        continue;
+                    
+                    if (entity == Entity.Player)
+                    {
+                        StartingPointImage.Position = new Vector2(x * TileSize.X, y * TileSize.Y);
+                        StartingPointImage.Draw(Editor.spriteBatch);
+                    }
+                    else
+                    {
+                        EntityImage.Position = new Vector2(x * TileSize.X, y * TileSize.Y);
+                        EntityImage.Draw(Editor.spriteBatch);
+                    }
                 }
             }
 

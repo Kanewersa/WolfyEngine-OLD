@@ -205,6 +205,14 @@ namespace WolfyEngine.Controls
             ResetDisplay();
         }
 
+        private void ReplaceAction(WolfyAction action, int index)
+        {
+            var currentAction = ActionItems[index];
+            var isIfAction = currentAction.IsIfAction;
+            var parent = currentAction.Parent;
+            ActionItems[index] = new ActionListViewItem(action, isIfAction, parent);
+        }
+
         private void RemoveActionButton_Click(object sender, System.EventArgs e)
         {
             if (ActionsListView.SelectedIndices.Any())
@@ -230,6 +238,29 @@ namespace WolfyEngine.Controls
         {
             ActionsListView.Items.Clear();
             DisplayActions(ActionItems);
+        }
+
+        private int _lastActionIndex;
+
+        private void OpenSelectActionForm(object sender, EventArgs e)
+        {
+            _lastActionIndex = ActionsListView.SelectedIndices.First();
+            var action = ActionItems[_lastActionIndex].Action;
+
+            using (var form = ActionBinding.GetFormInstance(action))
+            {
+                form.Initialize(Entity);
+                form.LoadAction(action);
+                form.OnSave += new WolfyActionHandler(OnActionSave);
+                form.ShowDialog();
+            }
+            
+            ResetDisplay();
+        }
+
+        private void OnActionSave(WolfyAction action)
+        {
+            ReplaceAction(action, _lastActionIndex);
         }
     }
 }
