@@ -49,7 +49,7 @@ namespace WolfyCore.ECS
                 }
             });
 
-            ActionsManager.Update();
+            ActionsManager.Update(gameTime);
         }
     }
 }

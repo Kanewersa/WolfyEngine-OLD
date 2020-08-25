@@ -23,6 +23,9 @@ namespace WolfyECS
 
         [ProtoMember(5)] public readonly sbyte WorldId;
 
+        [ProtoIgnore] private GraphicsDevice _graphicsDevice;
+        [ProtoIgnore] private ContentManager _contentManager;
+
         public static World WorldInstance;
         private static readonly IdDispenser WorldIdDispenser;
 
@@ -33,6 +36,9 @@ namespace WolfyECS
             WorldIdDispenser = new IdDispenser(WorldsLimit);
             //Worlds = new World[WorldsLimit];
         }
+
+        public GraphicsDevice GraphicsDevice => _graphicsDevice;
+        public ContentManager ContentManager => _contentManager;
 
         public void Debug()
         {
@@ -61,7 +67,7 @@ namespace WolfyECS
         /// <summary>
         /// Initializes the world.
         /// </summary>
-        public void Initialize()
+        public void Initialize(GraphicsDevice graphics)
         {
             // Load families for every present entity component type
             for (int f = 1; f < _componentManagers.Length; f++)
@@ -72,6 +78,11 @@ namespace WolfyECS
                 _componentManagers[f].Initialize(f);
             }
 
+            if (graphics != null)
+            {
+                _graphicsDevice = graphics;
+            }
+
             // Load all systems
             foreach(var system in _systems)
                 system.Initialize();
@@ -79,6 +90,7 @@ namespace WolfyECS
 
         public void LoadContent(ContentManager content)
         {
+            _contentManager = content;
             foreach (var system in _systems)
             {
                 system.LoadContent(content);

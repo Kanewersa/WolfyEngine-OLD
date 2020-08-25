@@ -2,7 +2,6 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using ProtoBuf;
-using WolfyCore.Engine;
 using WolfyECS;
 using WolfyEngine;
 
@@ -14,9 +13,6 @@ namespace WolfyCore.ECS
     [ProtoContract] public class InputSystem : EntitySystem
     {
         [ProtoIgnore] private KeyboardState _currentKeyboardState;
-        [ProtoIgnore] private KeyboardState _lastKeyboardState;
-        [ProtoIgnore] public Vector2D TileSize => Runtime.TileSize;
-        [ProtoIgnore] public int GridSize => Runtime.GridSize;
 
         public InputSystem() { }
 

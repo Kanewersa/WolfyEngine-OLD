@@ -44,7 +44,7 @@ namespace WolfyCore.Actions
             _typeWriterAnimator.SpeedFactor = 10f;
         }
 
-        public override void Validate()
+        public override void Validate(GameTime gameTime)
         {
             if (Target.GetIfHasComponent(out InputComponent input))
             {

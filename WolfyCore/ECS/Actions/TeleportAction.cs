@@ -39,7 +39,7 @@ namespace WolfyCore.Actions
             Completed = true;
         }
 
-        public override void Validate()
+        public override void Validate(GameTime gameTime)
         { }
 
         public override string GetDescription()

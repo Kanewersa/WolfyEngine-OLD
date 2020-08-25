@@ -14,6 +14,7 @@ namespace WolfyCore.ECS
         [ProtoMember(3)] public Vector2 Bounds { get; protected set; }
         [ProtoMember(4)] public Vector2D MapBounds { get; protected set; }
         [ProtoMember(5)] public Matrix Transform { get; protected set; }
+        [ProtoMember(6)] public Color OverlayColor { get; set; } = new Color(Color.Black, 0f);
         [ProtoIgnore] public int ScreenWidth => Runtime.GameScreenWidth;
         [ProtoIgnore] public int ScreenHeight => Runtime.GameScreenHeight;
 

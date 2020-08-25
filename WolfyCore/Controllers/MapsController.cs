@@ -10,8 +10,8 @@ namespace WolfyCore.Controllers
         private static MapsController _instance;
         public static MapsController Instance => _instance ??= new MapsController();
 
-        private string _mapsPath => PathsController.Instance.MapsPath;
-        private string _mapsDataPath => PathsController.Instance.MapsDataPath;
+        private string MapsPath => PathsController.Instance.MapsPath;
+        private string MapsDataPath => PathsController.Instance.MapsDataPath;
 
         public Dictionary<int, Map> LoadedMaps { get; set; }
         public MapsData MapsData { get; set; }
@@ -30,8 +30,8 @@ namespace WolfyCore.Controllers
         {
             if (empty) return;
 
-            MapsData = File.Exists(_mapsDataPath)
-                ? Serialization.ProtoDeserialize<MapsData>(_mapsDataPath)
+            MapsData = File.Exists(MapsDataPath)
+                ? Serialization.ProtoDeserialize<MapsData>(MapsDataPath)
                 : new MapsData();
         }
 
@@ -77,7 +77,7 @@ namespace WolfyCore.Controllers
         public void SaveMap(Map map)
         {
             var file = MapsData.Info[map.Id].FileName;
-            var mapPath = Path.Combine(_mapsPath, file);
+            var mapPath = Path.Combine(MapsPath, file);
             Serialization.ProtoSerialize(map, mapPath);
         }
 
@@ -94,7 +94,7 @@ namespace WolfyCore.Controllers
                 return LastMap;
             }
             var file = MapsData.Info[id].FileName;
-            var path = Path.Combine(_mapsPath, file);
+            var path = Path.Combine(MapsPath, file);
             var map = Serialization.ProtoDeserialize<Map>(path);
             LoadedMaps.Add(id, map);
             LastMap = map;
@@ -114,7 +114,7 @@ namespace WolfyCore.Controllers
             LoadedMaps.Clear();
             if (LastMap != null)
                 LoadedMaps.Add(LastMap.Id, LastMap);
-            Serialization.ProtoSerialize(MapsData, _mapsDataPath);
+            Serialization.ProtoSerialize(MapsData, MapsDataPath);
         }
     }
 }

@@ -42,7 +42,7 @@ namespace WolfyCore.Controllers
                 : CreateNewWorld();
 
             World.SetWorld(World);
-            World.Initialize();
+            World.Initialize(null);
             // TODO Obsolete family initialization
             // WolfyManager.InitializeFamilies();
         }

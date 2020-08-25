@@ -97,6 +97,7 @@
     <Compile Include="Controllers\TilesetsController.cs" />
     <Compile Include="ECS\Actions\ActionsManager.cs" />
     <Compile Include="ECS\Actions\BaseVariable.cs" />
+    <Compile Include="ECS\Actions\Camera\OverlayAction.cs" />
     <Compile Include="ECS\Actions\Conditions\BaseVariable.cs" />
     <Compile Include="ECS\Actions\Conditions\VariableCondition.cs" />
     <Compile Include="ECS\Actions\MovementAction.cs" />
@@ -135,8 +136,12 @@
     <Compile Include="Engine\Delegates.cs" />
     <Compile Include="Engine\Enums.cs" />
     <Compile Include="Engine\Exceptions\WolfyEcsException.cs" />
+    <Compile Include="Engine\Graphics\ColorGradingFilter.cs" />
+    <Compile Include="Engine\Graphics\FullScreenQuadRenderer.cs" />
     <Compile Include="Engine\Graphics\GraphicsManager.cs" />
     <Compile Include="Engine\Graphics\Image.cs" />
+    <Compile Include="Engine\Graphics\LUTManager.cs" />
+    <Compile Include="Engine\Graphics\RectangleTexture.cs" />
     <Compile Include="Engine\MeasureTime.cs" />
     <Compile Include="Engine\Player\Camera.cs" />
     <Compile Include="Engine\Player\Input.cs" />
@@ -783,6 +788,7 @@
     <Content Include="Content\GeonBit.UI\themes\lowres\textures\slider_fancy_md.xml" />
     <Content Include="Content\GeonBit.UI\themes\lowres\textures\white_texture.png" />
     <Content Include="Content\GeonBit.UI\themes\lowres\ThemeData.xml" />
+    <Content Include="Engine\Graphics\Shaders\ColorGrading.fx" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\MonoGame.Forms.DX.2.3.9\Build\MonoGame.Forms.DX.targets" Condition="Exists('..\packages\MonoGame.Forms.DX.2.3.9\Build\MonoGame.Forms.DX.targets')" />

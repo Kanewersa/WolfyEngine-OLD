@@ -1,4 +1,5 @@
-﻿using ProtoBuf;
+﻿using Microsoft.Xna.Framework;
+using ProtoBuf;
 using WolfyECS;
 
 namespace WolfyCore.Actions
@@ -31,7 +32,7 @@ namespace WolfyCore.Actions
         /// <summary>
         /// Checks if action is completed.
         /// </summary>
-        public abstract void Validate();
+        public abstract void Validate(GameTime gameTime);
 
         /// <summary>
         /// Gets the description of <see cref="WolfyAction"/> based on type and parameters.

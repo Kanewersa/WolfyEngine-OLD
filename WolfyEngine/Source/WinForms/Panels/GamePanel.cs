@@ -301,15 +301,15 @@ namespace WolfyEngine.Controls
                 else
                     wolfyGameControl.Size = gameEditorControl.Size.Height > Size.Height ? new Size(gameEditorControl.Width, Size.Height) : gameEditorControl.Size;*/
 
+                Runtime.GameScreenWidth = wolfyGameControl.Width;
+                Runtime.GameScreenHeight = wolfyGameControl.Height;
+
                 wolfyGameControl.Visible = true;
                 wolfyGameControl.LoadMap(_currentMap);
                 wolfyGameControl.LoadWorld(World.WorldInstance);
                 wolfyGameControl.InitializeScene();
                 wolfyGameControl.InitializeGui();
                 gameEditorControl.Visible = false;
-
-                Runtime.GameScreenWidth = wolfyGameControl.Width;
-                Runtime.GameScreenHeight = wolfyGameControl.Height;
             }
             else if (GamePaused)
                 GamePaused = false;

@@ -1,4 +1,5 @@
-﻿using ProtoBuf;
+﻿using Microsoft.Xna.Framework;
+using ProtoBuf;
 using WolfyCore.Actions;
 using WolfyECS;
 
@@ -37,7 +38,7 @@ namespace WolfyCore.ECS
             throw new System.NotImplementedException();
         }
 
-        public override void Validate()
+        public override void Validate(GameTime gameTime)
         {
             throw new System.NotImplementedException();
         }

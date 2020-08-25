@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.Xna.Framework;
 using Nito.Collections;
 using ProtoBuf;
 
@@ -50,7 +51,7 @@ namespace WolfyCore.Actions
         /// <summary>
         /// Updates the <see cref="ActionsManager"/> and performs all operations on WolfyActions.
         /// </summary>
-        public void Update()
+        public void Update(GameTime gameTime)
         {
             if (ExecutingAction)
             {
@@ -61,7 +62,7 @@ namespace WolfyCore.Actions
                     return;
                 }
                 
-                CurrentAction.Validate();
+                CurrentAction.Validate(gameTime);
                 return;
             }
 

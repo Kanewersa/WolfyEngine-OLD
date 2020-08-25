@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Input;
 using MonoGame.Forms.Controls;
+using WolfyCore;
 using WolfyECS;
 using WolfyEngine.Utils;
 using WolfyCore.Game;
@@ -33,7 +34,10 @@ namespace WolfyEngine.Controls
         public void InitializeScene()
         {
             Scene = new GameScene(World);
-            //Scene.SetMap(CurrentMap);
+
+            // Set swap chain render target
+            Runtime.RenderTarget = SwapChainRenderTarget;
+
             Scene.Initialize(GraphicsDevice);
             Scene.LoadContent(Editor.Content);
 
@@ -72,8 +76,8 @@ namespace WolfyEngine.Controls
         protected override void Draw()
         {
             base.Draw();
-            GraphicsDevice.Clear(Color.Black);
 
+            GraphicsDevice.Clear(Color.Green);
             Scene.Draw(Editor.spriteBatch, _gameTime);
 
             // Draw the gui

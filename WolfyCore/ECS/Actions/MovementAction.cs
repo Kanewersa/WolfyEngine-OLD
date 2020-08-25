@@ -1,13 +1,14 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
+using ProtoBuf;
 using WolfyCore.ECS;
 using WolfyECS;
 
 namespace WolfyCore.Actions
 {
-    public class MovementAction : WolfyAction
+    [ProtoContract] public class MovementAction : WolfyAction
     {
-        public MovementActionComponent ActionComponent;
+        [ProtoMember(1)] public MovementActionComponent ActionComponent;
 
         public MovementAction() { }
 
@@ -25,7 +26,7 @@ namespace WolfyCore.Actions
             Target.AddComponent(ActionComponent);
         }
 
-        public override void Validate()
+        public override void Validate(GameTime gameTime)
         {
             if (!Target.HasComponent<MovementActionComponent>())
                 Completed = true;

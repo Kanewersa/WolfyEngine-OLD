@@ -19,7 +19,7 @@ namespace WolfyCore.Scenes
         {
             base.Initialize(graphics);
 
-            World.Initialize();
+            World.Initialize(graphics);
         }
 
         public override void LoadContent(ContentManager content)
