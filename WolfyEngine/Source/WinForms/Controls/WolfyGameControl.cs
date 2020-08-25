@@ -108,7 +108,6 @@ namespace WolfyEngine.Controls
             _gameTime = gameTime;
             if (Paused) return;
             Scene.Update(gameTime);
-            
         }
 
         public void StartGame(ContentManager content)

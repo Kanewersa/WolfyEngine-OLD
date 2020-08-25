@@ -97,7 +97,7 @@
     <Compile Include="Controllers\TilesetsController.cs" />
     <Compile Include="ECS\Actions\ActionsManager.cs" />
     <Compile Include="ECS\Actions\BaseVariable.cs" />
-    <Compile Include="ECS\Actions\Camera\OverlayAction.cs" />
+    <Compile Include="ECS\Actions\Camera\LUTAction.cs" />
     <Compile Include="ECS\Actions\Conditions\BaseVariable.cs" />
     <Compile Include="ECS\Actions\Conditions\VariableCondition.cs" />
     <Compile Include="ECS\Actions\MovementAction.cs" />
@@ -111,7 +111,8 @@
     <Compile Include="ECS\Components\ActionComponent.cs" />
     <Compile Include="ECS\Components\Actions\MovementActionComponent.cs" />
     <Compile Include="ECS\Components\AnimationComponent.cs" />
-    <Compile Include="ECS\Components\CameraComponent.cs" />
+    <Compile Include="ECS\Components\Camera\CameraComponent.cs" />
+    <Compile Include="ECS\Components\Camera\LUTComponent.cs" />
     <Compile Include="ECS\Components\CollisionComponent.cs" />
     <Compile Include="ECS\Components\InputComponent.cs" />
     <Compile Include="ECS\Components\Movement\FixedMovementComponent.cs" />

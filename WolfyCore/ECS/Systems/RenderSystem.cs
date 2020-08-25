@@ -43,7 +43,7 @@ namespace WolfyCore.ECS
 
         public override void Update(GameTime gameTime)
         {
-            
+            LUTManager.Update(gameTime);
         }
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
@@ -90,6 +90,11 @@ namespace WolfyCore.ECS
                 CameraTransform = camera.Transform;
 
                 map.Draw(spriteBatch, gameTime, camera.GetVisibleArea());
+
+                if (entity.GetIfHasComponent(out LUTComponent lut))
+                {
+                    LUTManager.SetNewLUT(lut.LUTPath, lut.TransitionTime);
+                }
             });
             spriteBatch.End();
 

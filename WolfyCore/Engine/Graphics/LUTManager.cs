@@ -9,7 +9,7 @@ namespace WolfyCore.Engine
         public ColorGradingFilter ColorGradingFilter { get; private set; }
         public Texture2D CurrentLUT { get; private set; }
         public Texture2D NewLUT { get; private set; }
-        public float LUTTransitionProgress { get; private set; }
+        public float LUTTransitionProgress { get; private set; } = 0f;
         public float LUTTransitionTime { get; private set; } = 1f;
 
         private ContentManager _contentManager;
@@ -22,7 +22,22 @@ namespace WolfyCore.Engine
 
             ColorGradingFilter = new ColorGradingFilter(graphics, content, "Assets/Shaders/ColorGrading");
             CurrentLUT = content.Load<Texture2D>("Assets/Shaders/lut_ver5");
-            NewLUT = content.Load<Texture2D>("Assets/Shaders/lut_ver5");
+            NewLUT = CurrentLUT;
+        }
+
+        public void Update(GameTime gameTime)
+        {
+            if (NewLUT != CurrentLUT)
+            {
+                if (LUTTransitionProgress >= 1f)
+                {
+                    CurrentLUT = NewLUT;
+                    LUTTransitionProgress = 0f;
+                    return;
+                }
+
+                LUTTransitionProgress += (float)gameTime.ElapsedGameTime.TotalSeconds/LUTTransitionTime;
+            }
         }
 
         public void Draw(SpriteBatch spriteBatch, Matrix cameraTransform, Texture2D texture, int screenWidth, int screenHeight)
@@ -34,7 +49,14 @@ namespace WolfyCore.Engine
 
         public Texture2D GetRenderTarget(Texture2D texture)
         {
-            return ColorGradingFilter.Draw(_graphicsDevice, texture, CurrentLUT, NewLUT, 0f);
+            return ColorGradingFilter.Draw(_graphicsDevice, texture, CurrentLUT, NewLUT, LUTTransitionProgress);
+        }
+
+        public void SetNewLUT(string lutPath, float transitionTime)
+        {
+            LUTTransitionProgress = 0f;
+            LUTTransitionTime = transitionTime;
+            NewLUT = _contentManager.Load<Texture2D>(lutPath);
         }
     }
 }
