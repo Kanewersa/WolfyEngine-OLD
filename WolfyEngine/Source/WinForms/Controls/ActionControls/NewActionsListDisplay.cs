@@ -46,6 +46,16 @@ namespace WolfyEngine.Controls
 
         }
 
+        private void FadeCameraButton_Click(object sender, System.EventArgs e)
+        {
+            using (var form = new CameraFadeActionForm())
+            {
+                form.Initialize(Entity);
+                form.OnSave += InvokeOnSelect;
+                form.ShowDialog();
+            }
+        }
+
         #endregion
 
         #region Other actions

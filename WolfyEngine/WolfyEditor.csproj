@@ -165,6 +165,12 @@
     <Compile Include="Source\WinForms\Forms\ActionsForms\BaseActionForm.Designer.cs">
       <DependentUpon>BaseActionForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Source\WinForms\Forms\ActionsForms\Camera\CameraFadeActionForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Source\WinForms\Forms\ActionsForms\Camera\CameraFadeActionForm.Designer.cs">
+      <DependentUpon>CameraFadeActionForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Source\WinForms\Forms\ActionsForms\Movement\TeleportActionForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -369,6 +375,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Source\WinForms\Forms\ActionsForms\BaseActionForm.resx">
       <DependentUpon>BaseActionForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Source\WinForms\Forms\ActionsForms\Camera\CameraFadeActionForm.resx">
+      <DependentUpon>CameraFadeActionForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Source\WinForms\Forms\ActionsForms\Movement\TeleportActionForm.resx">
       <DependentUpon>TeleportActionForm.cs</DependentUpon>

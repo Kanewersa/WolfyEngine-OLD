@@ -30,12 +30,20 @@
         {
             this.LayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.OtherSection = new DarkUI.Controls.DarkSectionPanel();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.darkButton7 = new DarkUI.Controls.DarkButton();
+            this.darkButton8 = new DarkUI.Controls.DarkButton();
+            this.darkButton9 = new DarkUI.Controls.DarkButton();
+            this.darkButton11 = new DarkUI.Controls.DarkButton();
+            this.StartDialogButton = new DarkUI.Controls.DarkButton();
+            this.darkButton13 = new DarkUI.Controls.DarkButton();
+            this.darkButton14 = new DarkUI.Controls.DarkButton();
             this.CameraSection = new DarkUI.Controls.DarkSectionPanel();
             this.PlayerLayout = new System.Windows.Forms.TableLayoutPanel();
             this.darkButton4 = new DarkUI.Controls.DarkButton();
             this.darkButton5 = new DarkUI.Controls.DarkButton();
             this.darkButton6 = new DarkUI.Controls.DarkButton();
-            this.darkButton10 = new DarkUI.Controls.DarkButton();
+            this.FadeCameraButton = new DarkUI.Controls.DarkButton();
             this.CameraTargetButton = new DarkUI.Controls.DarkButton();
             this.ZoomButton = new DarkUI.Controls.DarkButton();
             this.CameraOverlayButton = new DarkUI.Controls.DarkButton();
@@ -49,21 +57,13 @@
             this.UnknownButton1 = new DarkUI.Controls.DarkButton();
             this.UnknownButton2 = new DarkUI.Controls.DarkButton();
             this.PlayerSection = new DarkUI.Controls.DarkSectionPanel();
-            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.darkButton7 = new DarkUI.Controls.DarkButton();
-            this.darkButton8 = new DarkUI.Controls.DarkButton();
-            this.darkButton9 = new DarkUI.Controls.DarkButton();
-            this.darkButton11 = new DarkUI.Controls.DarkButton();
-            this.StartDialogButton = new DarkUI.Controls.DarkButton();
-            this.darkButton13 = new DarkUI.Controls.DarkButton();
-            this.darkButton14 = new DarkUI.Controls.DarkButton();
             this.LayoutPanel.SuspendLayout();
             this.OtherSection.SuspendLayout();
+            this.tableLayoutPanel1.SuspendLayout();
             this.CameraSection.SuspendLayout();
             this.PlayerLayout.SuspendLayout();
             this.MovementSection.SuspendLayout();
             this.MovementLayout.SuspendLayout();
-            this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // LayoutPanel
@@ -97,6 +97,115 @@
             this.OtherSection.Size = new System.Drawing.Size(205, 273);
             this.OtherSection.TabIndex = 7;
             // 
+            // tableLayoutPanel1
+            // 
+            this.tableLayoutPanel1.ColumnCount = 1;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel1.Controls.Add(this.darkButton7, 0, 6);
+            this.tableLayoutPanel1.Controls.Add(this.darkButton8, 0, 5);
+            this.tableLayoutPanel1.Controls.Add(this.darkButton9, 0, 4);
+            this.tableLayoutPanel1.Controls.Add(this.darkButton11, 0, 3);
+            this.tableLayoutPanel1.Controls.Add(this.StartDialogButton, 0, 0);
+            this.tableLayoutPanel1.Controls.Add(this.darkButton13, 0, 1);
+            this.tableLayoutPanel1.Controls.Add(this.darkButton14, 0, 2);
+            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(1, 25);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            this.tableLayoutPanel1.RowCount = 8;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(203, 247);
+            this.tableLayoutPanel1.TabIndex = 3;
+            // 
+            // darkButton7
+            // 
+            this.darkButton7.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.darkButton7.Enabled = false;
+            this.darkButton7.Location = new System.Drawing.Point(0, 182);
+            this.darkButton7.Margin = new System.Windows.Forms.Padding(0, 2, 0, 2);
+            this.darkButton7.Name = "darkButton7";
+            this.darkButton7.Padding = new System.Windows.Forms.Padding(5);
+            this.darkButton7.Size = new System.Drawing.Size(203, 26);
+            this.darkButton7.TabIndex = 17;
+            this.darkButton7.Text = "Unavailable";
+            // 
+            // darkButton8
+            // 
+            this.darkButton8.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.darkButton8.Enabled = false;
+            this.darkButton8.Location = new System.Drawing.Point(0, 152);
+            this.darkButton8.Margin = new System.Windows.Forms.Padding(0, 2, 0, 2);
+            this.darkButton8.Name = "darkButton8";
+            this.darkButton8.Padding = new System.Windows.Forms.Padding(5);
+            this.darkButton8.Size = new System.Drawing.Size(203, 26);
+            this.darkButton8.TabIndex = 16;
+            this.darkButton8.Text = "Unavailable";
+            // 
+            // darkButton9
+            // 
+            this.darkButton9.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.darkButton9.Enabled = false;
+            this.darkButton9.Location = new System.Drawing.Point(0, 122);
+            this.darkButton9.Margin = new System.Windows.Forms.Padding(0, 2, 0, 2);
+            this.darkButton9.Name = "darkButton9";
+            this.darkButton9.Padding = new System.Windows.Forms.Padding(5);
+            this.darkButton9.Size = new System.Drawing.Size(203, 26);
+            this.darkButton9.TabIndex = 15;
+            this.darkButton9.Text = "Unavailable";
+            // 
+            // darkButton11
+            // 
+            this.darkButton11.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.darkButton11.Enabled = false;
+            this.darkButton11.Location = new System.Drawing.Point(0, 92);
+            this.darkButton11.Margin = new System.Windows.Forms.Padding(0, 2, 0, 2);
+            this.darkButton11.Name = "darkButton11";
+            this.darkButton11.Padding = new System.Windows.Forms.Padding(5);
+            this.darkButton11.Size = new System.Drawing.Size(203, 26);
+            this.darkButton11.TabIndex = 14;
+            this.darkButton11.Text = "Unavailable";
+            // 
+            // StartDialogButton
+            // 
+            this.StartDialogButton.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.StartDialogButton.Location = new System.Drawing.Point(0, 2);
+            this.StartDialogButton.Margin = new System.Windows.Forms.Padding(0, 2, 0, 2);
+            this.StartDialogButton.Name = "StartDialogButton";
+            this.StartDialogButton.Padding = new System.Windows.Forms.Padding(5);
+            this.StartDialogButton.Size = new System.Drawing.Size(203, 26);
+            this.StartDialogButton.TabIndex = 18;
+            this.StartDialogButton.Text = "Start dialog";
+            this.StartDialogButton.Click += new System.EventHandler(this.StartDialogButton_Click);
+            // 
+            // darkButton13
+            // 
+            this.darkButton13.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.darkButton13.Location = new System.Drawing.Point(0, 32);
+            this.darkButton13.Margin = new System.Windows.Forms.Padding(0, 2, 0, 2);
+            this.darkButton13.Name = "darkButton13";
+            this.darkButton13.Padding = new System.Windows.Forms.Padding(5);
+            this.darkButton13.Size = new System.Drawing.Size(203, 26);
+            this.darkButton13.TabIndex = 19;
+            this.darkButton13.Text = "Unavailable";
+            // 
+            // darkButton14
+            // 
+            this.darkButton14.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.darkButton14.Location = new System.Drawing.Point(0, 62);
+            this.darkButton14.Margin = new System.Windows.Forms.Padding(0, 2, 0, 2);
+            this.darkButton14.Name = "darkButton14";
+            this.darkButton14.Padding = new System.Windows.Forms.Padding(5);
+            this.darkButton14.Size = new System.Drawing.Size(203, 26);
+            this.darkButton14.TabIndex = 20;
+            this.darkButton14.Text = "Unavailable";
+            // 
             // CameraSection
             // 
             this.CameraSection.Controls.Add(this.PlayerLayout);
@@ -115,7 +224,7 @@
             this.PlayerLayout.Controls.Add(this.darkButton4, 0, 6);
             this.PlayerLayout.Controls.Add(this.darkButton5, 0, 5);
             this.PlayerLayout.Controls.Add(this.darkButton6, 0, 4);
-            this.PlayerLayout.Controls.Add(this.darkButton10, 0, 3);
+            this.PlayerLayout.Controls.Add(this.FadeCameraButton, 0, 3);
             this.PlayerLayout.Controls.Add(this.CameraTargetButton, 0, 0);
             this.PlayerLayout.Controls.Add(this.ZoomButton, 0, 1);
             this.PlayerLayout.Controls.Add(this.CameraOverlayButton, 0, 2);
@@ -171,17 +280,17 @@
             this.darkButton6.TabIndex = 15;
             this.darkButton6.Text = "Unavailable";
             // 
-            // darkButton10
+            // FadeCameraButton
             // 
-            this.darkButton10.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.darkButton10.Enabled = false;
-            this.darkButton10.Location = new System.Drawing.Point(0, 92);
-            this.darkButton10.Margin = new System.Windows.Forms.Padding(0, 2, 0, 2);
-            this.darkButton10.Name = "darkButton10";
-            this.darkButton10.Padding = new System.Windows.Forms.Padding(5);
-            this.darkButton10.Size = new System.Drawing.Size(202, 26);
-            this.darkButton10.TabIndex = 14;
-            this.darkButton10.Text = "Unavailable";
+            this.FadeCameraButton.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.FadeCameraButton.Location = new System.Drawing.Point(0, 92);
+            this.FadeCameraButton.Margin = new System.Windows.Forms.Padding(0, 2, 0, 2);
+            this.FadeCameraButton.Name = "FadeCameraButton";
+            this.FadeCameraButton.Padding = new System.Windows.Forms.Padding(5);
+            this.FadeCameraButton.Size = new System.Drawing.Size(202, 26);
+            this.FadeCameraButton.TabIndex = 14;
+            this.FadeCameraButton.Text = "Fade camera";
+            this.FadeCameraButton.Click += new System.EventHandler(this.FadeCameraButton_Click);
             // 
             // CameraTargetButton
             // 
@@ -351,115 +460,6 @@
             this.PlayerSection.Size = new System.Drawing.Size(205, 272);
             this.PlayerSection.TabIndex = 6;
             // 
-            // tableLayoutPanel1
-            // 
-            this.tableLayoutPanel1.ColumnCount = 1;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Controls.Add(this.darkButton7, 0, 6);
-            this.tableLayoutPanel1.Controls.Add(this.darkButton8, 0, 5);
-            this.tableLayoutPanel1.Controls.Add(this.darkButton9, 0, 4);
-            this.tableLayoutPanel1.Controls.Add(this.darkButton11, 0, 3);
-            this.tableLayoutPanel1.Controls.Add(this.StartDialogButton, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.darkButton13, 0, 1);
-            this.tableLayoutPanel1.Controls.Add(this.darkButton14, 0, 2);
-            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(1, 25);
-            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 8;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(203, 247);
-            this.tableLayoutPanel1.TabIndex = 3;
-            // 
-            // darkButton7
-            // 
-            this.darkButton7.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.darkButton7.Enabled = false;
-            this.darkButton7.Location = new System.Drawing.Point(0, 182);
-            this.darkButton7.Margin = new System.Windows.Forms.Padding(0, 2, 0, 2);
-            this.darkButton7.Name = "darkButton7";
-            this.darkButton7.Padding = new System.Windows.Forms.Padding(5);
-            this.darkButton7.Size = new System.Drawing.Size(203, 26);
-            this.darkButton7.TabIndex = 17;
-            this.darkButton7.Text = "Unavailable";
-            // 
-            // darkButton8
-            // 
-            this.darkButton8.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.darkButton8.Enabled = false;
-            this.darkButton8.Location = new System.Drawing.Point(0, 152);
-            this.darkButton8.Margin = new System.Windows.Forms.Padding(0, 2, 0, 2);
-            this.darkButton8.Name = "darkButton8";
-            this.darkButton8.Padding = new System.Windows.Forms.Padding(5);
-            this.darkButton8.Size = new System.Drawing.Size(203, 26);
-            this.darkButton8.TabIndex = 16;
-            this.darkButton8.Text = "Unavailable";
-            // 
-            // darkButton9
-            // 
-            this.darkButton9.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.darkButton9.Enabled = false;
-            this.darkButton9.Location = new System.Drawing.Point(0, 122);
-            this.darkButton9.Margin = new System.Windows.Forms.Padding(0, 2, 0, 2);
-            this.darkButton9.Name = "darkButton9";
-            this.darkButton9.Padding = new System.Windows.Forms.Padding(5);
-            this.darkButton9.Size = new System.Drawing.Size(203, 26);
-            this.darkButton9.TabIndex = 15;
-            this.darkButton9.Text = "Unavailable";
-            // 
-            // darkButton11
-            // 
-            this.darkButton11.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.darkButton11.Enabled = false;
-            this.darkButton11.Location = new System.Drawing.Point(0, 92);
-            this.darkButton11.Margin = new System.Windows.Forms.Padding(0, 2, 0, 2);
-            this.darkButton11.Name = "darkButton11";
-            this.darkButton11.Padding = new System.Windows.Forms.Padding(5);
-            this.darkButton11.Size = new System.Drawing.Size(203, 26);
-            this.darkButton11.TabIndex = 14;
-            this.darkButton11.Text = "Unavailable";
-            // 
-            // StartDialogButton
-            // 
-            this.StartDialogButton.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.StartDialogButton.Location = new System.Drawing.Point(0, 2);
-            this.StartDialogButton.Margin = new System.Windows.Forms.Padding(0, 2, 0, 2);
-            this.StartDialogButton.Name = "StartDialogButton";
-            this.StartDialogButton.Padding = new System.Windows.Forms.Padding(5);
-            this.StartDialogButton.Size = new System.Drawing.Size(203, 26);
-            this.StartDialogButton.TabIndex = 18;
-            this.StartDialogButton.Text = "Start dialog";
-            this.StartDialogButton.Click += new System.EventHandler(this.StartDialogButton_Click);
-            // 
-            // darkButton13
-            // 
-            this.darkButton13.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.darkButton13.Location = new System.Drawing.Point(0, 32);
-            this.darkButton13.Margin = new System.Windows.Forms.Padding(0, 2, 0, 2);
-            this.darkButton13.Name = "darkButton13";
-            this.darkButton13.Padding = new System.Windows.Forms.Padding(5);
-            this.darkButton13.Size = new System.Drawing.Size(203, 26);
-            this.darkButton13.TabIndex = 19;
-            this.darkButton13.Text = "Unavailable";
-            // 
-            // darkButton14
-            // 
-            this.darkButton14.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.darkButton14.Location = new System.Drawing.Point(0, 62);
-            this.darkButton14.Margin = new System.Windows.Forms.Padding(0, 2, 0, 2);
-            this.darkButton14.Name = "darkButton14";
-            this.darkButton14.Padding = new System.Windows.Forms.Padding(5);
-            this.darkButton14.Size = new System.Drawing.Size(203, 26);
-            this.darkButton14.TabIndex = 20;
-            this.darkButton14.Text = "Unavailable";
-            // 
             // NewActionsListDisplay
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -470,11 +470,11 @@
             this.Size = new System.Drawing.Size(409, 545);
             this.LayoutPanel.ResumeLayout(false);
             this.OtherSection.ResumeLayout(false);
+            this.tableLayoutPanel1.ResumeLayout(false);
             this.CameraSection.ResumeLayout(false);
             this.PlayerLayout.ResumeLayout(false);
             this.MovementSection.ResumeLayout(false);
             this.MovementLayout.ResumeLayout(false);
-            this.tableLayoutPanel1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -498,7 +498,7 @@
         private DarkUI.Controls.DarkButton darkButton4;
         private DarkUI.Controls.DarkButton darkButton5;
         private DarkUI.Controls.DarkButton darkButton6;
-        private DarkUI.Controls.DarkButton darkButton10;
+        private DarkUI.Controls.DarkButton FadeCameraButton;
         private DarkUI.Controls.DarkButton CameraTargetButton;
         private DarkUI.Controls.DarkButton ZoomButton;
         private DarkUI.Controls.DarkButton CameraOverlayButton;

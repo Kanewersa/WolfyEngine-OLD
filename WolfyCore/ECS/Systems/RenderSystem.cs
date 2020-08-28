@@ -1,11 +1,8 @@
-﻿using System;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-using MonoGame.Forms.Services;
 using ProtoBuf;
 using WolfyCore.Engine;
-using WolfyCore.Game;
 using WolfyECS;
 
 namespace WolfyCore.ECS
@@ -23,6 +20,9 @@ namespace WolfyCore.ECS
 
         private ContentManager ContentManager => World.WorldInstance.ContentManager;
         private GraphicsDevice GraphicsDevice => World.WorldInstance.GraphicsDevice;
+
+        public Texture2D BlackPane { get; private set; }
+        public float PaneTransparency { get; private set; }
         
         public RenderSystem()
         {
@@ -39,6 +39,7 @@ namespace WolfyCore.ECS
         public override void LoadContent(ContentManager content)
         {
             LUTManager.LoadContent(content, GraphicsDevice);
+            BlackPane = content.Load<Texture2D>("Assets/Shaders/BlackPane");
         }
 
         public override void Update(GameTime gameTime)
@@ -74,6 +75,18 @@ namespace WolfyCore.ECS
                 var camera = entity.GetComponent<CameraComponent>();
                 var map = transform.GetMap();
 
+                // Set pane opacity if camera is fading.
+                if (camera.FadeToBlack)
+                {
+                    if (gameTime != null) PaneTransparency += (float)gameTime.ElapsedGameTime.TotalSeconds/camera.FadeDuration;
+                    if (PaneTransparency > 1) PaneTransparency = 1;
+                }
+                else
+                {
+                    if (gameTime != null) PaneTransparency -= (float)gameTime.ElapsedGameTime.TotalSeconds/camera.FadeDuration;
+                    if (PaneTransparency < 0) PaneTransparency = 0;
+                }
+
                 // Initialize the map if last map was changed.
                 if (map.Id != LastMapId)
                 {
@@ -108,6 +121,20 @@ namespace WolfyCore.ECS
 
             // Draw filters to the screen
             LUTManager.Draw(spriteBatch, CameraTransform, filterOutput, width, height);
+
+            
+                spriteBatch.Begin();
+
+                for (var x = 0; x < width; x+=128)
+                {
+                    for (var y = 0; y < height; y+=128)
+                    {
+                        spriteBatch.Draw(BlackPane, new Vector2(x,y), new Color(Color.White, PaneTransparency));
+                    }
+                }
+
+                spriteBatch.End();
+            
         }
     }
 }

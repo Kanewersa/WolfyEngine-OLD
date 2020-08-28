@@ -10,7 +10,7 @@ namespace WolfyCore.Engine
         public Texture2D CurrentLUT { get; private set; }
         public Texture2D NewLUT { get; private set; }
         public float LUTTransitionProgress { get; private set; } = 0f;
-        public float LUTTransitionTime { get; private set; } = 1f;
+        public float LUTTransitionTime { get; private set; } = 5f;
 
         private ContentManager _contentManager;
         private GraphicsDevice _graphicsDevice;
@@ -21,8 +21,8 @@ namespace WolfyCore.Engine
             _graphicsDevice = graphics;
 
             ColorGradingFilter = new ColorGradingFilter(graphics, content, "Assets/Shaders/ColorGrading");
-            CurrentLUT = content.Load<Texture2D>("Assets/Shaders/lut_ver5");
-            NewLUT = CurrentLUT;
+            CurrentLUT = content.Load<Texture2D>("Assets/Shaders/default");
+            NewLUT = content.Load<Texture2D>("Assets/Shaders/Night");
         }
 
         public void Update(GameTime gameTime)
@@ -31,7 +31,9 @@ namespace WolfyCore.Engine
             {
                 if (LUTTransitionProgress >= 1f)
                 {
+                    var temp = CurrentLUT;
                     CurrentLUT = NewLUT;
+                    NewLUT = temp;
                     LUTTransitionProgress = 0f;
                     return;
                 }

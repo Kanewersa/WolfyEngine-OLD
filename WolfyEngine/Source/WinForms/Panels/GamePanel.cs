@@ -339,5 +339,21 @@ namespace WolfyEngine.Controls
             
             RefreshButtons();
         }
+
+        private void removeEntityToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var coordinates = gameEditorControl.TileCoordinates;
+
+            var layer = gameEditorControl.GetCurrentLayer<EntityLayer>();
+            var entity = layer.Rows[(int)coordinates.Y].Tiles[(int)coordinates.X].Entity;
+
+            if (entity != Entity.Player)
+            {
+                entity.Destroy();
+                layer.Rows[(int) coordinates.Y].Tiles[(int) coordinates.X].Entity = Entity.Empty;
+                layer.Entities.Remove(entity);
+                gameEditorControl.CurrentMap.Entities.Remove(entity);
+            }
+        }
     }
 }

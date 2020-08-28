@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using Microsoft.Xna.Framework;
 using ProtoBuf;
 using WolfyCore.ECS;
@@ -42,7 +43,7 @@ namespace WolfyCore.Actions
 
         public override string GetDescription()
         {
-            return "Set LUT to " + LUTPath;
+            return "Set LUT to " + Path.GetFileName(LUTPath);
         }
     }
 }

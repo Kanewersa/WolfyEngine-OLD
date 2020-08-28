@@ -208,14 +208,14 @@
             this.toolStripSeparator1,
             this.setStartingPointToolStripMenuItem});
             this.EntityContextMenu.Name = "EntityContextMenu";
-            this.EntityContextMenu.Size = new System.Drawing.Size(165, 77);
+            this.EntityContextMenu.Size = new System.Drawing.Size(181, 99);
             // 
             // newEntityToolStripMenuItem
             // 
             this.newEntityToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
             this.newEntityToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
             this.newEntityToolStripMenuItem.Name = "newEntityToolStripMenuItem";
-            this.newEntityToolStripMenuItem.Size = new System.Drawing.Size(164, 22);
+            this.newEntityToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.newEntityToolStripMenuItem.Text = "New entity";
             this.newEntityToolStripMenuItem.Click += new System.EventHandler(this.newEntityToolStripMenuItem_Click);
             // 
@@ -224,8 +224,9 @@
             this.removeEntityToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
             this.removeEntityToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
             this.removeEntityToolStripMenuItem.Name = "removeEntityToolStripMenuItem";
-            this.removeEntityToolStripMenuItem.Size = new System.Drawing.Size(164, 22);
+            this.removeEntityToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.removeEntityToolStripMenuItem.Text = "Remove entity";
+            this.removeEntityToolStripMenuItem.Click += new System.EventHandler(this.removeEntityToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
@@ -233,14 +234,14 @@
             this.toolStripSeparator1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
             this.toolStripSeparator1.Margin = new System.Windows.Forms.Padding(0, 0, 0, 1);
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(161, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(177, 6);
             // 
             // setStartingPointToolStripMenuItem
             // 
             this.setStartingPointToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
             this.setStartingPointToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
             this.setStartingPointToolStripMenuItem.Name = "setStartingPointToolStripMenuItem";
-            this.setStartingPointToolStripMenuItem.Size = new System.Drawing.Size(164, 22);
+            this.setStartingPointToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.setStartingPointToolStripMenuItem.Text = "Set starting point";
             this.setStartingPointToolStripMenuItem.Click += new System.EventHandler(this.setStartingPointToolStripMenuItem_Click);
             // 

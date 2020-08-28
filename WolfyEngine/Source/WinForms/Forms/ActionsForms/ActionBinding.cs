@@ -9,7 +9,8 @@ namespace WolfyEngine.Forms
         private static readonly Dictionary<Type, Type> ActionTypes = new Dictionary<Type, Type>
         {
             { typeof(TeleportAction), typeof(TeleportActionForm) },
-            { typeof(DialogAction), typeof(StartDialogForm) }
+            { typeof(DialogAction), typeof(StartDialogForm) },
+            { typeof(CameraFadeAction), typeof(CameraFadeActionForm) }
             //{ typeof(MovementAction), typeof(MovementForm) }
         };
 

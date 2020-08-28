@@ -14,7 +14,8 @@ namespace WolfyCore.ECS
         [ProtoMember(3)] public Vector2 Bounds { get; protected set; }
         [ProtoMember(4)] public Vector2D MapBounds { get; protected set; }
         [ProtoMember(5)] public Matrix Transform { get; protected set; }
-        [ProtoMember(6)] public string LUTPath { get; set; } = "";
+        [ProtoMember(6)] public bool FadeToBlack { get; set; }
+        [ProtoMember(7)] public float FadeDuration { get; set; }
         [ProtoIgnore] public int ScreenWidth => Runtime.GameScreenWidth;
         [ProtoIgnore] public int ScreenHeight => Runtime.GameScreenHeight;
 
