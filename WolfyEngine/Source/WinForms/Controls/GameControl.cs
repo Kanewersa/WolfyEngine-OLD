@@ -68,20 +68,20 @@ namespace WolfyEngine.Controls
 
             EntityImage = new Image("Assets/Icons/EntityIcon")
             {
-                Scale = .5f
+                Scale = (float)Runtime.GridSize/64
             };
             EntityGridImage = new Image("Assets/Icons/EntityGridIcon")
             {
-                Scale = .5f
+                Scale = (float)Runtime.GridSize / 64
             };
             SelectedTileImage = new Image("Assets/Icons/SelectedTileIcon")
             {
-                Scale = .5f,
+                Scale = (float)Runtime.GridSize / 64,
                 Alpha = .5f
             };
             StartingPointImage = new Image("Assets/Icons/StartingPointIcon")
             {
-                Scale = .5f
+                Scale = (float)Runtime.GridSize / 64
             };
             
             MouseEnter += delegate { MouseOnScreen = true; };
@@ -103,16 +103,11 @@ namespace WolfyEngine.Controls
         {
             if (Mode == EditorMode.Entities)
             {
-                // ReSharper disable once PossibleNullReferenceException
-                var entity = (CurrentLayer as EntityLayer).Rows[(int) TileCoordinates.Y]
-                    .Tiles[(int) TileCoordinates.X].Entity;
-
+                var entity = ((EntityLayer)CurrentLayer).
+                    GetEntity(new Vector2(TileCoordinates.X, TileCoordinates.Y));
                 OnEntitySelect?.Invoke(entity, TileCoordinates);
             }
         }
-
-        private EntityTile _selectedTile;
-        private Vector2D _selectedTileCords;
 
         private void GameControl_MouseClick(object sender, MouseEventArgs e)
         {
@@ -121,13 +116,6 @@ namespace WolfyEngine.Controls
 
             if (Mode == EditorMode.Entities)
             {
-                var (x, y) = TileCoordinates;
-                if(_selectedTile != null)
-                    _selectedTile.Selected = false;
-                _selectedTile = ((EntityLayer) CurrentLayer).Rows[(int)y].Tiles[(int)x];
-                _selectedTile.Selected = true;
-                _selectedTileCords = new Vector2D((int)x,(int)y);
-
                 if (e.Button == MouseButtons.Right)
                 {
                     OnRightClick?.Invoke(this, e);
@@ -210,7 +198,7 @@ namespace WolfyEngine.Controls
             base.Draw();
             if (Editor == null) return;
 
-            // Draw background color to imitate transparency
+            // Draw background color to imitate control transparency
             GraphicsDevice.Clear(Color);
 
             Editor.spriteBatch.Begin();
@@ -226,12 +214,12 @@ namespace WolfyEngine.Controls
             if (MouseOnScreen && CurrentLayer is TileLayer)
                 Selector.Draw(Editor.spriteBatch);
             else if (CurrentLayer is EntityLayer)
-                DrawEntityLayer(CurrentLayer as EntityLayer);
+                DrawEntityLayerGrid(CurrentLayer as EntityLayer);
 
             Editor.spriteBatch.End();
         }
 
-        private void DrawEntityLayer(EntityLayer layer)
+        private void DrawEntityLayerGrid(EntityLayer layer)
         {
             for (var y = 0; y < CurrentLayer.Size.Y; y++)
             {
@@ -258,13 +246,10 @@ namespace WolfyEngine.Controls
                 }
             }
 
-            if (_selectedTile != null)
-            {
-                SelectedTileImage.Position = new Vector2(
-                    _selectedTileCords.X * TileSize.X,
-                    _selectedTileCords.Y * TileSize.Y);
-                SelectedTileImage.Draw(Editor.spriteBatch);
-            }
+            SelectedTileImage.Position = new Vector2(
+                TileCoordinates.X * TileSize.X,
+                TileCoordinates.Y * TileSize.Y);
+            SelectedTileImage.Draw(Editor.spriteBatch);
 
             if (StartingMap)
                 StartingPointImage.Draw(Editor.spriteBatch);
@@ -293,8 +278,8 @@ namespace WolfyEngine.Controls
             Width = map.Size.X * TileSize.X;
             Height = map.Size.Y * TileSize.Y;
 
-            map?.Initialize(Editor.graphics, World);
-            map?.LoadContent(Editor.Content);
+            map.Initialize(Editor.graphics, World);
+            map.LoadContent(Editor.Content);
 
             if(map.Layers.Any())
                 CurrentLayer = map.Layers[0];

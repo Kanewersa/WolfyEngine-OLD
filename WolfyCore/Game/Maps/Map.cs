@@ -12,14 +12,28 @@ namespace WolfyCore.Game
 {
     [ProtoContract] public class Map
     {
+        /// <summary>
+        /// Unique id of the map.
+        /// </summary>
         [ProtoMember(1)] public int Id { get; set; }
+
+        /// <summary>
+        /// In-game name of the map.
+        /// </summary>
         [ProtoMember(2)] public string Name { get; set; }
-        [ProtoIgnore] public Vector2D TileSize => Runtime.TileSize;
+
+        /// <summary>
+        /// Size of the map.
+        /// </summary>
         [ProtoMember(4)] public Vector2D Size { get; set; }
+
+        // TODO: ! Important ! Determine if more than one EntityLayer is allowed in Map instance.
         [ProtoMember(5)] public List<BaseLayer> Layers { get; set; } = new List<BaseLayer>();
         [ProtoMember(6)] public EntityLayer EntityLayer { get; set; }
         [ProtoIgnore] public List<Entity> Entities => EntityLayer.Entities;
         [ProtoIgnore] private readonly int DrawOffset = 2;
+
+        [ProtoIgnore] public Vector2D TileSize => Runtime.TileSize;
 
         public Map() { }
 
@@ -33,8 +47,6 @@ namespace WolfyCore.Game
 
         public void Initialize(GraphicsDevice graphics, World world)
         {
-            EntityLayer = Layers.First(x => x is EntityLayer) as EntityLayer;
-
             foreach (var layer in Layers)
             {
                 layer.Initialize(graphics);
@@ -71,10 +83,6 @@ namespace WolfyCore.Game
             Layers.ForEach(layer => layer.Draw(spriteBatch));
         }
 
-        public void Update(GameTime gameTime)
-        {
-            Layers.ForEach(layer => layer.Update(gameTime));
-        }
 
         /// <summary>
         /// Returns true if any layer is occupied at given position or

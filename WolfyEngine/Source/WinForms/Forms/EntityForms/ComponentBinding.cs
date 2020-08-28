@@ -8,14 +8,6 @@ namespace WolfyEngine.Forms
 {
     public static class ComponentBinding
     {
-        private static readonly Dictionary<ComponentType, Type> EnumTypes = new Dictionary<ComponentType, Type>
-        {
-            { ComponentType.Action, typeof(ActionComponentPanel) },
-            { ComponentType.Animation, typeof(AnimationComponentPanel) },
-            { ComponentType.Collision, typeof(CollisionComponentPanel) },
-            { ComponentType.Movement, typeof(MovementComponentPanel) }
-        };
-
         private static readonly Dictionary<Type, Type> ComponentTypes = new Dictionary<Type, Type>
         {
             { typeof(ActionComponent), typeof(ActionComponentPanel) },
@@ -26,27 +18,12 @@ namespace WolfyEngine.Forms
 
         private static Type GetPanelType(Type type)
         {
-            return !ComponentTypes.ContainsKey(type) ? null : ComponentTypes[type];
+            return ComponentTypes.ContainsKey(type) ? ComponentTypes[type] : null;
         }
 
-        public static Type GetPanelType(ComponentType type)
-        {
-            if(!EnumTypes.ContainsKey(type))
-                throw new NullReferenceException("Type "
-                                                 + type
-                                                 + " was not declared in ActionBinding.");
-            return EnumTypes[type];
-        }
-
-        public static dynamic GetPanelInstance(ComponentType componentType)
+        public static dynamic GetPanelInstance(Type componentType)
         {
             var type = GetPanelType(componentType);
-            return Convert.ChangeType(Activator.CreateInstance(type), type);
-        }
-
-        public static dynamic GetPanelInstance(EntityComponent component)
-        {
-            var type = GetPanelType(component.GetType());
             return type == null
                 ? null
                 : Convert.ChangeType(Activator.CreateInstance(type), type);

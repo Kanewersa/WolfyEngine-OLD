@@ -37,7 +37,6 @@
             this.EntityNameTitle = new DarkUI.Controls.DarkTitle();
             this.EntityNameTextBox = new DarkUI.Controls.DarkTextBox();
             this.ComponentsListView = new DarkUI.Controls.DarkListView();
-            this.DebugButton = new DarkUI.Controls.DarkButton();
             this.panel2.SuspendLayout();
             this.MainSection.SuspendLayout();
             this.TableLayoutPanel.SuspendLayout();
@@ -103,7 +102,6 @@
             this.TableLayoutPanel.Controls.Add(this.EntityNameTitle, 0, 0);
             this.TableLayoutPanel.Controls.Add(this.EntityNameTextBox, 0, 1);
             this.TableLayoutPanel.Controls.Add(this.ComponentsListView, 0, 4);
-            this.TableLayoutPanel.Controls.Add(this.DebugButton, 0, 3);
             this.TableLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.TableLayoutPanel.Location = new System.Drawing.Point(1, 25);
             this.TableLayoutPanel.Name = "TableLayoutPanel";
@@ -150,16 +148,6 @@
             this.ComponentsListView.TabIndex = 3;
             this.ComponentsListView.Text = "darkListView1";
             // 
-            // DebugButton
-            // 
-            this.DebugButton.Location = new System.Drawing.Point(3, 193);
-            this.DebugButton.Name = "DebugButton";
-            this.DebugButton.Padding = new System.Windows.Forms.Padding(5);
-            this.DebugButton.Size = new System.Drawing.Size(75, 23);
-            this.DebugButton.TabIndex = 4;
-            this.DebugButton.Text = "Debug";
-            this.DebugButton.Click += new System.EventHandler(this.DebugButton_Click);
-            // 
             // EntityEditForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -189,6 +177,5 @@
         private DarkUI.Controls.DarkTitle EntityNameTitle;
         private DarkUI.Controls.DarkTextBox EntityNameTextBox;
         private DarkUI.Controls.DarkListView ComponentsListView;
-        private DarkUI.Controls.DarkButton DebugButton;
     }
 }

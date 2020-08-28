@@ -7,20 +7,20 @@ namespace WolfyEngine
     public class EntityScheme
     {
         public string Name { get; }
-        public List<ComponentType> ComponentTypes { get; private set; }
+        public List<Type> ComponentTypes { get; private set; }
 
         public EntityScheme(string name)
         {
-            ComponentTypes = new List<ComponentType>();
+            ComponentTypes = new List<Type>();
             Name = name;
         }
 
-        public void AddType(ComponentType type)
+        public void AddType(Type type)
         {
             ComponentTypes.Add(type);
         }
 
-        public void RemoveType(ComponentType type)
+        public void RemoveType(Type type)
         {
             ComponentTypes.Remove(type);
         }

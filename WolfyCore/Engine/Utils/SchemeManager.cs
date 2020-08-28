@@ -13,26 +13,24 @@ namespace WolfyEngine
         {
             Schemes = new List<EntityScheme>();
 
-            // Create NPC scheme
             CreateScheme("NPC",
-                new List<ComponentType>
+                new List<Type>
                 {
-                    ComponentType.Animation,
-                    ComponentType.Collision,
-                    ComponentType.Movement,
-                    ComponentType.Action
+                    typeof(AnimationComponent),
+                    typeof(CollisionComponent),
+                    typeof(MovementComponent),
+                    typeof(ActionComponent)
                 });
-                // Create static object scheme
             CreateScheme("Static",
-                new List<ComponentType>
+                new List<Type>
                 {
-                    ComponentType.Animation,
-                    ComponentType.Collision,
-                    ComponentType.Action
+                    typeof(AnimationComponent),
+                    typeof(CollisionComponent),
+                    typeof(ActionComponent)
                 });
         }
 
-        public EntityScheme CreateScheme(string name, List<ComponentType> componentTypes = null)
+        public EntityScheme CreateScheme(string name, List<Type> componentTypes = null)
         {
             var scheme = new EntityScheme(name);
             foreach(var comp in componentTypes)

@@ -372,7 +372,7 @@ namespace WolfyEngine.Forms
                 var player = new Entity(1, World.WorldInstance.WorldId);
                 /*var comp = player.GetComponent<MovementComponent>();
                 comp.Speed = 5;*/
-                form.Initialize(player, player.GetComponents(), World.WorldInstance);
+                form.Initialize(player, World.WorldInstance);
                 form.ShowDialog();
             }
         }

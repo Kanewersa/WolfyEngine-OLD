@@ -135,7 +135,6 @@
     <Compile Include="ECS\Systems\TimeSystem.cs" />
     <Compile Include="Engine\Animations\Animation.cs" />
     <Compile Include="Engine\Animations\AnimationManager.cs" />
-    <Compile Include="Engine\ComponentType.cs" />
     <Compile Include="Engine\Delegates.cs" />
     <Compile Include="Engine\Enums.cs" />
     <Compile Include="Engine\Exceptions\WolfyEcsException.cs" />
@@ -183,7 +182,9 @@
     <Compile Include="Scenes\Scene.cs" />
     <Compile Include="StaticPaths.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Engine\Renderers\" />
+  </ItemGroup>
   <ItemGroup>
     <None Include="Content\GeonBit.UI\themes\editor\fonts\Bold.spritefont" />
     <None Include="Content\GeonBit.UI\themes\editor\fonts\Italic.spritefont" />

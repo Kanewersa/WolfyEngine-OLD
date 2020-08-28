@@ -16,12 +16,15 @@ namespace WolfyEngine.Forms
         private Dictionary<DarkListItem, int> _nodeKeys;
         private int _selectedTileset = -1;
         private Map _currentMap;
+        private int _selectedLayerOrder;
 
         public event LayerEventHandler OnLayerCreate;
 
-        public NewLayerForm(Map map)
+        public NewLayerForm(Map map, int selectedLayerOrder)
         {
             _currentMap = map;
+            _selectedLayerOrder = selectedLayerOrder;
+
             InitializeComponent();
 
             _nodeKeys = new Dictionary<DarkListItem, int>();
@@ -52,27 +55,14 @@ namespace WolfyEngine.Forms
                 return;
             }
 
-            switch (layerTypeComboBox.SelectedIndex)
+            var layer = new TileLayer(nameTextBox.Text, _currentMap.Size, _selectedTileset)
             {
-                // Tile layer
-                case 0:
-                    var layer = new TileLayer(nameTextBox.Text, _currentMap.Size, _selectedTileset);
-                    layer.Order = _currentMap.Layers.Count + 1;
-                    _currentMap.Layers.Add(layer);
-                    OnLayerCreate?.Invoke(layer);
-                    break;
-                // Event layer
-                case 1:
-                    var entityLayer = new EntityLayer(nameTextBox.Text, _currentMap.Size);
-                    _currentMap.Layers.Add(entityLayer);
-                    entityLayer.Order = _currentMap.Layers.Count + 1;
-                    OnLayerCreate?.Invoke(entityLayer);
-                    break;
-                // Error
-                default:
-                    throw new Exception("Unknown layer type");
-            }
+                Order = _currentMap.Layers.Count + 1
+            };
 
+            _currentMap.Layers.Insert(_selectedLayerOrder, layer);
+            OnLayerCreate?.Invoke(layer);
+            
             Close();
         }
 

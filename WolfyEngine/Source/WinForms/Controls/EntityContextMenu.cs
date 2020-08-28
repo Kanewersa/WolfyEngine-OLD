@@ -1,12 +1,12 @@
 ﻿using System.Windows.Forms;
 using DarkUI.Renderers;
-using WolfyCore.Engine;
+using Microsoft.Xna.Framework;
 
 namespace WolfyEngine.Controls
 {
     public class EntityContextMenu : ContextMenuStrip
     {
-        public Vector2D CurrentCoordinates { get; set; }
+        public Vector2 CurrentCoordinates { get; set; }
 
         public EntityContextMenu()
         {

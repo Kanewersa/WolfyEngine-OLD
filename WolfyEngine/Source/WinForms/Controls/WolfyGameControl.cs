@@ -1,17 +1,14 @@
 ﻿using System;
 using System.Linq;
-using System.Windows.Forms;
 using GeonBit.UI;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
-using Microsoft.Xna.Framework.Input;
 using MonoGame.Forms.Controls;
 using WolfyCore;
 using WolfyECS;
 using WolfyEngine.Utils;
 using WolfyCore.Game;
 using WolfyCore.Scenes;
-using Entity = GeonBit.UI.Entities.Entity;
 
 namespace WolfyEngine.Controls
 {

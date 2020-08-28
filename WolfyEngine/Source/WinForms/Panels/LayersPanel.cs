@@ -101,7 +101,7 @@ namespace WolfyEngine.Controls
                 return;
             }
 
-            using var form = new NewLayerForm(_currentMap);
+            using var form = new NewLayerForm(_currentMap, SelectedLayer.Order);
             form.OnLayerCreate += delegate(BaseLayer layer)
             {
                 OnLayerChanged?.Invoke(layer);

@@ -44,27 +44,27 @@ namespace WolfyEngine.Forms
             Entity = World.CreateEntity();
             Entity.AddComponent(transform);
 
-            foreach (var type in scheme.ComponentTypes)
-            {
-                var panel = CreateComponentPanel(type, Entity);
-                if (panel != null)
-                    _componentWindows.Add(panel);
-            }
-
-            SetDockContent();
-            DisplayEntityInfo();
+            LoadPanels(scheme.ComponentTypes, Entity);
         }
 
-        public void Initialize(Entity entity, List<EntityComponent> entityComponents, World world)
+        public void Initialize(Entity entity, World world)
         {
             World = world;
             Entity = entity;
 
-            foreach (var component in entityComponents)
+            var componentTypes = entity.GetComponents().Select(x => x.GetType()).ToList();
+
+            LoadPanels(componentTypes, entity);
+        }
+
+        private void LoadPanels(List<Type> types, Entity entity)
+        {
+            foreach (var type in types)
             {
-                var panel = CreateComponentPanel(component, entity);
-                if (panel != null)
-                    _componentWindows.Add(panel);
+                var panel = ComponentBinding.GetPanelInstance(type);
+                if (panel == null) continue;
+                panel.Initialize(entity);
+                _componentWindows.Add(panel);
             }
 
             SetDockContent();
@@ -84,36 +84,28 @@ namespace WolfyEngine.Forms
 
         private void DisplayEntityInfo()
         {
+            string name = "";
+
+            if (Entity.GetIfHasComponent(out InGameNameComponent component))
+                name = component.Name;
+            
             MainSection.SectionHeader =
-                "Entity " + Entity.Id + "  |  " + "Name unavailable"; //Entity.Name;
-            EntityNameTextBox.Text = "Name unavailable"; //Entity.Name;
+                "Entity " + Entity.Id + "  |  " + name;
+            EntityNameTextBox.Text = name;
             LoadComponentsList();
         }
 
-        private ComponentPanel CreateComponentPanel(ComponentType type, Entity entity)
+        private void RemoveComponentPanel(EntityComponent component, Entity entity)
         {
-            var panel = ComponentBinding.GetPanelInstance(type);
-            panel.Initialize(entity);
-            return panel;
-        }
-
-        private ComponentPanel CreateComponentPanel(EntityComponent component, Entity entity)
-        {
-            var componentPanel = ComponentBinding.GetPanelInstance(component);
-            if (componentPanel == null) return null;
-            componentPanel.Initialize(entity);
-            return componentPanel;
-        }
-
-        private void RemoveComponentPanel(ComponentType type, Entity entity)
-        {
-            ComponentPanel panel = null;
-            panel = _componentWindows.SingleOrDefault(x => x.GetType() == ComponentBinding.GetPanelType(type));
+            // TODO: Add component panels removal in entity edit form.
+            /*ComponentPanel panel = null;
+            panel = _componentWindows.SingleOrDefault(
+                x => x.GetType() == ComponentBinding.GetPanelType(component));
             if (panel != null)
             {
                 _componentWindows.Remove(panel);
                 panel.Unload(entity);
-            }
+            }*/
         }
 
         private void LoadComponentsList()
@@ -135,7 +127,9 @@ namespace WolfyEngine.Forms
                 panel.Save();
             
             SavedEntity = true;
-            //Entity.Name = EntityNameTextBox.Text;
+            if (EntityNameTextBox.Text.Length > 0)
+                Entity.GetOrCreateComponent<InGameNameComponent>().Name = EntityNameTextBox.Text;
+            else Entity.RemoveComponent<InGameNameComponent>();
 
             OnSave?.Invoke(Entity, Vector2.Zero);
 
@@ -151,11 +145,6 @@ namespace WolfyEngine.Forms
         {
             MainSection.SectionHeader =
                 "Entity " + Entity.Id + "  |  " + EntityNameTextBox.Text;
-        }
-
-        private void DebugButton_Click(object sender, EventArgs e)
-        {
-
         }
     }
 }

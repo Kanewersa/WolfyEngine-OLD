@@ -122,12 +122,10 @@ namespace WolfyEngine.Controls
             }
             else
             {
-                // Get entity type and open edit form
-                var entityComponents = entity.GetComponents();
                 using (var form = new EntityEditForm())
                 {
                     form.SavedEntity = true;
-                    form.Initialize(entity, entityComponents, _world);
+                    form.Initialize(entity, _world);
                     form.ShowDialog();
                 }
             }
@@ -136,7 +134,7 @@ namespace WolfyEngine.Controls
         private void GameControl_OnRightClick(object sender, MouseEventArgs e)
         {
             EntityContextMenu.CurrentCoordinates =
-                new Vector2D(e.X/Runtime.TileSize.X, e.Y/Runtime.TileSize.Y);
+                new Vector2((float)e.X/Runtime.TileSize.X, (float)e.Y/Runtime.TileSize.Y);
             EntityContextMenu.Show(this, new Point(e.X, e.Y + darkToolStrip.Height));
         }
 
@@ -243,6 +241,7 @@ namespace WolfyEngine.Controls
         {
             GameController.Instance.Settings.StartingMap = _currentMap.Id;
             GameController.Instance.Settings.StartingCoordinates = EntityContextMenu.CurrentCoordinates;
+            Entity.Player.GetComponent<TransformComponent>().Transform = EntityContextMenu.CurrentCoordinates;
             gameEditorControl.SetStartingPosition();
             gameEditorControl.Invalidate();
         }

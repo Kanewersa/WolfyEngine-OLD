@@ -33,8 +33,6 @@
             this.graphicsPreviewBox = new System.Windows.Forms.PictureBox();
             this.createButton = new DarkUI.Controls.DarkButton();
             this.cancelButton = new DarkUI.Controls.DarkButton();
-            this.layerTypeComboBox = new DarkUI.Controls.DarkComboBox();
-            this.layerTypeTitle = new DarkUI.Controls.DarkTitle();
             this.tilesetsListView = new DarkUI.Controls.DarkListView();
             this.tilesetsTitle = new DarkUI.Controls.DarkTitle();
             ((System.ComponentModel.ISupportInitialize)(this.graphicsPreviewBox)).BeginInit();
@@ -90,27 +88,6 @@
             this.cancelButton.Text = "Cancel";
             this.cancelButton.Click += new System.EventHandler(this.cancelButton_Click);
             // 
-            // layerTypeComboBox
-            // 
-            this.layerTypeComboBox.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
-            this.layerTypeComboBox.FormattingEnabled = true;
-            this.layerTypeComboBox.Items.AddRange(new object[] {
-            "Tile Layer",
-            "Event Layer"});
-            this.layerTypeComboBox.Location = new System.Drawing.Point(12, 74);
-            this.layerTypeComboBox.Name = "layerTypeComboBox";
-            this.layerTypeComboBox.Size = new System.Drawing.Size(121, 21);
-            this.layerTypeComboBox.TabIndex = 23;
-            // 
-            // layerTypeTitle
-            // 
-            this.layerTypeTitle.AutoSize = true;
-            this.layerTypeTitle.Location = new System.Drawing.Point(9, 58);
-            this.layerTypeTitle.Name = "layerTypeTitle";
-            this.layerTypeTitle.Size = new System.Drawing.Size(59, 13);
-            this.layerTypeTitle.TabIndex = 24;
-            this.layerTypeTitle.Text = "Layer type:";
-            // 
             // tilesetsListView
             // 
             this.tilesetsListView.Location = new System.Drawing.Point(232, 25);
@@ -136,8 +113,6 @@
             this.ClientSize = new System.Drawing.Size(703, 481);
             this.Controls.Add(this.tilesetsTitle);
             this.Controls.Add(this.tilesetsListView);
-            this.Controls.Add(this.layerTypeTitle);
-            this.Controls.Add(this.layerTypeComboBox);
             this.Controls.Add(this.cancelButton);
             this.Controls.Add(this.createButton);
             this.Controls.Add(this.graphicsPreviewBox);
@@ -159,8 +134,6 @@
         private System.Windows.Forms.PictureBox graphicsPreviewBox;
         private DarkUI.Controls.DarkButton createButton;
         private DarkUI.Controls.DarkButton cancelButton;
-        private DarkUI.Controls.DarkComboBox layerTypeComboBox;
-        private DarkUI.Controls.DarkTitle layerTypeTitle;
         private DarkUI.Controls.DarkListView tilesetsListView;
         private DarkUI.Controls.DarkTitle tilesetsTitle;
     }
