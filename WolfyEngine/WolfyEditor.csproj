@@ -51,6 +51,27 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <LangVersion>8.0</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <LangVersion>8.0</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="DarkUI, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null">
       <HintPath>..\packages\DarkUI.2.0.1\lib\DarkUI.dll</HintPath>
@@ -63,11 +84,11 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\GeonBit.UI\GeonBit.UI\bin\Debug\GeonBit.UI.dll</HintPath>
     </Reference>
-    <Reference Include="MonoGame.Forms.DX, Version=2.3.9.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\MonoGame.Forms.DX.2.3.9\lib\net451\MonoGame.Forms.DX.dll</HintPath>
+    <Reference Include="MonoGame.Forms.DX, Version=2.4.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MonoGame.Forms.DX.2.4.0\lib\net451\MonoGame.Forms.DX.dll</HintPath>
     </Reference>
-    <Reference Include="MonoGame.Framework, Version=3.8.0.60, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\MonoGame.RuntimeBuilder.1.0.0\lib\net461\MonoGame.Framework.dll</HintPath>
+    <Reference Include="MonoGame.Framework, Version=3.8.0.270, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MonoGame.Forms.DX.2.4.0\lib\net451\MonoGame.Framework.dll</HintPath>
     </Reference>
     <Reference Include="MonoGame.Framework.Content.Pipeline, Version=3.8.0.60, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\MonoGame.RuntimeBuilder.1.0.0\lib\net461\MonoGame.Framework.Content.Pipeline.dll</HintPath>
@@ -84,14 +105,11 @@
     <Reference Include="Salar.Bois, Version=3.1.0.0, Culture=neutral, PublicKeyToken=c6a95817615ec2cb, processorArchitecture=MSIL">
       <HintPath>..\packages\Salar.Bois.3.1.0\lib\net45\Salar.Bois.dll</HintPath>
     </Reference>
-    <Reference Include="SharpDX, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b4dcf0f35e5521f1, processorArchitecture=MSIL">
-      <HintPath>..\packages\MonoGame.Forms.DX.2.3.9\lib\net451\SharpDX.dll</HintPath>
-    </Reference>
     <Reference Include="SharpDX.Direct3D11, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b4dcf0f35e5521f1, processorArchitecture=MSIL">
-      <HintPath>..\packages\MonoGame.Forms.DX.2.3.9\lib\net451\SharpDX.Direct3D11.dll</HintPath>
+      <HintPath>..\packages\MonoGame.Forms.DX.2.4.0\lib\net451\SharpDX.Direct3D11.dll</HintPath>
     </Reference>
     <Reference Include="SharpDX.DXGI, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b4dcf0f35e5521f1, processorArchitecture=MSIL">
-      <HintPath>..\packages\MonoGame.Forms.DX.2.3.9\lib\net451\SharpDX.DXGI.dll</HintPath>
+      <HintPath>..\packages\MonoGame.Forms.DX.2.4.0\lib\net451\SharpDX.DXGI.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
@@ -159,6 +177,12 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Source\WinForms\Forms\ActionsForms\ActionBinding.cs" />
+    <Compile Include="Source\WinForms\Forms\ActionsForms\Audio\ChangeBGMActionForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Source\WinForms\Forms\ActionsForms\Audio\ChangeBGMActionForm.Designer.cs">
+      <DependentUpon>ChangeBGMActionForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Source\WinForms\Forms\ActionsForms\BaseActionForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -173,9 +197,11 @@
     </Compile>
     <Compile Include="Source\WinForms\Forms\ActionsForms\Movement\TeleportActionForm.cs">
       <SubType>Form</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Source\WinForms\Forms\ActionsForms\Movement\TeleportActionForm.Designer.cs">
       <DependentUpon>TeleportActionForm.cs</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Source\WinForms\Forms\ActionsForms\NewActionForm.cs">
       <SubType>Form</SubType>
@@ -373,6 +399,9 @@
     <EmbeddedResource Include="Source\WinForms\Controls\ActionControls\NewConditionsListDisplay.resx">
       <DependentUpon>NewConditionsListDisplay.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Source\WinForms\Forms\ActionsForms\Audio\ChangeBGMActionForm.resx">
+      <DependentUpon>ChangeBGMActionForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Source\WinForms\Forms\ActionsForms\BaseActionForm.resx">
       <DependentUpon>BaseActionForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -381,6 +410,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Source\WinForms\Forms\ActionsForms\Movement\TeleportActionForm.resx">
       <DependentUpon>TeleportActionForm.cs</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="Source\WinForms\Forms\ActionsForms\NewActionForm.resx">
       <DependentUpon>NewActionForm.cs</DependentUpon>
@@ -748,13 +778,13 @@
     <Content Include="Content\GeonBit.UI\themes\lowres\ThemeData.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <Import Project="..\packages\MonoGame.Forms.DX.2.3.9\Build\MonoGame.Forms.DX.targets" Condition="Exists('..\packages\MonoGame.Forms.DX.2.3.9\Build\MonoGame.Forms.DX.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>Ten projekt zawiera odwołania do pakietów NuGet, których nie ma na tym komputerze. Użyj przywracania pakietów NuGet, aby je pobrać. Aby uzyskać więcej informacji, zobacz http://go.microsoft.com/fwlink/?LinkID=322105. Brakujący plik: {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\packages\MonoGame.Forms.DX.2.3.9\Build\MonoGame.Forms.DX.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\MonoGame.Forms.DX.2.3.9\Build\MonoGame.Forms.DX.targets'))" />
     <Error Condition="!Exists('..\packages\MonoGame.RuntimeBuilder.1.0.0\build\MonoGame.RuntimeBuilder.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\MonoGame.RuntimeBuilder.1.0.0\build\MonoGame.RuntimeBuilder.targets'))" />
+    <Error Condition="!Exists('..\packages\MonoGame.Forms.DX.2.4.0\Build\MonoGame.Forms.DX.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\MonoGame.Forms.DX.2.4.0\Build\MonoGame.Forms.DX.targets'))" />
   </Target>
   <Import Project="..\packages\MonoGame.RuntimeBuilder.1.0.0\build\MonoGame.RuntimeBuilder.targets" Condition="Exists('..\packages\MonoGame.RuntimeBuilder.1.0.0\build\MonoGame.RuntimeBuilder.targets')" />
+  <Import Project="..\packages\MonoGame.Forms.DX.2.4.0\Build\MonoGame.Forms.DX.targets" Condition="Exists('..\packages\MonoGame.Forms.DX.2.4.0\Build\MonoGame.Forms.DX.targets')" />
 </Project>

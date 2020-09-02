@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using ProtoBuf;
 using WolfyECS;
@@ -16,7 +17,7 @@ namespace WolfyCore.ECS
 
         public InputSystem() { }
 
-        public override void Initialize()
+        public override void Initialize(GraphicsDevice graphics)
         {
             RequireComponent<InputComponent>();
             RequireComponent<MovementComponent>();

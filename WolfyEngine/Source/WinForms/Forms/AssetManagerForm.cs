@@ -24,6 +24,21 @@ namespace WolfyEngine.Forms
             InitializeFolderTree();
         }
 
+        public static string GetAssetExtension(string path)
+        {
+            return Path.GetFileName(path) switch
+            {
+                "Audio" => "*.none",
+                "BGM" => "*.mp3",
+                "SFX" => "*.mp3",
+                "Data" => "*.none",
+                "Fonts" => "*.ttf",
+                "Sprites" => "*.png",
+                "Tilesets" => "*.png",
+                _ => "*"
+            };
+        }
+
         private void InitializeFolderTree()
         {
             var mainNode = new DarkTreeNode(ProjectsController.Instance.CurrentProject.Name) {IsRoot = true};
@@ -32,6 +47,11 @@ namespace WolfyEngine.Forms
             //Define main folders
             var audio = new DarkTreeNode("Audio");
             mainNode.Nodes.Add(audio);
+
+            var bgm = new DarkTreeNode("BGM");
+            var sfx = new DarkTreeNode("SFX");
+            audio.Nodes.Add(bgm);
+            audio.Nodes.Add(sfx);
 
             var data = new DarkTreeNode("Data");
             mainNode.Nodes.Add(data);
@@ -88,14 +108,14 @@ namespace WolfyEngine.Forms
         private void InitializeFilesList()
         {
             filesListView.Items.Clear();
-            DisplayFiles(SelectedFolder);
+            DisplayFiles(SelectedFolder, GetAssetExtension(SelectedFolder));
         }
 
-        private void DisplayFiles(string folderPath)
+        private void DisplayFiles(string folderPath, string extension)
         {
             Directory.CreateDirectory(folderPath);
 
-            var extension = "*.png";
+            //var extension = "*.png";
 
             foreach (var file in Directory.EnumerateFiles(folderPath, extension, SearchOption.TopDirectoryOnly))
             {
@@ -165,7 +185,7 @@ namespace WolfyEngine.Forms
             using var dialog = new OpenFileDialog
             {
                 Title = "Select asset",
-                Filter = "png files (*.png)|*.png|All files (*.*)|*.*",
+                Filter = "Asset Files|" + GetAssetExtension(SelectedFolder),
                 Multiselect = true
             };
             if (dialog.ShowDialog() != DialogResult.OK) return;

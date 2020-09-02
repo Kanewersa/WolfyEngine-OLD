@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using ProtoBuf;
 using WolfyECS;
 
@@ -9,7 +10,7 @@ namespace WolfyCore.ECS
     {
         public MovementSystem() { }
 
-        public override void Initialize()
+        public override void Initialize(GraphicsDevice graphics)
         {
             RequireComponent<MovementActionComponent>();
             RequireComponent<MovementComponent>();

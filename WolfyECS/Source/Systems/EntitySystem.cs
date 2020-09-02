@@ -30,7 +30,7 @@ namespace WolfyECS
         /// <summary>
         /// Performs all operations necessary to initialize the system.
         /// </summary>
-        public virtual void Initialize()
+        public virtual void Initialize(GraphicsDevice graphics)
         { }
 
         /// <summary>

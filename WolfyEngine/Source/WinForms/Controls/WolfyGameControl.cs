@@ -116,7 +116,7 @@ namespace WolfyEngine.Controls
 
             foreach (var system in systems)
             {
-                system.Initialize();
+                system.Initialize(GraphicsDevice);
                 system.LoadContent(content);
             }
 
@@ -126,7 +126,7 @@ namespace WolfyEngine.Controls
                 {
                     var system = (EntitySystem)Activator.CreateInstance(type);
                     World.AddSystem(system);
-                    system.Initialize();
+                    system.Initialize(GraphicsDevice);
                     system.LoadContent(content);
                 }
             }

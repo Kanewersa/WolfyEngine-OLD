@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using ProtoBuf;
 using WolfyCore.Engine;
 using WolfyECS;
@@ -10,7 +11,7 @@ namespace WolfyCore.ECS
     [ProtoContract] public class RoutineMovementSystem : EntitySystem
     {
         public RoutineMovementSystem() { }
-        public override void Initialize()
+        public override void Initialize(GraphicsDevice graphics)
         {
             RequireComponent<MovementComponent>();
             RequireComponent<RoutineMovementComponent>();

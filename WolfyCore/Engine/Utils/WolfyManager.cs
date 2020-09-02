@@ -37,6 +37,7 @@ namespace WolfyEngine
             entitySystem.AddSubType(106, typeof(RoutineMovementSystem));
             entitySystem.AddSubType(107, typeof(RenderSystem));
             entitySystem.AddSubType(108, typeof(ActionSystem));
+            entitySystem.AddSubType(109, typeof(TimeSystem));
 
             // Add components
             var entityComponent = RuntimeTypeModel.Default[typeof(EntityComponent)];

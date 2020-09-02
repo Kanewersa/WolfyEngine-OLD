@@ -26,6 +26,9 @@ namespace WolfyCore.Controllers
                 TilesetsPath = Path.Combine(DataPath, "Tilesets");
                 TilesetsDataPath = Path.Combine(TilesetsPath, "TilesetsData.wolf");
 
+                BgmPath = Path.Combine(AudioPath, "Bgm");
+                SfxPath = Path.Combine(AudioPath, "Sfx");
+
                 GameSettingsPath = Path.Combine(DataPath, "GameData.wolf");
                 WorldPath = Path.Combine(DataPath, "Worlds.wolf");
                 SerializationHelperPath = Path.Combine(DataPath, "Serialization.wolf");
@@ -38,6 +41,8 @@ namespace WolfyCore.Controllers
 
         // Main folders
         public string AudioPath { get; private set; }
+        public string BgmPath { get; private set; }
+        public string SfxPath { get; private set; }
         public string DataPath { get; private set; }
         public string FontsPath { get; private set; }
         public string GraphicsPath { get; private set; }

@@ -14,7 +14,7 @@ namespace WolfyCore.ECS
         
         public AnimationSystem() { }
 
-        public override void Initialize()
+        public override void Initialize(GraphicsDevice graphics)
         {
             RequireComponent<TransformComponent>();
             RequireComponent<AnimationComponent>();

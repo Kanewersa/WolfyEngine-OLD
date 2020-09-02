@@ -37,9 +37,6 @@ namespace WolfyECS
             //Worlds = new World[WorldsLimit];
         }
 
-        public GraphicsDevice GraphicsDevice => _graphicsDevice;
-        public ContentManager ContentManager => _contentManager;
-
         public void Debug()
         {
             foreach (var system in _systems)
@@ -85,7 +82,7 @@ namespace WolfyECS
 
             // Load all systems
             foreach(var system in _systems)
-                system.Initialize();
+                system.Initialize(graphics);
         }
 
         public void LoadContent(ContentManager content)

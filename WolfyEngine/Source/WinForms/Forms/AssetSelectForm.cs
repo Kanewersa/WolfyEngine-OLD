@@ -27,8 +27,7 @@ namespace WolfyEngine.Forms
             Directory.CreateDirectory(path);
             var directory = new DirectoryInfo(path);
 
-            var extension = "*.png";
-            var files = directory.GetFiles("*.png");
+            var extension = AssetManagerForm.GetAssetExtension(path);
 
             //Clear files tree view
             FilesListView.Items.Clear();
@@ -51,6 +50,14 @@ namespace WolfyEngine.Forms
 
         private void PreviewFile(string path)
         {
+            if (!File.Exists(path))
+            {
+                DarkMessageBox.ShowError(
+                    "Could not find file: " + path,
+                    "File not found.");
+                return;
+            }
+
             var extension = Path.GetExtension(path);
 
             using (var temp = new Bitmap(path))

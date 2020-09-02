@@ -33,6 +33,26 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <LangVersion>8.0</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <LangVersion>8.0</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="DarkUI, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\DarkUI.2.0.1\lib\DarkUI.dll</HintPath>
@@ -44,11 +64,11 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\GeonBit.UI\GeonBit.UI\bin\Debug\GeonBit.UI.dll</HintPath>
     </Reference>
-    <Reference Include="MonoGame.Forms.DX, Version=2.3.9.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\MonoGame.Forms.DX.2.3.9\lib\net451\MonoGame.Forms.DX.dll</HintPath>
+    <Reference Include="MonoGame.Forms.DX, Version=2.4.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MonoGame.Forms.DX.2.4.0\lib\net451\MonoGame.Forms.DX.dll</HintPath>
     </Reference>
-    <Reference Include="MonoGame.Framework, Version=3.8.0.60, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\MonoGame.RuntimeBuilder.1.0.0\lib\net461\MonoGame.Framework.dll</HintPath>
+    <Reference Include="MonoGame.Framework, Version=3.8.0.270, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MonoGame.Forms.DX.2.4.0\lib\net451\MonoGame.Framework.dll</HintPath>
     </Reference>
     <Reference Include="MonoGame.Framework.Content.Pipeline, Version=3.8.0.60, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\MonoGame.RuntimeBuilder.1.0.0\lib\net461\MonoGame.Framework.Content.Pipeline.dll</HintPath>
@@ -69,13 +89,16 @@
       <HintPath>..\packages\Salar.Bois.3.1.0\lib\net45\Salar.Bois.dll</HintPath>
     </Reference>
     <Reference Include="SharpDX, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b4dcf0f35e5521f1, processorArchitecture=MSIL">
-      <HintPath>..\packages\MonoGame.Forms.DX.2.3.9\lib\net451\SharpDX.dll</HintPath>
+      <HintPath>..\packages\SharpDX.4.0.1\lib\net45\SharpDX.dll</HintPath>
     </Reference>
     <Reference Include="SharpDX.Direct3D11, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b4dcf0f35e5521f1, processorArchitecture=MSIL">
-      <HintPath>..\packages\MonoGame.Forms.DX.2.3.9\lib\net451\SharpDX.Direct3D11.dll</HintPath>
+      <HintPath>..\packages\MonoGame.Forms.DX.2.4.0\lib\net451\SharpDX.Direct3D11.dll</HintPath>
     </Reference>
-    <Reference Include="SharpDX.DXGI, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b4dcf0f35e5521f1, processorArchitecture=MSIL">
-      <HintPath>..\packages\MonoGame.Forms.DX.2.3.9\lib\net451\SharpDX.DXGI.dll</HintPath>
+    <Reference Include="SharpDX.Direct3D9, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b4dcf0f35e5521f1, processorArchitecture=MSIL">
+      <HintPath>..\packages\SharpDX.Direct3D9.4.0.1\lib\net45\SharpDX.Direct3D9.dll</HintPath>
+    </Reference>
+    <Reference Include="SharpDX.Mathematics, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b4dcf0f35e5521f1, processorArchitecture=MSIL">
+      <HintPath>..\packages\SharpDX.Mathematics.4.0.1\lib\net45\SharpDX.Mathematics.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
@@ -96,6 +119,7 @@
     <Compile Include="Controllers\PathsController.cs" />
     <Compile Include="Controllers\TilesetsController.cs" />
     <Compile Include="ECS\Actions\ActionsManager.cs" />
+    <Compile Include="ECS\Actions\Audio\ChangeBGMAction.cs" />
     <Compile Include="ECS\Actions\BaseVariable.cs" />
     <Compile Include="ECS\Actions\Camera\CameraFadeAction.cs" />
     <Compile Include="ECS\Actions\Camera\LUTAction.cs" />
@@ -112,10 +136,12 @@
     <Compile Include="ECS\Components\ActionComponent.cs" />
     <Compile Include="ECS\Components\Actions\MovementActionComponent.cs" />
     <Compile Include="ECS\Components\AnimationComponent.cs" />
+    <Compile Include="ECS\Components\Audio\SFXComponent.cs" />
     <Compile Include="ECS\Components\Camera\CameraComponent.cs" />
     <Compile Include="ECS\Components\Camera\LUTComponent.cs" />
     <Compile Include="ECS\Components\CollisionComponent.cs" />
     <Compile Include="ECS\Components\InputComponent.cs" />
+    <Compile Include="ECS\Components\LoadMapComponent.cs" />
     <Compile Include="ECS\Components\Movement\FixedMovementComponent.cs" />
     <Compile Include="ECS\Components\Movement\FollowMovementComponent.cs" />
     <Compile Include="ECS\Components\Movement\MovementComponent.cs" />
@@ -125,8 +151,10 @@
     <Compile Include="ECS\Components\StartActionComponent.cs" />
     <Compile Include="ECS\Systems\ActionSystem.cs" />
     <Compile Include="ECS\Systems\AnimationSystem.cs" />
+    <Compile Include="ECS\Systems\Audio\SFXSystem.cs" />
     <Compile Include="ECS\Systems\CollisionSystem.cs" />
     <Compile Include="ECS\Systems\InputSystem.cs" />
+    <Compile Include="ECS\Systems\LoadingSystem.cs" />
     <Compile Include="ECS\Systems\Movement\MovementSystem.cs" />
     <Compile Include="ECS\Systems\Movement\RandomMovementSystem.cs" />
     <Compile Include="ECS\Systems\Movement\RoutineMovementSystem.cs" />
@@ -186,6 +214,7 @@
     <Folder Include="Engine\Renderers\" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="Content\GeonBit.UI\themes\editor\fonts\Bold.spritefont" />
     <None Include="Content\GeonBit.UI\themes\editor\fonts\Italic.spritefont" />
     <None Include="Content\GeonBit.UI\themes\editor\fonts\Regular.spritefont" />
@@ -795,13 +824,13 @@
     <Content Include="Engine\Graphics\Shaders\ColorGrading.fx" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <Import Project="..\packages\MonoGame.Forms.DX.2.3.9\Build\MonoGame.Forms.DX.targets" Condition="Exists('..\packages\MonoGame.Forms.DX.2.3.9\Build\MonoGame.Forms.DX.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>Ten projekt zawiera odwołania do pakietów NuGet, których nie ma na tym komputerze. Użyj przywracania pakietów NuGet, aby je pobrać. Aby uzyskać więcej informacji, zobacz http://go.microsoft.com/fwlink/?LinkID=322105. Brakujący plik: {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\packages\MonoGame.Forms.DX.2.3.9\Build\MonoGame.Forms.DX.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\MonoGame.Forms.DX.2.3.9\Build\MonoGame.Forms.DX.targets'))" />
     <Error Condition="!Exists('..\packages\MonoGame.RuntimeBuilder.1.0.0\Build\MonoGame.RuntimeBuilder.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\MonoGame.RuntimeBuilder.1.0.0\Build\MonoGame.RuntimeBuilder.targets'))" />
+    <Error Condition="!Exists('..\packages\MonoGame.Forms.DX.2.4.0\build\MonoGame.Forms.DX.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\MonoGame.Forms.DX.2.4.0\build\MonoGame.Forms.DX.targets'))" />
   </Target>
   <Import Project="..\packages\MonoGame.RuntimeBuilder.1.0.0\Build\MonoGame.RuntimeBuilder.targets" Condition="Exists('..\packages\MonoGame.RuntimeBuilder.1.0.0\Build\MonoGame.RuntimeBuilder.targets')" />
+  <Import Project="..\packages\MonoGame.Forms.DX.2.4.0\build\MonoGame.Forms.DX.targets" Condition="Exists('..\packages\MonoGame.Forms.DX.2.4.0\build\MonoGame.Forms.DX.targets')" />
 </Project>

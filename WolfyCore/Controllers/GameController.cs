@@ -72,7 +72,7 @@ namespace WolfyCore.Controllers
             {
                 var system = (EntitySystem)Activator.CreateInstance(type);
                 world.AddSystem(system);
-                system.Initialize();
+                system.Initialize(null);
             }
         }
 

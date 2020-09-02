@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using ProtoBuf;
 using WolfyECS;
 
@@ -13,7 +14,7 @@ namespace WolfyCore.ECS
 
         public TimeSystem() { }
 
-        public override void Initialize()
+        public override void Initialize(GraphicsDevice graphics)
         {
             // RequireComponent<TimeComponent>();
         }
@@ -40,7 +41,7 @@ namespace WolfyCore.ECS
 
             IterateEntities(entity =>
             {
-                // TODO: Handle all events associated with time routines.
+                // TODO: Implement time system and handle all events associated with time routines.
             });
         }
     }

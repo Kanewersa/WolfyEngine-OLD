@@ -18,8 +18,8 @@ namespace WolfyCore.ECS
         public RenderTarget2D BackBufferRenderTarget { get; private set; }
         public LUTManager LUTManager { get; private set; }
 
-        private ContentManager ContentManager => World.WorldInstance.ContentManager;
-        private GraphicsDevice GraphicsDevice => World.WorldInstance.GraphicsDevice;
+        public ContentManager ContentManager { get; private set; }
+        public GraphicsDevice GraphicsDevice { get; private set; }
 
         public Texture2D BlackPane { get; private set; }
         public float PaneTransparency { get; private set; }
@@ -30,7 +30,7 @@ namespace WolfyCore.ECS
             LUTManager = new LUTManager();
         }
 
-        public override void Initialize()
+        public override void Initialize(GraphicsDevice graphics)
         {
             RequireComponent<TransformComponent>();
             RequireComponent<CameraComponent>();
@@ -38,6 +38,7 @@ namespace WolfyCore.ECS
 
         public override void LoadContent(ContentManager content)
         {
+            ContentManager = content;
             LUTManager.LoadContent(content, GraphicsDevice);
             BlackPane = content.Load<Texture2D>("Assets/Shaders/BlackPane");
         }
@@ -123,17 +124,17 @@ namespace WolfyCore.ECS
             LUTManager.Draw(spriteBatch, CameraTransform, filterOutput, width, height);
 
             
-                spriteBatch.Begin();
+            spriteBatch.Begin();
 
-                for (var x = 0; x < width; x+=128)
+            for (var x = 0; x < width; x+=128)
+            {
+                for (var y = 0; y < height; y+=128)
                 {
-                    for (var y = 0; y < height; y+=128)
-                    {
-                        spriteBatch.Draw(BlackPane, new Vector2(x,y), new Color(Color.White, PaneTransparency));
-                    }
+                    spriteBatch.Draw(BlackPane, new Vector2(x,y), new Color(Color.White, PaneTransparency));
                 }
+            }
 
-                spriteBatch.End();
+            spriteBatch.End();
             
         }
     }

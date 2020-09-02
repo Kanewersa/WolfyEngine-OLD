@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Graphics;
 using Nito.Collections;
 using ProtoBuf;
 
@@ -30,6 +32,9 @@ namespace WolfyCore.Actions
             set => _pendingActions = new Deque<WolfyAction>(value);
         }
 
+        public ContentManager ContentManager { get; private set; }
+        public GraphicsDevice GraphicsDevice { get; private set; }
+
         /// <summary>
         /// Determines if there is an action being executed.
         /// </summary>
@@ -46,6 +51,16 @@ namespace WolfyCore.Actions
         public ActionsManager()
         {
             _pendingActions = new Deque<WolfyAction>();
+        }
+
+        public void Initialize(GraphicsDevice graphics)
+        {
+            GraphicsDevice = graphics;
+        }
+
+        public void LoadContent(ContentManager content)
+        {
+            ContentManager = content;
         }
 
         /// <summary>
@@ -84,6 +99,7 @@ namespace WolfyCore.Actions
                 return;
             }
 
+            CurrentAction.Initialize(this);
             CurrentAction.Execute();
 
             if (CurrentAction.Asynchronous)

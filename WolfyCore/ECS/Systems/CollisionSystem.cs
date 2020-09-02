@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using ProtoBuf;
 using WolfyCore.Controllers;
 using WolfyCore.Game;
@@ -13,7 +14,7 @@ namespace WolfyCore.ECS
     {
         public CollisionSystem() { }
 
-        public override void Initialize()
+        public override void Initialize(GraphicsDevice graphics)
         {
             RequireComponent<CollisionComponent>();
             RequireComponent<MovementActionComponent>();

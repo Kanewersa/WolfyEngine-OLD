@@ -1,4 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Graphics;
 using ProtoBuf;
 using WolfyECS;
 
@@ -23,6 +25,20 @@ namespace WolfyCore.Actions
         /// Determines if action was completed.
         /// </summary>
         [ProtoMember(503)] public bool Completed;
+
+        private ActionsManager _actionsManager;
+
+        protected ContentManager Content => _actionsManager.ContentManager;
+        protected GraphicsDevice GraphicsDevice => _actionsManager.GraphicsDevice;
+
+        /// <summary>
+        /// Assigns the <see cref="ActionsManager"/>.
+        /// </summary>
+        /// <param name="manager"></param>
+        public void Initialize(ActionsManager manager)
+        {
+            _actionsManager = manager;
+        }
 
         /// <summary>
         /// Executes the action.

@@ -32,9 +32,9 @@
             this.FadeTypeTitle = new DarkUI.Controls.DarkTitle();
             this.FadeOutButton = new DarkUI.Controls.DarkRadioButton();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.darkSeparator1 = new DarkUI.Controls.DarkSeparator();
-            this.FadeDurationTitle = new DarkUI.Controls.DarkTitle();
             this.FadeDurationBox = new DarkUI.Controls.DarkNumericUpDown();
+            this.FadeDurationTitle = new DarkUI.Controls.DarkTitle();
+            this.darkSeparator1 = new DarkUI.Controls.DarkSeparator();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.FadeDurationBox)).BeginInit();
             this.SuspendLayout();
@@ -82,24 +82,6 @@
             this.panel1.Size = new System.Drawing.Size(209, 123);
             this.panel1.TabIndex = 11;
             // 
-            // darkSeparator1
-            // 
-            this.darkSeparator1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.darkSeparator1.Location = new System.Drawing.Point(0, 0);
-            this.darkSeparator1.Name = "darkSeparator1";
-            this.darkSeparator1.Size = new System.Drawing.Size(209, 2);
-            this.darkSeparator1.TabIndex = 6;
-            this.darkSeparator1.Text = "darkSeparator1";
-            // 
-            // FadeDurationTitle
-            // 
-            this.FadeDurationTitle.AutoSize = true;
-            this.FadeDurationTitle.Location = new System.Drawing.Point(12, 70);
-            this.FadeDurationTitle.Name = "FadeDurationTitle";
-            this.FadeDurationTitle.Size = new System.Drawing.Size(135, 13);
-            this.FadeDurationTitle.TabIndex = 11;
-            this.FadeDurationTitle.Text = "Fade duration (in seconds):";
-            // 
             // FadeDurationBox
             // 
             this.FadeDurationBox.DecimalPlaces = 1;
@@ -117,6 +99,24 @@
             this.FadeDurationBox.Name = "FadeDurationBox";
             this.FadeDurationBox.Size = new System.Drawing.Size(135, 20);
             this.FadeDurationBox.TabIndex = 12;
+            // 
+            // FadeDurationTitle
+            // 
+            this.FadeDurationTitle.AutoSize = true;
+            this.FadeDurationTitle.Location = new System.Drawing.Point(12, 70);
+            this.FadeDurationTitle.Name = "FadeDurationTitle";
+            this.FadeDurationTitle.Size = new System.Drawing.Size(135, 13);
+            this.FadeDurationTitle.TabIndex = 11;
+            this.FadeDurationTitle.Text = "Fade duration (in seconds):";
+            // 
+            // darkSeparator1
+            // 
+            this.darkSeparator1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.darkSeparator1.Location = new System.Drawing.Point(0, 0);
+            this.darkSeparator1.Name = "darkSeparator1";
+            this.darkSeparator1.Size = new System.Drawing.Size(209, 2);
+            this.darkSeparator1.TabIndex = 6;
+            this.darkSeparator1.Text = "darkSeparator1";
             // 
             // CameraFadeActionForm
             // 

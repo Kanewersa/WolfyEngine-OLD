@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using WolfyCore.Engine;
 using WolfyECS;
 using Random = WolfyCore.Engine.Random;
@@ -10,7 +11,7 @@ namespace WolfyCore.ECS
     {
         public RandomMovementSystem() { }
 
-        public override void Initialize()
+        public override void Initialize(GraphicsDevice graphics)
         {
             RequireComponent<MovementComponent>();
             RequireComponent<RandomMovementComponent>();
