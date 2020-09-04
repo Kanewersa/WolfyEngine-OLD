@@ -4,7 +4,6 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using ProtoBuf;
 using WolfyECS;
-using WolfyEngine;
 
 namespace WolfyCore.ECS
 {
@@ -21,19 +20,14 @@ namespace WolfyCore.ECS
         {
             RequireComponent<InputComponent>();
             RequireComponent<MovementComponent>();
+            RequireComponent<TransformComponent>();
         }
 
         public override void Update(GameTime gameTime)
         {
-            foreach (var entity in Entities)
+            IterateEntities(entity =>
             {
                 var input = entity.GetComponent<InputComponent>();
-                var movement = entity.GetComponent<MovementComponent>();
-
-                if (input == null)
-                    throw new Exception("Entity in " + this + "is missing input component.");
-                if (movement == null)
-                    throw new Exception("Entity in " + this + "is missing movement component.");
 
                 _currentKeyboardState = Keyboard.GetState();
                 input.ArrowDown = _currentKeyboardState.IsKeyDown(Keys.Down);
@@ -51,15 +45,13 @@ namespace WolfyCore.ECS
                     MoveEntity(entity, new Vector2(0, 1));
                 else if (input.ArrowLeft)
                     MoveEntity(entity, new Vector2(-1, 0));
-            }
+            });
         }
 
-        private void MoveEntity(Entity e, Vector2 direction)
+        private static void MoveEntity(Entity e, Vector2 direction)
         {
             if (e.HasComponent<MovementActionComponent>()
-                || e.HasComponent<StartActionComponent>()
-                || !e.HasComponent<TransformComponent>()
-                || !e.HasComponent<MovementComponent>()) return;
+                || e.HasComponent<StartActionComponent>()) return;
 
             var movement = e.GetComponent<MovementComponent>();
             var transform = e.GetComponent<TransformComponent>();

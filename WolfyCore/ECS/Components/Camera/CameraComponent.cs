@@ -53,7 +53,7 @@ namespace WolfyCore.ECS
                 max.Y = MapBounds.Y;
             }
 
-            return new Rectangle((int)min.X, (int)min.Y, (int)(max.X - min.X), (int)(max.Y - min.Y)); ;
+            return new Rectangle((int)min.X, (int)min.Y, (int)(max.X - min.X), (int)(max.Y - min.Y));
         }
 
         public void AdjustZoom(float zoomAmount)

@@ -17,7 +17,7 @@ namespace WolfyCore.ECS
         [ProtoMember(3)] public bool IsMoving;
 
         /// <summary>
-        /// Default constructor
+        /// Default constructor.
         /// </summary>
         public MovementActionComponent() { }
 

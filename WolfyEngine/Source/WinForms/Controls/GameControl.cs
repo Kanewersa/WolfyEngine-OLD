@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
@@ -10,9 +11,13 @@ using WolfyECS;
 using WolfyEngine.Utils;
 using WolfyCore;
 using WolfyCore.Controllers;
+using WolfyCore.ECS;
 using WolfyCore.Engine;
 using WolfyCore.Game;
+using Color = Microsoft.Xna.Framework.Color;
 using ControlEventHandler = WolfyCore.Engine.ControlEventHandler;
+using Image = WolfyCore.Engine.Image;
+using Rectangle = Microsoft.Xna.Framework.Rectangle;
 
 namespace WolfyEngine.Controls
 {
@@ -66,24 +71,6 @@ namespace WolfyEngine.Controls
 
             SelectedTileRegion = new Rectangle(0, 0, 1, 1);
 
-            EntityImage = new Image("Assets/Icons/EntityIcon")
-            {
-                Scale = (float)Runtime.GridSize/64
-            };
-            EntityGridImage = new Image("Assets/Icons/EntityGridIcon")
-            {
-                Scale = (float)Runtime.GridSize / 64
-            };
-            SelectedTileImage = new Image("Assets/Icons/SelectedTileIcon")
-            {
-                Scale = (float)Runtime.GridSize / 64,
-                Alpha = .5f
-            };
-            StartingPointImage = new Image("Assets/Icons/StartingPointIcon")
-            {
-                Scale = (float)Runtime.GridSize / 64
-            };
-            
             MouseEnter += delegate { MouseOnScreen = true; };
             MouseLeave += delegate
             {
@@ -186,6 +173,24 @@ namespace WolfyEngine.Controls
 
         protected void LoadContent(ContentManager content)
         {
+            EntityImage = new Image("Assets/Icons/EntityIcon")
+            {
+                Scale = (float)Runtime.GridSize / 64
+            };
+            EntityGridImage = new Image("Assets/Icons/EntityGridIcon")
+            {
+                Scale = (float)Runtime.GridSize / 64
+            };
+            SelectedTileImage = new Image("Assets/Icons/SelectedTileIcon")
+            {
+                Scale = (float)Runtime.GridSize / 64,
+                Alpha = .5f
+            };
+            StartingPointImage = new Image("Assets/Icons/StartingPointIcon")
+            {
+                Scale = (float)Runtime.GridSize / 64
+            };
+
             EntityImage.LoadContent(content);
             EntityGridImage.LoadContent(content);
             SelectedTileImage.LoadContent(content);
@@ -250,9 +255,6 @@ namespace WolfyEngine.Controls
                 TileCoordinates.X * TileSize.X,
                 TileCoordinates.Y * TileSize.Y);
             SelectedTileImage.Draw(Editor.spriteBatch);
-
-            if (StartingMap)
-                StartingPointImage.Draw(Editor.spriteBatch);
         }
 
         public void SetTileRegion(Rectangle rect)
@@ -267,13 +269,12 @@ namespace WolfyEngine.Controls
             // Set control size to fit the map
             if (map == null)
             {
-                Width = 10;
-                Height = 10;
+                Size = new Size(10, 10);
                 Invalidate();
                 return;
             }
 
-            SetStartingPosition();
+            StartingMap = CurrentMap.Id == Entity.Player.GetComponent<TransformComponent>().CurrentMap;
 
             Width = map.Size.X * TileSize.X;
             Height = map.Size.Y * TileSize.Y;
@@ -290,16 +291,6 @@ namespace WolfyEngine.Controls
         public void LoadWorld(World world)
         {
             World = world;
-        }
-
-        public void SetStartingPosition()
-        {
-            StartingMap = CurrentMap.Id == GameController.Instance.Settings.StartingMap;
-
-            if (!StartingMap) return;
-            var coordinates = GameController.Instance.Settings.StartingCoordinates;
-            StartingPointImage.Position =
-                new Vector2(coordinates.X * TileSize.X, coordinates.Y * TileSize.Y);
         }
 
         public void LoadLayer(BaseLayer layer)

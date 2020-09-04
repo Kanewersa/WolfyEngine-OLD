@@ -31,22 +31,19 @@ namespace WolfyCore.ECS
                 comp.LoadContent(content);
             }
         }
-        
-        public override void Update(GameTime gameTime)
+
+        public override void PostUpdate(GameTime gameTime)
         {
             IterateEntities(entity =>
             {
                 var animation = entity.GetComponent<AnimationComponent>();
-                var movement = entity.GetComponent<MovementComponent>();
-
                 var isMoving = entity.HasComponent<MovementActionComponent>();
 
                 SetAnimations(isMoving, animation);
 
                 animation.AnimationManager.Update(gameTime);
-                var transform = entity.GetComponent<TransformComponent>();
-                animation.Position = transform.Transform;
-                animation.SetDirection(movement.Direction);
+                animation.Position = entity.GetComponent<TransformComponent>().Transform;
+                animation.SetDirection(entity.GetComponent<MovementComponent>().Direction);
             });
         }
 
@@ -55,12 +52,19 @@ namespace WolfyCore.ECS
 
         }
 
-        private void SetAnimations(bool isMoving, AnimationComponent component)
+        private static void SetAnimations(bool isMoving, AnimationComponent component)
         {
-            if(isMoving)
+            if (isMoving)
+            {
                 component.AnimationManager.Play(component.Animations["Walk"]);
-            else
+                component.PreserveAnimation = true;
+                return;
+            }
+            
+            if(!component.PreserveAnimation)
+            {
                 component.AnimationManager.Stop();
+            }
         }
     }
 }

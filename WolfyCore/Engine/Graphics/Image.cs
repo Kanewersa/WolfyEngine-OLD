@@ -84,8 +84,8 @@ namespace WolfyCore.Engine
             if (string.IsNullOrEmpty(Path))
                 throw new FileNotFoundException("Texture file is missing or has a wrong path! Path: " + Path);
 
-            if (Path.EndsWith(".png"))
-                Path = Path.Remove(Path.Length - 4);
+            if (System.IO.Path.HasExtension(Path))
+                Path = System.IO.Path.ChangeExtension(Path, null);
 
             Texture = content.Load<Texture2D>(Path);
 
@@ -114,7 +114,7 @@ namespace WolfyCore.Engine
         }
 
         /// <summary>
-        /// Disposes the texture.
+        /// Disposes the image.
         /// </summary>
         public void Dispose()
         {

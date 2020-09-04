@@ -70,6 +70,16 @@ namespace WolfyEngine.Controls
             }
         }
 
+        private void PlaySongButton_Click(object sender, System.EventArgs e)
+        {
+            using (var form = new ChangeBGMActionForm())
+            {
+                form.Initialize(Entity);
+                form.OnSave += InvokeOnSelect;
+                form.ShowDialog();
+            }
+        }
+
         #endregion
     }
 }

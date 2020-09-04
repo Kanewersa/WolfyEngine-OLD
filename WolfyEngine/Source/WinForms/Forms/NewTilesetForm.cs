@@ -45,7 +45,7 @@ namespace WolfyEngine.Forms
             if (_selectedAsset == null)
             {
                 DarkMessageBox.ShowWarning(
-                    "Select the tileset graphics",
+                    "Select the tileset graphics.",
                     "No tileset graphics");
                 return;
             }

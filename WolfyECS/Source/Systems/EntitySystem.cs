@@ -48,6 +48,14 @@ namespace WolfyECS
         { }
 
         /// <summary>
+        /// Updates all the entities system is subscribing to.
+        /// Executed after <see cref="Update"/>.
+        /// </summary>
+        /// <param name="gameTime"></param>
+        public virtual void PostUpdate(GameTime gameTime)
+        { }
+
+        /// <summary>
         /// Performs all system drawing operations.
         /// </summary>
         /// <param name="gameTime"></param>

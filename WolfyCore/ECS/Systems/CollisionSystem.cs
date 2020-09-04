@@ -6,7 +6,6 @@ using ProtoBuf;
 using WolfyCore.Controllers;
 using WolfyCore.Game;
 using WolfyECS;
-using WolfyEngine;
 
 namespace WolfyCore.ECS
 {
@@ -36,7 +35,7 @@ namespace WolfyCore.ECS
                 if (!collision.IsCollider)
                 {
                     // TODO Instead of true/false variable make the collision component...
-                    // ... present when entity should have collision and delete it if it shouldn't.
+                    // ... present when entity should have collision and delete it otherwise.
                 }
 
                 // Check if entity can move to target position
@@ -55,7 +54,7 @@ namespace WolfyCore.ECS
                     transform.Transform = movementAction.StartTransform;
 
                     // Remove movement action component
-                    entity.RemoveIfHasComponent<MovementActionComponent>();
+                    entity.RemoveComponent<MovementActionComponent>();
 
                     // Check if the entity is the player who met an NPC
                     if (canMove == null && entity.HasComponent<InputComponent>())

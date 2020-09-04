@@ -11,24 +11,23 @@ namespace WolfyEngine.Forms
     public partial class AssetSelectForm : DarkForm
     {
         private string AssetsPath { get; set; }
-        private bool CorrectAsset { get; set; }
+        private bool HideExtension { get; set; }
 
         public event AssetPathHandler OnAssetSelected;
 
-        public AssetSelectForm(string assetsPath)
+        public AssetSelectForm(string assetsPath, bool hideExtension = false)
         {
             InitializeComponent();
             AssetsPath = assetsPath;
+            HideExtension = hideExtension;
             LoadAssetsFromPath(assetsPath);
         }
 
         private void LoadAssetsFromPath(string path)
         {
             Directory.CreateDirectory(path);
-            var directory = new DirectoryInfo(path);
 
             var extension = AssetManagerForm.GetAssetExtension(path);
-
             //Clear files tree view
             FilesListView.Items.Clear();
             FilesListView.Refresh();
@@ -60,10 +59,12 @@ namespace WolfyEngine.Forms
 
             var extension = Path.GetExtension(path);
 
-            using (var temp = new Bitmap(path))
+            if (extension == ".png")
             {
-                var img = new Bitmap(temp);
-                previewBox.Image = extension == ".png" ? img : null;
+                using (var temp = new Bitmap(path))
+                {
+                    previewBox.Image = new Bitmap(temp);
+                }
             }
         }
 
@@ -92,12 +93,15 @@ namespace WolfyEngine.Forms
             if (!File.Exists(counterpart))
             {
                 DarkMessageBox.ShowWarning(
-                    "The possible reason is that your asset was added to the project manually." +
+                    "The possible reason is that your asset was added to the project manually. " +
                     "Restore the asset using Asset Manager.",
                     "Selected asset was not compiled by Asset Manager.");
                 return;
             }
 
+            Console.WriteLine("Selected asset: " + fullPath);
+            Console.WriteLine("Asset name: " + assetName);
+            Console.WriteLine("Asset extension: " + extension);
             OnAssetSelected?.Invoke(assetName, fullPath, extension);
             Close();
         }

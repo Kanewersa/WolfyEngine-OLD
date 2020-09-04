@@ -10,7 +10,8 @@ namespace WolfyEngine.Forms
         {
             { typeof(TeleportAction), typeof(TeleportActionForm) },
             { typeof(DialogAction), typeof(StartDialogForm) },
-            { typeof(CameraFadeAction), typeof(CameraFadeActionForm) }
+            { typeof(CameraFadeAction), typeof(CameraFadeActionForm) },
+            { typeof(ChangeBGMAction), typeof(ChangeBGMActionForm)}
             //{ typeof(MovementAction), typeof(MovementForm) }
         };
 

@@ -101,7 +101,13 @@ namespace WolfyEngine.Controls
                 return;
             }
 
-            using var form = new NewLayerForm(_currentMap, SelectedLayer.Order);
+            var openLayer = SelectedLayer;
+            if (SelectedLayer == null)
+            {
+                openLayer = _currentMap.Layers.First();
+            }
+
+            using var form = new NewLayerForm(_currentMap, openLayer.Order);
             form.OnLayerCreate += delegate(BaseLayer layer)
             {
                 OnLayerChanged?.Invoke(layer);

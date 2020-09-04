@@ -78,6 +78,7 @@ namespace WolfyEngine
             wolfyAction.AddSubType(102, typeof(TeleportAction));
             wolfyAction.AddSubType(103, typeof(DialogAction));
             wolfyAction.AddSubType(104, typeof(CameraFadeAction));
+            wolfyAction.AddSubType(105, typeof(ChangeBGMAction));
 
         }
 

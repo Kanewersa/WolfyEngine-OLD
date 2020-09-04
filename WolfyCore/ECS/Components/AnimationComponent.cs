@@ -14,6 +14,7 @@ namespace WolfyCore.ECS
         [ProtoMember(2)] public AnimationManager AnimationManager { get; set; }
         [ProtoMember(3)] public Dictionary<string, Animation> Animations { get; set; }
         [ProtoMember(4)] public Image Image { get; set; }
+        [ProtoIgnore] public bool PreserveAnimation { get; set; }
         [ProtoIgnore] public Texture2D Texture => Image.Texture;
 
         public virtual Rectangle Bounds =>

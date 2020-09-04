@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using ProtoBuf;
@@ -13,7 +14,7 @@ namespace WolfyCore.ECS
     [ProtoContract] public class RenderSystem : EntitySystem
     {
         public Matrix CameraTransform { get; private set; }
-        public int LastMapId { get; private set; }
+        public int LastMapId { get; private set; } = -1;
 
         public RenderTarget2D BackBufferRenderTarget { get; private set; }
         public LUTManager LUTManager { get; private set; }
@@ -32,6 +33,7 @@ namespace WolfyCore.ECS
 
         public override void Initialize(GraphicsDevice graphics)
         {
+            GraphicsDevice = graphics;
             RequireComponent<TransformComponent>();
             RequireComponent<CameraComponent>();
         }
@@ -95,6 +97,7 @@ namespace WolfyCore.ECS
                     map.LoadContent(ContentManager);
                     camera.SetMapBoundaries(map.Size * Runtime.GridSize);
                 }
+
                 LastMapId = map.Id;
 
                 // Update the camera

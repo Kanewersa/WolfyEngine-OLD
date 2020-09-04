@@ -49,7 +49,7 @@ namespace WolfyEngine.Controls
 
         public void UnloadGui()
         {
-            UserInterface.Active = null;
+            UserInterface.Active.Clear();
         }
 
         public void InitializeGui()

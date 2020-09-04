@@ -29,8 +29,8 @@ namespace WolfyEngine.Forms
             return Path.GetFileName(path) switch
             {
                 "Audio" => "*.none",
-                "BGM" => "*.mp3",
-                "SFX" => "*.mp3",
+                "Bgm" => "*.mp3",
+                "Sfx" => "*.mp3",
                 "Data" => "*.none",
                 "Fonts" => "*.ttf",
                 "Sprites" => "*.png",

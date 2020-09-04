@@ -27,6 +27,9 @@ namespace WolfyCore.Actions
         public override void Execute()
         {
             var bgmPath = Path.Combine(PathsController.Instance.BgmPath, SongTitle);
+
+            bgmPath = Path.ChangeExtension(bgmPath, null);
+
             Song song = Content.Load<Song>(bgmPath);
             MediaPlayer.Play(song);
         }

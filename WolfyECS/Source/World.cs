@@ -100,6 +100,11 @@ namespace WolfyECS
             {
                 system.Update(gameTime);
             }
+
+            foreach (var system in _systems)
+            {
+                system.PostUpdate(gameTime);
+            }
         }
 
         public void Draw(SpriteBatch spriteBatch, GameTime gameTime)

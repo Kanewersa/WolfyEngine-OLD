@@ -36,7 +36,7 @@
             this.darkButton9 = new DarkUI.Controls.DarkButton();
             this.darkButton11 = new DarkUI.Controls.DarkButton();
             this.StartDialogButton = new DarkUI.Controls.DarkButton();
-            this.darkButton13 = new DarkUI.Controls.DarkButton();
+            this.PlaySongButton = new DarkUI.Controls.DarkButton();
             this.darkButton14 = new DarkUI.Controls.DarkButton();
             this.CameraSection = new DarkUI.Controls.DarkSectionPanel();
             this.PlayerLayout = new System.Windows.Forms.TableLayoutPanel();
@@ -106,7 +106,7 @@
             this.tableLayoutPanel1.Controls.Add(this.darkButton9, 0, 4);
             this.tableLayoutPanel1.Controls.Add(this.darkButton11, 0, 3);
             this.tableLayoutPanel1.Controls.Add(this.StartDialogButton, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.darkButton13, 0, 1);
+            this.tableLayoutPanel1.Controls.Add(this.PlaySongButton, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.darkButton14, 0, 2);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(1, 25);
@@ -184,16 +184,17 @@
             this.StartDialogButton.Text = "Start dialog";
             this.StartDialogButton.Click += new System.EventHandler(this.StartDialogButton_Click);
             // 
-            // darkButton13
+            // PlaySongButton
             // 
-            this.darkButton13.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.darkButton13.Location = new System.Drawing.Point(0, 32);
-            this.darkButton13.Margin = new System.Windows.Forms.Padding(0, 2, 0, 2);
-            this.darkButton13.Name = "darkButton13";
-            this.darkButton13.Padding = new System.Windows.Forms.Padding(5);
-            this.darkButton13.Size = new System.Drawing.Size(203, 26);
-            this.darkButton13.TabIndex = 19;
-            this.darkButton13.Text = "Unavailable";
+            this.PlaySongButton.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.PlaySongButton.Location = new System.Drawing.Point(0, 32);
+            this.PlaySongButton.Margin = new System.Windows.Forms.Padding(0, 2, 0, 2);
+            this.PlaySongButton.Name = "PlaySongButton";
+            this.PlaySongButton.Padding = new System.Windows.Forms.Padding(5);
+            this.PlaySongButton.Size = new System.Drawing.Size(203, 26);
+            this.PlaySongButton.TabIndex = 19;
+            this.PlaySongButton.Text = "Play song";
+            this.PlaySongButton.Click += new System.EventHandler(this.PlaySongButton_Click);
             // 
             // darkButton14
             // 
@@ -508,7 +509,7 @@
         private DarkUI.Controls.DarkButton darkButton9;
         private DarkUI.Controls.DarkButton darkButton11;
         private DarkUI.Controls.DarkButton StartDialogButton;
-        private DarkUI.Controls.DarkButton darkButton13;
+        private DarkUI.Controls.DarkButton PlaySongButton;
         private DarkUI.Controls.DarkButton darkButton14;
     }
 }

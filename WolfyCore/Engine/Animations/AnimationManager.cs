@@ -76,9 +76,8 @@ namespace WolfyCore.Engine
 
         public void Stop()
         {
-            _timer = 0;
-
             Animation.CurrentFrame = 0;
+            _timer = 0;
         }
 
         private void SetAnimationOffset(Animation animation)
@@ -98,7 +97,7 @@ namespace WolfyCore.Engine
         {
             _timer += (float)gameTime.ElapsedGameTime.TotalSeconds;
 
-            if (_timer > 1f/Animation.FrameCount)//Animation.FrameSpeed)
+            if (_timer > 1f/Animation.FrameCount)
             {
                 _timer = 0f;
 

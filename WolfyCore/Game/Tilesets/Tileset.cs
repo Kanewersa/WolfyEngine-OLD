@@ -21,7 +21,7 @@ namespace WolfyCore.Game
         public Tileset(string name, string imagePath)
         {
             Name = name;
-            Image = new Engine.Image(imagePath);
+            Image = new Image(imagePath);
 
             // Get texture size
             int height, width;

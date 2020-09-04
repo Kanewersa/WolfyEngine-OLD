@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Windows.Forms;
 using DarkUI.Docking;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Media;
 using WolfyECS;
 using WolfyEngine.Forms;
 using WolfyCore;
@@ -239,10 +240,26 @@ namespace WolfyEngine.Controls
 
         private void setStartingPointToolStripMenuItem_Click(object sender, System.EventArgs e)
         {
-            GameController.Instance.Settings.StartingMap = _currentMap.Id;
-            GameController.Instance.Settings.StartingCoordinates = EntityContextMenu.CurrentCoordinates;
-            Entity.Player.GetComponent<TransformComponent>().Transform = EntityContextMenu.CurrentCoordinates;
-            gameEditorControl.SetStartingPosition();
+            var newCoordinates = new Vector2((int)EntityContextMenu.CurrentCoordinates.X, (int)EntityContextMenu.CurrentCoordinates.Y);
+            var transform = Entity.Player.GetComponent<TransformComponent>();
+
+            if (transform.CurrentMap != _currentMap.Id)
+            {
+                var map = MapsController.Instance.GetMap(transform.CurrentMap);
+                map.Entities.Remove(Entity.Player);
+                map = MapsController.Instance.GetMap(_currentMap.Id);
+                map.Entities.Add(Entity.Player);
+            }
+            else
+            {
+                var map = MapsController.Instance.GetMap(transform.CurrentMap);
+                map.MoveEntity(Entity.Player, transform.GridTransform, newCoordinates);
+            }
+
+            transform.CurrentMap = _currentMap.Id;
+            transform.GridTransform = newCoordinates;
+            transform.Transform = newCoordinates * Runtime.GridSize;
+
             gameEditorControl.Invalidate();
         }
 
@@ -311,7 +328,10 @@ namespace WolfyEngine.Controls
                 gameEditorControl.Visible = false;
             }
             else if (GamePaused)
+            {
                 GamePaused = false;
+                MediaPlayer.Resume();
+            }
 
             RefreshButtons();
         }
@@ -321,6 +341,7 @@ namespace WolfyEngine.Controls
         {
             // Pause game here
             GamePaused = true;
+            MediaPlayer.Pause();
 
             RefreshButtons();
         }
@@ -331,6 +352,7 @@ namespace WolfyEngine.Controls
             GamePaused = false;
             GameRunning = false;
 
+            MediaPlayer.Stop();
             wolfyGameControl.UnloadScene();
             wolfyGameControl.UnloadGui();
             wolfyGameControl.Visible = false;
