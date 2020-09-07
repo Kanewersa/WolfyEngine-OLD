@@ -234,7 +234,7 @@ namespace WolfyEngine.Controls
                         y * TileSize.Y);
                     EntityGridImage.Draw(Editor.spriteBatch);
 
-                    var entity = layer.Rows[y].Tiles[x].Entity;
+                    var entity = layer.GetEntity(x, y);
                     if (entity == Entity.Empty) 
                         continue;
                     
@@ -279,7 +279,7 @@ namespace WolfyEngine.Controls
             Width = map.Size.X * TileSize.X;
             Height = map.Size.Y * TileSize.Y;
 
-            map.Initialize(Editor.graphics, World);
+            map.Initialize(Editor.graphics);
             map.LoadContent(Editor.Content);
 
             if(map.Layers.Any())

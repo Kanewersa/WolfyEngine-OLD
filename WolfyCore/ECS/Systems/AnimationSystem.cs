@@ -10,8 +10,6 @@ namespace WolfyCore.ECS
 {
     [ProtoContract] public class AnimationSystem : EntitySystem
     {
-        [ProtoMember(1)] private readonly float _timer = 0.01f;
-        
         public AnimationSystem() { }
 
         public override void Initialize(GraphicsDevice graphics)
@@ -65,6 +63,8 @@ namespace WolfyCore.ECS
             {
                 component.AnimationManager.Stop();
             }
+
+            component.PreserveAnimation = false;
         }
     }
 }

@@ -21,7 +21,7 @@ namespace WolfyECS
             set => _components = value;
         }
 
-        [ProtoIgnore] private int _maxComponents;
+        [ProtoIgnore] private readonly int _maxComponents;
 
         public ComponentsMap(int maxComponents = 1024)
         {

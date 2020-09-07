@@ -217,7 +217,7 @@
             this.newEntityToolStripMenuItem.Name = "newEntityToolStripMenuItem";
             this.newEntityToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.newEntityToolStripMenuItem.Text = "New entity";
-            this.newEntityToolStripMenuItem.Click += new System.EventHandler(this.newEntityToolStripMenuItem_Click);
+            this.newEntityToolStripMenuItem.Click += new System.EventHandler(this.NewEntityToolStripMenuItem_Click);
             // 
             // removeEntityToolStripMenuItem
             // 
@@ -226,7 +226,7 @@
             this.removeEntityToolStripMenuItem.Name = "removeEntityToolStripMenuItem";
             this.removeEntityToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.removeEntityToolStripMenuItem.Text = "Remove entity";
-            this.removeEntityToolStripMenuItem.Click += new System.EventHandler(this.removeEntityToolStripMenuItem_Click);
+            this.removeEntityToolStripMenuItem.Click += new System.EventHandler(this.RemoveEntityToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
@@ -243,7 +243,7 @@
             this.setStartingPointToolStripMenuItem.Name = "setStartingPointToolStripMenuItem";
             this.setStartingPointToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.setStartingPointToolStripMenuItem.Text = "Set starting point";
-            this.setStartingPointToolStripMenuItem.Click += new System.EventHandler(this.setStartingPointToolStripMenuItem_Click);
+            this.setStartingPointToolStripMenuItem.Click += new System.EventHandler(this.SetStartingPointToolStripMenuItem_Click);
             // 
             // GamePanel
             // 

@@ -11,8 +11,9 @@ namespace WolfyCore.Game
 {
     [ProtoContract] public class EntityLayer : BaseLayer
     {
-        [ProtoMember(2)] public List<EntityTileRow> Rows { get; set; }
-        [ProtoMember(3)] public List<Entity> Entities { get; set; }
+        [ProtoMember(1)] private List<EntityTileRow> Rows { get; set; }
+
+        [ProtoMember(3)] private List<Entity> Entities { get; set; }
         public EntityLayer() { }
 
         public EntityLayer(string name, Vector2D mapSize)
@@ -27,9 +28,14 @@ namespace WolfyCore.Game
             }
         }
 
+        public void LoadEntities(List<Entity> entities)
+        {
+            Entities = entities;
+        }
+
         public override void Initialize(GraphicsDevice graphics)
         {
-            if(Entities == null) Entities = new List<Entity>();
+            Entities ??= new List<Entity>();
 
             Rows = new List<EntityTileRow>(Size.Y);
             for (var i = 0; i < Size.Y; i++)
@@ -77,14 +83,24 @@ namespace WolfyCore.Game
             }
         }
 
-        public override void Update(GameTime gameTime)
+        public override void Unload()
         {
-            
+            foreach (var entity in Entities)
+            {
+                // TODO: Entity unloading...
+                //entity.RemoveComponent<ActiveComponent>();
+            }
         }
 
         public override bool? TileOccupied(Vector2 position)
         {
             return Rows[(int) position.Y].Tiles[(int) position.X].Entity != Entity.Empty ? (bool?) null : false;
+        }
+
+        public void AddEntity(Entity e, Vector2 position)
+        {
+            Entities.Add(e);
+            Rows[(int) position.Y].Tiles[(int) position.X].Entity = e;
         }
 
         /// <summary>
@@ -95,6 +111,25 @@ namespace WolfyCore.Game
         public Entity GetEntity(Vector2 position)
         {
             return Rows[(int) position.Y].Tiles[(int) position.X].Entity;
+        }
+
+        public Entity GetEntity(int x, int y)
+        {
+            return Rows[y].Tiles[x].Entity;
+        }
+
+        public void SetEntity(Vector2 position, Entity e)
+        {
+            Rows[(int) position.Y].Tiles[(int) position.X].Entity = e;
+        }
+
+        public Entity RemoveEntity(Vector2 position)
+        {
+            Entity entity = GetEntity(position);
+            Entities.Remove(entity);
+            SetEntity(position, Entity.Empty);
+
+            return entity;
         }
     }
 }

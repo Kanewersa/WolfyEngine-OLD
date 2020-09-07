@@ -7,17 +7,19 @@ namespace WolfyCore.Game
     [ProtoContract] public class MapsData
     {
         /// <summary>
-        /// Stores MapInfo values by integer keys
+        /// Stores MapInfo values by integer keys.
         /// </summary>
-        [ProtoMember(1)] public Dictionary<int, MapInfo> Info { get; set; } = new Dictionary<int, MapInfo>();
+        [ProtoMember(1)] private Dictionary<int, MapInfo> Info { get; set; } = new Dictionary<int, MapInfo>();
+
         /// <summary>
-        /// Wrapper around queue to allow PendingInts serialization
+        /// Wrapper around queue to allow PendingIds serialization.
         /// </summary>
         [ProtoMember(2)] public int[] Ids
         {
             get => PendingIds.ToArray();
             set => PendingIds = new Queue<int>(value);
         }
+
         /// <summary>
         /// Stores ids that were once used by maps, but are free now because the maps were deleted.
         /// </summary>
@@ -33,6 +35,31 @@ namespace WolfyCore.Game
         public int GetNextId()
         {
             return PendingIds.Any() ? PendingIds.Dequeue() : Info.Count;
+        }
+
+        public void AddMap(int id, MapInfo i)
+        {
+            Info.Add(id, i);
+        }
+
+        public void RemoveMap(int id)
+        {
+            Info.Remove(id);
+        }
+
+        public string GetFileName(int id)
+        {
+            return Info[id].FileName;
+        }
+
+        public string GetMapName(int id)
+        {
+            return Info[id].MapName;
+        }
+
+        public Dictionary<int, MapInfo> GetMapsInfo()
+        {
+            return Info;
         }
     }
 }

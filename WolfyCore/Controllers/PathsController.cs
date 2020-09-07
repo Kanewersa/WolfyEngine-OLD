@@ -25,6 +25,7 @@ namespace WolfyCore.Controllers
                 MapsDataPath = Path.Combine(MapsPath, "MapsData.wolf");
                 TilesetsPath = Path.Combine(DataPath, "Tilesets");
                 TilesetsDataPath = Path.Combine(TilesetsPath, "TilesetsData.wolf");
+                EntityDataPath = Path.Combine(DataPath, "EntityData.wolf");
 
                 BgmPath = Path.Combine(AudioPath, "Bgm");
                 SfxPath = Path.Combine(AudioPath, "Sfx");
@@ -57,6 +58,7 @@ namespace WolfyCore.Controllers
         public string MapsDataPath { get; private set; }
         public string TilesetsPath { get; private set; }
         public string TilesetsDataPath { get; private set; }
+        public string EntityDataPath { get; private set; }
 
         public string GameSettingsPath { get; private set; }
         public string WorldPath { get; private set; }

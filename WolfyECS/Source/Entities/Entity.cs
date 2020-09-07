@@ -23,15 +23,14 @@ namespace WolfyECS
         /// Creates entity with given Id and assigns it a world.
         /// </summary>
         /// <param name="id"></param>
-        /// <param name="worldId"></param>
-        public Entity(ushort id, short worldId)
+        public Entity(ushort id)
         {
             Id = id;
             //_worldId = worldId;
         }
 
-        public static Entity Empty => new Entity(0, -1);
-        public static Entity Player => new Entity(1, 1);
+        public static Entity Empty => new Entity(0);
+        public static Entity Player => new Entity(1);
 
         /// <summary>
         /// Creates and returns the new component of type T.

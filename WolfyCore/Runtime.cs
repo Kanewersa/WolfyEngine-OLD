@@ -1,6 +1,4 @@
-﻿using Microsoft.Xna.Framework.Content;
-using Microsoft.Xna.Framework.Graphics;
-using MonoGame.Forms.Services;
+﻿using Microsoft.Xna.Framework.Graphics;
 using WolfyCore.Engine;
 
 namespace WolfyCore
@@ -16,6 +14,6 @@ namespace WolfyCore
         public static int GameScreenHeight { get; set; }
         public static bool IsWindows { get; set; }
 
-        public static SwapChainRenderTarget RenderTarget { get; set; }
+        public static RenderTarget2D RenderTarget { get; set; }
     }
 }

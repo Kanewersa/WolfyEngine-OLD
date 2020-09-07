@@ -15,18 +15,16 @@ namespace WolfyEngine.Controls
     public class TilesetControl : InvalidationControl
     {
         private TileLayer _currentLayer;
-        private Image _currentImage => _currentLayer.Tileset.Image;
+        private Image CurrentImage => _currentLayer.Tileset.Image;
         public event ControlEventHandler OnInitialize;
 
-        private Selector _selector;
+        private readonly Selector _selector;
 
         private bool _mouseOnScreen;
         private bool _mouseDown;
         private Vector2 _mousePosition, _clickPosition;
         public Vector2 _tileCoordinates;
         private Rectangle _selectedTileRegion;
-
-        private float _currentZoom;
 
         public event RectangleEvent OnControlClick;
 
@@ -39,7 +37,6 @@ namespace WolfyEngine.Controls
 
         public TilesetControl()
         {
-            _currentZoom = 1f;
             _selectedTileRegion = new Rectangle(0,0,0,0);
 
             _selector = new Selector();
@@ -150,7 +147,7 @@ namespace WolfyEngine.Controls
 
             if (_currentLayer != null)
             {
-                _currentImage.Draw(Editor.spriteBatch);
+                CurrentImage.Draw(Editor.spriteBatch);
                 _selector.Draw(Editor.spriteBatch);
             }
 
@@ -171,10 +168,10 @@ namespace WolfyEngine.Controls
 
             layer.Initialize(GraphicsDevice);
             layer.LoadContent(Editor.Content);
-            //_currentImage.Initialize(GraphicsDevice);
+            //CurrentImage.Initialize(GraphicsDevice);
             // Set control size to fit the texture
-            Width = _currentImage.Texture.Width;
-            Height = _currentImage.Texture.Height;
+            Width = CurrentImage.Texture.Width;
+            Height = CurrentImage.Texture.Height;
             
 
             Invalidate();

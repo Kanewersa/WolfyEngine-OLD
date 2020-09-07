@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using ProtoBuf;
+using WolfyCore.Controllers;
 using WolfyCore.Engine;
 using WolfyECS;
 
@@ -22,6 +24,8 @@ namespace WolfyCore.Game
         /// </summary>
         [ProtoMember(2)] public string Name { get; set; }
 
+        [ProtoMember(3)] public List<int> Neighbors { get; set; }
+
         /// <summary>
         /// Size of the map.
         /// </summary>
@@ -30,10 +34,11 @@ namespace WolfyCore.Game
         // TODO: ! Important ! Determine if more than one EntityLayer is allowed in Map instance.
         [ProtoMember(5)] public List<BaseLayer> Layers { get; set; } = new List<BaseLayer>();
         [ProtoMember(6)] public EntityLayer EntityLayer { get; set; }
-        [ProtoIgnore] public List<Entity> Entities => EntityLayer.Entities;
+
         [ProtoIgnore] private readonly int DrawOffset = 2;
 
         [ProtoIgnore] public Vector2D TileSize => Runtime.TileSize;
+        [ProtoIgnore] public bool Initialized { get; private set; }
 
         public Map() { }
 
@@ -45,12 +50,17 @@ namespace WolfyCore.Game
             Layers = new List<BaseLayer> { EntityLayer };
         }
 
-        public void Initialize(GraphicsDevice graphics, World world)
+        public void Initialize(GraphicsDevice graphics)
         {
+            ((EntityLayer)Layers.First(x => x is EntityLayer))
+                .LoadEntities(EntityController.GetEntities(Id));
+
             foreach (var layer in Layers)
             {
                 layer.Initialize(graphics);
             }
+
+            Initialized = true;
         }
 
         public void LoadContent(ContentManager content)
@@ -83,6 +93,13 @@ namespace WolfyCore.Game
             Layers.ForEach(layer => layer.Draw(spriteBatch));
         }
 
+        /// <summary>
+        /// Unloads the map layers.
+        /// </summary>
+        public void Unload()
+        {
+            Layers.ForEach(layer => layer.Unload());
+        }
 
         /// <summary>
         /// Returns true if any layer is occupied at given position or
@@ -126,6 +143,12 @@ namespace WolfyCore.Game
             return Entity.Empty;
         }
 
+        public void AddEntity(Entity e, Vector2 position)
+        {
+            var layer = (EntityLayer)Layers.First(x => x is EntityLayer);
+            layer.AddEntity(e, position);
+        }
+
         /// <summary>
         /// Moves given entity to new position on the map.
         /// </summary>
@@ -134,14 +157,17 @@ namespace WolfyCore.Game
         /// <param name="newPosition"></param>
         public void MoveEntity(Entity e, Vector2 oldPosition, Vector2 newPosition)
         {
-            var layer = (EntityLayer) Layers.FirstOrDefault(x => x is EntityLayer);
-            if(layer == null)
-                throw new NullReferenceException("Entity layer was null.");
+            var layer = (EntityLayer) Layers.First(x => x is EntityLayer);
 
-            layer.Rows[(int) oldPosition.Y].Tiles[(int) oldPosition.X].Entity = Entity.Empty;
+            layer.SetEntity(oldPosition, Entity.Empty);
             
             if (newPosition != -Vector2.One)
-                layer.Rows[(int) newPosition.Y].Tiles[(int) newPosition.X].Entity = e;
+                layer.SetEntity(newPosition, e);
+        }
+
+        public void RemoveEntity(Vector2 position)
+        {
+            var e = ((EntityLayer)Layers.FirstOrDefault(x => x is EntityLayer))?.RemoveEntity(position) ?? Entity.Empty;
         }
     }
 }

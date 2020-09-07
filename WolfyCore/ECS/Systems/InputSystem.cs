@@ -38,17 +38,19 @@ namespace WolfyCore.ECS
                 input.Enter = _currentKeyboardState.IsKeyDown(Keys.Enter);
 
                 if (input.ArrowUp)
-                    MoveEntity(entity, new Vector2(0, -1));
+                    AddMovementAction(entity, new Vector2(0, -1));
                 else if (input.ArrowRight)
-                    MoveEntity(entity, new Vector2(1, 0));
+                    AddMovementAction(entity, new Vector2(1, 0));
                 else if (input.ArrowDown)
-                    MoveEntity(entity, new Vector2(0, 1));
+                    AddMovementAction(entity, new Vector2(0, 1));
                 else if (input.ArrowLeft)
-                    MoveEntity(entity, new Vector2(-1, 0));
+                    AddMovementAction(entity, new Vector2(-1, 0));
+                else if (input.Enter)
+                    AddInteraction(entity);
             });
         }
 
-        private static void MoveEntity(Entity e, Vector2 direction)
+        private static void AddMovementAction(Entity e, Vector2 direction)
         {
             if (e.HasComponent<MovementActionComponent>()
                 || e.HasComponent<StartActionComponent>()) return;
@@ -61,6 +63,14 @@ namespace WolfyCore.ECS
             movementAction.Set(transform.GridTransform, transform.GridTransform + direction, false);
 
             movement.DirectionVector = direction;
+        }
+
+        private static void AddInteraction(Entity e)
+        {
+            if (!e.HasComponent<InteractionComponent>())
+            {
+                e.AddComponent<InteractionComponent>();
+            }
         }
     }
 }

@@ -93,9 +93,18 @@ namespace WolfyCore.ECS
                 // Initialize the map if last map was changed.
                 if (map.Id != LastMapId)
                 {
-                    map.Initialize(GraphicsDevice, World.WorldInstance);
-                    map.LoadContent(ContentManager);
+                    if (entity.HasComponent<LoadMapComponent>())
+                        return;
+
+                    entity.AddComponent<LoadMapComponent>().MapId = map.Id;
+                    /*map.Initialize(GraphicsDevice);
+                    map.LoadContent(ContentManager);*/
                     camera.SetMapBoundaries(map.Size * Runtime.GridSize);
+
+                    if (!map.Initialized)
+                    {
+                        return;
+                    }
                 }
 
                 LastMapId = map.Id;

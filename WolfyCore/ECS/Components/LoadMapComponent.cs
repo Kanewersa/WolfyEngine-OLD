@@ -1,5 +1,4 @@
-﻿/*
-using ProtoBuf;
+﻿using ProtoBuf;
 using WolfyECS;
 
 namespace WolfyCore.ECS
@@ -12,4 +11,3 @@ namespace WolfyCore.ECS
         [ProtoMember(1)] public int MapId;
     }
 }
-*/

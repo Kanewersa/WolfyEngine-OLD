@@ -122,6 +122,12 @@ namespace WolfyCore.Game
             Image.Color = Color.White;
         }
 
+        public override void Unload()
+        {
+            Image.Dispose();
+            Tileset.Unload();
+        }
+
         public override bool? TileOccupied(Vector2 position)
         {
             return !Rows[(int) position.Y].Tiles[(int) position.X].Passage;

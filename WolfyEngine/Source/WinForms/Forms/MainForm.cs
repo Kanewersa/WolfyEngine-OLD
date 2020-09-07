@@ -20,7 +20,7 @@ namespace WolfyEngine.Forms
 {
     public partial class MainForm : DarkForm
     {
-        private List<DarkDockContent> _toolWindows = new List<DarkDockContent>();
+        private readonly List<DarkDockContent> _toolWindows = new List<DarkDockContent>();
 
         private GamePanel GamePanel { get; }
         private TilesetEditorPanel TilesetEditorPanel { get; }
@@ -189,6 +189,7 @@ namespace WolfyEngine.Forms
             TilesetsController.Instance.InitializeProject(isProjectEmpty);
             MapsController.Instance.InitializeProject(isProjectEmpty);
             GameController.Instance.InitializeProject(isProjectEmpty);
+            EntityController.Instance.InitializeProject(isProjectEmpty);
 
             // Load content builder
             ContentBuilder.Instance.Initialize();
@@ -210,42 +211,34 @@ namespace WolfyEngine.Forms
 
         private void TimerTick(object sender, EventArgs e)
         {
-            using (var proc = Process.GetCurrentProcess())
-            { 
-                memoryUsageLabel.Text = "Memory: " + proc.PrivateMemorySize64/1048576 + " MB";
-            }
+            using var proc = Process.GetCurrentProcess();
+            memoryUsageLabel.Text = "Memory: " + proc.PrivateMemorySize64/1048576 + " MB";
         }
 
         #endregion
 
-        private void openProjectToolStripMenuItem_Click(object sender, EventArgs e)
+        private void OpenProjectToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            using (var openFileDialog = new OpenFileDialog())
-            {
-                openFileDialog.InitialDirectory = StaticPaths.ProjectsFolder;
-                openFileDialog.Filter = Resources.file_dialog_project_files;
-                openFileDialog.FilterIndex = 1;
-                openFileDialog.RestoreDirectory = true;
+            using var openFileDialog = new OpenFileDialog();
+            openFileDialog.InitialDirectory = StaticPaths.ProjectsFolder;
+            openFileDialog.Filter = Resources.file_dialog_project_files;
+            openFileDialog.FilterIndex = 1;
+            openFileDialog.RestoreDirectory = true;
 
-                if (openFileDialog.ShowDialog() == DialogResult.OK)
-                    ProjectsController.Instance.OpenProject(openFileDialog.FileName);
-            }
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
+                ProjectsController.Instance.OpenProject(openFileDialog.FileName);
         }
 
-        private void assetManagerButton_Click(object sender, EventArgs e)
+        private void AssetManagerButton_Click(object sender, EventArgs e)
         {
-            using (var assetForm = new AssetManagerForm())
-            {
-                assetForm.ShowDialog();
-            }
+            using var assetForm = new AssetManagerForm();
+            assetForm.ShowDialog();
         }
 
-        private void newProjectMenuItem_Click(object sender, EventArgs e)
+        private void NewProjectMenuItem_Click(object sender, EventArgs e)
         {
-            using (var form = new CreateProject())
-            {
-                form.ShowDialog();
-            }
+            using var form = new CreateProject();
+            form.ShowDialog();
         }
 
         private void SaveProjectMenuItem_Click(object sender, EventArgs e)
@@ -301,7 +294,7 @@ namespace WolfyEngine.Forms
 
         public World World;
 
-        private void button1_Click(object sender, EventArgs e)
+        private void Button1_Click(object sender, EventArgs e)
         {
             /*for (int i = 0; i < 1024; i++)
             {
@@ -365,16 +358,14 @@ namespace WolfyEngine.Forms
             world.Debug();*/
         }
 
-        private void playerToolStripMenuItem_Click(object sender, EventArgs e)
+        private void PlayerToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            using (var form = new EntityEditForm())
-            {
-                var player = new Entity(1, World.WorldInstance.WorldId);
-                /*var comp = player.GetComponent<MovementComponent>();
+            using var form = new EntityEditForm();
+            var player = new Entity(1);
+            /*var comp = player.GetComponent<MovementComponent>();
                 comp.Speed = 5;*/
-                form.Initialize(player, World.WorldInstance);
-                form.ShowDialog();
-            }
+            form.Initialize(player, World.WorldInstance);
+            form.ShowDialog();
         }
     }
 }

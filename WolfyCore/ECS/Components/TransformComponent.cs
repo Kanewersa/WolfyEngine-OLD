@@ -14,17 +14,17 @@ namespace WolfyCore.ECS
         /// <summary>
         /// Current entity transform.
         /// </summary>
-        [ProtoMember(1)] public Vector2 Transform;
+        [ProtoMember(1)] public Vector2 Transform { get; set; }
 
         /// <summary>
         /// Transform of the entity on a grid.
         /// </summary>
-        [ProtoMember(2)] public Vector2 GridTransform;
+        [ProtoMember(2)] public Vector2 GridTransform { get; set; }
 
         /// <summary>
         /// Index of the map entity is on.
         /// </summary>
-        [ProtoMember(3)] public int CurrentMap;
+        [ProtoMember(3)] public int CurrentMap { get; set; }
 
         public TransformComponent() { }
 

@@ -7,7 +7,6 @@ using WolfyCore;
 using WolfyCore.Controllers;
 using WolfyCore.Engine;
 using WolfyCore.Game;
-using WolfyECS;
 using WolfyEngine.Source;
 using WolfyEngine.Utils;
 
@@ -67,7 +66,7 @@ namespace WolfyEngine.Controls
                 throw new Exception("Map was not set.");
 
             Selector.Initialize(GraphicsDevice);
-            Map.Initialize(GraphicsDevice, World.WorldInstance);
+            Map.Initialize(GraphicsDevice);
             LoadContent(Editor.Content);
         }
 
@@ -76,7 +75,7 @@ namespace WolfyEngine.Controls
             Map = MapsController.Instance.GetMap(mapId);
             if (Editor != null)
             {
-                Map.Initialize(Editor.graphics, World.WorldInstance);
+                Map.Initialize(Editor.graphics);
                 Map.LoadContent(Editor.Content);
                 TileCoordinates = -Vector2.One;
                 Selector.SetPosition(new Vector2(-100, -100));

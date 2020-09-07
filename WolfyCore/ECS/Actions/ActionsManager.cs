@@ -72,7 +72,6 @@ namespace WolfyCore.Actions
             {
                 if (CurrentAction.Completed)
                 {
-                    Console.WriteLine("Finished action! {0} actions left.", _pendingActions.Count);
                     EndCurrentAction();
                     return;
                 }

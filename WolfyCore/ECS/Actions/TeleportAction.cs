@@ -28,9 +28,18 @@ namespace WolfyCore.Actions
                 throw new Exception("Could not perform TeleportAction on target entity. Entity didn't have transform component.");
 
             var transform = Target.GetComponent<TransformComponent>();
-
             var map = MapsController.Instance.GetMap(NewMapId);
-            map.MoveEntity(Target, transform.GridTransform, NewPosition);
+
+            if (transform.CurrentMap == NewMapId)
+            {
+                map.MoveEntity(Target, transform.GridTransform, NewPosition);
+            }
+            else
+            {
+                var oldMap = MapsController.Instance.GetMap(transform.CurrentMap);
+                oldMap.RemoveEntity(transform.GridTransform);
+                map.AddEntity(Target, NewPosition);
+            }
 
             transform.CurrentMap = NewMapId;
             transform.GridTransform = NewPosition;
@@ -44,7 +53,12 @@ namespace WolfyCore.Actions
 
         public override string GetDescription()
         {
-            return "Teleport " + Target + " to map " + NewMapId + " on position " + NewPosition;
+            return "Teleport "
+                   + Target 
+                   + " to map "
+                   + MapsController.Instance.GetMapName(NewMapId)
+                   + ", position: "
+                   + NewPosition;
         }
     }
 }

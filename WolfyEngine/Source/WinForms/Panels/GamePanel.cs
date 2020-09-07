@@ -112,23 +112,16 @@ namespace WolfyEngine.Controls
                     form.OnSave += delegate(Entity newEntity, Vector2 vector2)
                     {
                         var layer = gameEditorControl.GetCurrentLayer<EntityLayer>();
-                        layer.Rows[(int)position.Y]
-                            .Tiles[(int)position.X].Entity = newEntity;
-                        if(layer.Entities == null)
-                            layer.Entities = new List<Entity>();
-                        layer.Entities.Add(newEntity);
+                        layer.AddEntity(newEntity, vector2);
                     };
                     form.ShowDialog();
                 }
             }
             else
             {
-                using (var form = new EntityEditForm())
-                {
-                    form.SavedEntity = true;
-                    form.Initialize(entity, _world);
-                    form.ShowDialog();
-                }
+                using var form = new EntityEditForm { SavedEntity = true };
+                form.Initialize(entity, _world);
+                form.ShowDialog();
             }
         }
 
@@ -159,11 +152,10 @@ namespace WolfyEngine.Controls
             else if (gameEditorControl.CurrentLayer is EntityLayer elay)
             {
                 if (y > elay.Size.Y - 1 || x > elay.Size.X - 1 || y < 0 || x < 0) return;
-                if (elay.Rows[(int)y].Tiles[(int)x] == null) return;
 
-                var ent = elay.Rows[(int)y].Tiles[(int)x].Entity;
+                var ent = elay.GetEntity((int)x, (int)y);
 
-                if (ent != new Entity())
+                if (ent != Entity.Empty)
                     toolStripCoordinatesLabel.Text = "X: " + x + " | Y: " + y + " | Entity: "; //+ ent.Name;
                 else toolStripCoordinatesLabel.Text = "X: " + x + " | Y: " + y + " | Entity: None";
 
@@ -228,17 +220,15 @@ namespace WolfyEngine.Controls
             gameEditorControl.Invalidate();
         }
 
-        private void newEntityToolStripMenuItem_Click(object sender, System.EventArgs e)
+        private void NewEntityToolStripMenuItem_Click(object sender, System.EventArgs e)
         {
             // Open select entity type form
-            using (var form = new SelectEntityTypeForm())
-            {
-                //form.OnTypeSelected += OnEntityTypeSelected;
-                //form.ShowDialog();
-            }
+            using var form = new SelectEntityTypeForm();
+            //form.OnTypeSelected += OnEntityTypeSelected;
+            //form.ShowDialog();
         }
 
-        private void setStartingPointToolStripMenuItem_Click(object sender, System.EventArgs e)
+        private void SetStartingPointToolStripMenuItem_Click(object sender, System.EventArgs e)
         {
             var newCoordinates = new Vector2((int)EntityContextMenu.CurrentCoordinates.X, (int)EntityContextMenu.CurrentCoordinates.Y);
             var transform = Entity.Player.GetComponent<TransformComponent>();
@@ -246,9 +236,9 @@ namespace WolfyEngine.Controls
             if (transform.CurrentMap != _currentMap.Id)
             {
                 var map = MapsController.Instance.GetMap(transform.CurrentMap);
-                map.Entities.Remove(Entity.Player);
+                map.RemoveEntity(transform.GridTransform);
                 map = MapsController.Instance.GetMap(_currentMap.Id);
-                map.Entities.Add(Entity.Player);
+                map.AddEntity(Entity.Player, newCoordinates);
             }
             else
             {
@@ -361,19 +351,17 @@ namespace WolfyEngine.Controls
             RefreshButtons();
         }
 
-        private void removeEntityToolStripMenuItem_Click(object sender, EventArgs e)
+        private void RemoveEntityToolStripMenuItem_Click(object sender, EventArgs e)
         {
             var coordinates = gameEditorControl.TileCoordinates;
 
             var layer = gameEditorControl.GetCurrentLayer<EntityLayer>();
-            var entity = layer.Rows[(int)coordinates.Y].Tiles[(int)coordinates.X].Entity;
+            var entity = layer.GetEntity(coordinates);
 
             if (entity != Entity.Player)
             {
                 entity.Destroy();
-                layer.Rows[(int) coordinates.Y].Tiles[(int) coordinates.X].Entity = Entity.Empty;
-                layer.Entities.Remove(entity);
-                gameEditorControl.CurrentMap.Entities.Remove(entity);
+                layer.RemoveEntity(coordinates);
             }
         }
     }

@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.IO;
+using ProtoBuf;
 using WolfyCore.Game;
+using WolfyECS;
 using WolfyEngine.Engine;
 
 namespace WolfyCore.Controllers
@@ -15,7 +17,7 @@ namespace WolfyCore.Controllers
 
         public Dictionary<int, Map> LoadedMaps { get; set; }
         public MapsData MapsData { get; set; }
-
+        public EntityData EntityData { get; set; }
         public Map LastMap { get; private set; }
 
         public MapsController()
@@ -47,7 +49,7 @@ namespace WolfyCore.Controllers
                 MapId = MapsData.GetNextId()
             };
             info.FileName = "Map" + info.MapId + ".wolf";
-            MapsData.Info.Add(info.MapId, info);
+            MapsData.AddMap(info.MapId, info);
             map.Id = info.MapId;
             LoadedMaps.Add(map.Id, map);
             LastMap = map;
@@ -66,17 +68,30 @@ namespace WolfyCore.Controllers
             if (LastMap.Id == id)
                 LastMap = null;
 
-            MapsData.Info.Remove(id);
+            MapsData.RemoveMap(id);
             MapsData.PendingIds.Enqueue(id);
         }
 
         /// <summary>
-        /// Proto-serializes given map.
+        /// Disposes the map with given id.
+        /// </summary>
+        /// <param name="id"></param>
+        public void DisposeMap(int id)
+        {
+            if (LoadedMaps.ContainsKey(id))
+            {
+                LoadedMaps[id].Unload();
+                LoadedMaps.Remove(id);
+            }
+        }
+
+        /// <summary>
+        /// Proto-serializes the given map.
         /// </summary>
         /// <param name="map"></param>
         public void SaveMap(Map map)
         {
-            var file = MapsData.Info[map.Id].FileName;
+            var file = MapsData.GetFileName(map.Id);
             var mapPath = Path.Combine(MapsPath, file);
             Serialization.ProtoSerialize(map, mapPath);
         }
@@ -93,12 +108,27 @@ namespace WolfyCore.Controllers
                 LastMap = LoadedMaps[id];
                 return LastMap;
             }
-            var file = MapsData.Info[id].FileName;
+            var file = MapsData.GetFileName(id);
             var path = Path.Combine(MapsPath, file);
             var map = Serialization.ProtoDeserialize<Map>(path);
             LoadedMaps.Add(id, map);
             LastMap = map;
             return map;
+        }
+
+        /// <summary>
+        /// Gets the name of map.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public string GetMapName(int id)
+        {
+            return MapsData.GetMapName(id);
+        }
+
+        public Dictionary<int, MapInfo> GetMapsInfo()
+        {
+            return MapsData.GetMapsInfo();
         }
 
         /// <summary>
@@ -115,6 +145,44 @@ namespace WolfyCore.Controllers
             if (LastMap != null)
                 LoadedMaps.Add(LastMap.Id, LastMap);
             Serialization.ProtoSerialize(MapsData, MapsDataPath);
+        }
+    }
+
+    [ProtoContract] public class EntityData
+    {
+        /// <summary>
+        /// Stores Entities by map.
+        /// </summary>
+        [ProtoMember(1)] public Dictionary<int, List<Entity>> Info { get; set; }
+
+        /// <summary>
+        /// Returns the entities located on map with given id.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public List<Entity> GetEntities(int id)
+        {
+            return Info[id];
+        }
+
+        /// <summary>
+        /// Adds the entity to list.
+        /// </summary>
+        /// <param name="id">Id of the map.</param>
+        /// <param name="entity">Entity to be added.</param>
+        public void AddEntity(int id, Entity entity)
+        {
+            Info[id].Add(entity);
+        }
+
+        /// <summary>
+        /// Removes the entity from list.
+        /// </summary>
+        /// <param name="id">Id of the map.</param>
+        /// <param name="entity">Entity to be removed.</param>
+        public void RemoveEntity(int id, Entity entity)
+        {
+            Info[id].Remove(entity);
         }
     }
 }

@@ -38,6 +38,8 @@ namespace WolfyEngine
             entitySystem.AddSubType(107, typeof(RenderSystem));
             entitySystem.AddSubType(108, typeof(ActionSystem));
             entitySystem.AddSubType(109, typeof(TimeSystem));
+            entitySystem.AddSubType(110, typeof(DialogSystem));
+            entitySystem.AddSubType(111, typeof(InteractionSystem));
 
             // Add components
             var entityComponent = RuntimeTypeModel.Default[typeof(EntityComponent)];
@@ -55,6 +57,8 @@ namespace WolfyEngine
             entityComponent.AddSubType(112, typeof(CameraComponent));
             entityComponent.AddSubType(113, typeof(ActionComponent));
             entityComponent.AddSubType(114, typeof(LUTComponent));
+            entityComponent.AddSubType(115, typeof(DialogComponent));
+            entityComponent.AddSubType(116, typeof(InteractionComponent));
 
             // Add components generics
             entityComponent.AddSubType(201, typeof(EntityComponent<AnimationComponent>));
@@ -71,6 +75,8 @@ namespace WolfyEngine
             entityComponent.AddSubType(212, typeof(EntityComponent<CameraComponent>));
             entityComponent.AddSubType(213, typeof(EntityComponent<ActionComponent>));
             entityComponent.AddSubType(214, typeof(EntityComponent<LUTComponent>));
+            entityComponent.AddSubType(215, typeof(EntityComponent<DialogComponent>));
+            entityComponent.AddSubType(216, typeof(EntityComponent<InteractionComponent>));
 
             // Add wolfy actions
             var wolfyAction = RuntimeTypeModel.Default[typeof(WolfyAction)];

@@ -29,6 +29,9 @@ namespace WolfyCore.Game
         public virtual void Draw(SpriteBatch spriteBatch)
         { }
 
+        public virtual void Unload()
+        { }
+
         public virtual void Update(GameTime gameTime)
         { }
 

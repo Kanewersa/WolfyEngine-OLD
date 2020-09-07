@@ -62,7 +62,7 @@
             this.assetManagerButton.Size = new System.Drawing.Size(98, 23);
             this.assetManagerButton.TabIndex = 12;
             this.assetManagerButton.Text = "Asset Manager";
-            this.assetManagerButton.Click += new System.EventHandler(this.assetManagerButton_Click);
+            this.assetManagerButton.Click += new System.EventHandler(this.AssetManagerButton_Click);
             // 
             // darkDockPanel
             // 
@@ -109,7 +109,7 @@
             this.newProjectMenuItem.Name = "newProjectMenuItem";
             this.newProjectMenuItem.Size = new System.Drawing.Size(143, 22);
             this.newProjectMenuItem.Text = "New project";
-            this.newProjectMenuItem.Click += new System.EventHandler(this.newProjectMenuItem_Click);
+            this.newProjectMenuItem.Click += new System.EventHandler(this.NewProjectMenuItem_Click);
             // 
             // openProjectMenuItem
             // 
@@ -259,7 +259,7 @@
             this.button1.TabIndex = 23;
             this.button1.Text = "button1";
             this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.button1.Click += new System.EventHandler(this.Button1_Click);
             // 
             // playerToolStripMenuItem
             // 
@@ -268,7 +268,7 @@
             this.playerToolStripMenuItem.Name = "playerToolStripMenuItem";
             this.playerToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.playerToolStripMenuItem.Text = "Player";
-            this.playerToolStripMenuItem.Click += new System.EventHandler(this.playerToolStripMenuItem_Click);
+            this.playerToolStripMenuItem.Click += new System.EventHandler(this.PlayerToolStripMenuItem_Click);
             // 
             // MainForm
             // 

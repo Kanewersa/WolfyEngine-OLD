@@ -2,6 +2,7 @@
 using System.Linq;
 using DarkUI.Controls;
 using DarkUI.Docking;
+using Microsoft.Xna.Framework;
 using WolfyEngine.Forms;
 using WolfyCore.Controllers;
 using WolfyCore.Game;
@@ -13,10 +14,7 @@ namespace WolfyEngine.Controls
 
     public partial class MapsPanel : DarkToolWindow
     {
-        private string _mapsPath => PathsController.Instance.MapsPath;
-        private string _mapsInfoPath => PathsController.Instance.MapsDataPath;
-
-        private Dictionary<DarkTreeNode, int> _nodeKeys;
+        private readonly Dictionary<DarkTreeNode, int> _nodeKeys;
 
         public event MapEventHandler OnMapChanged;
 
@@ -51,7 +49,7 @@ namespace WolfyEngine.Controls
             mapsTree.Nodes.Add(mainNode);
             
             // Load sub nodes
-            foreach (var info in MapsController.Instance.MapsData.Info)
+            foreach (var info in MapsController.Instance.GetMapsInfo())
             {
                 var node = new DarkTreeNode(info.Value.MapName);
                 _nodeKeys.Add(node, info.Key);
@@ -91,7 +89,7 @@ namespace WolfyEngine.Controls
             }
         }
 
-        private void refreshTreeButton_Click(object sender, System.EventArgs e)
+        private void RefreshTreeButton_Click(object sender, System.EventArgs e)
         {
             RefreshTree();
         }
@@ -110,10 +108,9 @@ namespace WolfyEngine.Controls
             RefreshTree();
             mapsTree.Nodes[0].Expanded = true;
 
-            if (mapsTree.Nodes.Count <= 1)
-            {
-                map.Entities.Add(Entity.Player);
-            }
+            if (mapsTree.Nodes.Count <= 1) 
+                map.AddEntity(Entity.Player, Vector2.Zero);
+            
 
             mapsTree.SelectNode(mapsTree.Nodes[0].Nodes.Last());
         }

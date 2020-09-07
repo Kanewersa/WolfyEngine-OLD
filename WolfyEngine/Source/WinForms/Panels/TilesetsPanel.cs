@@ -15,9 +15,7 @@ namespace WolfyEngine.Controls
     {
         public event TilesetEventHandler OnTilesetSelected;
 
-        private Tileset _currentTileset;
-
-        private Dictionary<DarkTreeNode, int> _nodeKeys;
+        private readonly Dictionary<DarkTreeNode, int> _nodeKeys;
 
         public TilesetsPanel()
         {
@@ -82,7 +80,7 @@ namespace WolfyEngine.Controls
             RefreshTree();
         }
 
-        private void refreshTreeButton_Click(object sender, System.EventArgs e)
+        private void RefreshTreeButton_Click(object sender, System.EventArgs e)
         {
             RefreshTree();
         }

@@ -12,10 +12,7 @@ namespace WolfyCore.Actions
 {
     [ProtoContract] public class DialogAction : WolfyAction
     {
-        [ProtoMember(1)] public string Content;
-        [ProtoIgnore] private static Panel _messagePanel;
-        [ProtoIgnore] private static TypeWriterAnimator _typeWriterAnimator;
-        [ProtoIgnore] private static float _dialogFastForwardTimer = 10f;
+        [ProtoMember(1)] public new string Content;
 
         public DialogAction() { }
 
@@ -27,44 +24,19 @@ namespace WolfyCore.Actions
         }
 
         /// <summary>
-        /// Displays the dialog on the screen.
+        /// Adds <see cref="DialogComponent"/> to Entity.
         /// </summary>
         public override void Execute()
         {
-            _messagePanel = new Panel(new Vector2(400, 150), PanelSkin.Default, Anchor.BottomCenter);
-            UserInterface.Active.AddEntity(_messagePanel);
-
-            _messagePanel.AddChild(new Paragraph("Entity"));
-            _messagePanel.AddChild(new HorizontalLine());
-            var text = _messagePanel.AddChild(new Paragraph(@""));
-            _typeWriterAnimator = (TypeWriterAnimator) text.AttachAnimator(new TypeWriterAnimator()
-            {
-                TextToType = Content
-            });
-            _typeWriterAnimator.SpeedFactor = 10f;
+            Target.AddComponent(new DialogComponent("Entity", Content));
         }
 
         public override void Validate(GameTime gameTime)
         {
-            if (Target.GetIfHasComponent(out InputComponent input))
-            {
-                if (input.Enter)
-                {
-                    if (_typeWriterAnimator.IsDone)
-                    {
-                        Completed = true;
-                        _messagePanel.RemoveFromParent();
-                    }
-                    else if (_dialogFastForwardTimer <= 0)
-                    {
-                        _typeWriterAnimator.SpeedFactor = 50f;
-                    }
-
-                }
-            }
-
-            _dialogFastForwardTimer--;
-            if (_dialogFastForwardTimer < 0) _dialogFastForwardTimer = 0;
+            if (Entity.Player.HasComponent<DialogComponent>())
+                return;
+            
+            Complete();
         }
 
         public override string GetDescription()

@@ -148,7 +148,7 @@
             this.refreshTreeButton.Size = new System.Drawing.Size(23, 25);
             this.refreshTreeButton.Text = "toolStripButton1";
             this.refreshTreeButton.ToolTipText = "Refresh maps";
-            this.refreshTreeButton.Click += new System.EventHandler(this.refreshTreeButton_Click);
+            this.refreshTreeButton.Click += new System.EventHandler(this.RefreshTreeButton_Click);
             // 
             // tilesetsTree
             // 

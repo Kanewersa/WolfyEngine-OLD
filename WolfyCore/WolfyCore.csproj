@@ -114,6 +114,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\EntityController.cs" />
     <Compile Include="Controllers\GameController.cs" />
     <Compile Include="Controllers\MapsController.cs" />
     <Compile Include="Controllers\PathsController.cs" />
@@ -140,7 +141,9 @@
     <Compile Include="ECS\Components\Camera\CameraComponent.cs" />
     <Compile Include="ECS\Components\Camera\LUTComponent.cs" />
     <Compile Include="ECS\Components\CollisionComponent.cs" />
+    <Compile Include="ECS\Components\DialogComponent.cs" />
     <Compile Include="ECS\Components\InputComponent.cs" />
+    <Compile Include="ECS\Components\InteractionComponent.cs" />
     <Compile Include="ECS\Components\LoadMapComponent.cs" />
     <Compile Include="ECS\Components\Movement\FixedMovementComponent.cs" />
     <Compile Include="ECS\Components\Movement\FollowMovementComponent.cs" />
@@ -153,7 +156,9 @@
     <Compile Include="ECS\Systems\AnimationSystem.cs" />
     <Compile Include="ECS\Systems\Audio\SFXSystem.cs" />
     <Compile Include="ECS\Systems\CollisionSystem.cs" />
+    <Compile Include="ECS\Systems\DialogSystem.cs" />
     <Compile Include="ECS\Systems\InputSystem.cs" />
+    <Compile Include="ECS\Systems\InteractionSystem.cs" />
     <Compile Include="ECS\Systems\LoadingSystem.cs" />
     <Compile Include="ECS\Systems\Movement\MovementSystem.cs" />
     <Compile Include="ECS\Systems\Movement\RandomMovementSystem.cs" />

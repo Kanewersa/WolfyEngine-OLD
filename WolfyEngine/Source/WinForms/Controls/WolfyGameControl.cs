@@ -142,7 +142,7 @@ namespace WolfyEngine.Controls
         public void LoadMap(Map map)
         {
             CurrentMap = map;
-            CurrentMap.Initialize(Editor.graphics, World);
+            CurrentMap.Initialize(Editor.graphics);
             CurrentMap.LoadContent(Editor.Content);
         }
     }

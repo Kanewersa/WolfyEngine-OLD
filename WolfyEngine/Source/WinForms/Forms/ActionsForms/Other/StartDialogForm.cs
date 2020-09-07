@@ -13,7 +13,6 @@ namespace WolfyEngine.Forms
 
         protected override WolfyAction CreateAction()
         {
-            // TODO Player entity should not be used directly.
             return new DialogAction(Entity.Player, TextBox.Text);
         }
 
