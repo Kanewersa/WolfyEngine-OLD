@@ -127,26 +127,6 @@ namespace WolfyEngine.Engine
             }
         }
 
-        public static void BoisSerialize<T>(T obj, string path)
-        {
-            Directory.CreateDirectory(Path.GetDirectoryName(path) ?? throw new InvalidOperationException());
-
-            var serializer = new BoisSerializer();
-            using (var stream = new FileStream(path, FileMode.Create))
-            {
-                serializer.Serialize(obj, stream);
-            }
-        }
-
-        public static T BoisDeserialize<T>(string path)
-        {
-            var serializer = new BoisSerializer();
-            var file = File.Open(path, FileMode.Open);
-            var obj = serializer.Deserialize<T>(file);
-            file.Close();
-            return obj;
-        }
-
         /// <summary>
         /// Initializes all the subtypes for protobuf and allows serialization
         /// </summary>

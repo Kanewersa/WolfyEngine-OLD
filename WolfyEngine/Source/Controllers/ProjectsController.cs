@@ -13,12 +13,7 @@ namespace WolfyCore.Controllers
         
         private Project _currentProject;
 
-        private ProgramSettings _settings;
-        public ProgramSettings Settings
-        {
-            get => _settings;
-            set { _settings = value; }
-        }
+        public ProgramSettings Settings { get; set; }
 
         public Project CurrentProject
         {
@@ -67,7 +62,7 @@ namespace WolfyCore.Controllers
         /// Imports some default assets to the project.
         /// TODO: Import defaults assets only during development.
         /// </summary>
-        private void ImportDefaultAssets(Project project)
+        private static void ImportDefaultAssets(Project project)
         {
             var spritesPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Content", "Assets", "Sprites");
             var directory = new DirectoryInfo(spritesPath);
@@ -111,12 +106,6 @@ namespace WolfyCore.Controllers
             OpenProject(Path.Combine(CurrentProject.Path, CurrentProject.Name + ".proj"));
         }
 
-        public void OpenProject(Project project)
-        {
-            CurrentProject = project;
-            CurrentProject.Initialize();
-        }
- 
         public void SaveCurrentProject()
         {
             CurrentProject.Save();

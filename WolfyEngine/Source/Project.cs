@@ -14,6 +14,7 @@ namespace WolfyCore
         [ProtoMember(2)] public string Path { get; set; }
         [ProtoMember(3)] public Vector2D TileSize { get; set; }
         [ProtoMember(4)] public DateTime LastModified { get; set; }
+        [ProtoMember(5)] public SerializationData SerializationData { get; set; }
 
         public Project() { }
         public Project(string name, string path, Vector2D tileSize)
@@ -23,11 +24,12 @@ namespace WolfyCore
             TileSize = tileSize;
             LastModified = DateTime.Now;
             Path = path;
+            SerializationData = new SerializationData();
         }
 
         /// <summary>
         /// Initializes the project
-        /// </summary>
+        /// </summary>e
         public void Initialize()
         {
             if(TileSize.X == 0 || TileSize.Y == 0)
@@ -43,6 +45,8 @@ namespace WolfyCore
                 throw new Exception("Rectangle tiles are not supported!");
             }
             Runtime.GridSize = TileSize.X;
+
+            SerializationData.Initialize();
         }
 
         /// <summary>

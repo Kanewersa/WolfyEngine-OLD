@@ -11,7 +11,8 @@ namespace WolfyCore.ECS
 {
     public class LoadingSystem : EntitySystem
     {
-        private const int UpdateDistance = 2;
+        // TODO: Move update distance to settings.
+        private const int UpdateDistance = 999;
 
         private GraphicsDevice GraphicsDevice { get; set; }
         private ContentManager ContentManager { get; set; }
@@ -58,18 +59,15 @@ namespace WolfyCore.ECS
             });
         }
 
-        private void GetNeighboringMaps(List<int> neighbors, Map map, int range)
+        private static void GetNeighboringMaps(ICollection<int> neighbors, Map map, int range)
         {
             if (range == 0)
                 return;
 
-            foreach (int neighbor in map.Neighbors)
+            foreach (int neighbor in map.Neighbors.Except(neighbors))
             {
-                if (!neighbors.Contains(neighbor))
-                {
-                    neighbors.Add(neighbor);
-                    GetNeighboringMaps(neighbors, MapsController.Instance.GetMap(neighbor), --range);
-                }
+                neighbors.Add(neighbor);
+                GetNeighboringMaps(neighbors, MapsController.Instance.GetMap(neighbor), --range);
             }
         }
     }

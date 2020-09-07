@@ -61,22 +61,22 @@ namespace WolfyEngine
             entityComponent.AddSubType(116, typeof(InteractionComponent));
 
             // Add components generics
-            entityComponent.AddSubType(201, typeof(EntityComponent<AnimationComponent>));
-            entityComponent.AddSubType(202, typeof(EntityComponent<CollisionComponent>));
-            entityComponent.AddSubType(203, typeof(EntityComponent<InGameNameComponent>));
-            entityComponent.AddSubType(204, typeof(EntityComponent<InputComponent>));
-            entityComponent.AddSubType(205, typeof(EntityComponent<TransformComponent>));
-            entityComponent.AddSubType(206, typeof(EntityComponent<MovementComponent>));
-            entityComponent.AddSubType(207, typeof(EntityComponent<MovementActionComponent>));
-            entityComponent.AddSubType(208, typeof(EntityComponent<FixedMovementComponent>));
-            entityComponent.AddSubType(209, typeof(EntityComponent<FollowMovementComponent>));
-            entityComponent.AddSubType(210, typeof(EntityComponent<RandomMovementComponent>));
-            entityComponent.AddSubType(211, typeof(EntityComponent<RoutineMovementComponent>));
-            entityComponent.AddSubType(212, typeof(EntityComponent<CameraComponent>));
-            entityComponent.AddSubType(213, typeof(EntityComponent<ActionComponent>));
-            entityComponent.AddSubType(214, typeof(EntityComponent<LUTComponent>));
-            entityComponent.AddSubType(215, typeof(EntityComponent<DialogComponent>));
-            entityComponent.AddSubType(216, typeof(EntityComponent<InteractionComponent>));
+            entityComponent.AddSubType(501, typeof(EntityComponent<AnimationComponent>));
+            entityComponent.AddSubType(502, typeof(EntityComponent<CollisionComponent>));
+            entityComponent.AddSubType(503, typeof(EntityComponent<InGameNameComponent>));
+            entityComponent.AddSubType(504, typeof(EntityComponent<InputComponent>));
+            entityComponent.AddSubType(505, typeof(EntityComponent<TransformComponent>));
+            entityComponent.AddSubType(506, typeof(EntityComponent<MovementComponent>));
+            entityComponent.AddSubType(507, typeof(EntityComponent<MovementActionComponent>));
+            entityComponent.AddSubType(508, typeof(EntityComponent<FixedMovementComponent>));
+            entityComponent.AddSubType(509, typeof(EntityComponent<FollowMovementComponent>));
+            entityComponent.AddSubType(510, typeof(EntityComponent<RandomMovementComponent>));
+            entityComponent.AddSubType(511, typeof(EntityComponent<RoutineMovementComponent>));
+            entityComponent.AddSubType(512, typeof(EntityComponent<CameraComponent>));
+            entityComponent.AddSubType(513, typeof(EntityComponent<ActionComponent>));
+            entityComponent.AddSubType(514, typeof(EntityComponent<LUTComponent>));
+            entityComponent.AddSubType(515, typeof(EntityComponent<DialogComponent>));
+            entityComponent.AddSubType(516, typeof(EntityComponent<InteractionComponent>));
 
             // Add wolfy actions
             var wolfyAction = RuntimeTypeModel.Default[typeof(WolfyAction)];
@@ -87,17 +87,5 @@ namespace WolfyEngine
             wolfyAction.AddSubType(105, typeof(ChangeBGMAction));
 
         }
-
-        public static void InitializeFamilies()
-        {
-            foreach (var type in ComponentTypes)
-            {
-                var genericType = typeof(EntityComponent<>).MakeGenericType(type);
-                dynamic instance = Activator.CreateInstance(genericType);
-                var method = instance.GetType().GetMethod("Family");
-                var id = method.Invoke(null, new object[] {} );
-            }
-        }
-
     }
 }

@@ -8,7 +8,6 @@ namespace WolfyECS
     {
         public static int Counter = 1;
         public static bool[] UsedIds = new bool[128];
-        //public static Dictionary<int, Type> ComponentTypes = new Dictionary<int, Type>(256);
     }
 
     [ProtoContract] public class EntityComponent<T> : EntityComponent

@@ -14,6 +14,7 @@ namespace WolfyEngine
         [STAThread]
         static void Main()
         {
+            WolfyManager.WolfyInitialize();
             // Load program settings
             if(File.Exists(StaticPaths.ProgramSettings))
                 ProjectsController.Instance.Settings = Serialization.XmlDeserialize<ProgramSettings>(StaticPaths.ProgramSettings);

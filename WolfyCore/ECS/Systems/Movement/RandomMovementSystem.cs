@@ -13,6 +13,7 @@ namespace WolfyCore.ECS
 
         public override void Initialize(GraphicsDevice graphics)
         {
+            RequireComponent<ActiveComponent>();
             RequireComponent<MovementComponent>();
             RequireComponent<RandomMovementComponent>();
             RequireComponent<TransformComponent>();
