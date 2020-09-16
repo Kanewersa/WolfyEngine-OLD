@@ -5,7 +5,6 @@ using ProtoBuf.Meta;
 using WolfyCore.Actions;
 using WolfyCore.ECS;
 using WolfyECS;
-using WolfyEngine.Engine;
 
 namespace WolfyEngine
 {
@@ -20,13 +19,13 @@ namespace WolfyEngine
         public static void WolfyInitialize()
         {
             // Set entity component subtypes
-            ComponentTypes = ReflectiveEnumerator.GetSubTypes<EntityComponent>();
+            /*ComponentTypes = ReflectiveEnumerator.GetSubTypes<EntityComponent>();
             SystemTypes = ReflectiveEnumerator.GetSubTypes<EntitySystem>();
 
             // Allow Vector2 serialization
             RuntimeTypeModel.Default.Add(typeof(Vector2), false).Add(1, "X").Add(2, "Y");
 
-            // TODO Fix dynamic subtypes loading for protobuf
+            // TODO Remove redundant code (WolfyManager).
             // Add systems to protobuf
             var entitySystem = RuntimeTypeModel.Default[typeof(EntitySystem)];
             entitySystem.AddSubType(101, typeof(AnimationSystem));
@@ -40,6 +39,7 @@ namespace WolfyEngine
             entitySystem.AddSubType(109, typeof(TimeSystem));
             entitySystem.AddSubType(110, typeof(DialogSystem));
             entitySystem.AddSubType(111, typeof(InteractionSystem));
+            entitySystem.AddSubType(112, typeof(LoadingSystem));
 
             // Add components
             var entityComponent = RuntimeTypeModel.Default[typeof(EntityComponent)];
@@ -59,6 +59,8 @@ namespace WolfyEngine
             entityComponent.AddSubType(114, typeof(LUTComponent));
             entityComponent.AddSubType(115, typeof(DialogComponent));
             entityComponent.AddSubType(116, typeof(InteractionComponent));
+            entityComponent.AddSubType(117, typeof(LoadMapComponent));
+            entityComponent.AddSubType(118, typeof(ActiveComponent));
 
             // Add components generics
             entityComponent.AddSubType(501, typeof(EntityComponent<AnimationComponent>));
@@ -77,6 +79,8 @@ namespace WolfyEngine
             entityComponent.AddSubType(514, typeof(EntityComponent<LUTComponent>));
             entityComponent.AddSubType(515, typeof(EntityComponent<DialogComponent>));
             entityComponent.AddSubType(516, typeof(EntityComponent<InteractionComponent>));
+            entityComponent.AddSubType(517, typeof(EntityComponent<LoadMapComponent>));
+            entityComponent.AddSubType(518, typeof(EntityComponent<ActiveComponent>));
 
             // Add wolfy actions
             var wolfyAction = RuntimeTypeModel.Default[typeof(WolfyAction)];
@@ -84,7 +88,7 @@ namespace WolfyEngine
             wolfyAction.AddSubType(102, typeof(TeleportAction));
             wolfyAction.AddSubType(103, typeof(DialogAction));
             wolfyAction.AddSubType(104, typeof(CameraFadeAction));
-            wolfyAction.AddSubType(105, typeof(ChangeBGMAction));
+            wolfyAction.AddSubType(105, typeof(ChangeBGMAction));*/
 
         }
     }

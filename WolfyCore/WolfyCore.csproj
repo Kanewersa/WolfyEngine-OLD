@@ -82,11 +82,8 @@
     <Reference Include="Nito.Collections.Deque, Version=1.0.4.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Nito.Collections.Deque.1.0.4\lib\netstandard2.0\Nito.Collections.Deque.dll</HintPath>
     </Reference>
-    <Reference Include="protobuf-net, Version=3.0.0.0, Culture=neutral, PublicKeyToken=257b51d87d2e4d67, processorArchitecture=MSIL">
-      <HintPath>..\packages\protobuf-net.3.0.29\lib\net461\protobuf-net.dll</HintPath>
-    </Reference>
-    <Reference Include="protobuf-net.Core, Version=3.0.0.0, Culture=neutral, PublicKeyToken=257b51d87d2e4d67, processorArchitecture=MSIL">
-      <HintPath>..\packages\protobuf-net.Core.3.0.29\lib\net461\protobuf-net.Core.dll</HintPath>
+    <Reference Include="protobuf-net, Version=2.4.0.0, Culture=neutral, PublicKeyToken=257b51d87d2e4d67, processorArchitecture=MSIL">
+      <HintPath>..\packages\protobuf-net.2.4.6\lib\net40\protobuf-net.dll</HintPath>
     </Reference>
     <Reference Include="Salar.Bois, Version=3.1.0.0, Culture=neutral, PublicKeyToken=c6a95817615ec2cb, processorArchitecture=MSIL">
       <HintPath>..\packages\Salar.Bois.3.1.0\lib\net45\Salar.Bois.dll</HintPath>
@@ -144,19 +141,19 @@
     <Compile Include="Controllers\TilesetsController.cs" />
     <Compile Include="ECS\Actions\ActionsManager.cs" />
     <Compile Include="ECS\Actions\Audio\ChangeBGMAction.cs" />
-    <Compile Include="ECS\Actions\BaseVariable.cs" />
+    <Compile Include="ECS\Actions\Audio\PlaySfxAction.cs" />
     <Compile Include="ECS\Actions\Camera\CameraFadeAction.cs" />
     <Compile Include="ECS\Actions\Camera\LUTAction.cs" />
     <Compile Include="ECS\Actions\Conditions\BaseVariable.cs" />
     <Compile Include="ECS\Actions\Conditions\VariableCondition.cs" />
-    <Compile Include="ECS\Actions\MovementAction.cs" />
+    <Compile Include="ECS\Actions\Movement\MovementAction.cs" />
     <Compile Include="ECS\Actions\Other\DialogAction.cs" />
-    <Compile Include="ECS\Actions\TeleportAction.cs" />
+    <Compile Include="ECS\Actions\Movement\TeleportAction.cs" />
     <Compile Include="ECS\Actions\Conditions\BoolCondition.cs" />
     <Compile Include="ECS\Actions\WolfyAction.cs" />
-    <Compile Include="ECS\Actions\WolfyBool.cs" />
+    <Compile Include="ECS\Actions\Conditions\WolfyBool.cs" />
     <Compile Include="ECS\Actions\WolfyCondition.cs" />
-    <Compile Include="ECS\Actions\WolfyVariable.cs" />
+    <Compile Include="ECS\Actions\Conditions\WolfyVariable.cs" />
     <Compile Include="ECS\Components\ActionComponent.cs" />
     <Compile Include="ECS\Components\Actions\MovementActionComponent.cs" />
     <Compile Include="ECS\Components\ActiveComponent.cs" />
@@ -175,7 +172,9 @@
     <Compile Include="ECS\Components\Movement\RandomMovementComponent.cs" />
     <Compile Include="ECS\Components\Movement\RoutineMovementComponent.cs" />
     <Compile Include="ECS\Components\InGameNameComponent.cs" />
+    <Compile Include="ECS\Components\NpcActionComponent.cs" />
     <Compile Include="ECS\Components\StartActionComponent.cs" />
+    <Compile Include="ECS\Components\TimeEventComponent.cs" />
     <Compile Include="ECS\Systems\ActionSystem.cs" />
     <Compile Include="ECS\Systems\AnimationSystem.cs" />
     <Compile Include="ECS\Systems\Audio\SFXSystem.cs" />
@@ -188,6 +187,7 @@
     <Compile Include="ECS\Systems\Movement\RandomMovementSystem.cs" />
     <Compile Include="ECS\Systems\Movement\RoutineMovementSystem.cs" />
     <Compile Include="ECS\Components\TransformComponent.cs" />
+    <Compile Include="ECS\Systems\NpcActionSystem.cs" />
     <Compile Include="ECS\Systems\RenderSystem.cs" />
     <Compile Include="ECS\Systems\TimeSystem.cs" />
     <Compile Include="Engine\Animations\Animation.cs" />
@@ -216,6 +216,7 @@
     <Compile Include="Engine\Vector2D.cs" />
     <Compile Include="Engine\Vector3D.cs" />
     <Compile Include="Game\GameSettings.cs" />
+    <Compile Include="Game\InGameTime.cs" />
     <Compile Include="Game\Inventory\GameItem.cs" />
     <Compile Include="Game\Inventory\Inventory.cs" />
     <Compile Include="Game\Maps\BaseLayer.cs" />

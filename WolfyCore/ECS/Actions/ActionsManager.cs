@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
@@ -129,9 +128,27 @@ namespace WolfyCore.Actions
         /// Adds all actions in given list to pending actions.
         /// </summary>
         /// <param name="actions"></param>
-        public void PushActions(List<WolfyAction> actions = null)
+        /// <param name="insertAtBeginning"></param>
+        public void PushActions(List<WolfyAction> actions, bool insertAtBeginning = true)
         {
-            _pendingActions.InsertRange(0, actions);
+            _pendingActions.InsertRange(insertAtBeginning ? 0 : _pendingActions.Count, actions);
+        }
+
+        /// <summary>
+        /// Executes the actions asynchronously.
+        /// </summary>
+        /// <param name="actions"></param>
+        public void ExecuteActions(List<WolfyAction> actions)
+        {
+            foreach (var action in actions)
+            {
+                if (action is WolfyCondition condition)
+                {
+                    ExecuteActions(condition.GetActions());
+                }
+
+                action.Execute();
+            }
         }
     }
 }

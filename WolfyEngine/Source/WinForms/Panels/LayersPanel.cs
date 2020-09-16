@@ -88,7 +88,7 @@ namespace WolfyEngine.Controls
             if (TilesetsController.Instance.TilesetsData.Info.Count == 0)
             {
                 DarkMessageBox.ShowWarning(
-                    "Create the tileset first!",
+                    "Please, create the tileset first.",
                     "No available tilesets.");
                 return;
             }

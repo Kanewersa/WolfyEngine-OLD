@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
@@ -12,7 +11,7 @@ using WolfyCore.Controllers;
 
 namespace WolfyEngine.Forms
 {
-    public partial class AssetManagerForm : DarkForm
+    public partial class AssetManagerForm : WolfyForm
     {
         private string SelectedFolder { get; set; }
         private string SelectedFile { get; set; }

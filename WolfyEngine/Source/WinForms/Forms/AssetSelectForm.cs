@@ -8,7 +8,7 @@ using WolfyCore.Engine;
 
 namespace WolfyEngine.Forms
 {
-    public partial class AssetSelectForm : DarkForm
+    public partial class AssetSelectForm : WolfyForm
     {
         private string AssetsPath { get; set; }
         private bool HideExtension { get; set; }

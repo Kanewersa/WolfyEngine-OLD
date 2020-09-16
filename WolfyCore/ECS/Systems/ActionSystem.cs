@@ -1,5 +1,4 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using ProtoBuf;
 using WolfyCore.Actions;
@@ -11,59 +10,41 @@ namespace WolfyCore.ECS
     {
         [ProtoMember(1)] public ActionsManager ActionsManager;
 
-        public ActionSystem()
-        {
-            ActionsManager = new ActionsManager();
-        }
+        public ActionSystem() { }
 
         public override void Initialize(GraphicsDevice graphics)
         {
-            RequireComponent<ActiveComponent>();
-            RequireComponent<ActionComponent>();
-            RequireComponent<StartActionComponent>();
-
+            ActionsManager ??= new ActionsManager();
             ActionsManager.Initialize(graphics);
-        }
 
-        public override void LoadContent(ContentManager content)
-        {
-            ActionsManager.LoadContent(content);
+            RequireComponent<StartActionComponent>();
         }
 
         public override void Update(GameTime gameTime)
         {
             IterateEntities(entity =>
             {
-                var actionComponent = entity.GetComponent<ActionComponent>();
+                var actionComponent = entity.GetComponent<StartActionComponent>();
 
-                // If actions were not yet executed
-                if (!actionComponent.Executed)
+                if (actionComponent.Executed)
                 {
-                    // If there are actions to be executed
-                    if (actionComponent.Actions != null)
-                    {
-                        // Push actions to execute
-                        ActionsManager.PushActions(actionComponent.Actions);
-                    }
+                    if (ActionsManager.Empty)
+                        entity.RemoveComponent<StartActionComponent>();
                     
+                    return;
+                }
+
+                if (actionComponent.Asynchronous)
+                {
+                    ActionsManager.ExecuteActions(actionComponent.Actions);
+                    entity.RemoveComponent<StartActionComponent>();
+                }
+                else
+                {
+                    ActionsManager.PushActions(actionComponent.Actions);
                     actionComponent.Executed = true;
                 }
-
-                // If all actions were executed
-                if (ActionsManager.Empty)
-                {
-                    // Unlock the movement of met entity
-                    var metEntity = entity.GetComponent<StartActionComponent>().MetEntity;
-                    metEntity.GetComponent<MovementComponent>().LockedMovement = false;
-
-                    // Remove action component
-                    entity.RemoveComponent<StartActionComponent>();
-                    entity.RemoveComponent<ActionComponent>();
-                    actionComponent.Executed = false;
-                }
             });
-
-            ActionsManager.Update(gameTime);
         }
     }
 }

@@ -1,13 +1,12 @@
-﻿using System;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using WolfyCore.Engine;
+using ProtoBuf;
 using WolfyECS;
 using Random = WolfyCore.Engine.Random;
 
 namespace WolfyCore.ECS
 {
-    public class RandomMovementSystem : EntitySystem
+    [ProtoContract] public class RandomMovementSystem : EntitySystem
     {
         public RandomMovementSystem() { }
 

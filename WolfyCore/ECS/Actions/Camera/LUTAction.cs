@@ -7,6 +7,9 @@ using WolfyECS;
 
 namespace WolfyCore.Actions
 {
+    /// <summary>
+    /// Changes the lookup table.
+    /// </summary>
     [ProtoContract] public class LUTAction : WolfyAction
     {
         [ProtoMember(1)] public string LUTPath;

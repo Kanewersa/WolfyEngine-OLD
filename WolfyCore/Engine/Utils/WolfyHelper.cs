@@ -113,5 +113,44 @@ namespace WolfyEngine
                 return y > 0 ? 0 : 3;
             return x == 1 ? 2 : 1;
         }
+
+        /// <summary>
+        /// Translates int to Vector2 direction.
+        /// </summary>
+        /// <param name="direction"></param>
+        /// <returns></returns>
+        public static Vector2 GetDirection(int direction)
+        {
+            switch (direction)
+            {
+                case 0:
+                    return new Vector2(0, 1);
+                case 1: 
+                    return new Vector2(-1, 0);
+                case 2:
+                    return new Vector2(1, 0);
+                case 3:
+                    return new Vector2(0, -1);
+                default:
+                    throw new ArgumentOutOfRangeException("Unknown direction given.");
+            }
+        }
+
+        public static Random Random = new Random();
+
+        /// <summary>
+        /// Roles a number based on chance modifier.
+        /// </summary>
+        /// <param name="chanceModifier">The chance of rolling 'true' (reciprocal).
+        /// e.g. 2 => 50%, 3 => 33%, 4 => 25% etc.</param>
+        /// <returns>True if chance modifier was rolled. False otherwise.</returns>
+        public static bool RollChance(int chanceModifier)
+        {
+            int rInt = Random.Next(1, chanceModifier);
+
+            if (rInt == chanceModifier) return true;
+            
+            return false;
+        }
     }
 }

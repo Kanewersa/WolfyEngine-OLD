@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using WolfyECS;
 using WolfyEngine.Engine;
@@ -28,21 +29,9 @@ namespace WolfyCore.Controllers
             return Instance.EntityData.GetEntities(mapId);
         }
 
-        /*
-        public static void AddEntity(int mapId, Entity entity)
+        public void Save()
         {
-            Instance.EntityData.AddEntity(mapId, entity);
+            Serialization.ProtoSerialize(EntityData, EntityDataPath);
         }
-
-        public static void RemoveEntity(int mapId, Entity entity)
-        {
-            Instance.EntityData.RemoveEntity(mapId, entity);
-        }
-
-        public static void MoveEntity(int sourceMap, int targetMap, Entity entity)
-        {
-            Instance.EntityData.RemoveEntity(sourceMap, entity);
-            Instance.EntityData.AddEntity(targetMap, entity);
-        }*/
     }
 }

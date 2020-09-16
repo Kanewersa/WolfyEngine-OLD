@@ -8,7 +8,7 @@ using WolfyCore.Game;
 
 namespace WolfyEngine.Forms
 {
-    public partial class NewTilesetForm : DarkForm
+    public partial class NewTilesetForm : WolfyForm
     {
         private string _selectedAsset;
 

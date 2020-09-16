@@ -25,6 +25,8 @@ namespace WolfyCore.ECS
         private int DialogCloseTimeout { get; set; }
         private float SpeedFactorTimeout { get; set; }
 
+        public DialogSystem() { }
+
         public override void Initialize(GraphicsDevice graphics)
         {
             RequireComponent<DialogComponent>();
@@ -69,6 +71,7 @@ namespace WolfyCore.ECS
                 && input.Enter)
             {
                 // If Animator completed the animation
+                // TODO: Add delay to completing the dialog.
                 if (Animator.IsDone)
                 {
                     // Remove the dialog component.

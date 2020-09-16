@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using ProtoBuf;
+using WolfyCore.Controllers;
 using WolfyCore.Engine;
 using WolfyECS;
 
@@ -100,21 +101,16 @@ namespace WolfyCore.ECS
                     /*map.Initialize(GraphicsDevice);
                     map.LoadContent(ContentManager);*/
                     camera.SetMapBoundaries(map.Size * Runtime.GridSize);
-
-                    if (!map.Initialized)
-                    {
-                        return;
-                    }
+                    
                 }
 
                 LastMapId = map.Id;
-
+                
                 // Update the camera
-                if (entity.GetIfHasComponent<AnimationComponent>(out var animation))
+                if (entity.GetIfHasComponent<AnimationComponent>(out var animation) && animation.Initialized)
                     camera.Update(animation);
                 else camera.Update();
                 CameraTransform = camera.Transform;
-
                 map.Draw(spriteBatch, gameTime, camera.GetVisibleArea());
 
                 if (entity.GetIfHasComponent(out LUTComponent lut))

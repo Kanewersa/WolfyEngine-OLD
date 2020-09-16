@@ -54,7 +54,7 @@ namespace WolfyCore
         /// </summary>
         public void Save()
         {
-            Serialization.XmlSerialize(this, System.IO.Path.Combine(Path, Name + ".proj"));
+            Serialization.ProtoSerialize(this, System.IO.Path.Combine(Path, Name + ".proj"));
         }
     }
 

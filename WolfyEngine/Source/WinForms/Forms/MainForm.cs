@@ -18,7 +18,7 @@ using Timer = System.Windows.Forms.Timer;
 
 namespace WolfyEngine.Forms
 {
-    public partial class MainForm : DarkForm
+    public partial class MainForm : WolfyForm
     {
         private readonly List<DarkDockContent> _toolWindows = new List<DarkDockContent>();
 
@@ -32,7 +32,6 @@ namespace WolfyEngine.Forms
         {
             AutoScaleMode = AutoScaleMode.None;
             InitializeComponent();
-
             // Add the control scroll message filter to re-route all mousewheel events
             // to the control the user is currently hovering over with their cursor.
             Application.AddMessageFilter(new ControlScrollFilter());
@@ -247,6 +246,7 @@ namespace WolfyEngine.Forms
             MapsController.Instance.Save();
             TilesetsController.Instance.Save();
             GameController.Instance.Save();
+            EntityController.Instance.Save();
         }
 
         #region ToolStrip - ToolWindow Functions
@@ -292,70 +292,9 @@ namespace WolfyEngine.Forms
 
         #endregion
 
-        public World World;
-
         private void Button1_Click(object sender, EventArgs e)
         {
-            /*for (int i = 0; i < 1024; i++)
-            {
-                var world = new World();
-
-                World.SetWorld(world);
-
-                var sys = new MovementSystem();
-                var sys2 = new ActionSystem();
-                var sys3 = new RenderSystem();
-                var sys4 = new CollisionSystem();
-
-                world.AddSystem(sys);
-                world.AddSystem(sys2);
-                world.AddSystem(sys3);
-                world.AddSystem(sys4);
-
-                for (int j = 0; j < 100; j++)
-                {
-                    var entity = world.CreateEntity();
-                    entity.AddComponent<TransformComponent>();
-                    entity.AddComponent<ActionComponent>();
-                    entity.AddComponent<AnimationComponent>();
-                    entity.AddComponent<InGameNameComponent>();
-                    entity.AddComponent<RandomMovementComponent>();
-                }
-
-                world.Initialize();
-                Worlds.Add(world);
-            }*/
-
-            World = new World();
-            World.SetWorld(World);
-            var sys = new MovementSystem();
-            var sys2 = new ActionSystem();
-            var sys3 = new RenderSystem();
-            var sys4 = new CollisionSystem();
-
-            World.AddSystem(sys);
-            World.AddSystem(sys2);
-            World.AddSystem(sys3);
-            World.AddSystem(sys4);
             
-
-            for (int i = 0; i < 1000; i++)
-            {
-                var entity = World.CreateEntity();
-                entity.AddComponent<TransformComponent>();
-                entity.AddComponent<ActionComponent>();
-                entity.AddComponent<AnimationComponent>();
-                entity.AddComponent<InGameNameComponent>();
-                entity.AddComponent<RandomMovementComponent>();
-            }
-
-
-            /*Console.WriteLine("Entities count: " + GameController.Instance.GetEntities());
-            var entity = new Entity(1, 1);
-            Console.WriteLine("First entity mask: ");
-            
-            var world = GameController.Instance.World;
-            world.Debug();*/
         }
 
         private void PlayerToolStripMenuItem_Click(object sender, EventArgs e)

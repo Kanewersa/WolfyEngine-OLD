@@ -4,9 +4,9 @@ namespace WolfyCore
 {
     public class ProgramSettings
     {
+        public bool SmoothForms { get; set; } = true;
         public bool FirstStart { get; set; } = true;
-        public Project LastProject { get; set; } = null;
-
+        public string LastProjectPath { get; set; }
         public void Save()
         {
             Serialization.XmlSerialize(this, StaticPaths.ProgramSettings);

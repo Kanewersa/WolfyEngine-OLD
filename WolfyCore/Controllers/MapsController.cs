@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using ProtoBuf;
 using WolfyCore.Game;
@@ -14,10 +15,10 @@ namespace WolfyCore.Controllers
 
         private string MapsPath => PathsController.Instance.MapsPath;
         private string MapsDataPath => PathsController.Instance.MapsDataPath;
+        private string EntityDataPath => PathsController.Instance.EntityDataPath;
 
         public Dictionary<int, Map> LoadedMaps { get; set; }
         public MapsData MapsData { get; set; }
-        public EntityData EntityData { get; set; }
         public Map LastMap { get; private set; }
 
         public MapsController()
@@ -155,6 +156,11 @@ namespace WolfyCore.Controllers
         /// </summary>
         [ProtoMember(1)] public Dictionary<int, List<Entity>> Info { get; set; }
 
+        public EntityData()
+        {
+            Info ??= new Dictionary<int, List<Entity>>();
+        }
+
         /// <summary>
         /// Returns the entities located on map with given id.
         /// </summary>
@@ -162,6 +168,9 @@ namespace WolfyCore.Controllers
         /// <returns></returns>
         public List<Entity> GetEntities(int id)
         {
+            if (!Info.ContainsKey(id))
+                Info.Add(id, new List<Entity>());
+
             return Info[id];
         }
 

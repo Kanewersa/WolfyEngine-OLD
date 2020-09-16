@@ -1,28 +1,26 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Runtime.Serialization;
 using Microsoft.Xna.Framework;
 using ProtoBuf;
 using ProtoBuf.Meta;
 using WolfyCore.Actions;
 using WolfyECS;
-using WolfyEngine;
+using WolfyEngine.Engine;
 
 namespace WolfyCore
 {
     [ProtoContract] public class SerializationData
     {
-        [ProtoMember(1)] private SubTypeData<EntitySystem> SystemsData { get; set; }
-        [ProtoMember(2)] private SubTypeData<EntityComponent> ComponentsData { get; set; }
-        [ProtoMember(3)] private SubTypeData<WolfyAction> ActionsData { get; set; }
+        [ProtoMember(1)] public SubTypeData<EntitySystem> SystemsData { get; set; }
+        [ProtoMember(2)] public SubTypeData<EntityComponent> ComponentsData { get; set; }
+        [ProtoMember(3)] public SubTypeData<WolfyAction> ActionsData { get; set; }
 
         public SerializationData()
         { }
 
         public void Initialize()
         {
-            RuntimeTypeModel.Create().MakeDefault();
-           
+            Serialization.RuntimeTypeModel = RuntimeTypeModel.Create();
+
             SystemsData ??= new SubTypeData<EntitySystem>();
             ComponentsData ??= new SubTypeData<EntityComponent>();
             ActionsData ??= new SubTypeData<WolfyAction>();
@@ -33,13 +31,13 @@ namespace WolfyCore
 
         private static void LoadDefaults()
         {
-            RuntimeTypeModel.Default.Add<Vector2>(false).Add(1, "X").Add(2, "Y");
+            Serialization.RuntimeTypeModel.Add(typeof(Vector2), false).Add(1, "X").Add(2, "Y");
         }
 
         private void LoadSubTypes()
         {
             SystemsData.LoadTypes();
-            ComponentsData.LoadTypes();
+            ComponentsData.LoadTypes(true);
             ActionsData.LoadTypes();
         }
     }

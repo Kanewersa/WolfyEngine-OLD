@@ -13,11 +13,11 @@ namespace WolfyCore.ECS
         [ProtoMember(1)] private Vector2 _position;
         [ProtoMember(2)] public AnimationManager AnimationManager { get; set; }
         [ProtoMember(3)] public Dictionary<string, Animation> Animations { get; set; }
-        [ProtoMember(4)] public Image Image { get; set; }
-        [ProtoIgnore] public bool PreserveAnimation { get; set; }
-        [ProtoIgnore] public Texture2D Texture => Image.Texture;
 
-        public virtual Rectangle Bounds =>
+        [ProtoIgnore] public bool Initialized { get; set; }
+        [ProtoIgnore] public bool PreserveAnimation { get; set; }
+
+        public Rectangle Bounds =>
             new Rectangle(0, 0, Animations["Walk"].FrameWidth, Animations["Walk"].FrameHeight);
 
         [ProtoIgnore] public Vector2 Position
@@ -32,6 +32,10 @@ namespace WolfyCore.ECS
             }
         }
 
+        /// <summary>
+        /// Loads all the animations' content.
+        /// </summary>
+        /// <param name="content"></param>
         public void LoadContent(ContentManager content)
         {
             AnimationManager.LoadContent(content);
@@ -39,8 +43,14 @@ namespace WolfyCore.ECS
             {
                 animation.Value.LoadContent(content);
             }
+
+            Initialized = true;
         }
 
+        /// <summary>
+        /// Draws the animation manager.
+        /// </summary>
+        /// <param name="spriteBatch"></param>
         public void Draw(SpriteBatch spriteBatch)
         {
             AnimationManager.Draw(spriteBatch);
@@ -53,6 +63,17 @@ namespace WolfyCore.ECS
         public void SetDirection(int direction)
         {
             AnimationManager.SetDirection(direction);
+        }
+
+        /// <summary>
+        /// Disposes the textures in animation manager and all animations.
+        /// </summary>
+        public void Unload()
+        {
+            foreach (var animation in Animations)
+            {
+                animation.Value.Unload();
+            }
         }
     }
 }

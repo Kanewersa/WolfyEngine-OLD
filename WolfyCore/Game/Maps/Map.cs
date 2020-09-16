@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -12,6 +10,9 @@ using WolfyECS;
 
 namespace WolfyCore.Game
 {
+    /// <summary>
+    /// In-game map.
+    /// </summary>
     [ProtoContract] public class Map
     {
         /// <summary>
@@ -24,6 +25,9 @@ namespace WolfyCore.Game
         /// </summary>
         [ProtoMember(2)] public string Name { get; set; }
 
+        /// <summary>
+        /// Bordering maps' ids.
+        /// </summary>
         [ProtoMember(3)] public List<int> Neighbors { get; set; }
 
         /// <summary>
@@ -31,38 +35,71 @@ namespace WolfyCore.Game
         /// </summary>
         [ProtoMember(4)] public Vector2D Size { get; set; }
 
-        // TODO: ! Important ! Determine if more than one EntityLayer is allowed in Map instance.
+        /// <summary>
+        /// Layers of the map.
+        /// </summary>
         [ProtoMember(5)] public List<BaseLayer> Layers { get; set; } = new List<BaseLayer>();
-        [ProtoMember(6)] public EntityLayer EntityLayer { get; set; }
 
-        [ProtoIgnore] private readonly int DrawOffset = 2;
+        /// <summary>
+        /// Stores the entities.
+        /// </summary>
+        [ProtoIgnore] public EntityLayer EntityLayer { get; private set; }
 
+        /// <summary>
+        /// Added to visible area during draw.
+        /// </summary>
+        [ProtoIgnore] private const int DrawOffset = 3;
+
+        /// <summary>
+        /// TileSize of the game.
+        /// </summary>
         [ProtoIgnore] public Vector2D TileSize => Runtime.TileSize;
-        [ProtoIgnore] public bool Initialized { get; private set; }
 
+        /// <summary>
+        /// Default constructor.
+        /// </summary>
         public Map() { }
 
+        /// <summary>
+        /// Creates new map with given name and size.
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="mapSize"></param>
         public Map(string name, Vector2D mapSize)
         {
             Name = name;
             Size = mapSize;
-            EntityLayer = new EntityLayer("Entities layer", mapSize) { Order = 1 };
+            EntityLayer = new EntityLayer("Entities", mapSize) { Order = 1 };
             Layers = new List<BaseLayer> { EntityLayer };
         }
 
+        /// <summary>
+        /// Initializes the layers.
+        /// </summary>
+        /// <param name="graphics"></param>
         public void Initialize(GraphicsDevice graphics)
         {
-            ((EntityLayer)Layers.First(x => x is EntityLayer))
-                .LoadEntities(EntityController.GetEntities(Id));
+            LoadEntities();
 
             foreach (var layer in Layers)
             {
                 layer.Initialize(graphics);
             }
-
-            Initialized = true;
         }
 
+        /// <summary>
+        /// Loads the entities from Entity Controller.
+        /// </summary>
+        public void LoadEntities()
+        {
+            EntityLayer = (EntityLayer)Layers.Find(x => x is EntityLayer);
+            EntityLayer.LoadEntities(EntityController.GetEntities(Id));
+        }
+
+        /// <summary>
+        /// Loads content of all layers.
+        /// </summary>
+        /// <param name="content"></param>
         public void LoadContent(ContentManager content)
         {
             foreach (var layer in Layers)
@@ -71,6 +108,12 @@ namespace WolfyCore.Game
             }
         }
 
+        /// <summary>
+        /// Draws the visible area of the map.
+        /// </summary>
+        /// <param name="spriteBatch"></param>
+        /// <param name="gameTime"></param>
+        /// <param name="visibleArea"></param>
         public void Draw(SpriteBatch spriteBatch, GameTime gameTime, Rectangle visibleArea)
         {
             var startX = visibleArea.X / TileSize.X;
@@ -78,7 +121,7 @@ namespace WolfyCore.Game
 
             var endX = visibleArea.Width / TileSize.X + startX + DrawOffset;
             var endY = visibleArea.Height / TileSize.Y + startY + DrawOffset;
-
+            
             if (endX + DrawOffset > Size.X)
                 endX = Size.X;
             if (endY + DrawOffset > Size.Y)
@@ -86,11 +129,6 @@ namespace WolfyCore.Game
 
             var visibleTiles = new Rectangle(startX, startY, endX, endY);
             Layers.ForEach(layer => layer.Draw(spriteBatch, gameTime, visibleTiles));
-        }
-
-        public void Draw(SpriteBatch spriteBatch)
-        {
-            Layers.ForEach(layer => layer.Draw(spriteBatch));
         }
 
         /// <summary>
@@ -125,6 +163,11 @@ namespace WolfyCore.Game
             return false;
         }
 
+        public void ActivateEntities()
+        {
+            EntityLayer.ActivateEntities();
+        }
+
         /// <summary>
         /// Returns the entity at given position.
         /// </summary>
@@ -132,42 +175,39 @@ namespace WolfyCore.Game
         /// <returns></returns>
         public Entity GetEntity(Vector2 position)
         {
-            foreach (var layer in Layers)
-            {
-                if (layer is EntityLayer entityLayer)
-                {
-                    return entityLayer.GetEntity(position);
-                }
-            }
-
-            return Entity.Empty;
-        }
-
-        public void AddEntity(Entity e, Vector2 position)
-        {
-            var layer = (EntityLayer)Layers.First(x => x is EntityLayer);
-            layer.AddEntity(e, position);
+            return EntityLayer.GetEntity(position);
         }
 
         /// <summary>
-        /// Moves given entity to new position on the map.
+        /// Adds the entity to the entity layer.
+        /// </summary>
+        /// <param name="e"></param>
+        /// <param name="position"></param>
+        public void AddEntity(Entity e, Vector2 position)
+        {
+            EntityLayer.AddEntity(e, position);
+        }
+
+        /// <summary>
+        /// Moves given entity to the new position on the map.
         /// </summary>
         /// <param name="e"></param>
         /// <param name="oldPosition"></param>
         /// <param name="newPosition"></param>
         public void MoveEntity(Entity e, Vector2 oldPosition, Vector2 newPosition)
         {
-            var layer = (EntityLayer) Layers.First(x => x is EntityLayer);
-
-            layer.SetEntity(oldPosition, Entity.Empty);
-            
+            EntityLayer.SetEntity(oldPosition, Entity.Empty);
             if (newPosition != -Vector2.One)
-                layer.SetEntity(newPosition, e);
+                EntityLayer.SetEntity(newPosition, e);
         }
 
+        /// <summary>
+        /// Removes the entity from the entity layer.
+        /// </summary>
+        /// <param name="position"></param>
         public void RemoveEntity(Vector2 position)
         {
-            var e = ((EntityLayer)Layers.FirstOrDefault(x => x is EntityLayer))?.RemoveEntity(position) ?? Entity.Empty;
+            EntityLayer.RemoveEntity(position);
         }
     }
 }

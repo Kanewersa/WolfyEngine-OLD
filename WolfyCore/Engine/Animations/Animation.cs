@@ -37,10 +37,21 @@ namespace WolfyCore.Engine
             FrameSpeed = .5f;
         }
 
+        /// <summary>
+        /// Loads the image content.
+        /// </summary>
+        /// <param name="content"></param>
         public void LoadContent(ContentManager content)
         {
             Image.LoadContent(content);
         }
-        
+
+        /// <summary>
+        /// Disposes the image.
+        /// </summary>
+        public void Unload()
+        {
+            Image.Dispose();
+        }
     }
 }

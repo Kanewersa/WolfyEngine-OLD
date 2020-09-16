@@ -68,7 +68,7 @@ namespace WolfyCore.Controllers
 
         private void CreateSystems(World world)
         {
-            foreach (var type in WolfyManager.SystemTypes)
+            foreach (var type in ReflectiveEnumerator.GetSubTypes<EntitySystem>())
             {
                 var system = (EntitySystem)Activator.CreateInstance(type);
                 world.AddSystem(system);

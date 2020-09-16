@@ -122,6 +122,7 @@ namespace WolfyCore.ECS
 
         public void Update(AnimationComponent target)
         {
+            Console.WriteLine("Updating camera target!");
             Update();
 
             if (target == null)

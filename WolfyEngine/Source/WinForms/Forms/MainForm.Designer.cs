@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.assetManagerButton = new DarkUI.Controls.DarkButton();
             this.darkDockPanel = new DarkUI.Docking.DarkDockPanel();
             this.darkMenuStrip = new DarkUI.Controls.DarkMenuStrip();
@@ -43,13 +44,14 @@
             this.layersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mapsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.playerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip = new DarkUI.Controls.DarkStatusStrip();
             this.currentProjectLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.statusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.springLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.memoryUsageLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.button1 = new System.Windows.Forms.Button();
-            this.playerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.OpacityTimer = new System.Windows.Forms.Timer(this.components);
             this.darkMenuStrip.SuspendLayout();
             this.statusStrip.SuspendLayout();
             this.SuspendLayout();
@@ -162,7 +164,7 @@
             this.gameEditorToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
             this.gameEditorToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
             this.gameEditorToolStripMenuItem.Name = "gameEditorToolStripMenuItem";
-            this.gameEditorToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.gameEditorToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
             this.gameEditorToolStripMenuItem.Text = "Game Editor";
             this.gameEditorToolStripMenuItem.Click += new System.EventHandler(this.GameEditorToolStripMenuItem_Click);
             // 
@@ -171,7 +173,7 @@
             this.tilesetEditorToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
             this.tilesetEditorToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
             this.tilesetEditorToolStripMenuItem.Name = "tilesetEditorToolStripMenuItem";
-            this.tilesetEditorToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.tilesetEditorToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
             this.tilesetEditorToolStripMenuItem.Text = "Tileset Editor";
             this.tilesetEditorToolStripMenuItem.Click += new System.EventHandler(this.TilesetEditorToolStripMenuItem_Click);
             // 
@@ -180,7 +182,7 @@
             this.layersToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
             this.layersToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
             this.layersToolStripMenuItem.Name = "layersToolStripMenuItem";
-            this.layersToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.layersToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
             this.layersToolStripMenuItem.Text = "Layers";
             this.layersToolStripMenuItem.Click += new System.EventHandler(this.LayersToolStripMenuItem_Click);
             // 
@@ -189,7 +191,7 @@
             this.mapsToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
             this.mapsToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
             this.mapsToolStripMenuItem.Name = "mapsToolStripMenuItem";
-            this.mapsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.mapsToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
             this.mapsToolStripMenuItem.Text = "Maps";
             this.mapsToolStripMenuItem.Click += new System.EventHandler(this.MapsToolStripMenuItem_Click);
             // 
@@ -202,6 +204,15 @@
             this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
             this.settingsToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
             this.settingsToolStripMenuItem.Text = "Settings";
+            // 
+            // playerToolStripMenuItem
+            // 
+            this.playerToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
+            this.playerToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
+            this.playerToolStripMenuItem.Name = "playerToolStripMenuItem";
+            this.playerToolStripMenuItem.Size = new System.Drawing.Size(106, 22);
+            this.playerToolStripMenuItem.Text = "Player";
+            this.playerToolStripMenuItem.Click += new System.EventHandler(this.PlayerToolStripMenuItem_Click);
             // 
             // statusStrip
             // 
@@ -253,6 +264,7 @@
             // 
             // button1
             // 
+            this.button1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.button1.Location = new System.Drawing.Point(523, 0);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
@@ -260,15 +272,6 @@
             this.button1.Text = "button1";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.Button1_Click);
-            // 
-            // playerToolStripMenuItem
-            // 
-            this.playerToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
-            this.playerToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
-            this.playerToolStripMenuItem.Name = "playerToolStripMenuItem";
-            this.playerToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.playerToolStripMenuItem.Text = "Player";
-            this.playerToolStripMenuItem.Click += new System.EventHandler(this.PlayerToolStripMenuItem_Click);
             // 
             // MainForm
             // 
@@ -280,7 +283,9 @@
             this.Controls.Add(this.darkDockPanel);
             this.Controls.Add(this.darkMenuStrip);
             this.Controls.Add(this.statusStrip);
+            this.DoubleBuffered = true;
             this.Name = "MainForm";
+            this.Opacity = 0D;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Wolfy Engine";
             this.darkMenuStrip.ResumeLayout(false);
@@ -315,6 +320,7 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.ToolStripMenuItem playerToolStripMenuItem;
+        private System.Windows.Forms.Timer OpacityTimer;
     }
 }
 

@@ -10,11 +10,12 @@ namespace WolfyCore.ECS
         [ProtoIgnore] public Vector2 TargetTransform => TargetGridTransform * Runtime.GridSize;
         [ProtoMember(1)] public Vector2 StartGridTransform;
         [ProtoMember(2)] public Vector2 TargetGridTransform;
+        [ProtoMember(3)] public bool IgnoreCollision;
 
         /// <summary>
         /// Needed to make sure entity doesn't move before collision is checked.
         /// </summary>
-        [ProtoMember(3)] public bool IsMoving;
+        [ProtoMember(4)] public bool IsMoving;
 
         /// <summary>
         /// Default constructor.
@@ -26,10 +27,11 @@ namespace WolfyCore.ECS
         /// </summary>
         /// <param name="startTransform"></param>
         /// <param name="targetTransform"></param>
-        public MovementActionComponent(Vector2 startTransform, Vector2 targetTransform)
+        public MovementActionComponent(Vector2 startTransform, Vector2 targetTransform, bool ignoreCollision = false)
         {
             StartGridTransform = startTransform;
             TargetGridTransform = targetTransform;
+            IgnoreCollision = ignoreCollision;
             IsMoving = false;
         }
 

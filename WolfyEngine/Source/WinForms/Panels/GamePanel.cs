@@ -220,7 +220,7 @@ namespace WolfyEngine.Controls
             gameEditorControl.Invalidate();
         }
 
-        private void NewEntityToolStripMenuItem_Click(object sender, System.EventArgs e)
+        private void NewEntityToolStripMenuItem_Click(object sender, EventArgs e)
         {
             // Open select entity type form
             using var form = new SelectEntityTypeForm();
@@ -228,27 +228,32 @@ namespace WolfyEngine.Controls
             //form.ShowDialog();
         }
 
-        private void SetStartingPointToolStripMenuItem_Click(object sender, System.EventArgs e)
+        private void SetStartingPointToolStripMenuItem_Click(object sender, EventArgs e)
         {
             var newCoordinates = new Vector2((int)EntityContextMenu.CurrentCoordinates.X, (int)EntityContextMenu.CurrentCoordinates.Y);
             var transform = Entity.Player.GetComponent<TransformComponent>();
 
             if (transform.CurrentMap != _currentMap.Id)
             {
-                var map = MapsController.Instance.GetMap(transform.CurrentMap);
-                map.RemoveEntity(transform.GridTransform);
-                map = MapsController.Instance.GetMap(_currentMap.Id);
-                map.AddEntity(Entity.Player, newCoordinates);
+                var entities = EntityController.GetEntities(transform.CurrentMap);
+                entities.Remove(Entity.Player);
+
+                var newMap = MapsController.Instance.GetMap(_currentMap.Id);
+                newMap.AddEntity(Entity.Player, newCoordinates);
             }
             else
             {
-                var map = MapsController.Instance.GetMap(transform.CurrentMap);
-                map.MoveEntity(Entity.Player, transform.GridTransform, newCoordinates);
+                _currentMap.MoveEntity(Entity.Player, transform.GridTransform, newCoordinates);
             }
 
             transform.CurrentMap = _currentMap.Id;
             transform.GridTransform = newCoordinates;
             transform.Transform = newCoordinates * Runtime.GridSize;
+
+            if (Entity.Player.GetIfHasComponent(out AnimationComponent animation))
+            {
+                animation.Position = transform.Transform;
+            }
 
             gameEditorControl.Invalidate();
         }

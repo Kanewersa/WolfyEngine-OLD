@@ -17,5 +17,15 @@ namespace WolfyCore.ECS
         [ProtoMember(4)] public MovementType MovementType;
 
         public MovementComponent() { }
+
+        public void LockMovement()
+        {
+            LockedMovement = true;
+        }
+
+        public void UnlockMovement()
+        {
+            LockedMovement = false;
+        }
     }
 }

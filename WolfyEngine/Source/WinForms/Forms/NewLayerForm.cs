@@ -11,7 +11,7 @@ using WolfyCore.Game;
 
 namespace WolfyEngine.Forms
 {
-    public partial class NewLayerForm : DarkForm
+    public partial class NewLayerForm : WolfyForm
     {
         private Dictionary<DarkListItem, int> _nodeKeys;
         private int _selectedTileset = -1;

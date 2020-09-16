@@ -21,6 +21,7 @@ namespace WolfyCore.Actions
             Target = target;
             SongTitle = songTitle;
             Volume = volume;
+            // TODO: Fix BGM repeating.
             IsRepeating = isRepeating;
         }
 

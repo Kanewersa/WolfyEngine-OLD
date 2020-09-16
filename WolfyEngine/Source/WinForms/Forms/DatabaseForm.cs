@@ -2,7 +2,7 @@
 
 namespace WolfyEngine.Forms
 {
-    public partial class DatabaseForm : DarkForm
+    public partial class DatabaseForm : WolfyForm
     {
         public DatabaseForm()
         {

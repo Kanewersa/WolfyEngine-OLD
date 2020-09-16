@@ -11,7 +11,7 @@ using WolfyCore.Engine;
 
 namespace WolfyEngine.Forms
 {
-    public partial class EntityEditForm : DarkForm
+    public partial class EntityEditForm : WolfyForm
     {
         public Entity Entity { get; private set; }
         public EntityScheme Scheme { get; private set; }

@@ -8,7 +8,7 @@ using WolfyCore.Controllers;
 
 namespace WolfyEngine.Forms
 {
-    public partial class CreateProject : DarkForm
+    public partial class CreateProject : WolfyForm
     {
         public CreateProject()
         {

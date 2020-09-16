@@ -144,6 +144,7 @@ namespace WolfyEngine.Controls
             CurrentMap = map;
             CurrentMap.Initialize(Editor.graphics);
             CurrentMap.LoadContent(Editor.Content);
+            CurrentMap.ActivateEntities();
         }
     }
 }

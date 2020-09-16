@@ -5,7 +5,7 @@ using WolfyCore.Game;
 
 namespace WolfyEngine.Forms
 {
-    public partial class NewMapForm : DarkForm
+    public partial class NewMapForm : WolfyForm
     {
         public event MapEventHandler OnMapCreate;
 

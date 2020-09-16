@@ -7,6 +7,8 @@ namespace WolfyCore.ECS
 {
     [ProtoContract] public class InteractionSystem : EntitySystem
     {
+        public InteractionSystem() { }
+
         public override void Initialize(GraphicsDevice graphics)
         {
             RequireComponent<TransformComponent>();

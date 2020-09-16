@@ -2,6 +2,7 @@
 using System.IO;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
+using ProtoBuf.Meta;
 using WolfyEngine.Engine;
 using WolfyEngine.Forms;
 using WolfyCore;
@@ -14,7 +15,8 @@ namespace WolfyEngine
         [STAThread]
         static void Main()
         {
-            WolfyManager.WolfyInitialize();
+            Serialization.RuntimeTypeModel = RuntimeTypeModel.Default;
+
             // Load program settings
             if(File.Exists(StaticPaths.ProgramSettings))
                 ProjectsController.Instance.Settings = Serialization.XmlDeserialize<ProgramSettings>(StaticPaths.ProgramSettings);

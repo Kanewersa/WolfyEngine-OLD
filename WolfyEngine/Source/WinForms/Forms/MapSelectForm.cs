@@ -11,7 +11,7 @@ using WolfyEngine.Controls;
 
 namespace WolfyEngine.Forms
 {
-    public partial class MapSelectForm : DarkForm
+    public partial class MapSelectForm : WolfyForm
     {
         private MapsPanel MapsPanel { get; }
         private MapSelectPanel MapControlPanel { get; }

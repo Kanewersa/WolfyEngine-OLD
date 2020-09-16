@@ -214,7 +214,8 @@ namespace WolfyEngine.Controls
                 return;
             }
 
-            CurrentMap?.Draw(Editor.spriteBatch);
+            CurrentMap?.Draw(Editor.spriteBatch, null,
+                new Rectangle(0, 0,CurrentMap.Size.X * Runtime.GridSize, CurrentMap.Size.Y * Runtime.GridSize));
 
             if (MouseOnScreen && CurrentLayer is TileLayer)
                 Selector.Draw(Editor.spriteBatch);

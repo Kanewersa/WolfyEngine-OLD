@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using ProtoBuf;
 using WolfyCore.ECS;
@@ -11,9 +12,9 @@ namespace WolfyCore.Game
 {
     [ProtoContract] public class EntityLayer : BaseLayer
     {
-        [ProtoMember(1)] private List<EntityTileRow> Rows { get; set; }
+        [ProtoIgnore] private List<EntityTileRow> Rows { get; set; }
+        [ProtoIgnore] private List<Entity> Entities { get; set; }
 
-        [ProtoMember(3)] private List<Entity> Entities { get; set; }
         public EntityLayer() { }
 
         public EntityLayer(string name, Vector2D mapSize)
@@ -26,6 +27,25 @@ namespace WolfyCore.Game
             {
                 Rows.Add(new EntityTileRow(mapSize.X));
             }
+        }
+
+        public override void LoadContent(ContentManager content)
+        {
+            Entities.ForEach(entity =>
+            {
+                if (entity.GetIfHasComponent(out AnimationComponent animation))
+                {
+                    animation.LoadContent(content);
+                }
+            });
+        }
+
+        public void ActivateEntities()
+        {
+            Entities.ForEach(entity =>
+            {
+                entity.GetOrCreateComponent<ActiveComponent>();
+            });
         }
 
         public void LoadEntities(List<Entity> entities)
@@ -62,41 +82,45 @@ namespace WolfyCore.Game
 
                     if (entity.GetIfHasComponent(out AnimationComponent animation))
                     {
-                        animation.Draw(spriteBatch);
+                        if (animation.Initialized)
+                        {
+                            animation.Draw(spriteBatch);
+                        }
                     }
                 }
             }
         }
 
-        public override void Draw(SpriteBatch spriteBatch)
-        {
-            for (var y = 0; y < Size.Y; y++)
-            {
-                for (var x = 0; x < Size.X; x++)
-                {
-                    var entity = Rows[y].Tiles[x].Entity;
-                    if (entity == Entity.Empty)
-                        continue;
-
-                    // TODO Draw entities in editor.
-                }
-            }
-        }
-
+        /// <summary>
+        /// Unloads all entities.
+        /// </summary>
         public override void Unload()
         {
-            foreach (var entity in Entities)
+            Entities.ForEach(entity =>
             {
-                // TODO: Entity unloading...
-                //entity.RemoveComponent<ActiveComponent>();
-            }
+                if (entity.GetIfHasComponent(out AnimationComponent animation))
+                {
+                    animation.Unload();
+                }
+                entity.RemoveComponent<ActiveComponent>();
+            });
         }
 
+        /// <summary>
+        /// Checks if tile on given position contains an Entity.
+        /// </summary>
+        /// <param name="position"></param>
+        /// <returns></returns>
         public override bool? TileOccupied(Vector2 position)
         {
             return Rows[(int) position.Y].Tiles[(int) position.X].Entity != Entity.Empty ? (bool?) null : false;
         }
 
+        /// <summary>
+        /// Adds the entity and sets its position on the grid.
+        /// </summary>
+        /// <param name="e"></param>
+        /// <param name="position"></param>
         public void AddEntity(Entity e, Vector2 position)
         {
             Entities.Add(e);
@@ -113,16 +137,32 @@ namespace WolfyCore.Game
             return Rows[(int) position.Y].Tiles[(int) position.X].Entity;
         }
 
+        /// <summary>
+        /// Gets the entity at given coordinates.
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <returns></returns>
         public Entity GetEntity(int x, int y)
         {
             return Rows[y].Tiles[x].Entity;
         }
 
+        /// <summary>
+        /// Sets the entity at given position.
+        /// </summary>
+        /// <param name="position"></param>
+        /// <param name="e"></param>
         public void SetEntity(Vector2 position, Entity e)
         {
             Rows[(int) position.Y].Tiles[(int) position.X].Entity = e;
         }
 
+        /// <summary>
+        /// Removes the entity located at given position.
+        /// </summary>
+        /// <param name="position"></param>
+        /// <returns></returns>
         public Entity RemoveEntity(Vector2 position)
         {
             Entity entity = GetEntity(position);

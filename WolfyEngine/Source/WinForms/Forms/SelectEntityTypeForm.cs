@@ -4,7 +4,7 @@ using WolfyCore.Engine;
 
 namespace WolfyEngine.Forms
 {
-    public partial class SelectEntityTypeForm : DarkForm
+    public partial class SelectEntityTypeForm : WolfyForm
     {
         public event EntitySchemeHandler OnTypeSelected;
         private SchemeManager _schemeManager;

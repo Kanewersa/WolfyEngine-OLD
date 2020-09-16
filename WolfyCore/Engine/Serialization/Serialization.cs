@@ -7,13 +7,14 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using ProtoBuf;
 using ProtoBuf.Meta;
-using Salar.Bois;
 using WolfyECS;
 
 namespace WolfyEngine.Engine
 {
     public static class Serialization
     {
+        public static RuntimeTypeModel RuntimeTypeModel { get; set; }
+
         /// <summary>
         /// Serializes object using Protobuf and saves it to desired path.
         /// </summary>
@@ -24,7 +25,7 @@ namespace WolfyEngine.Engine
             Directory.CreateDirectory(Path.GetDirectoryName(path) ?? throw new InvalidOperationException());
             using (var file = File.Create(path))
             {
-                Serializer.Serialize(file, obj);
+                RuntimeTypeModel.Serialize(file, obj);
             }
         }
 
@@ -80,7 +81,7 @@ namespace WolfyEngine.Engine
         {
             using (var file = File.OpenRead(path))
             {
-                return Serializer.Deserialize<T>(file);
+                return (T)RuntimeTypeModel.Deserialize(file, (object) null, typeof(T));
             }
         }
 

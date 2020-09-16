@@ -5,7 +5,7 @@ using WolfyECS;
 
 namespace WolfyEngine.Forms
 {
-    public partial class BaseActionForm : DarkForm
+    public partial class BaseActionForm : WolfyForm
     {
         protected Entity Entity { get; set; }
         public event WolfyActionHandler OnSave;

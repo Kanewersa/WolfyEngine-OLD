@@ -15,7 +15,7 @@ namespace WolfyCore.Engine
             private set
             {
                 _animation = value;
-                if(Animation.Image.Texture != null)
+                if(Animation.Texture != null)
                     SetAnimationOffset(_animation);
             }
         }

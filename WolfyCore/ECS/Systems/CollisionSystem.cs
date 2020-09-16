@@ -57,23 +57,14 @@ namespace WolfyCore.ECS
                     // Remove movement action component
                     entity.RemoveComponent<MovementActionComponent>();
 
-                    // Check if the entity is the player who met an NPC
-                    if (canMove == null && entity.HasComponent<InputComponent>())
+                    // If entity met the other entity
+                    if (canMove == null)
                     {
-                        var input = entity.GetComponent<InputComponent>();
-                        
                         Entity metEntity = map.GetEntity(movementAction.TargetGridTransform);
-                        if(metEntity == Entity.Empty)
+                        if (metEntity == Entity.Empty)
                             throw new Exception("Entity expected at position " + movementAction.TargetGridTransform + " but was not present.");
 
-                        if(metEntity.GetIfHasComponent(out ActionComponent action))
-                        {
-                            Console.WriteLine("Met entity has {0} actions.", action.Actions.Count);
-                            entity.AddComponent(action);
-                            var startAction = new StartActionComponent(metEntity);
-                            entity.AddComponent(startAction);
-                            metEntity.GetComponent<MovementComponent>().LockedMovement = true;
-                        }
+                        entity.AddComponent(new NpcActionComponent(entity, metEntity));
                     }
                 }
             });

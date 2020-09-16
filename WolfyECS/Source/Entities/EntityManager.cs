@@ -8,7 +8,6 @@ namespace WolfyECS
         [ProtoIgnore] public uint EntityCount => _dispenser.GetLastId();
         [ProtoMember(1)] private IdDispenser _dispenser;
         [ProtoMember(2)] private int _worldId;
-        //TODO Count active entities
 
         public EntityManager () { }
 

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using DarkUI.Forms;
 using WolfyCore.Engine;
 using WolfyEngine.Engine;
 
@@ -45,7 +46,7 @@ namespace WolfyCore.Controllers
 
         private void SetLastProject()
         {
-            Settings.LastProject = CurrentProject;
+            Settings.LastProjectPath = Path.Combine(CurrentProject.Path, CurrentProject.Name + ".proj");
             Settings.Save();
         }
 
@@ -90,7 +91,7 @@ namespace WolfyCore.Controllers
             // Try to deserialize project from file
             try
             {
-                var project = Serialization.XmlDeserialize<Project>(path);
+                var project = Serialization.ProtoDeserialize<Project>(path);
                 project.Initialize();
                 //Runtime.CurrentProject = project;
                 CurrentProject = project;
@@ -113,14 +114,32 @@ namespace WolfyCore.Controllers
 
         public void LoadLastProject()
         {
-            if (Settings.LastProject == null)
+            if (string.IsNullOrEmpty(Settings.LastProjectPath))
             {
                 CurrentProject = null;
             }
             else
             {
-                CurrentProject = Settings.LastProject;
-                CurrentProject?.Initialize();
+                if (!File.Exists(Settings.LastProjectPath))
+                {
+                    DarkMessageBox.ShowError(
+                        "Could not find project in " + Settings.LastProjectPath,
+                        "Project not found.");
+                    CurrentProject = null;
+                    return;
+                }
+
+                try
+                {
+                    CurrentProject = Serialization.ProtoDeserialize<Project>(Settings.LastProjectPath);
+                }
+                catch (Exception e)
+                {
+                    DarkMessageBox.ShowError(
+                        "Could not load project: " + Settings.LastProjectPath +
+                        ". Error: " + e,
+                        "Project loading failed.");
+                }
             }
         }
     }

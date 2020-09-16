@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using DarkUI.Controls;
 using DarkUI.Docking;
@@ -17,6 +18,7 @@ namespace WolfyEngine.Controls
         private readonly Dictionary<DarkTreeNode, int> _nodeKeys;
 
         public event MapEventHandler OnMapChanged;
+        public int LastMap { get; private set; } = -1;
 
         public MapsPanel()
         {
@@ -104,15 +106,17 @@ namespace WolfyEngine.Controls
         private void FormOnOnMapCreate(Map map)
         {
             MapsController.Instance.AddMap(map);
-            OnMapChanged?.Invoke(map);
             RefreshTree();
             mapsTree.Nodes[0].Expanded = true;
 
-            if (mapsTree.Nodes.Count <= 1) 
+            if (mapsTree.Nodes.Count < 2)
+            {
+                map.LoadEntities();
                 map.AddEntity(Entity.Player, Vector2.Zero);
-            
+            }
 
             mapsTree.SelectNode(mapsTree.Nodes[0].Nodes.Last());
+            OnMapChanged?.Invoke(map);
         }
     }
 }
