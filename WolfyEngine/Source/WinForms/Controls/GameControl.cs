@@ -217,12 +217,36 @@ namespace WolfyEngine.Controls
             CurrentMap?.Draw(Editor.spriteBatch, null,
                 new Rectangle(0, 0,CurrentMap.Size.X * Runtime.GridSize, CurrentMap.Size.Y * Runtime.GridSize));
 
-            if (MouseOnScreen && CurrentLayer is TileLayer)
+            if (MouseOnScreen && CurrentLayer is TileLayer tileLayer)
+            {
+                DrawSelectTilePreview(tileLayer);
                 Selector.Draw(Editor.spriteBatch);
-            else if (CurrentLayer is EntityLayer)
-                DrawEntityLayerGrid(CurrentLayer as EntityLayer);
+            }
+            else if (CurrentLayer is EntityLayer entityLayer)
+                DrawEntityLayerGrid(entityLayer);
 
             Editor.spriteBatch.End();
+        }
+
+        private void DrawSelectTilePreview(TileLayer layer)
+        {
+            var img = layer.Tileset.Image;
+            for (int y = 0; y < SelectedTileRegion.Height + 1; y++)
+            {
+                for (int x = 0; x < SelectedTileRegion.Width + 1; x++)
+                {
+                    img.Position = new Vector2((TileCoordinates.X + x) * TileSize.X,
+                                               (TileCoordinates.Y + y) * TileSize.Y);
+                    img.SourceRectangle = new Rectangle((SelectedTileRegion.X + x) * TileSize.X,
+                                                        (SelectedTileRegion.Y + y) * TileSize.Y,
+                                                        TileSize.X,
+                                                        TileSize.Y);
+                    img.Draw(Editor.spriteBatch);
+                }
+            }
+
+            img.Position = Vector2.Zero;
+            img.SourceRectangle = new Rectangle(0, 0, img.Texture.Width, img.Texture.Height);
         }
 
         private void DrawEntityLayerGrid(EntityLayer layer)
@@ -252,9 +276,7 @@ namespace WolfyEngine.Controls
                 }
             }
 
-            SelectedTileImage.Position = new Vector2(
-                TileCoordinates.X * TileSize.X,
-                TileCoordinates.Y * TileSize.Y);
+            SelectedTileImage.Position = TileCoordinates * Runtime.GridSize;
             SelectedTileImage.Draw(Editor.spriteBatch);
         }
 
@@ -284,7 +306,7 @@ namespace WolfyEngine.Controls
             map.LoadContent(Editor.Content);
 
             if(map.Layers.Any())
-                CurrentLayer = map.Layers[0];
+                CurrentLayer = map.EntityLayer;
 
             Invalidate();
         }

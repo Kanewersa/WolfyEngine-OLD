@@ -68,7 +68,7 @@ namespace WolfyEngine.Controls
             BuildTree();
         }
 
-        private void TreeViewClicked(object sender, System.EventArgs e)
+        private void TreeViewClicked(object sender, EventArgs e)
         {
             // Return if user clicked empty space in tree view
             if (mapsTree.SelectedNodes.Count < 1)
@@ -91,12 +91,12 @@ namespace WolfyEngine.Controls
             }
         }
 
-        private void RefreshTreeButton_Click(object sender, System.EventArgs e)
+        private void RefreshTreeButton_Click(object sender, EventArgs e)
         {
             RefreshTree();
         }
 
-        private void NewMapButton_Click(object sender, System.EventArgs e)
+        private void NewMapButton_Click(object sender, EventArgs e)
         {
             using var form = new NewMapForm();
             form.OnMapCreate += FormOnOnMapCreate;
