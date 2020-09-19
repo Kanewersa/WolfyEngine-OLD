@@ -23,7 +23,6 @@ namespace WolfyCore.ECS
             IterateEntities(entity =>
             {
                 var action = entity.GetComponent<MovementActionComponent>();
-
                 if (action.IsMoving)
                 {
                     var transform = entity.GetComponent<TransformComponent>();

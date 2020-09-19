@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using WolfyCore.ECS;
 using WolfyECS;
 using WolfyEngine.Controls;
@@ -26,7 +27,23 @@ namespace WolfyEngine.Forms
             var type = GetPanelType(componentType);
             return type == null
                 ? null
-                : Convert.ChangeType(Activator.CreateInstance(type), type);
+                : Convert.ChangeType(Activator.CreateInstance(type, componentType), type);
+        }
+
+        // TODO: Improve component binding performance (by value search in dictionary).
+        public static Type GetComponentTypeByPanel(ComponentPanel panel)
+        {
+            return ComponentTypes.FirstOrDefault(x => x.Value == panel.GetType()).Key;
+        }
+
+        public static IEnumerable<Type> DefinedTypes()
+        {
+            return ComponentTypes.Keys;
+        }
+
+        public static IEnumerable<Type> DefinedPanels()
+        {
+            return ComponentTypes.Values;
         }
     }
 }

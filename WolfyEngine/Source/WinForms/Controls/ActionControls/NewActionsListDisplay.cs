@@ -1,11 +1,12 @@
-﻿using WolfyCore.Actions;
+﻿using System;
+using WolfyCore.Actions;
 using WolfyEngine.Forms;
 
 namespace WolfyEngine.Controls
 {
     public partial class NewActionsListDisplay : ListDisplay
     {
-        public NewActionsListDisplay()
+        public NewActionsListDisplay(Type componentType) : base(componentType)
         {
             InitializeComponent();
         }

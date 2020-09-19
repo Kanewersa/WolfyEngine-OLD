@@ -109,10 +109,9 @@ namespace WolfyEngine.Controls
                     };
 
                     form.Initialize(selectedScheme, _world, transform);
-                    form.OnSave += delegate(Entity newEntity, Vector2 vector2)
+                    form.OnSave += delegate(Entity newEntity, Vector2 entityGridTransform)
                     {
-                        var layer = gameEditorControl.GetCurrentLayer<EntityLayer>();
-                        layer.AddEntity(newEntity, vector2);
+                        gameEditorControl.CurrentMap.AddEntity(newEntity, entityGridTransform);
                     };
                     form.ShowDialog();
                 }
@@ -302,15 +301,9 @@ namespace WolfyEngine.Controls
             if (!GameRunning)
             {
                 GameRunning = true;
-
                 wolfyGameControl.Location = new Point(0, darkToolStrip.Height);
-
                 wolfyGameControl.Size = new Size(Size.Width - 32, Size.Height - 32);
                 // TODO: Fix wolfyGameControl size on resize.
-                /*if (gameEditorControl.Size.Width > Size.Width)
-                    wolfyGameControl.Size = gameEditorControl.Size.Height > Size.Height ? Size : new Size(Size.Width, gameEditorControl.Height);
-                else
-                    wolfyGameControl.Size = gameEditorControl.Size.Height > Size.Height ? new Size(gameEditorControl.Width, Size.Height) : gameEditorControl.Size;*/
 
                 Runtime.GameScreenWidth = wolfyGameControl.Width;
                 Runtime.GameScreenHeight = wolfyGameControl.Height;

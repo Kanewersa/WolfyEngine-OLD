@@ -34,12 +34,20 @@
             this.ComponentsDockPanel = new DarkUI.Docking.DarkDockPanel();
             this.MainSection = new DarkUI.Controls.DarkSectionPanel();
             this.TableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
+            this.ComponentsListView = new DarkUI.Controls.DarkListView();
             this.EntityNameTitle = new DarkUI.Controls.DarkTitle();
             this.EntityNameTextBox = new DarkUI.Controls.DarkTextBox();
-            this.ComponentsListView = new DarkUI.Controls.DarkListView();
+            this.ComponentsStrip = new DarkUI.Controls.DarkMenuStrip();
+            this.AddComponentStrip = new System.Windows.Forms.ToolStripMenuItem();
+            this.noComponentsAvailableToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ComponentContextMenu = new DarkUI.Controls.DarkContextMenu();
+            this.RemoveComponentMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ShowComponentMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel2.SuspendLayout();
             this.MainSection.SuspendLayout();
             this.TableLayoutPanel.SuspendLayout();
+            this.ComponentsStrip.SuspendLayout();
+            this.ComponentContextMenu.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel2
@@ -99,21 +107,32 @@
             // 
             this.TableLayoutPanel.ColumnCount = 1;
             this.TableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.TableLayoutPanel.Controls.Add(this.ComponentsListView, 0, 4);
             this.TableLayoutPanel.Controls.Add(this.EntityNameTitle, 0, 0);
             this.TableLayoutPanel.Controls.Add(this.EntityNameTextBox, 0, 1);
-            this.TableLayoutPanel.Controls.Add(this.ComponentsListView, 0, 4);
+            this.TableLayoutPanel.Controls.Add(this.ComponentsStrip, 0, 3);
             this.TableLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.TableLayoutPanel.Location = new System.Drawing.Point(1, 25);
             this.TableLayoutPanel.Name = "TableLayoutPanel";
-            this.TableLayoutPanel.RowCount = 6;
+            this.TableLayoutPanel.RowCount = 5;
             this.TableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.TableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.TableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.TableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.TableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.TableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.TableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 55.37341F));
+            this.TableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 5.464481F));
+            this.TableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 38.97997F));
+            this.TableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.TableLayoutPanel.Size = new System.Drawing.Size(173, 602);
             this.TableLayoutPanel.TabIndex = 0;
+            // 
+            // ComponentsListView
+            // 
+            this.ComponentsListView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ComponentsListView.Location = new System.Drawing.Point(3, 390);
+            this.ComponentsListView.Name = "ComponentsListView";
+            this.ComponentsListView.Size = new System.Drawing.Size(167, 209);
+            this.ComponentsListView.TabIndex = 5;
+            this.ComponentsListView.Text = "darkListView1";
+            this.ComponentsListView.MouseClick += new System.Windows.Forms.MouseEventHandler(this.ComponentsListClick);
             // 
             // EntityNameTitle
             // 
@@ -139,14 +158,68 @@
             this.EntityNameTextBox.TabIndex = 2;
             this.EntityNameTextBox.TextChanged += new System.EventHandler(this.EntityNameTextBox_TextChanged);
             // 
-            // ComponentsListView
+            // ComponentsStrip
             // 
-            this.ComponentsListView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ComponentsListView.Location = new System.Drawing.Point(3, 330);
-            this.ComponentsListView.Name = "ComponentsListView";
-            this.ComponentsListView.Size = new System.Drawing.Size(167, 131);
-            this.ComponentsListView.TabIndex = 3;
-            this.ComponentsListView.Text = "darkListView1";
+            this.ComponentsStrip.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
+            this.ComponentsStrip.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.ComponentsStrip.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
+            this.ComponentsStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.AddComponentStrip});
+            this.ComponentsStrip.Location = new System.Drawing.Point(0, 363);
+            this.ComponentsStrip.Name = "ComponentsStrip";
+            this.ComponentsStrip.Padding = new System.Windows.Forms.Padding(3, 2, 0, 2);
+            this.ComponentsStrip.Size = new System.Drawing.Size(173, 24);
+            this.ComponentsStrip.TabIndex = 6;
+            this.ComponentsStrip.Text = "darkMenuStrip1";
+            // 
+            // AddComponentStrip
+            // 
+            this.AddComponentStrip.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
+            this.AddComponentStrip.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.noComponentsAvailableToolStripMenuItem});
+            this.AddComponentStrip.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
+            this.AddComponentStrip.Image = global::WolfyEngine.Icons.plus;
+            this.AddComponentStrip.Name = "AddComponentStrip";
+            this.AddComponentStrip.Size = new System.Drawing.Size(122, 20);
+            this.AddComponentStrip.Text = "Add component";
+            // 
+            // noComponentsAvailableToolStripMenuItem
+            // 
+            this.noComponentsAvailableToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
+            this.noComponentsAvailableToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
+            this.noComponentsAvailableToolStripMenuItem.Name = "noComponentsAvailableToolStripMenuItem";
+            this.noComponentsAvailableToolStripMenuItem.Size = new System.Drawing.Size(212, 22);
+            this.noComponentsAvailableToolStripMenuItem.Text = "No components available.";
+            // 
+            // ComponentContextMenu
+            // 
+            this.ComponentContextMenu.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
+            this.ComponentContextMenu.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
+            this.ComponentContextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.RemoveComponentMenuItem,
+            this.ShowComponentMenuItem});
+            this.ComponentContextMenu.Name = "ComponentContextMenu";
+            this.ComponentContextMenu.Size = new System.Drawing.Size(183, 70);
+            // 
+            // RemoveComponentMenuItem
+            // 
+            this.RemoveComponentMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
+            this.RemoveComponentMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
+            this.RemoveComponentMenuItem.Image = global::WolfyEngine.Icons.x;
+            this.RemoveComponentMenuItem.Name = "RemoveComponentMenuItem";
+            this.RemoveComponentMenuItem.Size = new System.Drawing.Size(182, 22);
+            this.RemoveComponentMenuItem.Text = "Remove component";
+            this.RemoveComponentMenuItem.Click += new System.EventHandler(this.RemoveComponentMenuItem_Click);
+            // 
+            // ShowComponentMenuItem
+            // 
+            this.ShowComponentMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
+            this.ShowComponentMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
+            this.ShowComponentMenuItem.Image = global::WolfyEngine.Icons.refresh_cw;
+            this.ShowComponentMenuItem.Name = "ShowComponentMenuItem";
+            this.ShowComponentMenuItem.Size = new System.Drawing.Size(182, 22);
+            this.ShowComponentMenuItem.Text = "Show component";
+            this.ShowComponentMenuItem.Click += new System.EventHandler(this.ShowComponentMenuItem_Click);
             // 
             // EntityEditForm
             // 
@@ -156,6 +229,7 @@
             this.Controls.Add(this.ComponentsDockPanel);
             this.Controls.Add(this.MainSection);
             this.Controls.Add(this.panel2);
+            this.MainMenuStrip = this.ComponentsStrip;
             this.Name = "EntityEditForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Edit Entity";
@@ -163,6 +237,9 @@
             this.MainSection.ResumeLayout(false);
             this.TableLayoutPanel.ResumeLayout(false);
             this.TableLayoutPanel.PerformLayout();
+            this.ComponentsStrip.ResumeLayout(false);
+            this.ComponentsStrip.PerformLayout();
+            this.ComponentContextMenu.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -177,5 +254,11 @@
         private DarkUI.Controls.DarkTitle EntityNameTitle;
         private DarkUI.Controls.DarkTextBox EntityNameTextBox;
         private DarkUI.Controls.DarkListView ComponentsListView;
+        private DarkUI.Controls.DarkMenuStrip ComponentsStrip;
+        private System.Windows.Forms.ToolStripMenuItem AddComponentStrip;
+        private System.Windows.Forms.ToolStripMenuItem noComponentsAvailableToolStripMenuItem;
+        private DarkUI.Controls.DarkContextMenu ComponentContextMenu;
+        private System.Windows.Forms.ToolStripMenuItem RemoveComponentMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem ShowComponentMenuItem;
     }
 }

@@ -28,7 +28,6 @@ namespace WolfyCore.ECS
                 var movementAction = entity.GetComponent<MovementActionComponent>();
 
                 if (movementAction.IsMoving) return;
-
                 var collision = entity.GetComponent<CollisionComponent>();
                 var transform = entity.GetComponent<TransformComponent>();
 

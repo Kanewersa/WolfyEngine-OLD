@@ -1,7 +1,12 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using System.Windows.Forms;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
+using WolfyCore.ECS;
 using WolfyECS;
+using ButtonState = Microsoft.Xna.Framework.Input.ButtonState;
 
 namespace WolfyCore.Scenes
 {
@@ -45,11 +50,30 @@ namespace WolfyCore.Scenes
             if (Paused) return;
 
             // TODO Update equipment here
-            
+
             World.Update(gameTime);
-            // TODO Fix camera update
-            //Camera.Update(Player.GetComponent<AnimationComponent>());
-            //VisibleArea = Camera.GetVisibleArea();
+        }
+
+        public override void HandleMouseEvent(object sender, MouseState state)
+        {
+            if (state.LeftButton == ButtonState.Pressed)
+            {
+                var mousePosition = Entity.Player.GetComponent<CameraComponent>().ScreenToWorldSpace(new Vector2(state.X, state.Y));
+                var coordinates = Vector2.Floor(mousePosition / Runtime.GridSize);
+                var transform = Entity.Player.GetComponent<TransformComponent>();
+                var map = transform.GetMap();
+                if (coordinates.X < 0 || coordinates.Y < 0 || coordinates.X > map.Size.X || coordinates.Y > map.Size.Y)
+                    return;
+                if (Entity.Player.HasComponent<PathMovementComponent>() ||
+                    Entity.Player.HasComponent<PathRequestComponent>())
+                {
+                    Entity.Player.RemoveComponent<PathMovementComponent>();
+                    Entity.Player.RemoveComponent<PathRequestComponent>();
+                }
+
+                Entity.Player.AddComponent(new PathRequestComponent(map.Id, -1, transform.GridTransform, coordinates));
+            }
+
         }
     }
 }

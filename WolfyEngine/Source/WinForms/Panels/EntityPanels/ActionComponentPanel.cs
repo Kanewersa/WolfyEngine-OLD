@@ -16,7 +16,7 @@ namespace WolfyEngine.Controls
 
         public List<ActionListViewItem> ActionItems { get; set; }
         
-        public ActionComponentPanel()
+        public ActionComponentPanel(Type componentType) : base(componentType)
         {
             InitializeComponent();
             ActionItems = new List<ActionListViewItem>(64);

@@ -15,7 +15,7 @@ namespace WolfyEngine.Controls
         private FollowMovementComponent _followMovementComponent;
         private FixedMovementComponent _fixedMovementComponent;
 
-        public MovementComponentPanel()
+        public MovementComponentPanel(Type componentType) : base(componentType)
         {
             InitializeComponent();
             MovementTypeBox.DataSource = Enum.GetValues(typeof(MovementType));

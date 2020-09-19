@@ -29,14 +29,14 @@ namespace WolfyEngine.Forms
         {
             ActionsTabButton.Checked = true;
             ConditionsTabButton.Checked = false;
-            SetDisplay(new NewActionsListDisplay());
+            SetDisplay(new NewActionsListDisplay(null));
         }
 
         private void ConditionsTabButton_Click(object sender, System.EventArgs e)
         {
             ActionsTabButton.Checked = false;
             ConditionsTabButton.Checked = true;
-            SetDisplay(new NewConditionsListDisplay());
+            SetDisplay(new NewConditionsListDisplay(null));
         }
 
         private void SetDisplay(ListDisplay listDisplay)

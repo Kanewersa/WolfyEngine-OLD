@@ -8,7 +8,7 @@ namespace WolfyEngine.Controls
     {
         private CollisionComponent _collisionComponent;
 
-        public CollisionComponentPanel()
+        public CollisionComponentPanel(Type componentType) : base(componentType)
         {
             InitializeComponent();
         }

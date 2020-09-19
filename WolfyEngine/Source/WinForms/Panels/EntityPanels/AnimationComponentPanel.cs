@@ -18,7 +18,7 @@ namespace WolfyEngine.Controls
         private AnimationComponent _animationComponent;
         private string _graphicsPath;
 
-        public AnimationComponentPanel()
+        public AnimationComponentPanel(Type componentType) : base(componentType)
         {
             InitializeComponent();
         }

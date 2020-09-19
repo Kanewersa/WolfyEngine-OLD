@@ -9,10 +9,29 @@ namespace WolfyCore.ECS
 {
     [ProtoContract] public class CameraComponent : EntityComponent
     {
+        /// <summary>
+        /// Zoom of the camera.
+        /// </summary>
         [ProtoMember(1)] public float Zoom { get; set; }
+
+        /// <summary>
+        /// Central point of the camera.
+        /// </summary>
         [ProtoMember(2)] public Vector2 Position { get; protected set; }
+
+        /// <summary>
+        /// Size of the camera in pixels.
+        /// </summary>
         [ProtoMember(3)] public Vector2 Bounds { get; protected set; }
+
+        /// <summary>
+        /// Size of the map in pixels.
+        /// </summary>
         [ProtoMember(4)] public Vector2D MapBounds { get; protected set; }
+
+        /// <summary>
+        /// Transform matrix of the camera.
+        /// </summary>
         [ProtoMember(5)] public Matrix Transform { get; protected set; }
         [ProtoMember(6)] public bool FadeToBlack { get; set; }
         [ProtoMember(7)] public float FadeDuration { get; set; }
@@ -122,7 +141,6 @@ namespace WolfyCore.ECS
 
         public void Update(AnimationComponent target)
         {
-            Console.WriteLine("Updating camera target!");
             Update();
 
             if (target == null)
@@ -141,6 +159,16 @@ namespace WolfyCore.ECS
 
             if (_currentMouseWheelValue < _previousMouseWheelValue)
                 AdjustZoom(-.05f);
+        }
+
+        /// <summary>
+        /// Translates given coordinates to game world coordinates.
+        /// </summary>
+        /// <param name="point">Coordinates to translate.</param>
+        /// <returns></returns>
+        public Vector2 ScreenToWorldSpace(Vector2 point)
+        {
+            return Vector2.Transform(point, Matrix.Invert(Transform));
         }
     }
 }

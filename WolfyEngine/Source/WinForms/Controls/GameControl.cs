@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Drawing;
-using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using DarkUI.Forms;
@@ -10,7 +9,6 @@ using MonoGame.Forms.Controls;
 using WolfyECS;
 using WolfyEngine.Utils;
 using WolfyCore;
-using WolfyCore.Controllers;
 using WolfyCore.ECS;
 using WolfyCore.Engine;
 using WolfyCore.Game;

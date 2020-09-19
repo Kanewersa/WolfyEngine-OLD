@@ -54,8 +54,8 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DarkUI, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\DarkUI.2.0.1\lib\DarkUI.dll</HintPath>
+    <Reference Include="DarkUI, Version=2.0.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\DarkUI.2.0.2\lib\DarkUI.dll</HintPath>
     </Reference>
     <Reference Include="DataTypes, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\GeonBit.UI.3.4.0.1\lib\geonbitui\DataTypes.dll</HintPath>
@@ -81,6 +81,9 @@
     </Reference>
     <Reference Include="Nito.Collections.Deque, Version=1.0.4.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Nito.Collections.Deque.1.0.4\lib\netstandard2.0\Nito.Collections.Deque.dll</HintPath>
+    </Reference>
+    <Reference Include="PriorityQueue, Version=5.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\OptimizedPriorityQueue.5.0.0\lib\net45\PriorityQueue.dll</HintPath>
     </Reference>
     <Reference Include="protobuf-net, Version=2.4.0.0, Culture=neutral, PublicKeyToken=257b51d87d2e4d67, processorArchitecture=MSIL">
       <HintPath>..\packages\protobuf-net.2.4.6\lib\net40\protobuf-net.dll</HintPath>
@@ -126,6 +129,7 @@
     <Reference Include="System.ServiceModel.Primitives, Version=4.7.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.ServiceModel.Primitives.4.7.0\lib\net461\System.ServiceModel.Primitives.dll</HintPath>
     </Reference>
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -155,7 +159,7 @@
     <Compile Include="ECS\Actions\WolfyCondition.cs" />
     <Compile Include="ECS\Actions\Conditions\WolfyVariable.cs" />
     <Compile Include="ECS\Components\ActionComponent.cs" />
-    <Compile Include="ECS\Components\Actions\MovementActionComponent.cs" />
+    <Compile Include="ECS\Components\Movement\MovementActionComponent.cs" />
     <Compile Include="ECS\Components\ActiveComponent.cs" />
     <Compile Include="ECS\Components\AnimationComponent.cs" />
     <Compile Include="ECS\Components\Audio\SFXComponent.cs" />
@@ -169,10 +173,12 @@
     <Compile Include="ECS\Components\Movement\FixedMovementComponent.cs" />
     <Compile Include="ECS\Components\Movement\FollowMovementComponent.cs" />
     <Compile Include="ECS\Components\Movement\MovementComponent.cs" />
+    <Compile Include="ECS\Components\Movement\PathMovementComponent.cs" />
     <Compile Include="ECS\Components\Movement\RandomMovementComponent.cs" />
     <Compile Include="ECS\Components\Movement\RoutineMovementComponent.cs" />
     <Compile Include="ECS\Components\InGameNameComponent.cs" />
     <Compile Include="ECS\Components\NpcActionComponent.cs" />
+    <Compile Include="ECS\Components\PathRequestComponent.cs" />
     <Compile Include="ECS\Components\StartActionComponent.cs" />
     <Compile Include="ECS\Components\TimeEventComponent.cs" />
     <Compile Include="ECS\Systems\ActionSystem.cs" />
@@ -184,10 +190,12 @@
     <Compile Include="ECS\Systems\InteractionSystem.cs" />
     <Compile Include="ECS\Systems\LoadingSystem.cs" />
     <Compile Include="ECS\Systems\Movement\MovementSystem.cs" />
+    <Compile Include="ECS\Systems\Movement\PathMovementSystem.cs" />
     <Compile Include="ECS\Systems\Movement\RandomMovementSystem.cs" />
     <Compile Include="ECS\Systems\Movement\RoutineMovementSystem.cs" />
     <Compile Include="ECS\Components\TransformComponent.cs" />
     <Compile Include="ECS\Systems\NpcActionSystem.cs" />
+    <Compile Include="ECS\Systems\PathfindingSystem.cs" />
     <Compile Include="ECS\Systems\RenderSystem.cs" />
     <Compile Include="ECS\Systems\TimeSystem.cs" />
     <Compile Include="Engine\Animations\Animation.cs" />
@@ -202,6 +210,7 @@
     <Compile Include="Engine\Graphics\LUTManager.cs" />
     <Compile Include="Engine\Graphics\RectangleTexture.cs" />
     <Compile Include="Engine\MeasureTime.cs" />
+    <Compile Include="Engine\Pathfinding\WolfyStar.cs" />
     <Compile Include="Engine\Player\Camera.cs" />
     <Compile Include="Engine\Player\Input.cs" />
     <Compile Include="Engine\Random.cs" />
@@ -220,6 +229,7 @@
     <Compile Include="Game\Inventory\GameItem.cs" />
     <Compile Include="Game\Inventory\Inventory.cs" />
     <Compile Include="Game\Maps\BaseLayer.cs" />
+    <Compile Include="Game\Maps\CollisionMap.cs" />
     <Compile Include="Game\Maps\EntityLayer.cs" />
     <Compile Include="Game\Maps\EntityTile.cs" />
     <Compile Include="Game\Maps\EntityTileRow.cs" />

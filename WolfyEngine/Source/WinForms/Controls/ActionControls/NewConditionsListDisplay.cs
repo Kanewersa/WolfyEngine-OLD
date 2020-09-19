@@ -1,4 +1,5 @@
-﻿using System.Windows.Forms;
+﻿using System;
+using System.Windows.Forms;
 using WolfyECS;
 using WolfyEngine.Forms;
 
@@ -8,7 +9,7 @@ namespace WolfyEngine.Controls
     {
         public new event WolfyActionHandler OnSelect;
 
-        public NewConditionsListDisplay()
+        public NewConditionsListDisplay(Type componentType) : base(componentType)
         {
             InitializeComponent();
         }

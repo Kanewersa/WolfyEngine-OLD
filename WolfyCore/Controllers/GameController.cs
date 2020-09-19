@@ -42,6 +42,15 @@ namespace WolfyCore.Controllers
                 : CreateNewWorld();
 
             World.SetWorld(World);
+
+            var presentSystems = World.GetSystems().ConvertAll(x => x.GetType());
+            foreach (var newSystem in ReflectiveEnumerator.GetSubTypes<EntitySystem>().Except(presentSystems))
+            {
+                var system = (EntitySystem)Activator.CreateInstance(newSystem);
+                World.AddSystem(system);
+                system.Initialize(null);
+            }
+
             World.Initialize(null);
             // TODO Obsolete family initialization
             // WolfyManager.InitializeFamilies();

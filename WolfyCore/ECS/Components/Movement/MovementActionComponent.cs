@@ -27,6 +27,7 @@ namespace WolfyCore.ECS
         /// </summary>
         /// <param name="startTransform"></param>
         /// <param name="targetTransform"></param>
+        /// <param name="ignoreCollision"></param>
         public MovementActionComponent(Vector2 startTransform, Vector2 targetTransform, bool ignoreCollision = false)
         {
             StartGridTransform = startTransform;

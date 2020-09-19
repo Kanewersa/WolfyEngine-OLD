@@ -43,8 +43,6 @@ namespace WolfyECS
             {
                 Console.WriteLine("System " + system.GetType() + " has entities: " + system.Entities.Count);
             }
-
-            Console.WriteLine("World has entities: " + EntityCount());
         }
 
         public static void SetWorld(World world)
@@ -242,7 +240,6 @@ namespace WolfyECS
         {
             return GetComponentManager<T>().HasComponent(e);
         }
-
 
         public T GetComponent<T>(Entity e) where T : EntityComponent, new()
         {

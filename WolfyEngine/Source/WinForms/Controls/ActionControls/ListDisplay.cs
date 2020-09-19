@@ -1,4 +1,5 @@
-﻿using WolfyCore.Actions;
+﻿using System;
+using WolfyCore.Actions;
 using WolfyEngine.Forms;
 
 namespace WolfyEngine.Controls
@@ -7,7 +8,7 @@ namespace WolfyEngine.Controls
     {
         public event WolfyActionHandler OnSelect;
 
-        public ListDisplay()
+        public ListDisplay(Type componentType) : base(componentType)
         {
             InitializeComponent();
         }

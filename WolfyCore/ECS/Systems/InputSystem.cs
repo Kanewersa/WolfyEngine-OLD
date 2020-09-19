@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using ProtoBuf;
@@ -47,11 +46,26 @@ namespace WolfyCore.ECS
                     AddMovementAction(entity, new Vector2(-1, 0));
                 else if (input.Enter)
                     AddInteraction(entity);
+
+                MovementSpeed(entity, input);
             });
+        }
+
+        private static void MovementSpeed(Entity e, InputComponent input)
+        {
+            var movement = e.GetComponent<MovementComponent>();
+
+            movement.Speed = input.LeftShift ? 10f : 5f;
         }
 
         private static void AddMovementAction(Entity e, Vector2 direction)
         {
+            if (e.HasComponent<PathMovementComponent>() || e.HasComponent<PathRequestComponent>())
+            {
+                e.RemoveComponent<PathMovementComponent>();
+                e.RemoveComponent<PathRequestComponent>();
+            }
+
             if (e.HasComponent<MovementActionComponent>()
                 || e.HasComponent<StartActionComponent>()) return;
 

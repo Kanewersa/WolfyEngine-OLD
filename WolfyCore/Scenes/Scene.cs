@@ -1,13 +1,12 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 
 namespace WolfyCore.Scenes
 {
     public abstract class Scene
     {
-
-
         protected Scene()
         { }
 
@@ -29,6 +28,11 @@ namespace WolfyCore.Scenes
         public virtual void Update(GameTime gameTime)
         {
             
+        }
+
+        public virtual void HandleMouseEvent(object sender, MouseState state)
+        {
+
         }
     }
 }

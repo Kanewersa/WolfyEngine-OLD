@@ -3,6 +3,7 @@ using System.Linq;
 using GeonBit.UI;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Input;
 using MonoGame.Forms.Controls;
 using WolfyCore;
 using WolfyECS;
@@ -100,6 +101,7 @@ namespace WolfyEngine.Controls
                 // TODO: Update gui here!
             }
 
+            Scene.HandleMouseEvent(this, Mouse.GetState());
 
             Focus();
             _gameTime = gameTime;
