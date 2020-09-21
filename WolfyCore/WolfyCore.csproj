@@ -159,6 +159,7 @@
     <Compile Include="ECS\Actions\WolfyCondition.cs" />
     <Compile Include="ECS\Actions\Conditions\WolfyVariable.cs" />
     <Compile Include="ECS\Components\ActionComponent.cs" />
+    <Compile Include="ECS\Components\MapBorderComponent.cs" />
     <Compile Include="ECS\Components\Movement\MovementActionComponent.cs" />
     <Compile Include="ECS\Components\ActiveComponent.cs" />
     <Compile Include="ECS\Components\AnimationComponent.cs" />
@@ -189,6 +190,7 @@
     <Compile Include="ECS\Systems\InputSystem.cs" />
     <Compile Include="ECS\Systems\InteractionSystem.cs" />
     <Compile Include="ECS\Systems\LoadingSystem.cs" />
+    <Compile Include="ECS\Systems\MapBorderSystem.cs" />
     <Compile Include="ECS\Systems\Movement\MovementSystem.cs" />
     <Compile Include="ECS\Systems\Movement\PathMovementSystem.cs" />
     <Compile Include="ECS\Systems\Movement\RandomMovementSystem.cs" />
