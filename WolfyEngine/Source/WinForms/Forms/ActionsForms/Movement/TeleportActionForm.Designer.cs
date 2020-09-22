@@ -35,13 +35,13 @@
             this.MapBox = new DarkUI.Controls.DarkTextBox();
             this.SelectDestinationButton = new DarkUI.Controls.DarkButton();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.TeleportTargetLabel = new DarkUI.Controls.DarkTitle();
+            this.TeleportPlayerButton = new DarkUI.Controls.DarkRadioButton();
+            this.ThisEntityButton = new DarkUI.Controls.DarkRadioButton();
             this.darkSeparator1 = new DarkUI.Controls.DarkSeparator();
             this.DirectionTitle = new DarkUI.Controls.DarkTitle();
             this.DirectionBox = new DarkUI.Controls.DarkComboBox();
             this.MapBorderBox = new DarkUI.Controls.DarkCheckBox();
-            this.TeleportPlayerButton = new DarkUI.Controls.DarkRadioButton();
-            this.ThisEntityButton = new DarkUI.Controls.DarkRadioButton();
-            this.TeleportTargetLabel = new DarkUI.Controls.DarkTitle();
             this.panel2.SuspendLayout();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -56,7 +56,7 @@
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel2.Location = new System.Drawing.Point(0, 0);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(224, 147);
+            this.panel2.Size = new System.Drawing.Size(224, 97);
             this.panel2.TabIndex = 7;
             // 
             // CoordinatesTitle
@@ -104,7 +104,7 @@
             // SelectDestinationButton
             // 
             this.SelectDestinationButton.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.SelectDestinationButton.Location = new System.Drawing.Point(53, 54);
+            this.SelectDestinationButton.Location = new System.Drawing.Point(53, 56);
             this.SelectDestinationButton.Name = "SelectDestinationButton";
             this.SelectDestinationButton.Padding = new System.Windows.Forms.Padding(5);
             this.SelectDestinationButton.Size = new System.Drawing.Size(112, 29);
@@ -122,10 +122,39 @@
             this.panel1.Controls.Add(this.DirectionBox);
             this.panel1.Controls.Add(this.MapBorderBox);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel1.Location = new System.Drawing.Point(0, 147);
+            this.panel1.Location = new System.Drawing.Point(0, 97);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(224, 102);
             this.panel1.TabIndex = 6;
+            // 
+            // TeleportTargetLabel
+            // 
+            this.TeleportTargetLabel.AutoSize = true;
+            this.TeleportTargetLabel.Location = new System.Drawing.Point(12, 52);
+            this.TeleportTargetLabel.Name = "TeleportTargetLabel";
+            this.TeleportTargetLabel.Size = new System.Drawing.Size(86, 13);
+            this.TeleportTargetLabel.TabIndex = 9;
+            this.TeleportTargetLabel.Text = "Entity to teleport:";
+            // 
+            // TeleportPlayerButton
+            // 
+            this.TeleportPlayerButton.AutoSize = true;
+            this.TeleportPlayerButton.Location = new System.Drawing.Point(115, 71);
+            this.TeleportPlayerButton.Name = "TeleportPlayerButton";
+            this.TeleportPlayerButton.Size = new System.Drawing.Size(54, 17);
+            this.TeleportPlayerButton.TabIndex = 8;
+            this.TeleportPlayerButton.Text = "Player";
+            // 
+            // ThisEntityButton
+            // 
+            this.ThisEntityButton.AutoSize = true;
+            this.ThisEntityButton.Checked = true;
+            this.ThisEntityButton.Location = new System.Drawing.Point(16, 71);
+            this.ThisEntityButton.Name = "ThisEntityButton";
+            this.ThisEntityButton.Size = new System.Drawing.Size(73, 17);
+            this.ThisEntityButton.TabIndex = 7;
+            this.ThisEntityButton.TabStop = true;
+            this.ThisEntityButton.Text = "This entity";
             // 
             // darkSeparator1
             // 
@@ -171,40 +200,11 @@
             this.MapBorderBox.Text = "Map border";
             this.MapBorderBox.CheckedChanged += new System.EventHandler(this.MapBorderBox_CheckedChanged);
             // 
-            // TeleportPlayerButton
-            // 
-            this.TeleportPlayerButton.AutoSize = true;
-            this.TeleportPlayerButton.Location = new System.Drawing.Point(115, 71);
-            this.TeleportPlayerButton.Name = "TeleportPlayerButton";
-            this.TeleportPlayerButton.Size = new System.Drawing.Size(54, 17);
-            this.TeleportPlayerButton.TabIndex = 8;
-            this.TeleportPlayerButton.Text = "Player";
-            // 
-            // ThisEntityButton
-            // 
-            this.ThisEntityButton.AutoSize = true;
-            this.ThisEntityButton.Checked = true;
-            this.ThisEntityButton.Location = new System.Drawing.Point(16, 71);
-            this.ThisEntityButton.Name = "ThisEntityButton";
-            this.ThisEntityButton.Size = new System.Drawing.Size(73, 17);
-            this.ThisEntityButton.TabIndex = 7;
-            this.ThisEntityButton.TabStop = true;
-            this.ThisEntityButton.Text = "This entity";
-            // 
-            // TeleportTargetLabel
-            // 
-            this.TeleportTargetLabel.AutoSize = true;
-            this.TeleportTargetLabel.Location = new System.Drawing.Point(12, 52);
-            this.TeleportTargetLabel.Name = "TeleportTargetLabel";
-            this.TeleportTargetLabel.Size = new System.Drawing.Size(86, 13);
-            this.TeleportTargetLabel.TabIndex = 9;
-            this.TeleportTargetLabel.Text = "Entity to teleport:";
-            // 
             // TeleportActionForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(224, 279);
+            this.ClientSize = new System.Drawing.Size(224, 229);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.Name = "TeleportActionForm";

@@ -16,9 +16,9 @@ namespace WolfyCore.ECS
         public override void Initialize(GraphicsDevice graphics)
         {
             RequireComponent<ActiveComponent>();
+            RequireComponent<TransformComponent>();
             RequireComponent<CollisionComponent>();
             RequireComponent<MovementActionComponent>();
-            RequireComponent<TransformComponent>();
         }
 
         public override void Update(GameTime gameTime)
@@ -27,56 +27,52 @@ namespace WolfyCore.ECS
             {
                 var movementAction = entity.GetComponent<MovementActionComponent>();
 
-                if (movementAction.IsMoving) return;
-                var collision = entity.GetComponent<CollisionComponent>();
-                var transform = entity.GetComponent<TransformComponent>();
+                if (movementAction.HandledCollision) return;
 
-                // If entity doesn't care about collision
-                if (!collision.IsCollider)
-                {
-                    // TODO Instead of true/false variable make the collision component...
-                    // ... present when entity should have collision and delete it otherwise.
-                }
+                var transform = entity.GetComponent<TransformComponent>();
+                var map = transform.GetMap();
 
                 // Check if entity can move to target position
-                var map = GetMap(transform.CurrentMap);
                 var canMove = !map.Occupied(movementAction.TargetGridTransform);
-                if (canMove == true)
-                {
-                    // Let the entity move on
-                    movementAction.IsMoving = true;
-                    transform.GridTransform = movementAction.TargetGridTransform;
-                    // Set entity on map
-                    map.MoveEntity(entity, movementAction.StartGridTransform, movementAction.TargetGridTransform);
-                } else
-                {
-                    // Reset entity position
-                    transform.Transform = movementAction.StartTransform;
 
-                    // Remove movement action component
+                if (canMove == true || movementAction.IgnoreCollision)
+                {
+                    // Mark the collision as handled.
+                    movementAction.HandledCollision = true;
+                    
+                    if (!movementAction.IgnoreCollision)
+                    {
+                        // Set entity position on the map.
+                        map.MoveEntity(entity, movementAction.StartGridTransform, movementAction.TargetGridTransform);
+                        // Set entity grid transform to target transform.
+                        transform.GridTransform = movementAction.TargetGridTransform;
+                    }
+                }
+                else
+                {
+                    // Reset entity position.
+                    transform.Transform = movementAction.StartTransform;
+                    // Remove movement action component.
                     entity.RemoveComponent<MovementActionComponent>();
 
-                    // If entity met the other entity
+                    // If entity met the other entity.
                     if (canMove == null)
                     {
                         Entity metEntity = map.GetEntity(movementAction.TargetGridTransform);
                         if (metEntity == Entity.Empty)
                             throw new Exception("Entity expected at position " + movementAction.TargetGridTransform + " but was not present.");
 
-                        entity.AddComponent(new NpcActionComponent(entity, metEntity));
+                        if (metEntity.GetIfHasComponent(out MapBorderComponent info))
+                        {
+                            entity.AddComponent(new BorderTeleportComponent(info));
+                        }
+                        else
+                        {
+                            entity.AddComponent(new EntityCollisionComponent(entity, metEntity));
+                        }
                     }
                 }
             });
-        }
-
-        private EntityLayer GetEntityLayer(int mapId)
-        {
-            return (EntityLayer) MapsController.Instance.GetMap(mapId).Layers.FirstOrDefault(x => x is EntityLayer);
-        }
-
-        private Map GetMap(int mapId)
-        {
-            return MapsController.Instance.GetMap(mapId);
         }
     }
 }

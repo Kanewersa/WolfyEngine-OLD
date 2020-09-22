@@ -12,14 +12,14 @@ namespace WolfyCore.ECS
         public override void Initialize(GraphicsDevice graphics)
         {
             RequireComponent<ActiveComponent>();
-            RequireComponent<NpcActionComponent>();
+            RequireComponent<EntityCollisionComponent>();
         }
 
         public override void Update(GameTime gameTime)
         {
             IterateEntities(entity =>
             {
-                var interaction = entity.GetComponent<NpcActionComponent>();
+                var interaction = entity.GetComponent<EntityCollisionComponent>();
 
                 // If player is the interaction source.
                 if (interaction.Source == Entity.Player)
@@ -41,7 +41,7 @@ namespace WolfyCore.ECS
                     // TODO: Handle interactions between NPCs.
                 }
                 
-                entity.RemoveComponent<NpcActionComponent>();
+                entity.RemoveComponent<EntityCollisionComponent>();
             });
         }
     }

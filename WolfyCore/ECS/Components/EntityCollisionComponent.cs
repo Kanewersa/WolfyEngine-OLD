@@ -3,12 +3,15 @@ using WolfyECS;
 
 namespace WolfyCore.ECS
 {
+    /// <summary>
+    /// Present if entity-entity collision occurred.
+    /// </summary>
     [ProtoContract]
-    public class NpcActionComponent : EntityComponent
+    public class EntityCollisionComponent : EntityComponent
     {
-        public NpcActionComponent() { }
+        public EntityCollisionComponent() { }
 
-        public NpcActionComponent(Entity source, Entity target)
+        public EntityCollisionComponent(Entity source, Entity target)
         {
             Source = source;
             Target = target;

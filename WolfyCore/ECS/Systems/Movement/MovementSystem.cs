@@ -23,19 +23,16 @@ namespace WolfyCore.ECS
             IterateEntities(entity =>
             {
                 var action = entity.GetComponent<MovementActionComponent>();
-                if (action.IsMoving)
+                var transform = entity.GetComponent<TransformComponent>();
+                var movement = entity.GetComponent<MovementComponent>();
+
+                var delta = (float)gameTime.ElapsedGameTime.TotalSeconds;
+                transform.Transform += movement.DirectionVector * delta * Runtime.GridSize * movement.Speed / 5;
+
+                if (Vector2.Distance(action.StartTransform, transform.Transform) >= Runtime.GridSize)
                 {
-                    var transform = entity.GetComponent<TransformComponent>();
-                    var movement = entity.GetComponent<MovementComponent>();
-
-                    var delta = (float)gameTime.ElapsedGameTime.TotalSeconds;
-                    transform.Transform += movement.DirectionVector * delta * Runtime.GridSize * movement.Speed / 5;
-
-                    if (Vector2.Distance(action.StartTransform, transform.Transform) >= Runtime.GridSize)
-                    {
-                        transform.Transform = action.TargetTransform;
-                        entity.RemoveComponent<MovementActionComponent>();
-                    }
+                    transform.Transform = action.TargetTransform;
+                    entity.RemoveComponent<MovementActionComponent>();
                 }
             });
         }

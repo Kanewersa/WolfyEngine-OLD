@@ -14,7 +14,8 @@ namespace WolfyEngine.Forms
             { typeof(ActionComponent), typeof(ActionComponentPanel) },
             { typeof(AnimationComponent), typeof(AnimationComponentPanel) },
             { typeof(CollisionComponent), typeof(CollisionComponentPanel) },
-            { typeof(MovementComponent), typeof(MovementComponentPanel) }
+            { typeof(MovementComponent), typeof(MovementComponentPanel) },
+            { typeof(MapBorderComponent), typeof(MapBorderComponentPanel) }
         };
 
         private static Type GetPanelType(Type type)

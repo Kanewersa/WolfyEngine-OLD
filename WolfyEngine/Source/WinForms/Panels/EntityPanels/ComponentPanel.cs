@@ -8,6 +8,9 @@ namespace WolfyEngine.Controls
     {
         public Type ComponentType { get; private set; }
         protected Entity Entity { get; set; }
+
+        public ComponentPanel() { }
+
         public ComponentPanel(Type componentType)
         {
             ComponentType = componentType;

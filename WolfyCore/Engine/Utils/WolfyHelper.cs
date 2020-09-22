@@ -136,6 +136,25 @@ namespace WolfyEngine
             }
         }
 
+        /// <summary>
+        /// Translates string to int direction.
+        /// </summary>
+        /// <param name="direction"></param>
+        /// <returns></returns>
+        public static int GetDirection(string direction)
+        {
+            var c = direction[0];
+
+            return c switch
+            {
+                'T' => 0,
+                'R' => 1,
+                'B' => 2,
+                'L' => 3,
+                _ => throw new ArgumentOutOfRangeException("Unknown direction.")
+            };
+        }
+
         public static Random Random = new Random();
 
         /// <summary>

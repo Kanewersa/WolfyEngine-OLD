@@ -51,7 +51,6 @@ namespace WolfyEngine.Forms
 
             Entity = World.CreateEntity();
             Entity.AddComponent(transform);
-
             LoadPanels(scheme.ComponentTypes, Entity);
         }
 
@@ -61,7 +60,6 @@ namespace WolfyEngine.Forms
             Entity = entity;
 
             var componentTypes = entity.GetComponents().Select(x => x.GetType()).ToList();
-
             LoadPanels(componentTypes, entity);
         }
 
@@ -83,6 +81,13 @@ namespace WolfyEngine.Forms
         /// </summary>
         private void SetDockContent()
         {
+            ComponentsDockPanel.ContentAdded += delegate (object sender, DockContentEventArgs args)
+            {
+                ComponentsDockPanel.ActiveContent = args.Content;
+            };
+
+            if (!ComponentWindows.Any()) return;
+
             ComponentWindows = ComponentWindows.
                 OrderBy(x => x.Name).ToList();
 
@@ -90,11 +95,6 @@ namespace WolfyEngine.Forms
                 ComponentsDockPanel.AddContent(panel);
 
             ComponentsDockPanel.ActiveContent = ComponentWindows.First();
-
-            ComponentsDockPanel.ContentAdded += delegate(object sender, DockContentEventArgs args)
-            {
-                ComponentsDockPanel.ActiveContent = args.Content;
-            };
         }
 
         /// <summary>
@@ -152,8 +152,7 @@ namespace WolfyEngine.Forms
                 Entity.GetOrCreateComponent<InGameNameComponent>().Name = EntityNameTextBox.Text;
             else Entity.RemoveComponent<InGameNameComponent>();
 
-            OnSave?.Invoke(Entity, Vector2.Zero);
-
+            OnSave?.Invoke(Entity, Entity.GetComponent<TransformComponent>().GridTransform);
             Close();
         }
 

@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using ProtoBuf;
+using WolfyCore.Controllers;
 using WolfyCore.ECS;
 using WolfyCore.Engine;
 using WolfyECS;

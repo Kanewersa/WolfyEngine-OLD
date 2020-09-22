@@ -109,7 +109,7 @@ namespace WolfyEngine.Controls
             RefreshTree();
             mapsTree.Nodes[0].Expanded = true;
 
-            if (mapsTree.Nodes.Count < 2)
+            if (MapsController.Instance.MapsData.GetMapsInfo().Count == 1)
             {
                 map.LoadEntities();
                 map.AddEntity(Entity.Player, Vector2.Zero);

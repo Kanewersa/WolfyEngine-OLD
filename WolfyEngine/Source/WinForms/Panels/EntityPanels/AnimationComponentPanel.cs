@@ -69,6 +69,12 @@ namespace WolfyEngine.Controls
             _animationComponent.AnimationManager = new AnimationManager(animations.First().Value);
         }
 
+        public override void Unload(Entity entity)
+        {
+            entity.RemoveComponent<AnimationComponent>();
+            Close();
+        }
+
         private void SelectGraphicsButton_Click(object sender, System.EventArgs e)
         {
             SelectGraphics();

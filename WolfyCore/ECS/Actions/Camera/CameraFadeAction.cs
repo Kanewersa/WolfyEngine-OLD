@@ -14,9 +14,9 @@ namespace WolfyCore.Actions
 
         public CameraFadeAction() { }
 
-        public CameraFadeAction(Entity target, float fadeDuration, bool fadeIn)
+        public CameraFadeAction(Entity target, float fadeDuration, bool fadeIn, bool asynchronous = false)
         {
-            Asynchronous = false;
+            Asynchronous = asynchronous;
             Target = target;
             FadeDuration = fadeDuration;
             FadeIn = fadeIn;

@@ -13,9 +13,9 @@ namespace WolfyCore.ECS
         [ProtoMember(3)] public bool IgnoreCollision;
 
         /// <summary>
-        /// Needed to make sure entity doesn't move before collision is checked.
+        /// Determines if collision was already handled.
         /// </summary>
-        [ProtoMember(4)] public bool IsMoving;
+        [ProtoMember(4)] public bool HandledCollision { get; set; }
 
         /// <summary>
         /// Default constructor.
@@ -33,7 +33,6 @@ namespace WolfyCore.ECS
             StartGridTransform = startTransform;
             TargetGridTransform = targetTransform;
             IgnoreCollision = ignoreCollision;
-            IsMoving = false;
         }
 
         /// <summary>
@@ -46,7 +45,6 @@ namespace WolfyCore.ECS
         {
             StartGridTransform = startTransform;
             TargetGridTransform = targetTransform;
-            IsMoving = false;
         }
     }
 }

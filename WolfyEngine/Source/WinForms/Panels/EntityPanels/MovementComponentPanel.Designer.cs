@@ -143,6 +143,7 @@ namespace WolfyEngine.Controls
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
             this.Controls.Add(this.FollowRangeNumericUpDown);
             this.Controls.Add(this.FollowRangeLabel);
             this.Controls.Add(this.SpeedNumericUpDown);

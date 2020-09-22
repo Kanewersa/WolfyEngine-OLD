@@ -159,6 +159,7 @@
     <Compile Include="ECS\Actions\WolfyCondition.cs" />
     <Compile Include="ECS\Actions\Conditions\WolfyVariable.cs" />
     <Compile Include="ECS\Components\ActionComponent.cs" />
+    <Compile Include="ECS\Components\BorderTeleportComponent.cs" />
     <Compile Include="ECS\Components\MapBorderComponent.cs" />
     <Compile Include="ECS\Components\Movement\MovementActionComponent.cs" />
     <Compile Include="ECS\Components\ActiveComponent.cs" />
@@ -178,7 +179,7 @@
     <Compile Include="ECS\Components\Movement\RandomMovementComponent.cs" />
     <Compile Include="ECS\Components\Movement\RoutineMovementComponent.cs" />
     <Compile Include="ECS\Components\InGameNameComponent.cs" />
-    <Compile Include="ECS\Components\NpcActionComponent.cs" />
+    <Compile Include="ECS\Components\EntityCollisionComponent.cs" />
     <Compile Include="ECS\Components\PathRequestComponent.cs" />
     <Compile Include="ECS\Components\StartActionComponent.cs" />
     <Compile Include="ECS\Components\TimeEventComponent.cs" />

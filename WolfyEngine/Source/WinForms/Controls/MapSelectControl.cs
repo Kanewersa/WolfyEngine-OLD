@@ -104,7 +104,7 @@ namespace WolfyEngine.Controls
             GraphicsDevice.Clear(Color);
 
             Editor.spriteBatch.Begin();
-            Map.Draw(Editor.spriteBatch, null, new Rectangle(0, 0, Map.Size.X, Map.Size.Y));
+            Map.Draw(Editor.spriteBatch, null, new Rectangle(0, 0, Map.Size.X * Runtime.GridSize, Map.Size.Y * Runtime.GridSize));
             // TODO Fix grid image
             //GridRenderer.Draw(Editor.spriteBatch);
             Selector.Draw(Editor.spriteBatch);
