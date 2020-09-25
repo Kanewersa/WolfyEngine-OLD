@@ -29,7 +29,7 @@ namespace WolfyEngine
             // Add systems to protobuf
             var entitySystem = RuntimeTypeModel.Default[typeof(EntitySystem)];
             entitySystem.AddSubType(101, typeof(AnimationSystem));
-            entitySystem.AddSubType(102, typeof(CollisionSystem));
+            entitySystem.AddSubType(102, typeof(CollisionDetectionSystem));
             entitySystem.AddSubType(103, typeof(InputSystem));
             entitySystem.AddSubType(104, typeof(MovementSystem));
             entitySystem.AddSubType(105, typeof(RandomMovementSystem));

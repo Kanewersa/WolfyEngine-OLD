@@ -13,31 +13,33 @@ namespace WolfyCore.ECS
         /// <summary>
         /// The map on which entity is located.
         /// </summary>
-        public int OriginMap { get; set; }
+        [ProtoMember(1)] public int OriginMap { get; set; }
 
         /// <summary>
         /// The map to which entities are teleported.
         /// </summary>
-        public int TargetMap { get; set; }
+        [ProtoMember(2)] public int TargetMap { get; set; }
 
         /// <summary>
         /// The entity coordinates.
         /// </summary>
-        public Vector2 Origin { get; set; }
+        [ProtoMember(3)] public Vector2 Origin { get; set; }
 
         /// <summary>
         /// The coordinates to which entities are teleported.
         /// </summary>
-        public Vector2 Target { get; set; }
+        [ProtoMember(4)] public Vector2 Target { get; set; }
 
         /// <summary>
         /// The direction to move the entity before teleport.
         /// </summary>
-        public int OriginDirection { get; set; }
+        [ProtoMember(5)] public int OriginDirection { get; set; }
 
         /// <summary>
         /// The direction to move the entity after teleport.
         /// </summary>
-        public int TargetDirection { get; set; }
+        [ProtoMember(6)] public int TargetDirection { get; set; }
+
+        public MapBorderComponent() { }
     }
 }

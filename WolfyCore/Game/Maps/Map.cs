@@ -26,9 +26,9 @@ namespace WolfyCore.Game
         [ProtoMember(2)] public string Name { get; set; }
 
         /// <summary>
-        /// Bordering maps' ids.
+        /// Stores positions of map borders.
         /// </summary>
-        [ProtoMember(3)] public List<int> Neighbors { get; set; }
+        [ProtoMember(3)] public Dictionary<Vector2, int> Neighbors { get; set; }
 
         /// <summary>
         /// Size of the map.
@@ -79,6 +79,7 @@ namespace WolfyCore.Game
         /// <param name="graphics"></param>
         public void Initialize(GraphicsDevice graphics)
         {
+            Neighbors ??= new Dictionary<Vector2, int>();
             LoadEntities();
 
             foreach (var layer in Layers)
@@ -196,18 +197,43 @@ namespace WolfyCore.Game
         /// <param name="newPosition"></param>
         public void MoveEntity(Entity e, Vector2 oldPosition, Vector2 newPosition)
         {
-            EntityLayer.SetEntity(oldPosition, Entity.Empty);
-            if (newPosition != -Vector2.One)
+            if (EntityLayer.GetEntity(oldPosition) == e)
+                EntityLayer.SetEntity(oldPosition, Entity.Empty);
+
+            if (newPosition.X >= 0
+                && newPosition.Y >= 0
+                && newPosition.X < Size.X
+                && newPosition.Y < Size.Y
+                && newPosition != -Vector2.One)
                 EntityLayer.SetEntity(newPosition, e);
         }
 
         /// <summary>
-        /// Removes the entity from the entity layer.
+        /// Removes the entity located at given position.
         /// </summary>
         /// <param name="position"></param>
         public void RemoveEntity(Vector2 position)
         {
             EntityLayer.RemoveEntity(position);
+        }
+
+        /// <summary>
+        /// Removes the entity from entities list.
+        /// </summary>
+        /// <param name="entity"></param>
+        public void RemoveEntity(Entity entity)
+        {
+            EntityLayer.RemoveEntity(entity);
+        }
+
+        /// <summary>
+        /// Sets the entity on given position.
+        /// </summary>
+        /// <param name="e"></param>
+        /// <param name="position"></param>
+        public void SetEntity(Entity e, Vector2 position)
+        {
+            EntityLayer.SetEntity(position, e);
         }
     }
 }

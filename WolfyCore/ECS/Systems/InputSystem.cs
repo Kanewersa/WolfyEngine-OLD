@@ -67,7 +67,8 @@ namespace WolfyCore.ECS
             }
 
             if (e.HasComponent<MovementActionComponent>()
-                || e.HasComponent<StartActionComponent>()) return;
+                || e.HasComponent<StartActionComponent>()
+                || e.HasComponent<NoCollisionComponent>()) return;
 
             var movement = e.GetComponent<MovementComponent>();
             var transform = e.GetComponent<TransformComponent>();

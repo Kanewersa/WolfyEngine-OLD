@@ -1,17 +1,20 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System.Collections.Generic;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using ProtoBuf;
+using WolfyCore.Actions;
 using WolfyECS;
+using WolfyEngine;
 
 namespace WolfyCore.ECS
 {
-    [ProtoContract] public class NpcActionSystem : EntitySystem
+    public class EntityCollisionHandler : EntitySystem
     {
-        public NpcActionSystem() { }
+        public EntityCollisionHandler() { }
 
         public override void Initialize(GraphicsDevice graphics)
         {
             RequireComponent<ActiveComponent>();
+            RequireComponent<TransformComponent>();
             RequireComponent<EntityCollisionComponent>();
         }
 
@@ -21,10 +24,18 @@ namespace WolfyCore.ECS
             {
                 var interaction = entity.GetComponent<EntityCollisionComponent>();
 
-                // If player is the interaction source.
+                // If entity met a map border
+                if (interaction.Target.GetIfHasComponent(out MapBorderComponent mapBorder))
+                {
+                    interaction.Source.AddComponent(new NoCollisionComponent(interaction.Info));
+                    interaction.Source.AddComponent(new BorderTeleportComponent(mapBorder, interaction.Target));
+
+                    entity.RemoveComponent<EntityCollisionComponent>();
+                    return;
+                }
+
                 if (interaction.Source == Entity.Player)
                 {
-                    // If target has actions to be executed
                     if (interaction.Target.GetIfHasComponent(out ActionComponent action))
                     {
                         interaction.Source.AddComponent(new StartActionComponent(action.Actions, false));
@@ -33,14 +44,21 @@ namespace WolfyCore.ECS
                             sourceMovement.LockMovement();
 
                         if (interaction.Target.GetIfHasComponent(out MovementComponent targetMovement))
+                        {
+                            if (sourceMovement != null)
+                            {
+                                targetMovement.DirectionVector =
+                                    Direction.Reverse(sourceMovement.DirectionVector);
+                            }
                             targetMovement.LockMovement();
+                        }
                     }
                 }
                 else
                 {
                     // TODO: Handle interactions between NPCs.
                 }
-                
+
                 entity.RemoveComponent<EntityCollisionComponent>();
             });
         }

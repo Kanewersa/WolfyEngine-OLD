@@ -35,7 +35,7 @@ namespace WolfyCore.Actions
                 throw new Exception("Could not perform MovementAction on target entity. Entity already had action component.");
 
             var transform = Target.GetComponent<TransformComponent>().GridTransform;
-            var actionComponent = new MovementActionComponent(transform, transform + WolfyHelper.GetDirection(Direction), Collision);
+            var actionComponent = new MovementActionComponent(transform, transform + WolfyCore.Direction.Get(Direction), Collision);
             Target.AddComponent(actionComponent);
             if (Asynchronous) 
                 Complete();
@@ -50,7 +50,7 @@ namespace WolfyCore.Actions
 
         public override string GetDescription()
         {
-            return "Move " + Target + " by vector: " + WolfyHelper.GetDirection(Direction);
+            return "Move " + Target + " by vector: " + WolfyCore.Direction.Get(Direction);
         }
     }
 }

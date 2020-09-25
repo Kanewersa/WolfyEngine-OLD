@@ -104,9 +104,6 @@ namespace WolfyCore.Controllers
             transform.GridTransform = Vector2.Zero;
             transform.Transform = Vector2.Zero;
 
-            var collision = player.AddComponent<CollisionComponent>();
-            collision.IsCollider = true;
-
             player.GetMask();
 
             var animation = player.AddComponent<AnimationComponent>();

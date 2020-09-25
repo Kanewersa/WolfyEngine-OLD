@@ -25,7 +25,7 @@ namespace WolfyEngine.Forms
 
         private void StaticButton_Click(object sender, System.EventArgs e)
         {
-            var scheme = _schemeManager.Schemes[1];
+            var scheme = _schemeManager.Schemes[2];
             OnTypeSelected?.Invoke(scheme);
         }
 

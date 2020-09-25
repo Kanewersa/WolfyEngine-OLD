@@ -302,12 +302,6 @@
     <Compile Include="Source\WinForms\Panels\EntityPanels\AnimationComponentPanel.Designer.cs">
       <DependentUpon>AnimationComponentPanel.cs</DependentUpon>
     </Compile>
-    <Compile Include="Source\WinForms\Panels\EntityPanels\CollisionComponentPanel.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Source\WinForms\Panels\EntityPanels\CollisionComponentPanel.Designer.cs">
-      <DependentUpon>CollisionComponentPanel.cs</DependentUpon>
-    </Compile>
     <Compile Include="Source\WinForms\Panels\EntityPanels\ComponentPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -484,9 +478,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Source\WinForms\Panels\EntityPanels\AnimationComponentPanel.resx">
       <DependentUpon>AnimationComponentPanel.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Source\WinForms\Panels\EntityPanels\CollisionComponentPanel.resx">
-      <DependentUpon>CollisionComponentPanel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Source\WinForms\Panels\EntityPanels\ComponentPanel.resx">
       <DependentUpon>ComponentPanel.cs</DependentUpon>

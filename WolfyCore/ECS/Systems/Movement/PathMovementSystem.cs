@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ProtoBuf;
@@ -21,7 +20,7 @@ namespace WolfyCore.ECS
         {
             IterateEntities(entity =>
             {
-                if (entity.HasComponent<MovementActionComponent>())
+                if (entity.HasComponent<NoCollisionComponent>())
                     return;
 
                 var path = entity.GetComponent<PathMovementComponent>().MovementPath;

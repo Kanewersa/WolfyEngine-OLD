@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using ProtoBuf;
@@ -89,21 +90,21 @@ namespace WolfyCore.ECS
                     if (PaneTransparency < 0) PaneTransparency = 0;
                 }
 
+                // TODO: Move map loading call to different system.
                 // Initialize the map if last map was changed.
                 if (map.Id != LastMapId)
                 {
                     if (entity.HasComponent<LoadMapComponent>())
                         return;
 
-                    entity.AddComponent<LoadMapComponent>().MapId = map.Id;
-                    /*map.Initialize(GraphicsDevice);
-                    map.LoadContent(ContentManager);*/
+                    var loadMap = entity.AddComponent<LoadMapComponent>();
+                    loadMap.MapId = map.Id;
+                    loadMap.LastMap = LastMapId;
                     camera.SetMapBoundaries(map.Size * Runtime.GridSize);
                     
                 }
 
                 LastMapId = map.Id;
-                
                 // Update the camera
                 if (entity.GetIfHasComponent<AnimationComponent>(out var animation) && animation.Initialized)
                     camera.Update(animation);

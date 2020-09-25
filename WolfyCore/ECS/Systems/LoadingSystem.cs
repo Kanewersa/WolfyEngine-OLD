@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
@@ -35,28 +34,26 @@ namespace WolfyCore.ECS
                 var loadInfo = entity.GetComponent<LoadMapComponent>();
 
                 Map map = MapsController.Instance.GetMap(loadInfo.MapId);
-
                 List<int> mapsIds = new List<int> { loadInfo.MapId };
-
                 GetNeighboringMaps(mapsIds, map, UpdateDistance);
+
+                // Unload old maps
+                foreach (var mapId in LoadedMaps.Except(mapsIds))
+                {
+                    MapsController.Instance.DisposeMap(mapId);
+                }
+
                 map.Initialize(GraphicsDevice);
                 map.LoadContent(ContentManager);
                 map.ActivateEntities();
-                // TODO: Unload maps that are too far.
 
                 // Load new maps    
                 foreach (var mapId in mapsIds.Except(LoadedMaps))
                 {
                     map = MapsController.Instance.GetMap(mapId);
                     map.Initialize(GraphicsDevice);
-                    map.LoadContent(ContentManager);
+                    //map.LoadContent(ContentManager);
                     map.ActivateEntities();
-                }
-
-                // Unload old maps
-                foreach (var mapId in LoadedMaps.Except(mapsIds))
-                {
-                    MapsController.Instance.DisposeMap(mapId);
                 }
 
                 LoadedMaps = mapsIds;
@@ -69,7 +66,7 @@ namespace WolfyCore.ECS
             if (range == 0) return;
             if (map.Neighbors == null) return;
 
-            foreach (int neighbor in map.Neighbors.Except(neighbors))
+            foreach (int neighbor in map.Neighbors.Values.Except(neighbors))
             {
                 neighbors.Add(neighbor);
                 GetNeighboringMaps(neighbors, MapsController.Instance.GetMap(neighbor), --range);

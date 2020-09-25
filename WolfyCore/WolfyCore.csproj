@@ -139,6 +139,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\EntityController.cs" />
+    <Compile Include="Controllers\EntityData.cs" />
     <Compile Include="Controllers\GameController.cs" />
     <Compile Include="Controllers\MapsController.cs" />
     <Compile Include="Controllers\PathsController.cs" />
@@ -160,6 +161,8 @@
     <Compile Include="ECS\Actions\Conditions\WolfyVariable.cs" />
     <Compile Include="ECS\Components\ActionComponent.cs" />
     <Compile Include="ECS\Components\BorderTeleportComponent.cs" />
+    <Compile Include="ECS\Components\Collision\IgnoreCollisionComponent.cs" />
+    <Compile Include="ECS\Components\Collision\NoCollisionComponent.cs" />
     <Compile Include="ECS\Components\MapBorderComponent.cs" />
     <Compile Include="ECS\Components\Movement\MovementActionComponent.cs" />
     <Compile Include="ECS\Components\ActiveComponent.cs" />
@@ -167,7 +170,6 @@
     <Compile Include="ECS\Components\Audio\SFXComponent.cs" />
     <Compile Include="ECS\Components\Camera\CameraComponent.cs" />
     <Compile Include="ECS\Components\Camera\LUTComponent.cs" />
-    <Compile Include="ECS\Components\CollisionComponent.cs" />
     <Compile Include="ECS\Components\DialogComponent.cs" />
     <Compile Include="ECS\Components\InputComponent.cs" />
     <Compile Include="ECS\Components\InteractionComponent.cs" />
@@ -179,14 +181,15 @@
     <Compile Include="ECS\Components\Movement\RandomMovementComponent.cs" />
     <Compile Include="ECS\Components\Movement\RoutineMovementComponent.cs" />
     <Compile Include="ECS\Components\InGameNameComponent.cs" />
-    <Compile Include="ECS\Components\EntityCollisionComponent.cs" />
+    <Compile Include="ECS\Components\Collision\EntityCollisionComponent.cs" />
     <Compile Include="ECS\Components\PathRequestComponent.cs" />
     <Compile Include="ECS\Components\StartActionComponent.cs" />
     <Compile Include="ECS\Components\TimeEventComponent.cs" />
     <Compile Include="ECS\Systems\ActionSystem.cs" />
     <Compile Include="ECS\Systems\AnimationSystem.cs" />
     <Compile Include="ECS\Systems\Audio\SFXSystem.cs" />
-    <Compile Include="ECS\Systems\CollisionSystem.cs" />
+    <Compile Include="ECS\Systems\Collision\CollisionDetectionSystem.cs" />
+    <Compile Include="ECS\Systems\Collision\EntityCollisionHandler.cs" />
     <Compile Include="ECS\Systems\DialogSystem.cs" />
     <Compile Include="ECS\Systems\InputSystem.cs" />
     <Compile Include="ECS\Systems\InteractionSystem.cs" />
@@ -197,7 +200,6 @@
     <Compile Include="ECS\Systems\Movement\RandomMovementSystem.cs" />
     <Compile Include="ECS\Systems\Movement\RoutineMovementSystem.cs" />
     <Compile Include="ECS\Components\TransformComponent.cs" />
-    <Compile Include="ECS\Systems\NpcActionSystem.cs" />
     <Compile Include="ECS\Systems\PathfindingSystem.cs" />
     <Compile Include="ECS\Systems\RenderSystem.cs" />
     <Compile Include="ECS\Systems\TimeSystem.cs" />
@@ -220,6 +222,7 @@
     <Compile Include="Engine\RefBool.cs" />
     <Compile Include="Engine\RefFloat.cs" />
     <Compile Include="Engine\Serialization\Serialization.cs" />
+    <Compile Include="Engine\Utils\Direction.cs" />
     <Compile Include="Engine\Utils\EntityScheme.cs" />
     <Compile Include="Engine\Utils\ReflectiveEnumerator.cs" />
     <Compile Include="Engine\Utils\SchemeManager.cs" />

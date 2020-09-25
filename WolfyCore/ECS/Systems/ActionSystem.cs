@@ -45,6 +45,8 @@ namespace WolfyCore.ECS
                     actionComponent.Executed = true;
                 }
             });
+
+            ActionsManager.Update(gameTime);
         }
     }
 }

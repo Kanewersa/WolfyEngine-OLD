@@ -99,62 +99,6 @@ namespace WolfyEngine
             };
         }
 
-        /// <summary>
-        /// Translates Vector2 to int direction.
-        /// </summary>
-        /// <param name="direction"></param>
-        /// <returns></returns>
-        public static int GetDirection(Vector2 direction)
-        {
-            var x = (int)direction.X;
-            var y = (int)direction.Y;
-
-            if (x == 0)
-                return y > 0 ? 0 : 3;
-            return x == 1 ? 2 : 1;
-        }
-
-        /// <summary>
-        /// Translates int to Vector2 direction.
-        /// </summary>
-        /// <param name="direction"></param>
-        /// <returns></returns>
-        public static Vector2 GetDirection(int direction)
-        {
-            switch (direction)
-            {
-                case 0:
-                    return new Vector2(0, 1);
-                case 1: 
-                    return new Vector2(-1, 0);
-                case 2:
-                    return new Vector2(1, 0);
-                case 3:
-                    return new Vector2(0, -1);
-                default:
-                    throw new ArgumentOutOfRangeException("Unknown direction given.");
-            }
-        }
-
-        /// <summary>
-        /// Translates string to int direction.
-        /// </summary>
-        /// <param name="direction"></param>
-        /// <returns></returns>
-        public static int GetDirection(string direction)
-        {
-            var c = direction[0];
-
-            return c switch
-            {
-                'T' => 0,
-                'R' => 1,
-                'B' => 2,
-                'L' => 3,
-                _ => throw new ArgumentOutOfRangeException("Unknown direction.")
-            };
-        }
-
         public static Random Random = new Random();
 
         /// <summary>

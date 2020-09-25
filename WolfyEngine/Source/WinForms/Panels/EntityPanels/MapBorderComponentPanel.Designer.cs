@@ -38,6 +38,7 @@
             this.darkTitle2 = new DarkUI.Controls.DarkTitle();
             this.darkTitle1 = new DarkUI.Controls.DarkTitle();
             this.BeforeDirectionBox = new DarkUI.Controls.DarkComboBox();
+            this.BothWaysCheckBox = new DarkUI.Controls.DarkCheckBox();
             this.DirectionGroupBox.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -110,7 +111,7 @@
             this.DirectionGroupBox.Controls.Add(this.darkTitle2);
             this.DirectionGroupBox.Controls.Add(this.darkTitle1);
             this.DirectionGroupBox.Controls.Add(this.BeforeDirectionBox);
-            this.DirectionGroupBox.Location = new System.Drawing.Point(0, 123);
+            this.DirectionGroupBox.Location = new System.Drawing.Point(0, 173);
             this.DirectionGroupBox.Name = "DirectionGroupBox";
             this.DirectionGroupBox.Size = new System.Drawing.Size(276, 80);
             this.DirectionGroupBox.TabIndex = 16;
@@ -174,11 +175,22 @@
             this.BeforeDirectionBox.TabIndex = 19;
             this.BeforeDirectionBox.SelectedIndexChanged += new System.EventHandler(this.BeforeDirectionBox_SelectedIndexChanged);
             // 
+            // BothWaysCheckBox
+            // 
+            this.BothWaysCheckBox.AutoSize = true;
+            this.BothWaysCheckBox.Location = new System.Drawing.Point(12, 133);
+            this.BothWaysCheckBox.Name = "BothWaysCheckBox";
+            this.BothWaysCheckBox.Size = new System.Drawing.Size(114, 17);
+            this.BothWaysCheckBox.TabIndex = 17;
+            this.BothWaysCheckBox.Text = "Works both ways?";
+            this.BothWaysCheckBox.CheckedChanged += new System.EventHandler(this.BothWaysCheckBox_CheckedChanged);
+            // 
             // MapBorderComponentPanel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
+            this.Controls.Add(this.BothWaysCheckBox);
             this.Controls.Add(this.DirectionGroupBox);
             this.Controls.Add(this.CoordinatesTitle);
             this.Controls.Add(this.MapTitle);
@@ -188,7 +200,7 @@
             this.DefaultDockArea = DarkUI.Docking.DarkDockArea.Document;
             this.DockText = "Map border";
             this.Name = "MapBorderComponentPanel";
-            this.Size = new System.Drawing.Size(276, 203);
+            this.Size = new System.Drawing.Size(276, 254);
             this.DirectionGroupBox.ResumeLayout(false);
             this.DirectionGroupBox.PerformLayout();
             this.ResumeLayout(false);
@@ -208,5 +220,6 @@
         private DarkUI.Controls.DarkTitle darkTitle2;
         private DarkUI.Controls.DarkTitle darkTitle1;
         private DarkUI.Controls.DarkComboBox BeforeDirectionBox;
+        private DarkUI.Controls.DarkCheckBox BothWaysCheckBox;
     }
 }

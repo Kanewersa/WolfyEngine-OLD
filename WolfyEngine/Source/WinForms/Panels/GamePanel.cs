@@ -155,7 +155,11 @@ namespace WolfyEngine.Controls
                 var ent = elay.GetEntity((int)x, (int)y);
 
                 if (ent != Entity.Empty)
-                    toolStripCoordinatesLabel.Text = "X: " + x + " | Y: " + y + " | Entity: "; //+ ent.Name;
+                {
+                    if (ent.GetIfHasComponent(out InGameNameComponent component))
+                        toolStripCoordinatesLabel.Text = "X: " + x + " | Y: " + y + " | Entity: " + component.Name;
+                    else toolStripCoordinatesLabel.Text = "X: " + x + " | Y: " + y + " | Entity: NoName";
+                }
                 else toolStripCoordinatesLabel.Text = "X: " + x + " | Y: " + y + " | Entity: None";
 
             }

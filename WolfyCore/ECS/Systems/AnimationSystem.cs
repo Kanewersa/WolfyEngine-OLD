@@ -35,7 +35,7 @@ namespace WolfyCore.ECS
             IterateEntities(entity =>
             {
                 var animation = entity.GetComponent<AnimationComponent>();
-                var isMoving = entity.HasComponent<MovementActionComponent>();
+                var isMoving = entity.HasComponent<NoCollisionComponent>();
 
                 SetAnimations(isMoving, animation);
 

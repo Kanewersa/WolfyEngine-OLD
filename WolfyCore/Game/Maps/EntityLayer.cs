@@ -4,7 +4,6 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using ProtoBuf;
-using WolfyCore.Controllers;
 using WolfyCore.ECS;
 using WolfyCore.Engine;
 using WolfyECS;
@@ -73,14 +72,30 @@ namespace WolfyCore.Game
 
         public override void Draw(SpriteBatch spriteBatch, GameTime gameTime, Rectangle visibleArea)
         {
-            for (var y = visibleArea.Y; y < visibleArea.Height; y++)
+            for (int y = visibleArea.Y; y < visibleArea.Height; y++)
             {
-                for (var x = visibleArea.X; x < visibleArea.Width; x++)
+                for (int x = visibleArea.X; x < visibleArea.Width; x++)
                 {
-                    var entity = Rows[y].Tiles[x].Entity;
+                    var entity = GetEntity(x, y);
                     if (entity == Entity.Empty)
                         continue;
 
+                    if (entity.GetIfHasComponent(out AnimationComponent animation)
+                        && animation.Initialized)
+                        animation.Draw(spriteBatch);
+                }
+            }
+
+            /*foreach (var entity in Entities)
+            {
+                var transformComponent = entity.GetComponent<TransformComponent>();
+                var transform = transformComponent.GridTransform;
+
+                if (transform.X >= visibleArea.X
+                    && transform.Y >= visibleArea.Y
+                    && transform.X <= visibleArea.Width
+                    && transform.Y <= visibleArea.Height)
+                {
                     if (entity.GetIfHasComponent(out AnimationComponent animation))
                     {
                         if (animation.Initialized)
@@ -89,7 +104,7 @@ namespace WolfyCore.Game
                         }
                     }
                 }
-            }
+            }*/
         }
 
         /// <summary>
@@ -135,6 +150,12 @@ namespace WolfyCore.Game
         /// <returns></returns>
         public Entity GetEntity(Vector2 position)
         {
+            if (position.X < 0
+                || position.Y < 0
+                || position.X >= Size.X
+                || position.Y >= Size.Y)
+                return Entity.Empty;
+
             return Rows[(int) position.Y].Tiles[(int) position.X].Entity;
         }
 
@@ -171,6 +192,15 @@ namespace WolfyCore.Game
             SetEntity(position, Entity.Empty);
 
             return entity;
+        }
+
+        /// <summary>
+        /// Removes the entity from entities list.
+        /// </summary>
+        /// <param name="entity"></param>
+        public void RemoveEntity(Entity entity)
+        {
+            Entities.Remove(entity);
         }
     }
 }

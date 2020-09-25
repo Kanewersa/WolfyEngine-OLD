@@ -17,7 +17,6 @@ namespace WolfyEngine
                 new List<Type>
                 {
                     typeof(AnimationComponent),
-                    typeof(CollisionComponent),
                     typeof(MovementComponent),
                     typeof(ActionComponent)
                 });
@@ -25,8 +24,12 @@ namespace WolfyEngine
                 new List<Type>
                 {
                     typeof(AnimationComponent),
-                    typeof(CollisionComponent),
                     typeof(ActionComponent)
+                });
+            CreateScheme("Map border",
+                new List<Type>
+                {
+                    typeof(MapBorderComponent)
                 });
         }
 

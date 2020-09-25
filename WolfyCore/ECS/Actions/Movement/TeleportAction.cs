@@ -36,8 +36,13 @@ namespace WolfyCore.Actions
             }
             else
             {
+               
+                // TODO: Handle teleportation and pathfinding to not loaded maps.
                 var oldMap = MapsController.Instance.GetMap(transform.CurrentMap);
-                oldMap.RemoveEntity(transform.GridTransform);
+                if (oldMap.GetEntity(transform.GridTransform) == Target)
+                    oldMap.RemoveEntity(transform.GridTransform);
+                else oldMap.RemoveEntity(Target);
+                
                 map.AddEntity(Target, NewPosition);
             }
 
