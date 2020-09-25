@@ -47,6 +47,7 @@ namespace WolfyCore.ECS
                     var transform = entity.GetComponent<TransformComponent>();
                     var map = transform.GetMap();
                     map.SetEntity(teleportation.CoveredEntity, collision.Info.StartGridTransform);
+
                     var direction = Direction.Get(collision.Info.TargetGridTransform - collision.Info.StartGridTransform);
                     if (direction == teleportation.Info.OriginDirection)
                     {
@@ -55,8 +56,11 @@ namespace WolfyCore.ECS
                             new List<WolfyAction>
                             {
                                 new CameraFadeAction(entity, 1, true),
-                                new TeleportAction(entity, teleportation.Info.TargetMap, teleportation.Info.Target),
-                                new CameraFadeAction(entity, 1, false)
+                                new TeleportAction(entity,
+                                                   teleportation.Info.TargetMap,
+                                                   teleportation.Info.Target - Direction.Get(teleportation.Info.TargetDirection)),
+                                new CameraFadeAction(entity, 1, false, true),
+                                new MovementAction(entity, teleportation.Info.TargetDirection, false, false)
                             },
                             false);
                         entity.AddComponent(action);

@@ -54,10 +54,10 @@ namespace WolfyCore.Engine
             {
                 if (LUTTransitionProgress >= 1f)
                 {
-                    var temp = CurrentLUT;
+                    /*var temp = CurrentLUT;
                     CurrentLUT = NewLUT;
                     NewLUT = temp;
-                    LUTTransitionProgress = 0f;
+                    LUTTransitionProgress = 0f;*/
                     return;
                 }
 

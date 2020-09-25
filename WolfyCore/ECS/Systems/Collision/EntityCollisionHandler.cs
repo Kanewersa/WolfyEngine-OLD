@@ -28,6 +28,15 @@ namespace WolfyCore.ECS
                 if (interaction.Target.GetIfHasComponent(out MapBorderComponent mapBorder))
                 {
                     interaction.Source.AddComponent(new NoCollisionComponent(interaction.Info));
+
+                    if (interaction.Source.GetIfHasComponent(out BorderTeleportComponent teleportation))
+                    {
+                        var transform = entity.GetComponent<TransformComponent>();
+                        var map = transform.GetMap();
+                        map.SetEntity(teleportation.CoveredEntity, interaction.Info.TargetGridTransform);
+                        interaction.Source.RemoveComponent<BorderTeleportComponent>();
+                    }
+
                     interaction.Source.AddComponent(new BorderTeleportComponent(mapBorder, interaction.Target));
 
                     entity.RemoveComponent<EntityCollisionComponent>();

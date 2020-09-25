@@ -66,13 +66,15 @@ namespace WolfyCore.Game
             foreach (var entity in Entities)
             {
                 var transform = entity.GetComponent<TransformComponent>().GridTransform;
+                if (!InBounds(transform))
+                    continue;
                 Rows[(int)transform.Y].Tiles[(int)transform.X].Entity = entity;
             }
         }
 
         public override void Draw(SpriteBatch spriteBatch, GameTime gameTime, Rectangle visibleArea)
         {
-            for (int y = visibleArea.Y; y < visibleArea.Height; y++)
+            /*for (int y = visibleArea.Y; y < visibleArea.Height; y++)
             {
                 for (int x = visibleArea.X; x < visibleArea.Width; x++)
                 {
@@ -84,17 +86,19 @@ namespace WolfyCore.Game
                         && animation.Initialized)
                         animation.Draw(spriteBatch);
                 }
-            }
+            }*/
 
-            /*foreach (var entity in Entities)
+            visibleArea = new Rectangle(visibleArea.X - 2,
+                                        visibleArea.Y - 2,
+                                        visibleArea.Width + 2,
+                                        visibleArea.Height + 2);
+
+            foreach (var entity in Entities)
             {
                 var transformComponent = entity.GetComponent<TransformComponent>();
                 var transform = transformComponent.GridTransform;
 
-                if (transform.X >= visibleArea.X
-                    && transform.Y >= visibleArea.Y
-                    && transform.X <= visibleArea.Width
-                    && transform.Y <= visibleArea.Height)
+                if (InBounds(transform, visibleArea))
                 {
                     if (entity.GetIfHasComponent(out AnimationComponent animation))
                     {
@@ -104,7 +108,7 @@ namespace WolfyCore.Game
                         }
                     }
                 }
-            }*/
+            }
         }
 
         /// <summary>
@@ -140,6 +144,10 @@ namespace WolfyCore.Game
         public void AddEntity(Entity e, Vector2 position)
         {
             Entities.Add(e);
+
+            if (!InBounds(position))
+                return;
+            
             Rows[(int) position.Y].Tiles[(int) position.X].Entity = e;
         }
 
@@ -150,12 +158,9 @@ namespace WolfyCore.Game
         /// <returns></returns>
         public Entity GetEntity(Vector2 position)
         {
-            if (position.X < 0
-                || position.Y < 0
-                || position.X >= Size.X
-                || position.Y >= Size.Y)
+            if (!InBounds(position))
                 return Entity.Empty;
-
+            
             return Rows[(int) position.Y].Tiles[(int) position.X].Entity;
         }
 
@@ -201,6 +206,32 @@ namespace WolfyCore.Game
         public void RemoveEntity(Entity entity)
         {
             Entities.Remove(entity);
+        }
+
+        /// <summary>
+        /// Checks if given vector is in layer's bounds.
+        /// </summary>
+        /// <param name="position"></param>
+        /// <returns></returns>
+        public bool InBounds(Vector2 position)
+        {
+            var (x, y) = position;
+            return !(x < 0) && !(y < 0) && !(x >= Size.X) && !(y >= Size.Y);
+        }
+
+        /// <summary>
+        /// Checks if given vector is in given bounds.
+        /// </summary>
+        /// <param name="position"></param>
+        /// <param name="bounds"></param>
+        /// <returns></returns>
+        public bool InBounds(Vector2 position, Rectangle bounds)
+        {
+            var (x, y) = position;
+            return x >= bounds.X
+                   && y >= bounds.Y
+                   && x <= bounds.Width
+                   && y <= bounds.Height;
         }
     }
 }

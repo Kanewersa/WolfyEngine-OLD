@@ -44,7 +44,7 @@ namespace WolfyCore.Actions
 
         public override void Validate(GameTime gameTime)
         {
-            if (!Target.HasComponent<MovementActionComponent>())
+            if (!Target.HasComponent<MovementActionComponent>() && !Target.HasComponent<NoCollisionComponent>())
                 Complete();
         }
 

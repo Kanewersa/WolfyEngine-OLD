@@ -101,15 +101,17 @@ namespace WolfyCore.ECS
                     loadMap.MapId = map.Id;
                     loadMap.LastMap = LastMapId;
                     camera.SetMapBoundaries(map.Size * Runtime.GridSize);
-                    
                 }
 
                 LastMapId = map.Id;
+
                 // Update the camera
                 if (entity.GetIfHasComponent<AnimationComponent>(out var animation) && animation.Initialized)
                     camera.Update(animation);
                 else camera.Update();
                 CameraTransform = camera.Transform;
+
+                // Draw the current map
                 map.Draw(spriteBatch, gameTime, camera.GetVisibleArea());
 
                 if (entity.GetIfHasComponent(out LUTComponent lut))
@@ -129,18 +131,14 @@ namespace WolfyCore.ECS
 
             // Draw filters to the screen
             LUTManager.Draw(spriteBatch, CameraTransform, filterOutput, width, height);
-
             
             spriteBatch.Begin();
 
             for (var x = 0; x < width; x+=128)
-            {
                 for (var y = 0; y < height; y+=128)
-                {
                     spriteBatch.Draw(BlackPane, new Vector2(x,y), new Color(Color.White, PaneTransparency));
-                }
-            }
 
+            
             spriteBatch.End();
             
         }
