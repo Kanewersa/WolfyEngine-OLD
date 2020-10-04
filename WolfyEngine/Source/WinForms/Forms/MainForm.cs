@@ -185,10 +185,13 @@ namespace WolfyEngine.Forms
 
             // Initialize project in controllers
             // TODO Empty project should not be allowed
+            // TODO Add controllers inheritance
             TilesetsController.Instance.InitializeProject(isProjectEmpty);
             MapsController.Instance.InitializeProject(isProjectEmpty);
             GameController.Instance.InitializeProject(isProjectEmpty);
+            VariablesController.Instance.InitializeProject(isProjectEmpty);
             EntityController.Instance.InitializeProject(isProjectEmpty);
+            InventoryController.Instance.InitializeProject(isProjectEmpty);
 
             // Load content builder
             ContentBuilder.Instance.Initialize();
@@ -305,6 +308,14 @@ namespace WolfyEngine.Forms
                 comp.Speed = 5;*/
             form.Initialize(player, World.WorldInstance);
             form.ShowDialog();
+        }
+
+        private void variablesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            using (var form = new VariablesForm())
+            {
+                form.ShowDialog();
+            }
         }
     }
 }

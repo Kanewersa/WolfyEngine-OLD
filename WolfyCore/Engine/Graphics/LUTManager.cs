@@ -73,10 +73,11 @@ namespace WolfyCore.Engine
         /// <param name="texture"></param>
         /// <param name="screenWidth"></param>
         /// <param name="screenHeight"></param>
-        public void Draw(SpriteBatch spriteBatch, Matrix cameraTransform, Texture2D texture, int screenWidth, int screenHeight)
+        /// <param name="fadeColor"></param>
+        public void Draw(SpriteBatch spriteBatch, Matrix cameraTransform, Texture2D texture, int screenWidth, int screenHeight, Color fadeColor)
         {
             spriteBatch.Begin(transformMatrix: cameraTransform);
-            spriteBatch.Draw(texture, new Rectangle(0, 0, screenWidth, screenHeight), Color.White);
+            spriteBatch.Draw(texture, new Rectangle(0, 0, screenWidth, screenHeight), fadeColor);
             spriteBatch.End();
         }
 

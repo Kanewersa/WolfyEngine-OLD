@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 using DarkUI.Docking;
@@ -10,7 +9,6 @@ using WolfyEngine.Forms;
 using WolfyCore;
 using WolfyCore.Controllers;
 using WolfyCore.ECS;
-using WolfyCore.Engine;
 using WolfyCore.Game;
 using Color = Microsoft.Xna.Framework.Color;
 using Point = System.Drawing.Point;

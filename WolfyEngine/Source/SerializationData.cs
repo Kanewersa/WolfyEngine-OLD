@@ -37,7 +37,7 @@ namespace WolfyCore
         private void LoadSubTypes()
         {
             SystemsData.LoadTypes();
-            ComponentsData.LoadTypes(true);
+            ComponentsData.LoadTypes();
             ActionsData.LoadTypes();
         }
     }

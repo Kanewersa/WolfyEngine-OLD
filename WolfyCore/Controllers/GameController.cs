@@ -52,11 +52,9 @@ namespace WolfyCore.Controllers
             }
 
             World.Initialize(null);
-            // TODO Obsolete family initialization
-            // WolfyManager.InitializeFamilies();
         }
 
-        public int GetEntities()
+        public int GetEntitiesCount()
         {
             return (int) World.WorldInstance.EntityCount();
         }

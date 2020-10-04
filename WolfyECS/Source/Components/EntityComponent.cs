@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using ProtoBuf;
+﻿using ProtoBuf;
 
 namespace WolfyECS
 {

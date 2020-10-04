@@ -1,9 +1,20 @@
-﻿namespace WolfyCore.ECS
+﻿using ProtoBuf;
+
+namespace WolfyCore.ECS
 {
     /// <summary>
-    /// The base for all variables used in <see cref="WolfyECS.WolfyAction"/>.
+    /// The base for all variables used in <see cref="Actions.WolfyAction"/>.
     /// </summary>
-    public abstract class BaseVariable
+    [ProtoContract]
+    public class BaseVariable
     {
+        [ProtoMember(100)] public uint Id { get; set; }
+        [ProtoMember(101)] public string Name { get; set; }
+
+
+        public string FormattedName()
+        {
+            return Id + ": " + Name;
+        }
     }
 }

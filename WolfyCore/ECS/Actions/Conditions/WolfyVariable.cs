@@ -1,18 +1,17 @@
 ﻿using ProtoBuf;
+using WolfyCore.ECS;
 using WolfyCore.Engine;
 
 namespace WolfyCore.Actions
 {
-    [ProtoContract] public class WolfyVariable
+    [ProtoContract] public class WolfyVariable : BaseVariable
     {
-        [ProtoMember(1)] public string Name { get; set; }
-        [ProtoMember(2)] public RefFloat Value { get; set; }
+        [ProtoMember(1)] public RefFloat Value { get; set; }
 
         public WolfyVariable() { }
 
-        public WolfyVariable(string name, float value)
+        public WolfyVariable(float value)
         {
-            Name = name;
             Value = value;
         }
     }

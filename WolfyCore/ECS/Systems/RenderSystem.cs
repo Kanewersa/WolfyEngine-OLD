@@ -21,9 +21,7 @@ namespace WolfyCore.ECS
 
         public ContentManager ContentManager { get; private set; }
         public GraphicsDevice GraphicsDevice { get; private set; }
-
-        public Texture2D BlackPane { get; private set; }
-        public float PaneTransparency { get; private set; }
+        public float FadeValue { get; private set; }
         
         public RenderSystem()
         {
@@ -42,7 +40,6 @@ namespace WolfyCore.ECS
         {
             ContentManager = content;
             LUTManager.LoadContent(content, GraphicsDevice);
-            BlackPane = content.Load<Texture2D>("Assets/Shaders/BlackPane");
         }
 
         public override void Update(GameTime gameTime)
@@ -81,13 +78,13 @@ namespace WolfyCore.ECS
                 // Set pane opacity if camera is fading.
                 if (camera.FadeToBlack)
                 {
-                    if (gameTime != null) PaneTransparency += (float)gameTime.ElapsedGameTime.TotalSeconds/camera.FadeDuration;
-                    if (PaneTransparency > 1) PaneTransparency = 1;
+                    if (gameTime != null) FadeValue += (float)gameTime.ElapsedGameTime.TotalSeconds/camera.FadeDuration;
+                    if (FadeValue > 1) FadeValue = 1;
                 }
                 else
                 {
-                    if (gameTime != null) PaneTransparency -= (float)gameTime.ElapsedGameTime.TotalSeconds/camera.FadeDuration;
-                    if (PaneTransparency < 0) PaneTransparency = 0;
+                    if (gameTime != null) FadeValue -= (float)gameTime.ElapsedGameTime.TotalSeconds/camera.FadeDuration;
+                    if (FadeValue < 0) FadeValue = 0;
                 }
 
                 // TODO: Move map loading call to different system.
@@ -130,17 +127,8 @@ namespace WolfyCore.ECS
             GraphicsDevice.SetRenderTarget(Runtime.RenderTarget);
 
             // Draw filters to the screen
-            LUTManager.Draw(spriteBatch, CameraTransform, filterOutput, width, height);
-            
-            spriteBatch.Begin();
-
-            for (var x = 0; x < width; x+=128)
-                for (var y = 0; y < height; y+=128)
-                    spriteBatch.Draw(BlackPane, new Vector2(x,y), new Color(Color.White, PaneTransparency));
-
-            
-            spriteBatch.End();
-            
+            var colorValue = new Color(1 - FadeValue, 1 - FadeValue, 1 - FadeValue, 1 - FadeValue);
+            LUTManager.Draw(spriteBatch, CameraTransform, filterOutput, width, height, colorValue);
         }
     }
 }

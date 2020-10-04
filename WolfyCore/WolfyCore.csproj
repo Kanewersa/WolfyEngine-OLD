@@ -144,6 +144,8 @@
     <Compile Include="Controllers\MapsController.cs" />
     <Compile Include="Controllers\PathsController.cs" />
     <Compile Include="Controllers\TilesetsController.cs" />
+    <Compile Include="Controllers\VariablesController.cs" />
+    <Compile Include="Controllers\VariablesData.cs" />
     <Compile Include="ECS\Actions\ActionsManager.cs" />
     <Compile Include="ECS\Actions\Audio\ChangeBGMAction.cs" />
     <Compile Include="ECS\Actions\Audio\PlaySfxAction.cs" />
@@ -163,6 +165,7 @@
     <Compile Include="ECS\Components\BorderTeleportComponent.cs" />
     <Compile Include="ECS\Components\Collision\IgnoreCollisionComponent.cs" />
     <Compile Include="ECS\Components\Collision\NoCollisionComponent.cs" />
+    <Compile Include="ECS\Components\InventoryComponent.cs" />
     <Compile Include="ECS\Components\MapBorderComponent.cs" />
     <Compile Include="ECS\Components\Movement\MovementActionComponent.cs" />
     <Compile Include="ECS\Components\ActiveComponent.cs" />
@@ -185,6 +188,7 @@
     <Compile Include="ECS\Components\PathRequestComponent.cs" />
     <Compile Include="ECS\Components\StartActionComponent.cs" />
     <Compile Include="ECS\Components\TimeEventComponent.cs" />
+    <Compile Include="ECS\Components\UI\DisplayUIComponent.cs" />
     <Compile Include="ECS\Systems\ActionSystem.cs" />
     <Compile Include="ECS\Systems\AnimationSystem.cs" />
     <Compile Include="ECS\Systems\Audio\SFXSystem.cs" />
@@ -217,7 +221,6 @@
     <Compile Include="Engine\MeasureTime.cs" />
     <Compile Include="Engine\Pathfinding\WolfyStar.cs" />
     <Compile Include="Engine\Player\Camera.cs" />
-    <Compile Include="Engine\Player\Input.cs" />
     <Compile Include="Engine\Random.cs" />
     <Compile Include="Engine\RefBool.cs" />
     <Compile Include="Engine\RefFloat.cs" />
@@ -234,6 +237,9 @@
     <Compile Include="Game\InGameTime.cs" />
     <Compile Include="Game\Inventory\GameItem.cs" />
     <Compile Include="Game\Inventory\Inventory.cs" />
+    <Compile Include="Controllers\InventoryController.cs" />
+    <Compile Include="Game\Inventory\InventoryData.cs" />
+    <Compile Include="Game\Inventory\UsableItem.cs" />
     <Compile Include="Game\Maps\BaseLayer.cs" />
     <Compile Include="Game\Maps\CollisionMap.cs" />
     <Compile Include="Game\Maps\EntityLayer.cs" />

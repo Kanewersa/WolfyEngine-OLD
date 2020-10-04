@@ -23,11 +23,20 @@ namespace WolfyECS
             _pendingIds = new Queue<uint>(maxCapacity);
         }
 
+        /// <summary>
+        /// Adds the given id to pending ids.
+        /// Allows the recycling of used ids.
+        /// </summary>
+        /// <param name="id"></param>
         public void AddId(uint id)
         {
             _pendingIds.Enqueue(id);
         }
 
+        /// <summary>
+        /// Returns the next free id.
+        /// </summary>
+        /// <returns></returns>
         public uint GetId()
         {
             if (_pendingIds.Count > 0)
@@ -36,6 +45,10 @@ namespace WolfyECS
             return _lastId;
         }
 
+        /// <summary>
+        /// Returns the biggest used id.
+        /// </summary>
+        /// <returns></returns>
         public uint GetLastId()
         {
             return _lastId;

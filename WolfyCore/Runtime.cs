@@ -15,5 +15,6 @@ namespace WolfyCore
         public static bool IsWindows { get; set; }
 
         public static RenderTarget2D RenderTarget { get; set; }
+        public static bool GameRunning { get; set; }
     }
 }

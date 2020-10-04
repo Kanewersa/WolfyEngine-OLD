@@ -29,12 +29,13 @@ namespace WolfyCore.ECS
                 var input = entity.GetComponent<InputComponent>();
 
                 _currentKeyboardState = Keyboard.GetState();
-                input.ArrowDown = _currentKeyboardState.IsKeyDown(Keys.Down);
-                input.ArrowLeft = _currentKeyboardState.IsKeyDown(Keys.Left);
-                input.ArrowRight = _currentKeyboardState.IsKeyDown(Keys.Right);
-                input.ArrowUp = _currentKeyboardState.IsKeyDown(Keys.Up);
+                input.ArrowDown = _currentKeyboardState.IsKeyDown(Keys.Down) || _currentKeyboardState.IsKeyDown(Keys.S);
+                input.ArrowLeft = _currentKeyboardState.IsKeyDown(Keys.Left) || _currentKeyboardState.IsKeyDown(Keys.A);
+                input.ArrowRight = _currentKeyboardState.IsKeyDown(Keys.Right) || _currentKeyboardState.IsKeyDown(Keys.D);
+                input.ArrowUp = _currentKeyboardState.IsKeyDown(Keys.Up) || _currentKeyboardState.IsKeyDown(Keys.W);
                 input.LeftShift = _currentKeyboardState.IsKeyDown(Keys.LeftShift);
                 input.Enter = _currentKeyboardState.IsKeyDown(Keys.Enter);
+                input.Escape = _currentKeyboardState.IsKeyDown(Keys.Escape);
 
                 if (input.ArrowUp)
                     AddMovementAction(entity, new Vector2(0, -1));
@@ -46,6 +47,8 @@ namespace WolfyCore.ECS
                     AddMovementAction(entity, new Vector2(-1, 0));
                 else if (input.Enter)
                     AddInteraction(entity);
+                else if (input.Escape)
+                    HandleUI(entity);
 
                 MovementSpeed(entity, input);
             });
@@ -85,6 +88,18 @@ namespace WolfyCore.ECS
             if (!e.HasComponent<InteractionComponent>())
             {
                 e.AddComponent<InteractionComponent>();
+            }
+        }
+
+        private static void HandleUI(Entity e)
+        {
+            if (e.HasComponent<DisplayUIComponent>())
+            {
+                e.RemoveComponent<DisplayUIComponent>();
+            }
+            else
+            {
+                e.AddComponent<DisplayUIComponent>();
             }
         }
     }

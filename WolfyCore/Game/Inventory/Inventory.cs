@@ -1,21 +1,43 @@
 ﻿using System.Collections.Generic;
+using ProtoBuf;
 
-namespace WolfyCore.Game.Inventory
+namespace WolfyCore.Game
 {
-    public class Inventory
+    [ProtoContract] public class Inventory
     {
-        //private List<GameItem> Items;
+        [ProtoMember(1)] public uint Id { get; set; }
+        [ProtoMember(2)] public Dictionary<GameItem, int> Items { get; private set; }
 
-        private Dictionary<int, GameItem> Items;
-        
+        public Inventory(uint id)
+        {
+            Id = id;
+        }
+
         public void AddItem(GameItem item)
         {
-
+            if (Items.ContainsKey(item))
+            {
+                Items[item] += 1;
+            }
+            else
+            {
+                Items[item] = 1;
+            }
         }
 
         public void RemoveItem(GameItem item)
         {
-            
+            if (Items.ContainsKey(item))
+            {
+                Items[item] -= 1;
+                if (Items[item] == 0)
+                    Items.Remove(item);
+            }
+        }
+
+        public bool HasItem(GameItem item)
+        {
+            return Items.ContainsKey(item);
         }
     }
 }

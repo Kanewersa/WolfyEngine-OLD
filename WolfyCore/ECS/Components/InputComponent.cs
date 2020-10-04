@@ -11,6 +11,7 @@ namespace WolfyCore.ECS
         [ProtoMember(4)] public bool ArrowRight { get; set; }
         [ProtoMember(5)] public bool LeftShift { get; set; }
         [ProtoMember(6)] public bool Enter { get; set; }
+        [ProtoMember(7)] public bool Escape { get; set; }
 
         public InputComponent() { }
     }
