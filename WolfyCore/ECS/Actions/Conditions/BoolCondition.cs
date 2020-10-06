@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System.Linq;
+using Microsoft.Xna.Framework;
 using ProtoBuf;
 using WolfyCore.Actions;
 
@@ -28,12 +29,14 @@ namespace WolfyCore.ECS
 
         public override void Execute()
         {
-            
+            // Get actions from WolfyBool and execute them asynchronously.
+            if(Variable.OnChangeActions.Any())
+                Target.AddComponent(new StartActionComponent(Variable.OnChangeActions, true));
         }
 
         public override void Validate(GameTime gameTime)
         {
-            
+            Complete();
         }
 
         public override string GetDescription()

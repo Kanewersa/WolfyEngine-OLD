@@ -248,6 +248,7 @@ namespace WolfyEngine.Forms
             ProjectsController.Instance.SaveCurrentProject();
             MapsController.Instance.Save();
             TilesetsController.Instance.Save();
+            VariablesController.Instance.Save();
             GameController.Instance.Save();
             EntityController.Instance.Save();
         }

@@ -186,6 +186,12 @@
     <Compile Include="Source\WinForms\Controls\ActionControls\NewConditionsListDisplay.Designer.cs">
       <DependentUpon>NewConditionsListDisplay.cs</DependentUpon>
     </Compile>
+    <Compile Include="Source\WinForms\Controls\ActionsListView.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Source\WinForms\Controls\ActionsListView.Designer.cs">
+      <DependentUpon>ActionsListView.cs</DependentUpon>
+    </Compile>
     <Compile Include="Source\WinForms\Controls\EntityContextMenu.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -225,6 +231,12 @@
     </Compile>
     <Compile Include="Source\WinForms\Forms\ActionsForms\Camera\CameraFadeActionForm.Designer.cs">
       <DependentUpon>CameraFadeActionForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Source\WinForms\Forms\ActionsForms\Conditions\BoolConditionForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Source\WinForms\Forms\ActionsForms\Conditions\BoolConditionForm.Designer.cs">
+      <DependentUpon>BoolConditionForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Source\WinForms\Forms\ActionsForms\Movement\TeleportActionForm.cs">
       <SubType>Form</SubType>
@@ -295,6 +307,12 @@
     </Compile>
     <Compile Include="Source\WinForms\Forms\Variables\VariableDocument.Designer.cs">
       <DependentUpon>VariableDocument.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Source\WinForms\Forms\Variables\VariableSelectForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Source\WinForms\Forms\Variables\VariableSelectForm.Designer.cs">
+      <DependentUpon>VariableSelectForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Source\WinForms\Forms\Variables\VariablesForm.cs">
       <SubType>Form</SubType>
@@ -473,6 +491,9 @@
     <EmbeddedResource Include="Source\WinForms\Controls\ActionControls\NewConditionsListDisplay.resx">
       <DependentUpon>NewConditionsListDisplay.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Source\WinForms\Controls\ActionsListView.resx">
+      <DependentUpon>ActionsListView.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Source\WinForms\Forms\ActionsForms\Audio\ChangeBGMActionForm.resx">
       <DependentUpon>ChangeBGMActionForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -481,6 +502,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Source\WinForms\Forms\ActionsForms\Camera\CameraFadeActionForm.resx">
       <DependentUpon>CameraFadeActionForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Source\WinForms\Forms\ActionsForms\Conditions\BoolConditionForm.resx">
+      <DependentUpon>BoolConditionForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Source\WinForms\Forms\ActionsForms\Movement\TeleportActionForm.resx">
       <DependentUpon>TeleportActionForm.cs</DependentUpon>
@@ -515,6 +539,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Source\WinForms\Forms\Variables\VariableDocument.resx">
       <DependentUpon>VariableDocument.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Source\WinForms\Forms\Variables\VariableSelectForm.resx">
+      <DependentUpon>VariableSelectForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Source\WinForms\Forms\Variables\VariablesForm.resx">
       <DependentUpon>VariablesForm.cs</DependentUpon>

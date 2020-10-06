@@ -24,8 +24,9 @@ namespace WolfyCore.Controllers
         /// <returns></returns>
         public List<Entity> GetEntities(int id)
         {
-            Info[id] ??= new List<Entity>();
-
+            if (!Info.ContainsKey(id))
+                Info.Add(id, new List<Entity>());
+            
             return Info[id];
         }
 

@@ -42,9 +42,9 @@
             this.GroupBox.Controls.Add(this.ValueButton);
             this.GroupBox.Controls.Add(this.BooleanButton);
             this.GroupBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.GroupBox.Location = new System.Drawing.Point(0, 0);
+            this.GroupBox.Location = new System.Drawing.Point(0, 57);
             this.GroupBox.Name = "GroupBox";
-            this.GroupBox.Size = new System.Drawing.Size(463, 475);
+            this.GroupBox.Size = new System.Drawing.Size(463, 418);
             this.GroupBox.TabIndex = 2;
             this.GroupBox.TabStop = false;
             this.GroupBox.Text = "Select variable type";
@@ -96,6 +96,7 @@
             this.DockText = "Variable name";
             this.Name = "BaseVariableDocument";
             this.Size = new System.Drawing.Size(463, 475);
+            this.Controls.SetChildIndex(this.GroupBox, 0);
             this.GroupBox.ResumeLayout(false);
             this.ResumeLayout(false);
 

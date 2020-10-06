@@ -30,14 +30,20 @@
         {
             this.LayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.BoolSection = new DarkUI.Controls.DarkSectionPanel();
-            this.VariableSection = new DarkUI.Controls.DarkSectionPanel();
             this.BoolLayout = new System.Windows.Forms.TableLayoutPanel();
-            this.UnknownButton1 = new DarkUI.Controls.DarkButton();
-            this.AddConditionButton = new DarkUI.Controls.DarkButton();
+            this.AddBoolButton = new DarkUI.Controls.DarkButton();
             this.darkButton155 = new DarkUI.Controls.DarkButton();
+            this.UnknownButton1 = new DarkUI.Controls.DarkButton();
+            this.VariableSection = new DarkUI.Controls.DarkSectionPanel();
+            this.VariableLayout = new System.Windows.Forms.TableLayoutPanel();
+            this.AddFloatButton = new DarkUI.Controls.DarkButton();
+            this.darkButton2 = new DarkUI.Controls.DarkButton();
+            this.darkButton3 = new DarkUI.Controls.DarkButton();
             this.LayoutPanel.SuspendLayout();
             this.BoolSection.SuspendLayout();
             this.BoolLayout.SuspendLayout();
+            this.VariableSection.SuspendLayout();
+            this.VariableLayout.SuspendLayout();
             this.SuspendLayout();
             // 
             // LayoutPanel
@@ -67,21 +73,11 @@
             this.BoolSection.Size = new System.Drawing.Size(182, 462);
             this.BoolSection.TabIndex = 4;
             // 
-            // VariableSection
-            // 
-            this.VariableSection.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.VariableSection.Location = new System.Drawing.Point(182, 0);
-            this.VariableSection.Margin = new System.Windows.Forms.Padding(0);
-            this.VariableSection.Name = "VariableSection";
-            this.VariableSection.SectionHeader = "Variable";
-            this.VariableSection.Size = new System.Drawing.Size(182, 462);
-            this.VariableSection.TabIndex = 6;
-            // 
             // BoolLayout
             // 
             this.BoolLayout.ColumnCount = 1;
             this.BoolLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.BoolLayout.Controls.Add(this.AddConditionButton, 0, 0);
+            this.BoolLayout.Controls.Add(this.AddBoolButton, 0, 0);
             this.BoolLayout.Controls.Add(this.darkButton155, 0, 1);
             this.BoolLayout.Controls.Add(this.UnknownButton1, 0, 2);
             this.BoolLayout.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -100,28 +96,17 @@
             this.BoolLayout.Size = new System.Drawing.Size(180, 436);
             this.BoolLayout.TabIndex = 1;
             // 
-            // UnknownButton1
+            // AddBoolButton
             // 
-            this.UnknownButton1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.UnknownButton1.Enabled = false;
-            this.UnknownButton1.Location = new System.Drawing.Point(0, 62);
-            this.UnknownButton1.Margin = new System.Windows.Forms.Padding(0, 2, 0, 2);
-            this.UnknownButton1.Name = "UnknownButton1";
-            this.UnknownButton1.Padding = new System.Windows.Forms.Padding(5);
-            this.UnknownButton1.Size = new System.Drawing.Size(180, 26);
-            this.UnknownButton1.TabIndex = 13;
-            this.UnknownButton1.Text = "Unavailable";
-            // 
-            // AddConditionButton
-            // 
-            this.AddConditionButton.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.AddConditionButton.Location = new System.Drawing.Point(0, 2);
-            this.AddConditionButton.Margin = new System.Windows.Forms.Padding(0, 2, 0, 2);
-            this.AddConditionButton.Name = "AddConditionButton";
-            this.AddConditionButton.Padding = new System.Windows.Forms.Padding(5);
-            this.AddConditionButton.Size = new System.Drawing.Size(180, 26);
-            this.AddConditionButton.TabIndex = 11;
-            this.AddConditionButton.Text = "Add condition";
+            this.AddBoolButton.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.AddBoolButton.Location = new System.Drawing.Point(0, 2);
+            this.AddBoolButton.Margin = new System.Windows.Forms.Padding(0, 2, 0, 2);
+            this.AddBoolButton.Name = "AddBoolButton";
+            this.AddBoolButton.Padding = new System.Windows.Forms.Padding(5);
+            this.AddBoolButton.Size = new System.Drawing.Size(180, 26);
+            this.AddBoolButton.TabIndex = 11;
+            this.AddBoolButton.Text = "Add bool condition";
+            this.AddBoolButton.Click += new System.EventHandler(this.AddBoolButton_Click);
             // 
             // darkButton155
             // 
@@ -135,6 +120,88 @@
             this.darkButton155.TabIndex = 12;
             this.darkButton155.Text = "Unavailable";
             // 
+            // UnknownButton1
+            // 
+            this.UnknownButton1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.UnknownButton1.Enabled = false;
+            this.UnknownButton1.Location = new System.Drawing.Point(0, 62);
+            this.UnknownButton1.Margin = new System.Windows.Forms.Padding(0, 2, 0, 2);
+            this.UnknownButton1.Name = "UnknownButton1";
+            this.UnknownButton1.Padding = new System.Windows.Forms.Padding(5);
+            this.UnknownButton1.Size = new System.Drawing.Size(180, 26);
+            this.UnknownButton1.TabIndex = 13;
+            this.UnknownButton1.Text = "Unavailable";
+            // 
+            // VariableSection
+            // 
+            this.VariableSection.Controls.Add(this.VariableLayout);
+            this.VariableSection.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.VariableSection.Location = new System.Drawing.Point(182, 0);
+            this.VariableSection.Margin = new System.Windows.Forms.Padding(0);
+            this.VariableSection.Name = "VariableSection";
+            this.VariableSection.SectionHeader = "Variable";
+            this.VariableSection.Size = new System.Drawing.Size(182, 462);
+            this.VariableSection.TabIndex = 6;
+            // 
+            // VariableLayout
+            // 
+            this.VariableLayout.ColumnCount = 1;
+            this.VariableLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.VariableLayout.Controls.Add(this.AddFloatButton, 0, 0);
+            this.VariableLayout.Controls.Add(this.darkButton2, 0, 1);
+            this.VariableLayout.Controls.Add(this.darkButton3, 0, 2);
+            this.VariableLayout.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.VariableLayout.Location = new System.Drawing.Point(1, 25);
+            this.VariableLayout.Name = "VariableLayout";
+            this.VariableLayout.RowCount = 8;
+            this.VariableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            this.VariableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            this.VariableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            this.VariableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            this.VariableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            this.VariableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            this.VariableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            this.VariableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            this.VariableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.VariableLayout.Size = new System.Drawing.Size(180, 436);
+            this.VariableLayout.TabIndex = 2;
+            // 
+            // AddFloatButton
+            // 
+            this.AddFloatButton.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.AddFloatButton.Location = new System.Drawing.Point(0, 2);
+            this.AddFloatButton.Margin = new System.Windows.Forms.Padding(0, 2, 0, 2);
+            this.AddFloatButton.Name = "AddFloatButton";
+            this.AddFloatButton.Padding = new System.Windows.Forms.Padding(5);
+            this.AddFloatButton.Size = new System.Drawing.Size(180, 26);
+            this.AddFloatButton.TabIndex = 11;
+            this.AddFloatButton.Text = "Add float condition";
+            this.AddFloatButton.Click += new System.EventHandler(this.AddFloatButton_Click);
+            // 
+            // darkButton2
+            // 
+            this.darkButton2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.darkButton2.Enabled = false;
+            this.darkButton2.Location = new System.Drawing.Point(0, 32);
+            this.darkButton2.Margin = new System.Windows.Forms.Padding(0, 2, 0, 2);
+            this.darkButton2.Name = "darkButton2";
+            this.darkButton2.Padding = new System.Windows.Forms.Padding(5);
+            this.darkButton2.Size = new System.Drawing.Size(180, 26);
+            this.darkButton2.TabIndex = 12;
+            this.darkButton2.Text = "Unavailable";
+            // 
+            // darkButton3
+            // 
+            this.darkButton3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.darkButton3.Enabled = false;
+            this.darkButton3.Location = new System.Drawing.Point(0, 62);
+            this.darkButton3.Margin = new System.Windows.Forms.Padding(0, 2, 0, 2);
+            this.darkButton3.Name = "darkButton3";
+            this.darkButton3.Padding = new System.Windows.Forms.Padding(5);
+            this.darkButton3.Size = new System.Drawing.Size(180, 26);
+            this.darkButton3.TabIndex = 13;
+            this.darkButton3.Text = "Unavailable";
+            // 
             // NewConditionsListDisplay
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -146,6 +213,8 @@
             this.LayoutPanel.ResumeLayout(false);
             this.BoolSection.ResumeLayout(false);
             this.BoolLayout.ResumeLayout(false);
+            this.VariableSection.ResumeLayout(false);
+            this.VariableLayout.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -157,7 +226,11 @@
         private DarkUI.Controls.DarkSectionPanel VariableSection;
         private System.Windows.Forms.TableLayoutPanel BoolLayout;
         private DarkUI.Controls.DarkButton UnknownButton1;
-        private DarkUI.Controls.DarkButton AddConditionButton;
+        private DarkUI.Controls.DarkButton AddBoolButton;
         private DarkUI.Controls.DarkButton darkButton155;
+        private System.Windows.Forms.TableLayoutPanel VariableLayout;
+        private DarkUI.Controls.DarkButton AddFloatButton;
+        private DarkUI.Controls.DarkButton darkButton2;
+        private DarkUI.Controls.DarkButton darkButton3;
     }
 }

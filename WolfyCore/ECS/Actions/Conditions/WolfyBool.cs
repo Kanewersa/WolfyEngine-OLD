@@ -1,4 +1,5 @@
-﻿using ProtoBuf;
+﻿using System.Collections.Generic;
+using ProtoBuf;
 using WolfyCore.ECS;
 using WolfyCore.Engine;
 
@@ -6,15 +7,22 @@ namespace WolfyCore.Actions
 {
     [ProtoContract] public class WolfyBool : BaseVariable
     {
-        [ProtoMember(1)] public string Name { get; set; }
-        [ProtoMember(2)] public RefBool Value { get; set; }
+        /// <summary>
+        /// Value of the boolean.
+        /// </summary>
+        [ProtoMember(1)] public RefBool Value { get; set; }
+
+        /// <summary>
+        /// Actions to be executed when boolean value changes.
+        /// </summary>
+        [ProtoMember(2)] public List<WolfyAction> OnChangeActions { get; set; }
 
         public WolfyBool() { }
 
-        public WolfyBool(string name, bool value)
+        public WolfyBool(bool value)
         {
-            Name = name;
             Value = value;
+            OnChangeActions = new List<WolfyAction>();
         }
     }
 }

@@ -8,6 +8,7 @@ namespace WolfyEngine.Forms
     {
         public BaseVariable Variable;
         public event EventHandler<Tuple<Type, BaseVariable>> TypeChanged;
+        public event EventHandler<BaseVariable> NameChanged; 
 
         protected virtual void OnTypeChanged(Tuple<Type, BaseVariable> e)
         {
@@ -23,6 +24,13 @@ namespace WolfyEngine.Forms
         {
             Variable = variable;
             DockText = variable.FormattedName();
+            NameTextBox.Text = variable.Name;
+        }
+
+        private void NameTextBox_TextChanged(object sender, EventArgs e)
+        {
+            Variable.Name = NameTextBox.Text;
+            NameChanged?.Invoke(this, Variable);
         }
     }
 }

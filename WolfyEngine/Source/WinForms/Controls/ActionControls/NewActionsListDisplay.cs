@@ -15,12 +15,7 @@ namespace WolfyEngine.Controls
 
         private void TeleportButton_Click(object sender, System.EventArgs e)
         {
-            using (var form = new TeleportActionForm())
-            {
-                form.Initialize(Entity);
-                form.OnSave += InvokeOnSelect;
-                form.ShowDialog();
-            }
+            OpenForm(new TeleportActionForm());
         }
 
         private void MoveEntityButton_Click(object sender, System.EventArgs e)
@@ -49,12 +44,7 @@ namespace WolfyEngine.Controls
 
         private void FadeCameraButton_Click(object sender, System.EventArgs e)
         {
-            using (var form = new CameraFadeActionForm())
-            {
-                form.Initialize(Entity);
-                form.OnSave += InvokeOnSelect;
-                form.ShowDialog();
-            }
+            OpenForm(new CameraFadeActionForm());
         }
 
         #endregion
@@ -63,22 +53,12 @@ namespace WolfyEngine.Controls
 
         private void StartDialogButton_Click(object sender, System.EventArgs e)
         {
-            using (var form = new StartDialogForm())
-            {
-                form.Initialize(Entity);
-                form.OnSave += InvokeOnSelect;
-                form.ShowDialog();
-            }
+            OpenForm(new StartDialogForm());
         }
 
         private void PlaySongButton_Click(object sender, System.EventArgs e)
         {
-            using (var form = new ChangeBGMActionForm())
-            {
-                form.Initialize(Entity);
-                form.OnSave += InvokeOnSelect;
-                form.ShowDialog();
-            }
+            OpenForm(new ChangeBGMActionForm());
         }
 
         #endregion

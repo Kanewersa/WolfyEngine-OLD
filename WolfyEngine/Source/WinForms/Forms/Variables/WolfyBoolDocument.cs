@@ -16,7 +16,15 @@ namespace WolfyEngine.Forms
         public override void Initialize(BaseVariable variable)
         {
             base.Initialize(variable);
+            if (Variable.Value == true)
+            {
+                TrueValueButton.Checked = true;
+            }
+        }
 
+        private void TrueValueButton_CheckedChanged(object sender, EventArgs e)
+        {
+            Variable.Value = TrueValueButton.Checked;
         }
     }
 }

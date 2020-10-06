@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using ProtoBuf;
+using ProtoBuf.Meta;
 using WolfyCore.Actions;
 using WolfyECS;
 using WolfyEngine;
@@ -91,11 +92,11 @@ namespace WolfyCore
                 Keys.Add(generic.AssemblyQualifiedName ?? throw new InvalidOperationException(), PendingTypes.Any() ? PendingTypes.Dequeue() : Counter++);
             }
 
+            // TODO: Check if foreach is redundant and remove it if it is.
             /*foreach (var k in Keys)
             {
                 RuntimeTypeModel.Default[typeof(T)]
                     .AddSubType(k.Value, typeof(EntityComponent<>).MakeGenericType(Type.GetType(k.Key)).UnderlyingSystemType);
-                Console.WriteLine("ID: " + k.Value + "," + "Loaded type: " + typeof(EntityComponent<>).MakeGenericType(Type.GetType(k.Key)).UnderlyingSystemType);
             }*/
         }
     }

@@ -31,6 +31,11 @@ namespace WolfyCore.Controllers
             }
         }
 
+        public void Save()
+        {
+            Serialization.ProtoSerialize(VariablesData, VariablesPath);
+        }
+
         /// <summary>
         /// Creates the selected count of variables.
         /// </summary>

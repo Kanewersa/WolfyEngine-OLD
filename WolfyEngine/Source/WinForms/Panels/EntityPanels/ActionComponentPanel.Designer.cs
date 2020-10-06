@@ -31,7 +31,7 @@
             this.ToolStrip = new DarkUI.Controls.DarkToolStrip();
             this.AddActionButton = new System.Windows.Forms.ToolStripButton();
             this.RemoveActionButton = new System.Windows.Forms.ToolStripButton();
-            this.ActionsListView = new DarkUI.Controls.DarkListView();
+            this.ActionsListView = new WolfyEngine.Controls.ActionsListView();
             this.ToolStrip.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -75,14 +75,14 @@
             // 
             // ActionsListView
             // 
+            this.ActionsListView.ActionItems = null;
             this.ActionsListView.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
             this.ActionsListView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ActionsListView.Location = new System.Drawing.Point(0, 0);
             this.ActionsListView.Name = "ActionsListView";
             this.ActionsListView.Size = new System.Drawing.Size(606, 473);
-            this.ActionsListView.TabIndex = 2;
-            this.ActionsListView.Text = "Action";
-            this.ActionsListView.DoubleClick += new System.EventHandler(this.OpenSelectActionForm);
+            this.ActionsListView.TabIndex = 4;
+            this.ActionsListView.Text = "actionsListView1";
             // 
             // ActionComponentPanel
             // 
@@ -105,6 +105,6 @@
         private DarkUI.Controls.DarkToolStrip ToolStrip;
         private System.Windows.Forms.ToolStripButton AddActionButton;
         private System.Windows.Forms.ToolStripButton RemoveActionButton;
-        private DarkUI.Controls.DarkListView ActionsListView;
+        private ActionsListView ActionsListView;
     }
 }

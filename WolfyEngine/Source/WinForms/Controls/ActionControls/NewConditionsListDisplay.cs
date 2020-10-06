@@ -13,5 +13,15 @@ namespace WolfyEngine.Controls
         {
             InitializeComponent();
         }
+
+        private void AddBoolButton_Click(object sender, EventArgs e)
+        {
+            OpenForm(new BoolConditionForm());
+        }
+
+        private void AddFloatButton_Click(object sender, EventArgs e)
+        {
+            OpenForm(new VariableConditionForm());
+        }
     }
 }

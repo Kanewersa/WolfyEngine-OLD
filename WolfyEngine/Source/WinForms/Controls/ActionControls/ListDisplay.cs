@@ -8,6 +8,11 @@ namespace WolfyEngine.Controls
     {
         public event WolfyActionHandler OnSelect;
 
+        private ListDisplay() : base()
+        {
+            InitializeComponent();
+        }
+
         public ListDisplay(Type componentType) : base(componentType)
         {
             InitializeComponent();
@@ -16,6 +21,14 @@ namespace WolfyEngine.Controls
         protected void InvokeOnSelect(WolfyAction action)
         {
             OnSelect?.Invoke(action);
+        }
+
+        protected void OpenForm(BaseActionForm form)
+        {
+            using var f = form;
+            f.Initialize(Entity);
+            f.OnSave += InvokeOnSelect;
+            f.ShowDialog();
         }
     }
 }

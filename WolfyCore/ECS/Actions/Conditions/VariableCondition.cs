@@ -34,12 +34,13 @@ namespace WolfyCore.ECS
 
         public override void Execute()
         {
-            throw new System.NotImplementedException();
+            // Get actions from WolfyVariable and execute them asynchronously.
+            Target.AddComponent(new StartActionComponent(Variable.OnChangeActions, true));
         }
 
         public override void Validate(GameTime gameTime)
         {
-            throw new System.NotImplementedException();
+            Complete();
         }
 
         public override string GetDescription()

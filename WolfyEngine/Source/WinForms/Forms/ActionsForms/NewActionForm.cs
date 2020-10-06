@@ -8,7 +8,7 @@ namespace WolfyEngine.Forms
 {
     public delegate void WolfyActionHandler(WolfyAction action);
 
-    public partial class NewActionForm : DarkForm
+    public partial class NewActionForm : WolfyForm
     {
         public Entity Entity { get; private set; }
         public ListDisplay ListDisplay { get; private set; }
@@ -41,8 +41,7 @@ namespace WolfyEngine.Forms
 
         private void SetDisplay(ListDisplay listDisplay)
         {
-            if (ListDisplay != null)
-                ListDisplay.Dispose();
+            ListDisplay?.Dispose();
 
             ListDisplay = listDisplay;
             LayoutPanel.Controls.Add(ListDisplay);

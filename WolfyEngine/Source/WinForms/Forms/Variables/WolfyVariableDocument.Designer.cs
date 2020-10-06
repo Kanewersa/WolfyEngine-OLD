@@ -28,32 +28,32 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.darkTitle1 = new DarkUI.Controls.DarkTitle();
+            this.VariableSectionPanel = new DarkUI.Controls.DarkSectionPanel();
             this.SuspendLayout();
             // 
-            // darkTitle1
+            // VariableSectionPanel
             // 
-            this.darkTitle1.AutoSize = true;
-            this.darkTitle1.Location = new System.Drawing.Point(57, 91);
-            this.darkTitle1.Name = "darkTitle1";
-            this.darkTitle1.Size = new System.Drawing.Size(44, 13);
-            this.darkTitle1.TabIndex = 1;
-            this.darkTitle1.Text = "variable";
+            this.VariableSectionPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.VariableSectionPanel.Location = new System.Drawing.Point(0, 59);
+            this.VariableSectionPanel.Name = "VariableSectionPanel";
+            this.VariableSectionPanel.SectionHeader = "Variable setup";
+            this.VariableSectionPanel.Size = new System.Drawing.Size(352, 359);
+            this.VariableSectionPanel.TabIndex = 2;
             // 
             // WolfyVariableDocument
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.darkTitle1);
+            this.Controls.Add(this.VariableSectionPanel);
             this.Name = "WolfyVariableDocument";
             this.Size = new System.Drawing.Size(352, 418);
+            this.Controls.SetChildIndex(this.VariableSectionPanel, 0);
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
 
-        private DarkUI.Controls.DarkTitle darkTitle1;
+        private DarkUI.Controls.DarkSectionPanel VariableSectionPanel;
     }
 }

@@ -13,14 +13,11 @@ namespace WolfyEngine.Forms
     {
         private Dictionary<uint, BaseVariable> Variables { get; set; }
         private List<BaseVariable> DisplayedVariables { get; set; }
-        //private List<VariableDocument> DisplayedDocuments { get; set; }
-
         public int VariablesLimit { get; set; }
 
         public VariablesForm()
         {
             InitializeComponent();
-            //DisplayedDocuments = new List<VariableDocument>(4);
             Variables = VariablesController.Instance.GetVariables();
             VariablesLimit = Variables.Count;
             DisplayedVariables = new List<BaseVariable>(VariablesLimit);
@@ -62,7 +59,6 @@ namespace WolfyEngine.Forms
             changedVariable.Name = name;
             VariablesController.Instance.ReplaceVariable(id, changedVariable);
 
-            //DisplayedDocuments.Remove(DockPanel.ActiveContent as VariableDocument);
             DockPanel.RemoveContent(DockPanel.ActiveDocument);
             DisplayDocument(CreateDocument(changedVariable));
         }
@@ -79,6 +75,17 @@ namespace WolfyEngine.Forms
 
             document.Initialize(variable);
             document.TypeChanged += SwitchVariableType;
+            document.NameChanged += delegate(object sender, BaseVariable variable)
+            {
+                foreach (var item in VariablesListView.Items)
+                {
+                    if (uint.Parse(item.Text.Substring(0, item.Text.IndexOf(":"))) == variable.Id)
+                    {
+                        item.Text = variable.FormattedName();
+                        return;
+                    }
+                }
+            };
             return document;
         }
 
@@ -140,7 +147,8 @@ namespace WolfyEngine.Forms
 
             foreach (var variable in Variables)
             {
-                if (variable.Value.Name.Contains(filterValue))
+                uint.TryParse(filterValue, out var id);
+                if (variable.Value.Name.Contains(filterValue) || variable.Key == id)
                 {
                     DisplayedVariables.Add(variable.Value);
                 }
