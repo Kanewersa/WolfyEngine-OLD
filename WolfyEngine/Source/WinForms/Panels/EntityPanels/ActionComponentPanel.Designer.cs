@@ -32,6 +32,7 @@
             this.AddActionButton = new System.Windows.Forms.ToolStripButton();
             this.RemoveActionButton = new System.Windows.Forms.ToolStripButton();
             this.ActionsListView = new WolfyEngine.Controls.ActionsListView();
+            this.darkButton1 = new DarkUI.Controls.DarkButton();
             this.ToolStrip.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -60,7 +61,7 @@
             this.AddActionButton.Name = "AddActionButton";
             this.AddActionButton.Size = new System.Drawing.Size(85, 23);
             this.AddActionButton.Text = "Add action";
-            this.AddActionButton.Click += new System.EventHandler(this.AddActionButton_Click);
+            this.AddActionButton.Click += new System.EventHandler(this.CreateNewActionForm);
             // 
             // RemoveActionButton
             // 
@@ -84,11 +85,22 @@
             this.ActionsListView.TabIndex = 4;
             this.ActionsListView.Text = "actionsListView1";
             // 
+            // darkButton1
+            // 
+            this.darkButton1.Location = new System.Drawing.Point(256, 473);
+            this.darkButton1.Name = "darkButton1";
+            this.darkButton1.Padding = new System.Windows.Forms.Padding(5);
+            this.darkButton1.Size = new System.Drawing.Size(75, 23);
+            this.darkButton1.TabIndex = 5;
+            this.darkButton1.Text = "Debug";
+            this.darkButton1.Click += new System.EventHandler(this.darkButton1_Click);
+            // 
             // ActionComponentPanel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Transparent;
+            this.Controls.Add(this.darkButton1);
             this.Controls.Add(this.ActionsListView);
             this.Controls.Add(this.ToolStrip);
             this.DockText = "Action";
@@ -106,5 +118,6 @@
         private System.Windows.Forms.ToolStripButton AddActionButton;
         private System.Windows.Forms.ToolStripButton RemoveActionButton;
         private ActionsListView ActionsListView;
+        private DarkUI.Controls.DarkButton darkButton1;
     }
 }

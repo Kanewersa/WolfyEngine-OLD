@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Windows.Forms;
 using DarkUI.Controls;
-using DarkUI.Docking;
 using WolfyCore.Actions;
 using WolfyCore.Controllers;
 using WolfyCore.ECS;
@@ -11,13 +11,32 @@ namespace WolfyEngine.Forms
 {
     public partial class VariablesForm : WolfyForm
     {
+        public event EventHandler<BaseVariable> VariableSelected;
         private Dictionary<uint, BaseVariable> Variables { get; set; }
         private List<BaseVariable> DisplayedVariables { get; set; }
         public int VariablesLimit { get; set; }
 
-        public VariablesForm()
+        /// <summary>
+        /// Default constructor.
+        /// </summary>
+        /// <param name="allowSelect">Determines if form works as a selection form.</param>
+        public VariablesForm(bool allowSelect = false)
         {
             InitializeComponent();
+
+            if (!allowSelect)
+                SelectVariableButton.Hide();
+            else
+            {
+                VariablesListView.MouseDoubleClick += delegate(object sender, MouseEventArgs args)
+                {
+                    if (VariablesListView.SelectedIndices.Any())
+                    {
+                        SelectVariable(this, null);
+                    }
+                };
+            }
+
             Variables = VariablesController.Instance.GetVariables();
             VariablesLimit = Variables.Count;
             DisplayedVariables = new List<BaseVariable>(VariablesLimit);
@@ -29,13 +48,23 @@ namespace WolfyEngine.Forms
         {
             if (!VariablesListView.SelectedIndices.Any())
                 return;
+
+            var variable = GetSelectedVariable();
+            if (variable == null)
+                return;
+
+            DisplayDocument(CreateDocument(variable));
+        }
+
+        private BaseVariable GetSelectedVariable()
+        {
+            if (!VariablesListView.SelectedIndices.Any())
+                return null;
             
             var variableIndex = VariablesListView.SelectedIndices[0];
             var str = VariablesListView.Items[variableIndex].Text;
             var variableId = str.Substring(0, str.IndexOf(":", StringComparison.Ordinal));
-            var variable = VariablesController.Instance.GetVariable(uint.Parse(variableId));
-
-            DisplayDocument(CreateDocument(variable));
+            return VariablesController.Instance.GetVariable(uint.Parse(variableId));
         }
 
         private void SwitchVariableType(object sender, Tuple<Type, BaseVariable> tuple)
@@ -164,6 +193,16 @@ namespace WolfyEngine.Forms
             {
                 VariablesListView.Items.Add(new DarkListItem(variable.FormattedName()));
             }
+        }
+
+        private void SelectVariable(object sender, EventArgs e)
+        {
+            var variable = GetSelectedVariable();
+            if (variable == null)
+                return;
+
+            VariableSelected?.Invoke(this, GetSelectedVariable());
+            Close();
         }
     }
 }

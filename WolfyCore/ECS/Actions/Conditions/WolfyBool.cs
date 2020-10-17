@@ -7,6 +7,8 @@ namespace WolfyCore.Actions
 {
     [ProtoContract] public class WolfyBool : BaseVariable
     {
+        private List<WolfyAction> _changeActions;
+
         /// <summary>
         /// Value of the boolean.
         /// </summary>
@@ -15,7 +17,12 @@ namespace WolfyCore.Actions
         /// <summary>
         /// Actions to be executed when boolean value changes.
         /// </summary>
-        [ProtoMember(2)] public List<WolfyAction> OnChangeActions { get; set; }
+        [ProtoMember(2)]
+        public List<WolfyAction> OnChangeActions
+        {
+            get => _changeActions ??= new List<WolfyAction>();
+            set => _changeActions = value;
+        }
 
         public WolfyBool() { }
 

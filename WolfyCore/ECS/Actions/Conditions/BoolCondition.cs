@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework;
 using ProtoBuf;
 using WolfyCore.Actions;
+using WolfyCore.Controllers;
 
 namespace WolfyCore.ECS
 {
@@ -16,14 +17,25 @@ namespace WolfyCore.ECS
         [ProtoMember(1)] public bool DesiredValue { get; set; }
 
         /// <summary>
+        /// Id of condition variable.
+        /// </summary>
+        [ProtoMember(2)] public uint VariableId { get; set; }
+
+        /// <summary>
         /// Stores current value of condition.
         /// </summary>
-        [ProtoMember(2)] public WolfyBool Variable { get; set; }
+        [ProtoIgnore] public WolfyBool Variable => (WolfyBool) VariablesController.Instance.GetVariable(VariableId);
 
         public BoolCondition() { }
 
-        public BoolCondition(bool desiredValue)
+        /// <summary>
+        /// Default constructor.
+        /// </summary>
+        /// <param name="variableId"></param>
+        /// <param name="desiredValue"></param>
+        public BoolCondition(uint variableId, bool desiredValue)
         {
+            VariableId = variableId;
             DesiredValue = desiredValue;
         }
 
@@ -41,10 +53,10 @@ namespace WolfyCore.ECS
 
         public override string GetDescription()
         {
-            return "if " + Variable.Name + " is " + DesiredValue;
+            return "if " + Variable.Name + " (" + Variable.Id + ")" + " is " + DesiredValue;
         }
 
-        protected override bool IsMet()
+        public override bool IsMet()
         {
             return Variable.Value == DesiredValue;
         }

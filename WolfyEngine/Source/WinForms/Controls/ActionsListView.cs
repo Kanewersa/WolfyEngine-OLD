@@ -1,5 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
+using System.Windows.Forms;
+using DarkUI.Config;
 using DarkUI.Controls;
 using WolfyCore.Actions;
 using WolfyCore.ECS;
@@ -10,7 +14,16 @@ namespace WolfyEngine.Controls
     public partial class ActionsListView : DarkListView
     {
         private ActionComponent ActionComponent { get; set; }
+
+        /// <summary>
+        /// Stores all actions as <see cref="ActionListViewItem"/>s to allow the cancellation of changes.
+        /// </summary>
         public List<ActionListViewItem> ActionItems { get; set; }
+
+        /// <summary>
+        /// Determines if drag operation is being performed.
+        /// </summary>
+        private bool PerformingDrag { get; set; }
 
         /// <summary>
         /// Default constructor.
@@ -18,6 +31,29 @@ namespace WolfyEngine.Controls
         public ActionsListView() : base()
         {
             InitializeComponent();
+            MultiSelect = true;
+
+            MouseDown += delegate(object sender, MouseEventArgs args)
+            {
+                if (args.Button != MouseButtons.Left || args.Clicks != 1)
+                    return;
+                if (!Items.Any())
+                    return;
+                
+                var itemIndex = args.Y / ItemHeight;
+                if (Items.Count <= itemIndex)
+                    return;
+
+                //SelectItem(itemIndex);
+                DraggedItemIndex = itemIndex;
+                PerformingDrag = true;
+                DoDragDrop(Items[itemIndex], DragDropEffects.Copy);
+            };
+
+            MouseUp += delegate(object sender, MouseEventArgs args)
+            {
+                PerformingDrag = false;
+            };
         }
 
         /// <summary>
@@ -26,14 +62,14 @@ namespace WolfyEngine.Controls
         /// <param name="entity"></param>
         public void Initialize(Entity entity)
         {
-            ActionItems ??= new List<ActionListViewItem>(16);
+            ActionItems ??= new List<ActionListViewItem>();
 
             if (!entity.GetIfHasComponent(out ActionComponent component))
                 return;
 
             ActionComponent = component;
             component.Actions ??= new List<WolfyAction>();
-            BindActionItems(component.Actions);
+            BindActionItems(component.Actions, false, null);
             DisplayActions(ActionItems);
         }
 
@@ -41,65 +77,90 @@ namespace WolfyEngine.Controls
         /// Fills the <see cref="ActionItems"/> with given actions.
         /// </summary>
         /// <param name="actions"></param>
-        private void BindActionItems(List<WolfyAction> actions)
+        /// <param name="isIfAction"></param>
+        /// <param name="parent"></param>
+        private void BindActionItems(List<WolfyAction> actions, bool isIfAction, ActionListViewItem parent)
         {
             foreach (var action in actions)
             {
-                ActionListViewItem actionItem = new ActionListViewItem(action);
+                var actionItem = new ActionListViewItem(action, isIfAction, parent);
                 ActionItems.Add(actionItem);
+
                 if (action is WolfyCondition condition)
                 {
-                    BindChildren(condition, actionItem);
+                    // Add if actions
+                    BindActionItems(condition.GetIfActions(), true, actionItem);
+                    // Add empty item to serve as a boundary
+                    ActionItems.Add(new ActionListViewItem(null, true, actionItem));
+                    // Add 'else' item
+                    ActionItems.Add(actionItem);
+                    // Add else actions
+                    BindActionItems(condition.GetElseActions(), false, actionItem);
+                    // Add empty item to serve as a boundary
+                    ActionItems.Add(new ActionListViewItem(null, false, actionItem));
+                    // Add 'end' item
+                    ActionItems.Add(actionItem);
                 }
             }
         }
 
-        /// <summary>
-        /// Handles the nesting of <see cref="ActionListViewItem"/> in <see cref="BindActionItems"/> method.
-        /// </summary>
-        /// <param name="condition"></param>
-        /// <param name="item"></param>
-        /// <param name="parent"></param>
-        private void BindChildren(WolfyCondition condition, ActionListViewItem item, ActionListViewItem parent = null)
-        {
-            foreach (var action in condition.GetIfActions())
-            {
-                var newItem = new ActionListViewItem(action, true, parent);
-                newItem.IfChildren.Add(item);
-                if (action is WolfyCondition subCondition)
-                {
-                    BindChildren(subCondition, newItem, item);
-                }
-            }
-
-            foreach (var action in condition.GetElseActions())
-            {
-                var newItem = new ActionListViewItem(action, false, parent);
-                newItem.IfChildren.Add(item);
-                if (action is WolfyCondition subCondition)
-                {
-                    BindChildren(subCondition, newItem, item);
-                }
-            }
-        }
 
         /// <summary>
         /// Displays the given actions on <see cref="ActionsListView"/>.
         /// </summary>
         /// <param name="items"></param>
-        /// <param name="nesting"></param>
-        private void DisplayActions(List<ActionListViewItem> items, int nesting = 0)
+        private void DisplayActions(List<ActionListViewItem> items)
         {
+            var nesting = 0;
+            var conditionsCounter = new Dictionary<ActionListViewItem, int>();
+
             foreach (var item in items)
             {
-                Display(item.GetDescription(), nesting);
-                if (item.HasChildren())
+                if (item.IsCondition())
                 {
-                    DisplayActions(item.IfChildren, nesting++);
-                    Display("else", nesting);
-                    DisplayActions(item.ElseChildren, nesting++);
-                    Display("end", nesting);
+                    if (!conditionsCounter.ContainsKey(item))
+                        conditionsCounter.Add(item, 0);
+
+                    conditionsCounter[item] = conditionsCounter[item] + 1;
+
+                    switch (conditionsCounter[item])
+                    {
+                        case 1:
+                            Display(item.GetDescription(), nesting);
+                            break;
+                        case 2:
+                            Display("else", nesting);
+                            break;
+                        case 3:
+                            Display("end", nesting);
+                            break;
+                    }
                 }
+                else Display(item.GetDescription(), nesting);
+
+                if (!item.HasAction())
+                {
+                    nesting--;
+                    if (nesting < 0) nesting = 0;
+                    continue;
+                }
+
+                if (item.IsCondition())
+                {
+                    if (conditionsCounter[item] == 3)
+                    {
+                        if(!item.HasParent())
+                            nesting--;
+                        if (nesting < 0) nesting = 0;
+                        conditionsCounter.Remove(item);
+                    }
+                    else
+                    {
+                        nesting++;
+                    }
+                }
+
+                if (nesting < 0) nesting = 0;
             }
         }
 
@@ -110,41 +171,47 @@ namespace WolfyEngine.Controls
         /// <param name="nesting"></param>
         private void Display(string text, int nesting)
         {
-            this.Items.Add(new DarkListItem(new string('\t', nesting) + text));
+            Items.Add(new DarkListItem(new string(' ', nesting*3) + text));
         }
 
         /// <summary>
         /// Creates <see cref="WolfyAction"/> list from <see cref="ActionItems"/>.
         /// </summary>
-        public void BuildActionComponent(ActionComponent component)
+        public ActionComponent BuildActionComponent(ActionComponent component)
         {
-            ActionItems = ActionItems.Distinct().ToList();
-            var actions = BuildActions(ActionItems);
-            component.Actions = actions;
-        }
+            ActionItems = ActionItems.Distinct().Where(x => x.HasAction()).ToList();
 
-        /// <summary>
-        /// Handles the creation of nested <see cref="WolfyAction"/> list.
-        /// </summary>
-        /// <param name="items"></param>
-        /// <returns></returns>
-        private List<WolfyAction> BuildActions(List<ActionListViewItem> items)
-        {
-            var actions = new List<WolfyAction>(items.Count);
-
-            foreach (var item in items)
+            ActionItems.ForEach(item =>
             {
-                actions.Add(item.Action);
-                if (item.HasChildren())
+                if (item.IsCondition())
                 {
-                    item.BuildActions(item.Action as WolfyCondition);
+                    ((WolfyCondition) item.Action).GetIfActions().Clear();
+                    ((WolfyCondition) item.Action).GetElseActions().Clear();
                 }
-            }
-            return actions;
+            });
+
+            var actions = new List<WolfyAction>(ActionItems.Count);
+
+            ActionItems.ForEach(item =>
+            {
+                if (item.HasParent())
+                {
+                    var list = item.IsIfAction
+                        ? ((WolfyCondition)item.Parent.Action).GetIfActions()
+                        : ((WolfyCondition)item.Parent.Action).GetElseActions();
+
+                    if (!list.Contains(item.Action))
+                        list.Add(item.Action);
+                }
+                else actions.Add(item.Action);
+            });
+
+            component.Actions = actions;
+            return component;
         }
 
         /// <summary>
-        /// Adds the given action and sets it on the given index.
+        /// Adds given action and sets it on the given index.
         /// </summary>
         /// <param name="action"></param>
         /// <param name="index"></param>
@@ -169,11 +236,28 @@ namespace WolfyEngine.Controls
             var newItem = new ActionListViewItem(action, isIfAction, parent);
             ActionItems.Insert(index, newItem);
 
+            if (action is WolfyCondition)
+            {
+                // Add empty item to serve as a boundary
+                ActionItems.Add(new ActionListViewItem(null, true, newItem));
+                // Add 'else' item
+                ActionItems.Add(newItem);
+                // Add empty item to serve as a boundary
+                ActionItems.Add(new ActionListViewItem(null, false, newItem));
+                // Add 'end' item
+                ActionItems.Add(newItem);
+            }
+
             ResetDisplay();
         }
 
+        private Tuple<int, int> GetConditionRange(ActionListViewItem item)
+        {
+            return new Tuple<int, int>(ActionItems.IndexOf(item), ActionItems.LastIndexOf(item));
+        }
+
         /// <summary>
-        /// Replaces the action on given index with given action.
+        /// Replaces action on given index with given action.
         /// </summary>
         /// <param name="action"></param>
         /// <param name="index"></param>
@@ -182,29 +266,130 @@ namespace WolfyEngine.Controls
             var currentAction = ActionItems[index];
             var isIfAction = currentAction.IsIfAction;
             var parent = currentAction.Parent;
-            ActionItems[index] = new ActionListViewItem(action, isIfAction, parent);
+            var newItem = new ActionListViewItem(action, isIfAction, parent);
+
+            if (currentAction.IsCondition())
+            {
+                var range = GetConditionRange(currentAction);
+                for (var i = range.Item1; i <= range.Item2; i++)
+                {
+                    if (ActionItems[i] == currentAction)
+                        ActionItems[i] = newItem;
+                    else if (ActionItems[i].Parent == currentAction)
+                        ActionItems[i].Parent = newItem;
+                }
+            }
+            else ActionItems[index] = newItem;
+            
+            ResetDisplay();
         }
 
         /// <summary>
-        /// Removes action with given index.
-        /// </summary>
-        /// <param name="index"></param>
-        public void RemoveAction(int index)
-        {
-            var actionToRemove = ActionItems[index];
-
-            if (actionToRemove.HasParent())
-                actionToRemove.Parent.RemoveItem(actionToRemove);
-            else ActionItems.RemoveAt(index);
-        }
-
-        /// <summary>
-        /// Clears the action items and displays them again.
+        /// Clears action items and displays them again.
         /// </summary>
         public void ResetDisplay()
         {
             Items.Clear();
             DisplayActions(ActionItems);
         }
+
+        #region Drag and Drop
+
+        private int LastHoveredItemIndex { get; set; } = -1;
+        private int DraggedItemIndex { get; set; }
+
+        /// <summary>
+        /// Executed when dragging starts.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void OnDragEnter(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent(typeof(DarkListItem)))
+            {
+                e.Effect = DragDropEffects.Copy;
+            }
+        }
+
+        /// <summary>
+        /// Executes when mouse is moved during drag operation. Handles selection highlight.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void OnDragOver(object sender, DragEventArgs e)
+        {
+            var pnt = PointToClient(new Point(e.X, e.Y));
+            var itemIndex = pnt.Y / ItemHeight;
+            if (itemIndex >= Items.Count)
+                return;
+
+            SelectedIndices.Clear();
+            LastHoveredItemIndex = itemIndex;
+            SelectItem(LastHoveredItemIndex);
+            SelectedIndices.Add(DraggedItemIndex);
+            e.Effect = DragDropEffects.Copy;
+        }
+
+        /// <summary>
+        /// Executed when drag operation is finished. Performs changes on items list.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void OnDragDrop(object sender, DragEventArgs e)
+        {
+            if (!PerformingDrag || LastHoveredItemIndex == -1) return;
+
+            // Don't do anything if item stayed in place.
+            if (LastHoveredItemIndex == DraggedItemIndex) return;
+
+            var draggedItem = ActionItems[DraggedItemIndex];
+            var hoveredAction = ActionItems[LastHoveredItemIndex];
+
+            if (draggedItem.IsCondition())
+            {
+                var range = GetConditionRange(hoveredAction);
+                var firstHoveredActionIndex = range.Item1;
+                var lastHoveredActionIndex = range.Item2;
+
+                // Prevent dragging condition onto itself.
+                if (DraggedItemIndex >= firstHoveredActionIndex && DraggedItemIndex <= lastHoveredActionIndex)
+                    return;
+                
+                var actionsToMove = ActionItems.GetRange(firstHoveredActionIndex, lastHoveredActionIndex - firstHoveredActionIndex + 1);
+
+                if (DraggedItemIndex > LastHoveredItemIndex)
+                {
+                    ActionItems.RemoveRange(firstHoveredActionIndex, lastHoveredActionIndex - firstHoveredActionIndex + 1);
+                    ActionItems.InsertRange(LastHoveredItemIndex, actionsToMove);
+                }
+                else
+                {
+                    ActionItems.InsertRange(LastHoveredItemIndex, actionsToMove);
+                    ActionItems.RemoveRange(firstHoveredActionIndex, lastHoveredActionIndex - firstHoveredActionIndex + 1);
+                }
+            }
+            else
+            {
+                // TODO: Dragging when no item is hovered
+                if (DraggedItemIndex > LastHoveredItemIndex)
+                {
+                    ActionItems.RemoveAt(DraggedItemIndex);
+                    ActionItems.Insert(LastHoveredItemIndex, draggedItem);
+                }
+                else
+                {
+                    ActionItems.Insert(LastHoveredItemIndex, draggedItem);
+                    ActionItems.RemoveAt(DraggedItemIndex);
+                }
+            }
+
+            draggedItem.Parent = hoveredAction.Parent;
+            draggedItem.IsIfAction = hoveredAction.IsIfAction;
+
+            LastHoveredItemIndex = -1;
+            ResetDisplay();
+        }
+
+        #endregion
     }
 }

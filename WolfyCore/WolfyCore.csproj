@@ -152,6 +152,8 @@
     <Compile Include="ECS\Actions\Camera\CameraFadeAction.cs" />
     <Compile Include="ECS\Actions\Camera\LUTAction.cs" />
     <Compile Include="ECS\Actions\Conditions\BaseVariable.cs" />
+    <Compile Include="ECS\Actions\Conditions\BoolAction.cs" />
+    <Compile Include="ECS\Actions\Conditions\VariableAction.cs" />
     <Compile Include="ECS\Actions\Conditions\VariableCondition.cs" />
     <Compile Include="ECS\Actions\Movement\MovementAction.cs" />
     <Compile Include="ECS\Actions\Other\DialogAction.cs" />

@@ -38,7 +38,11 @@ namespace WolfyCore.ECS
         /// <param name="content"></param>
         public void LoadContent(ContentManager content)
         {
+            if (string.IsNullOrEmpty(AnimationManager.Animation.Image.Path))
+                return;
+            
             AnimationManager.LoadContent(content);
+
             foreach (var animation in Animations)
             {
                 animation.Value.LoadContent(content);

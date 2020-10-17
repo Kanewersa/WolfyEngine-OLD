@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using ProtoBuf;
+using WolfyCore.ECS;
 
 namespace WolfyCore.Actions
 {
@@ -7,23 +8,25 @@ namespace WolfyCore.Actions
     /// A special case of WolfyAction which contains other actions and
     /// executes them based on given condition.
     /// </summary>
+    [ProtoInclude(201, typeof(BoolCondition))]
+    [ProtoInclude(202, typeof(VariableCondition))]
     [ProtoContract] public abstract class WolfyCondition : WolfyAction
     {
         /// <summary>
         /// Actions to execute when condition is met.
         /// </summary>
-        [ProtoMember(201)] protected List<WolfyAction> IfActions;
+        [ProtoMember(101)] protected List<WolfyAction> IfActions;
 
         /// <summary>
         /// Actions to execute when condition is not met.
         /// </summary>
-        [ProtoMember(202)] protected List<WolfyAction> ElseActions;
+        [ProtoMember(102)] protected List<WolfyAction> ElseActions;
 
         /// <summary>
         /// Determines whether condition is met.
         /// </summary>
         /// <returns></returns>
-        protected abstract bool IsMet();
+        public abstract bool IsMet();
 
         /// <summary>
         /// Returns the actions to execute based on condition fulfillment.
@@ -31,17 +34,19 @@ namespace WolfyCore.Actions
         /// <returns></returns>
         public List<WolfyAction> GetActions()
         {
-            return IsMet() ? IfActions : ElseActions;
+            return IsMet()
+                ? IfActions ??= new List<WolfyAction>()
+                : ElseActions ??= new List<WolfyAction>();
         }
 
         public List<WolfyAction> GetIfActions()
         {
-            return IfActions;
+            return IfActions ??= new List<WolfyAction>();
         }
 
         public List<WolfyAction> GetElseActions()
         {
-            return ElseActions;
+            return ElseActions ??= new List<WolfyAction>();
         }
 
         public void SetActions(List<WolfyAction> ifActions, List<WolfyAction> elseActions)

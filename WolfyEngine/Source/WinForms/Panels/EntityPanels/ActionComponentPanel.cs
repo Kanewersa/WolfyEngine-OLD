@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Windows.Forms;
 using DarkUI.Controls;
 using DarkUI.Forms;
 using WolfyCore.Actions;
@@ -17,6 +18,8 @@ namespace WolfyEngine.Controls
         public ActionComponentPanel(Type componentType) : base(componentType)
         {
             InitializeComponent();
+
+            ActionsListView.MouseDoubleClick += OpenSelectActionForm;
         }
 
         /// <summary>
@@ -36,7 +39,7 @@ namespace WolfyEngine.Controls
         public override void Save()
         {
             _actionComponent = Entity.GetOrCreateComponent<ActionComponent>();
-            ActionsListView.BuildActionComponent(_actionComponent);
+            _actionComponent = ActionsListView.BuildActionComponent(_actionComponent);
         }
 
         /// <summary>
@@ -49,11 +52,14 @@ namespace WolfyEngine.Controls
             Close();
         }
 
-        private void AddActionButton_Click(object sender, System.EventArgs e)
+        private void CreateNewActionForm(object sender, System.EventArgs e)
         {
             int insertionIndex = ActionsListView.ActionItems.Count;
             if (ActionsListView.SelectedIndices.Any())
+            {
                 insertionIndex = ActionsListView.SelectedIndices.First();
+                
+            }
 
             using (var form = new NewActionForm())
             {
@@ -65,26 +71,27 @@ namespace WolfyEngine.Controls
                 form.ShowDialog();
             }
         }
-
         private void RemoveActionButton_Click(object sender, System.EventArgs e)
         {
-            if (ActionsListView.SelectedIndices.Any())
-            {
-                ActionsListView.SelectedIndices.ForEach(index => ActionsListView.RemoveAction(index));
-                ActionsListView.ResetDisplay();
-            }
-            else
-            {
-                DarkMessageBox.ShowWarning("Select the action to remove first", "Error");
-            }
+            DarkMessageBox.ShowWarning("Removing actions is yet to be implemented.", "Error");
         }
 
         private int _lastActionIndex;
 
         private void OpenSelectActionForm(object sender, EventArgs e)
         {
+            if (!ActionsListView.SelectedIndices.Any())
+                return;
+
             _lastActionIndex = ActionsListView.SelectedIndices.First();
+
             var action = ActionsListView.ActionItems[_lastActionIndex].Action;
+
+            if (action == null)
+            {
+                CreateNewActionForm(this, null);
+                return;
+            }
 
             using (var form = ActionBinding.GetFormInstance(action))
             {
@@ -100,6 +107,16 @@ namespace WolfyEngine.Controls
         private void OnActionSave(WolfyAction action)
         {
             ActionsListView.ReplaceAction(action, _lastActionIndex);
+        }
+
+        private void darkButton1_Click(object sender, EventArgs e)
+        {
+            for (var index = 0; index < ActionsListView.ActionItems.Count; index++)
+            {
+                var action = ActionsListView.ActionItems[index];
+
+                Console.WriteLine(index + ": " + action.GetDescription());
+            }
         }
     }
 }

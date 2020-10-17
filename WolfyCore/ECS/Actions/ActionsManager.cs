@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
@@ -92,8 +93,8 @@ namespace WolfyCore.Actions
 
             if (CurrentAction is WolfyCondition condition)
             {
+                EndCurrentAction();
                 FillConditionActions(condition);
-                condition.Complete();
                 return;
             }
 
@@ -121,6 +122,7 @@ namespace WolfyCore.Actions
         private void FillConditionActions(WolfyCondition condition)
         {
             var actions = condition.GetActions();
+
             PushActions(actions);
         }
 

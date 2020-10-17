@@ -34,12 +34,19 @@ namespace WolfyEngine.Controls
                 var animation = _animationComponent.Animations.First().Value;
                 // TODO Make graphics and animations usage more clear
                 _graphicsPath = animation.Image.Path;
-                if(!string.IsNullOrEmpty(_graphicsPath))
-                    if (!WolfyHelper.IsFileLocked(new FileInfo(_graphicsPath)))
-                        GraphicsPictureBox.Image = Image.FromFile(_graphicsPath);
+                var pngPath = Path.ChangeExtension(_graphicsPath, ".png");
+                Console.WriteLine(pngPath);
+                if (!string.IsNullOrEmpty(pngPath))
+                    if (!WolfyHelper.IsFileLocked(new FileInfo(pngPath)))
+                    {
+                        FileStream bitmapFile = new FileStream(pngPath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
+                        Image loaded = new Bitmap(bitmapFile);
+                        bitmapFile.Close();
+                        GraphicsPictureBox.Image = loaded;
+                    }
                     else
                         DarkMessageBox.ShowWarning(
-                            "Could not find file " + _graphicsPath + ".",
+                            "Missing file " + pngPath + ".",
                             "File not found.");
 
 
@@ -67,10 +74,12 @@ namespace WolfyEngine.Controls
 
             _animationComponent.Animations = animations;
             _animationComponent.AnimationManager = new AnimationManager(animations.First().Value);
+            _animationComponent.Initialized = false;
         }
 
         public override void Unload(Entity entity)
         {
+            
             entity.RemoveComponent<AnimationComponent>();
             Close();
         }
@@ -102,7 +111,7 @@ namespace WolfyEngine.Controls
                 GraphicsPictureBox.Image = img;
             }
 
-            _graphicsPath = fullPath;
+            _graphicsPath = Path.ChangeExtension(fullPath, null);
         }
     }
 }

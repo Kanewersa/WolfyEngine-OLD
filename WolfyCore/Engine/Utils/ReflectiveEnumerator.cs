@@ -20,8 +20,8 @@ namespace WolfyEngine
                 subTypes = AppDomain.CurrentDomain.GetAssemblies()
                     .SelectMany(s => s.GetTypes())
                     .Where(type => type.IsClass
+                                   && type.BaseType == typeof(T)
                                    && !type.IsGenericType
-                                   && !type.IsAbstract
                                    && type.IsSubclassOf(typeof(T)))
                     .ToList();
             }

@@ -14,14 +14,14 @@ namespace WolfyEngine.Controls
             InitializeComponent();
         }
 
-        private void AddBoolButton_Click(object sender, EventArgs e)
+        private void AddConditionButton_Click(object sender, EventArgs e)
         {
-            OpenForm(new BoolConditionForm());
+            OpenForm(new CreateConditionForm());
         }
 
-        private void AddFloatButton_Click(object sender, EventArgs e)
+        private void SetVariableButton_Click(object sender, EventArgs e)
         {
-            OpenForm(new VariableConditionForm());
+            OpenForm(new ChangeVariableForm());
         }
     }
 }

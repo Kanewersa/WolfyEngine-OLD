@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.LayoutPanel = new System.Windows.Forms.TableLayoutPanel();
-            this.OtherSection = new DarkUI.Controls.DarkSectionPanel();
+            this.AudioSection = new DarkUI.Controls.DarkSectionPanel();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.darkButton7 = new DarkUI.Controls.DarkButton();
             this.darkButton8 = new DarkUI.Controls.DarkButton();
@@ -58,7 +58,7 @@
             this.UnknownButton2 = new DarkUI.Controls.DarkButton();
             this.PlayerSection = new DarkUI.Controls.DarkSectionPanel();
             this.LayoutPanel.SuspendLayout();
-            this.OtherSection.SuspendLayout();
+            this.AudioSection.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.CameraSection.SuspendLayout();
             this.PlayerLayout.SuspendLayout();
@@ -71,7 +71,7 @@
             this.LayoutPanel.ColumnCount = 2;
             this.LayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.LayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.LayoutPanel.Controls.Add(this.OtherSection, 1, 1);
+            this.LayoutPanel.Controls.Add(this.AudioSection, 1, 1);
             this.LayoutPanel.Controls.Add(this.CameraSection, 0, 1);
             this.LayoutPanel.Controls.Add(this.MovementSection, 0, 0);
             this.LayoutPanel.Controls.Add(this.PlayerSection, 1, 0);
@@ -86,16 +86,16 @@
             this.LayoutPanel.Size = new System.Drawing.Size(409, 545);
             this.LayoutPanel.TabIndex = 1;
             // 
-            // OtherSection
+            // AudioSection
             // 
-            this.OtherSection.Controls.Add(this.tableLayoutPanel1);
-            this.OtherSection.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.OtherSection.Location = new System.Drawing.Point(204, 272);
-            this.OtherSection.Margin = new System.Windows.Forms.Padding(0);
-            this.OtherSection.Name = "OtherSection";
-            this.OtherSection.SectionHeader = "Other";
-            this.OtherSection.Size = new System.Drawing.Size(205, 273);
-            this.OtherSection.TabIndex = 7;
+            this.AudioSection.Controls.Add(this.tableLayoutPanel1);
+            this.AudioSection.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.AudioSection.Location = new System.Drawing.Point(204, 272);
+            this.AudioSection.Margin = new System.Windows.Forms.Padding(0);
+            this.AudioSection.Name = "AudioSection";
+            this.AudioSection.SectionHeader = "Audio";
+            this.AudioSection.Size = new System.Drawing.Size(205, 273);
+            this.AudioSection.TabIndex = 7;
             // 
             // tableLayoutPanel1
             // 
@@ -470,7 +470,7 @@
             this.Name = "NewActionsListDisplay";
             this.Size = new System.Drawing.Size(409, 545);
             this.LayoutPanel.ResumeLayout(false);
-            this.OtherSection.ResumeLayout(false);
+            this.AudioSection.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.CameraSection.ResumeLayout(false);
             this.PlayerLayout.ResumeLayout(false);
@@ -486,7 +486,7 @@
         private DarkUI.Controls.DarkSectionPanel CameraSection;
         private DarkUI.Controls.DarkSectionPanel MovementSection;
         private DarkUI.Controls.DarkSectionPanel PlayerSection;
-        private DarkUI.Controls.DarkSectionPanel OtherSection;
+        private DarkUI.Controls.DarkSectionPanel AudioSection;
         private System.Windows.Forms.TableLayoutPanel MovementLayout;
         private DarkUI.Controls.DarkButton TeleportButton;
         private DarkUI.Controls.DarkButton MoveEntityButton;

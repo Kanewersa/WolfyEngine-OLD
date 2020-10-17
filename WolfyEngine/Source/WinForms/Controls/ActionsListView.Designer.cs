@@ -32,7 +32,11 @@
             // 
             // ActionsListView
             // 
+            this.AllowDrop = true;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
+            this.DragDrop += new System.Windows.Forms.DragEventHandler(this.OnDragDrop);
+            this.DragEnter += new System.Windows.Forms.DragEventHandler(this.OnDragEnter);
+            this.DragOver += new System.Windows.Forms.DragEventHandler(this.OnDragOver);
             this.ResumeLayout(false);
 
         }

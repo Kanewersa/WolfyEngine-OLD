@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using WolfyCore.Actions;
 
@@ -19,33 +20,24 @@ namespace WolfyEngine.Controls
             Parent = parent;
         }
 
+        public bool IsCondition()
+        {
+            return Action is WolfyCondition;
+        }
+        
+        public bool HasAction()
+        {
+            return Action != null;
+        }
+
         public bool HasChildren()
         {
-            return (IfChildren.Any() || ElseChildren.Any()) && Action is WolfyCondition;
+            return (IfChildren.Any() || ElseChildren.Any()) && IsCondition();
         }
 
         public bool HasParent()
         {
             return Parent != null;
-        }
-
-        public ActionListViewItem Search(ActionListViewItem item)
-        {
-            if (item == this) return this;
-
-            foreach (var ifChild in IfChildren)
-            {
-                var sr = ifChild.Search(item);
-                if (sr != null) return sr;
-            }
-
-            foreach (var elseChild in ElseChildren)
-            {
-                var sr = elseChild.Search(item);
-                if (sr != null) return sr;
-            }
-
-            return null;
         }
 
         public void RemoveItem(ActionListViewItem item)
@@ -55,35 +47,9 @@ namespace WolfyEngine.Controls
             else ElseChildren.Remove(item);
         }
 
-        public void BuildActions(WolfyCondition parent)
-        {
-            List<WolfyAction> ifActions = new List<WolfyAction>();
-            List<WolfyAction> elseActions = new List<WolfyAction>();
-
-            IfChildren.ForEach(child =>
-            {
-                ifActions.Add(child.Action);
-                if (child.HasChildren())
-                {
-                    child.BuildActions(child.Action as WolfyCondition);
-                }
-            });
-
-            ElseChildren.ForEach(child =>
-            {
-                elseActions.Add(child.Action);
-                if (child.HasChildren())
-                {
-                    child.BuildActions(child.Action as WolfyCondition);
-                }
-            });
-
-            parent.SetActions(ifActions, elseActions);
-        }
-
         public string GetDescription()
         {
-            return Action.GetDescription();
+            return Action == null ? "..." : Action.GetDescription();
         }
     }
 }

@@ -4,6 +4,7 @@ using System.Linq;
 using ProtoBuf;
 using ProtoBuf.Meta;
 using WolfyCore.Actions;
+using WolfyCore.ECS;
 using WolfyECS;
 using WolfyEngine;
 using WolfyEngine.Engine;
@@ -76,7 +77,7 @@ namespace WolfyCore
             foreach (var k in Keys)
             {
                 Serialization.RuntimeTypeModel[typeof(T)].AddSubType(k.Value, Type.GetType(k.Key)?.UnderlyingSystemType);
-                Console.WriteLine("ID: "+ k.Value +","+ "Loaded type: " + Type.GetType(k.Key).UnderlyingSystemType);
+                Console.WriteLine("(" + k.Value + ") "+ k.Key);
             }
         }
 
@@ -86,18 +87,11 @@ namespace WolfyCore
         /// </summary>
         private void LoadGenericTypes()
         {
-            foreach (var type in NewKeys)
+            NewKeys.ForEach(type =>
             {
                 var generic = typeof(EntityComponent<>).MakeGenericType(Type.GetType(type));
                 Keys.Add(generic.AssemblyQualifiedName ?? throw new InvalidOperationException(), PendingTypes.Any() ? PendingTypes.Dequeue() : Counter++);
-            }
-
-            // TODO: Check if foreach is redundant and remove it if it is.
-            /*foreach (var k in Keys)
-            {
-                RuntimeTypeModel.Default[typeof(T)]
-                    .AddSubType(k.Value, typeof(EntityComponent<>).MakeGenericType(Type.GetType(k.Key)).UnderlyingSystemType);
-            }*/
+            });
         }
     }
 }

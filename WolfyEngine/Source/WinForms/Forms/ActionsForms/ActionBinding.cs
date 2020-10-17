@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using WolfyCore.Actions;
+using WolfyCore.ECS;
 
 namespace WolfyEngine.Forms
 {
@@ -11,7 +12,9 @@ namespace WolfyEngine.Forms
             { typeof(TeleportAction), typeof(TeleportActionForm) },
             { typeof(DialogAction), typeof(StartDialogForm) },
             { typeof(CameraFadeAction), typeof(CameraFadeActionForm) },
-            { typeof(ChangeBGMAction), typeof(ChangeBGMActionForm)}
+            { typeof(ChangeBGMAction), typeof(ChangeBGMActionForm)},
+            { typeof(BoolCondition), typeof(CreateConditionForm)},
+            { typeof(VariableCondition), typeof(CreateConditionForm)}
             //{ typeof(MovementAction), typeof(MovementForm) }
         };
 
