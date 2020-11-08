@@ -11,6 +11,7 @@ namespace WolfyEngine.Forms
     public partial class NewTilesetForm : WolfyForm
     {
         private string _selectedAsset;
+        private string _assetExtension;
 
         public NewTilesetForm()
         {
@@ -38,6 +39,7 @@ namespace WolfyEngine.Forms
             }
 
             _selectedAsset = relativePath;
+            _assetExtension = extension;
         }
 
         private void CreateButton_Click(object sender, System.EventArgs e)
@@ -52,7 +54,8 @@ namespace WolfyEngine.Forms
 
             var tileset = new Tileset(
                 nameTextBox.Text,
-                _selectedAsset);
+                _selectedAsset,
+                _assetExtension);
 
             TilesetsController.Instance.AddTileset(tileset);
 

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -75,8 +76,7 @@ namespace WolfyCore.Game
         /// <param name="graphics"></param>
         public override void Initialize(GraphicsDevice graphics)
         {
-            if (Tileset == null)
-                Tileset = TilesetsController.Instance.GetTileset(TilesetId);
+            Tileset ??= TilesetsController.Instance.GetTileset(TilesetId);
 
             if (Rows == null)
             {

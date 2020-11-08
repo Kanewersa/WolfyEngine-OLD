@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework.Content;
 using MonoGame.Forms.Controls;
 using WolfyEngine.Utils;
 using WolfyCore;
+using WolfyCore.Controllers;
 using WolfyCore.Engine;
 using WolfyCore.Game;
 using ControlEventHandler = WolfyCore.Engine.ControlEventHandler;
@@ -134,6 +135,7 @@ namespace WolfyEngine.Controls
         protected void LoadContent(ContentManager content)
         {
             _selector.LoadContent(content);
+            Editor.Content.RootDirectory = PathsController.Instance.MainPath;
         }
 
         protected override void Draw()

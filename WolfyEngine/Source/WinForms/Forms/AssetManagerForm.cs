@@ -156,6 +156,8 @@ namespace WolfyEngine.Forms
 
             var extension = Path.GetExtension(path);
 
+            if (extension != ".png") return;
+
             using (var temp = new Bitmap(path))
             {
                 var img = new Bitmap(temp);

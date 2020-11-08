@@ -9,6 +9,7 @@ using MonoGame.Forms.Controls;
 using WolfyECS;
 using WolfyEngine.Utils;
 using WolfyCore;
+using WolfyCore.Controllers;
 using WolfyCore.ECS;
 using WolfyCore.Engine;
 using WolfyCore.Game;
@@ -194,6 +195,7 @@ namespace WolfyEngine.Controls
             SelectedTileImage.LoadContent(content);
             Selector.LoadContent(content);
             StartingPointImage.LoadContent(content);
+            Editor.Content.RootDirectory = PathsController.Instance.MainPath;
         }
 
         protected override void Draw()

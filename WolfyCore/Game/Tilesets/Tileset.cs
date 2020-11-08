@@ -1,7 +1,10 @@
-﻿using Microsoft.Xna.Framework.Graphics;
+﻿using System;
+using Microsoft.Xna.Framework.Graphics;
 using ProtoBuf;
 using System.Drawing;
+using System.IO;
 using Microsoft.Xna.Framework.Content;
+using WolfyCore.Controllers;
 using WolfyCore.Engine;
 using Image = WolfyCore.Engine.Image;
 
@@ -18,17 +21,19 @@ namespace WolfyCore.Game
         [ProtoMember(6)] public Vector2D Size { get; set; }
 
         public Tileset () { }
-        public Tileset(string name, string imagePath)
+        public Tileset(string name, string imagePath, string extension)
         {
             Name = name;
             Image = new Image(imagePath);
 
             // Get texture size
             int height, width;
-            using (var image = new Bitmap(imagePath))
+
+            var fullPath = Path.Combine(PathsController.Instance.MainPath, imagePath + extension);
+            using (var image = new Bitmap(fullPath))
             {
-                height = image.Height/32;
-                width = image.Width/32;
+                height = image.Height / 32;
+                width = image.Width / 32;
             }
 
             Size = new Vector2D(width, height);

@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using MonoGame.Forms.Controls;
 using WolfyCore;
+using WolfyCore.Controllers;
 using WolfyCore.Engine;
 using WolfyCore.Game;
 
@@ -67,6 +68,8 @@ namespace WolfyEngine.Controls
             MouseMove += TilesetEditor_MouseMove;
             MouseLeave += delegate { EditorMouseLeave(); };
             MouseClick += TilesetEditorControl_MouseClick;
+
+            Editor.Content.RootDirectory = PathsController.Instance.MainPath;
 
             LoadContent(Editor.Content);
             InitializeCurrentTileset();
