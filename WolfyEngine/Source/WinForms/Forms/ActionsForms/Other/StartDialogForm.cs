@@ -1,5 +1,6 @@
 ﻿using DarkUI.Forms;
 using WolfyCore.Actions;
+using WolfyCore.ECS;
 using WolfyECS;
 
 namespace WolfyEngine.Forms
@@ -13,7 +14,7 @@ namespace WolfyEngine.Forms
 
         protected override WolfyAction CreateAction()
         {
-            return new DialogAction(Entity.Player, TextBox.Text);
+            return new DialogAction(Entities.Player, TextBox.Text);
         }
 
         protected override bool ValidateAction()

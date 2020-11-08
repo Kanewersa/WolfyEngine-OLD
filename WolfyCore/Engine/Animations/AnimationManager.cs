@@ -9,6 +9,15 @@ namespace WolfyCore.Engine
     [ProtoContract] public class AnimationManager
     {
         [ProtoIgnore] private Animation _animation;
+
+        /// <summary>
+        /// Used to handle animation's progress.
+        /// </summary>
+        [ProtoMember(1)] private float Timer { get; set; }
+
+        /// <summary>
+        /// Currently used animation.
+        /// </summary>
         [ProtoMember(2)] public Animation Animation
         {
             get => _animation;
@@ -20,11 +29,22 @@ namespace WolfyCore.Engine
             }
         }
 
-        [ProtoMember(1)] private float _timer;
-        [ProtoIgnore] public Vector2D TileSize => Runtime.TileSize;
+        /// <summary>
+        /// Position where the animation shall be drawn.
+        /// </summary>
         [ProtoMember(3)] public Vector2 Position { get; set; }
+
+        /// <summary>
+        /// Draw offset for sprites bigger than the tile size.
+        /// </summary>
         [ProtoMember(4)] public Vector2 PositionOffset { get; set; }
+
+        /// <summary>
+        /// Direction of the animation.
+        /// </summary>
         [ProtoMember(5)] public int Direction { get; set; }
+
+        [ProtoIgnore] public Vector2D TileSize => Runtime.TileSize;
 
         public AnimationManager() { }
 
@@ -71,13 +91,13 @@ namespace WolfyCore.Engine
 
             Animation = animation;
             Animation.CurrentFrame = 0;
-            _timer = 0;
+            Timer = 0;
         }
 
         public void Stop()
         {
             Animation.CurrentFrame = 0;
-            _timer = 0;
+            Timer = 0;
         }
 
         private void SetAnimationOffset(Animation animation)
@@ -95,11 +115,11 @@ namespace WolfyCore.Engine
 
         public void Update(GameTime gameTime)
         {
-            _timer += (float)gameTime.ElapsedGameTime.TotalSeconds;
+            Timer += (float)gameTime.ElapsedGameTime.TotalSeconds;
 
-            if (_timer > 1f/Animation.FrameCount)
+            if (Timer > 1f/Animation.FrameCount)
             {
-                _timer = 0f;
+                Timer = 0f;
 
                 Animation.CurrentFrame++;
 

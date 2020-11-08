@@ -29,7 +29,7 @@ namespace WolfyEngine.Forms
             form.ShowDialog();
         }
 
-        private void Form_OnAssetSelected(string assetName, string fullPath, string extension)
+        private void Form_OnAssetSelected(string assetName, string fullPath, string relativePath, string extension)
         {
             using (var temp = new Bitmap(fullPath))
             {
@@ -37,7 +37,7 @@ namespace WolfyEngine.Forms
                 graphicsPreviewBox.Image = extension == ".png" ? img : null;
             }
 
-            _selectedAsset = fullPath;
+            _selectedAsset = relativePath;
         }
 
         private void CreateButton_Click(object sender, System.EventArgs e)

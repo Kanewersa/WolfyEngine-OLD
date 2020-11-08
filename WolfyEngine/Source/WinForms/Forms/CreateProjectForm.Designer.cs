@@ -43,7 +43,7 @@
             this.projectNameTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(69)))), ((int)(((byte)(73)))), ((int)(((byte)(74)))));
             this.projectNameTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.projectNameTextBox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
-            this.projectNameTextBox.Location = new System.Drawing.Point(7, 25);
+            this.projectNameTextBox.Location = new System.Drawing.Point(7, 64);
             this.projectNameTextBox.Name = "projectNameTextBox";
             this.projectNameTextBox.Size = new System.Drawing.Size(139, 20);
             this.projectNameTextBox.TabIndex = 1;
@@ -51,7 +51,7 @@
             // projectNameTitle
             // 
             this.projectNameTitle.AutoSize = true;
-            this.projectNameTitle.Location = new System.Drawing.Point(8, 9);
+            this.projectNameTitle.Location = new System.Drawing.Point(8, 48);
             this.projectNameTitle.Name = "projectNameTitle";
             this.projectNameTitle.Size = new System.Drawing.Size(72, 13);
             this.projectNameTitle.TabIndex = 2;
@@ -62,7 +62,7 @@
             this.projectPathTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(69)))), ((int)(((byte)(73)))), ((int)(((byte)(74)))));
             this.projectPathTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.projectPathTextBox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
-            this.projectPathTextBox.Location = new System.Drawing.Point(7, 64);
+            this.projectPathTextBox.Location = new System.Drawing.Point(7, 103);
             this.projectPathTextBox.Name = "projectPathTextBox";
             this.projectPathTextBox.Size = new System.Drawing.Size(197, 20);
             this.projectPathTextBox.TabIndex = 5;
@@ -70,7 +70,7 @@
             // projectPathTitle
             // 
             this.projectPathTitle.AutoSize = true;
-            this.projectPathTitle.Location = new System.Drawing.Point(13, 48);
+            this.projectPathTitle.Location = new System.Drawing.Point(13, 87);
             this.projectPathTitle.Name = "projectPathTitle";
             this.projectPathTitle.Size = new System.Drawing.Size(67, 13);
             this.projectPathTitle.TabIndex = 4;
@@ -106,7 +106,7 @@
             "48x48",
             "64x64",
             "Custom (not available)"});
-            this.tilesSizeComboBox.Location = new System.Drawing.Point(7, 113);
+            this.tilesSizeComboBox.Location = new System.Drawing.Point(7, 152);
             this.tilesSizeComboBox.Name = "tilesSizeComboBox";
             this.tilesSizeComboBox.Size = new System.Drawing.Size(121, 21);
             this.tilesSizeComboBox.TabIndex = 9;
@@ -114,7 +114,7 @@
             // tileSizeTitle
             // 
             this.tileSizeTitle.AutoSize = true;
-            this.tileSizeTitle.Location = new System.Drawing.Point(8, 97);
+            this.tileSizeTitle.Location = new System.Drawing.Point(8, 136);
             this.tileSizeTitle.Name = "tileSizeTitle";
             this.tileSizeTitle.Size = new System.Drawing.Size(53, 13);
             this.tileSizeTitle.TabIndex = 10;
@@ -134,9 +134,17 @@
             this.Controls.Add(this.projectNameTitle);
             this.Controls.Add(this.projectNameTextBox);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Location = new System.Drawing.Point(0, 0);
             this.Name = "CreateProject";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "CreateProject";
+            this.Controls.SetChildIndex(this.projectNameTextBox, 0);
+            this.Controls.SetChildIndex(this.projectNameTitle, 0);
+            this.Controls.SetChildIndex(this.projectPathTitle, 0);
+            this.Controls.SetChildIndex(this.projectPathTextBox, 0);
+            this.Controls.SetChildIndex(this.createProjectButton, 0);
+            this.Controls.SetChildIndex(this.cancelButton, 0);
+            this.Controls.SetChildIndex(this.tilesSizeComboBox, 0);
+            this.Controls.SetChildIndex(this.tileSizeTitle, 0);
             this.ResumeLayout(false);
             this.PerformLayout();
 

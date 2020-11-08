@@ -23,7 +23,7 @@ namespace WolfyCore.ECS
 
         public override void Validate(GameTime gameTime)
         {
-            if (Target.GetComponent<SFXComponent>().Played)
+            if (Target.HasComponent<SFXComponent>())
             {
                 Target.RemoveComponent<SFXComponent>();
                 Complete();

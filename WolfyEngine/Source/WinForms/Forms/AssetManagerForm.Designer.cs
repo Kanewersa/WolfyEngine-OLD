@@ -47,11 +47,11 @@ namespace WolfyEngine.Forms
             this.foldersTreeView.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
             this.foldersTreeView.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(55)))), ((int)(((byte)(58)))), ((int)(((byte)(60)))));
-            this.foldersTreeView.Location = new System.Drawing.Point(0, 0);
+            this.foldersTreeView.Location = new System.Drawing.Point(0, 32);
             this.foldersTreeView.Margin = new System.Windows.Forms.Padding(0);
             this.foldersTreeView.MaxDragChange = 20;
             this.foldersTreeView.Name = "foldersTreeView";
-            this.foldersTreeView.Size = new System.Drawing.Size(175, 564);
+            this.foldersTreeView.Size = new System.Drawing.Size(175, 532);
             this.foldersTreeView.TabIndex = 1;
             this.foldersTreeView.Text = "darkTreeView1";
             this.foldersTreeView.Click += new System.EventHandler(this.FoldersTreeView_Click);
@@ -60,7 +60,7 @@ namespace WolfyEngine.Forms
             // 
             this.importButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.importButton.Enabled = false;
-            this.importButton.Location = new System.Drawing.Point(742, 9);
+            this.importButton.Location = new System.Drawing.Point(742, 37);
             this.importButton.Margin = new System.Windows.Forms.Padding(0);
             this.importButton.Name = "importButton";
             this.importButton.Padding = new System.Windows.Forms.Padding(5);
@@ -73,7 +73,7 @@ namespace WolfyEngine.Forms
             // 
             this.exportButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.exportButton.Enabled = false;
-            this.exportButton.Location = new System.Drawing.Point(742, 51);
+            this.exportButton.Location = new System.Drawing.Point(742, 79);
             this.exportButton.Margin = new System.Windows.Forms.Padding(0);
             this.exportButton.Name = "exportButton";
             this.exportButton.Padding = new System.Windows.Forms.Padding(5);
@@ -86,9 +86,9 @@ namespace WolfyEngine.Forms
             this.filesListView.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
             this.filesListView.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(55)))), ((int)(((byte)(58)))), ((int)(((byte)(60)))));
-            this.filesListView.Location = new System.Drawing.Point(175, 0);
+            this.filesListView.Location = new System.Drawing.Point(175, 32);
             this.filesListView.Name = "filesListView";
-            this.filesListView.Size = new System.Drawing.Size(175, 564);
+            this.filesListView.Size = new System.Drawing.Size(175, 532);
             this.filesListView.TabIndex = 7;
             this.filesListView.Text = "darkListView1";
             this.filesListView.Click += new System.EventHandler(this.filesListView_Click);
@@ -97,7 +97,7 @@ namespace WolfyEngine.Forms
             // 
             this.RestoreAssetButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.RestoreAssetButton.Enabled = false;
-            this.RestoreAssetButton.Location = new System.Drawing.Point(742, 135);
+            this.RestoreAssetButton.Location = new System.Drawing.Point(742, 163);
             this.RestoreAssetButton.Margin = new System.Windows.Forms.Padding(0);
             this.RestoreAssetButton.Name = "RestoreAssetButton";
             this.RestoreAssetButton.Padding = new System.Windows.Forms.Padding(5);
@@ -110,7 +110,7 @@ namespace WolfyEngine.Forms
             // 
             this.RestoreDirectoryButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.RestoreDirectoryButton.Enabled = false;
-            this.RestoreDirectoryButton.Location = new System.Drawing.Point(742, 177);
+            this.RestoreDirectoryButton.Location = new System.Drawing.Point(742, 205);
             this.RestoreDirectoryButton.Margin = new System.Windows.Forms.Padding(0);
             this.RestoreDirectoryButton.Name = "RestoreDirectoryButton";
             this.RestoreDirectoryButton.Padding = new System.Windows.Forms.Padding(5);
@@ -124,7 +124,7 @@ namespace WolfyEngine.Forms
             this.DeleteButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.DeleteButton.Enabled = false;
             this.DeleteButton.ImagePadding = 0;
-            this.DeleteButton.Location = new System.Drawing.Point(742, 93);
+            this.DeleteButton.Location = new System.Drawing.Point(742, 121);
             this.DeleteButton.Margin = new System.Windows.Forms.Padding(0);
             this.DeleteButton.Name = "DeleteButton";
             this.DeleteButton.Padding = new System.Windows.Forms.Padding(5);
@@ -140,10 +140,10 @@ namespace WolfyEngine.Forms
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.previewBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.previewBox.Location = new System.Drawing.Point(350, 0);
+            this.previewBox.Location = new System.Drawing.Point(350, 32);
             this.previewBox.Margin = new System.Windows.Forms.Padding(0);
             this.previewBox.Name = "previewBox";
-            this.previewBox.Size = new System.Drawing.Size(382, 564);
+            this.previewBox.Size = new System.Drawing.Size(382, 532);
             this.previewBox.TabIndex = 3;
             this.previewBox.TabStop = false;
             // 
@@ -151,7 +151,7 @@ namespace WolfyEngine.Forms
             // 
             this.OpenDirectoryButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.OpenDirectoryButton.Enabled = false;
-            this.OpenDirectoryButton.Location = new System.Drawing.Point(742, 219);
+            this.OpenDirectoryButton.Location = new System.Drawing.Point(742, 247);
             this.OpenDirectoryButton.Margin = new System.Windows.Forms.Padding(0);
             this.OpenDirectoryButton.Name = "OpenDirectoryButton";
             this.OpenDirectoryButton.Padding = new System.Windows.Forms.Padding(5);
@@ -174,9 +174,18 @@ namespace WolfyEngine.Forms
             this.Controls.Add(this.importButton);
             this.Controls.Add(this.previewBox);
             this.Controls.Add(this.foldersTreeView);
+            this.Location = new System.Drawing.Point(0, 0);
             this.Name = "AssetManagerForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "AssetManagerForm";
+            this.Controls.SetChildIndex(this.foldersTreeView, 0);
+            this.Controls.SetChildIndex(this.previewBox, 0);
+            this.Controls.SetChildIndex(this.importButton, 0);
+            this.Controls.SetChildIndex(this.exportButton, 0);
+            this.Controls.SetChildIndex(this.DeleteButton, 0);
+            this.Controls.SetChildIndex(this.filesListView, 0);
+            this.Controls.SetChildIndex(this.RestoreAssetButton, 0);
+            this.Controls.SetChildIndex(this.RestoreDirectoryButton, 0);
+            this.Controls.SetChildIndex(this.OpenDirectoryButton, 0);
             ((System.ComponentModel.ISupportInitialize)(this.previewBox)).EndInit();
             this.ResumeLayout(false);
 

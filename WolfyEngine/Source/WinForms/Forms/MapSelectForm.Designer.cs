@@ -41,9 +41,10 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.DarkDockPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
-            this.DarkDockPanel.Location = new System.Drawing.Point(0, 0);
+            this.DarkDockPanel.Location = new System.Drawing.Point(0, 35);
+            this.DarkDockPanel.Margin = new System.Windows.Forms.Padding(0);
             this.DarkDockPanel.Name = "DarkDockPanel";
-            this.DarkDockPanel.Size = new System.Drawing.Size(674, 473);
+            this.DarkDockPanel.Size = new System.Drawing.Size(674, 438);
             this.DarkDockPanel.TabIndex = 1;
             // 
             // SelectButton
@@ -73,9 +74,9 @@
             this.panel1.Controls.Add(this.SelectButton);
             this.panel1.Controls.Add(this.CancelButton);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panel1.Location = new System.Drawing.Point(674, 0);
+            this.panel1.Location = new System.Drawing.Point(674, 32);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(85, 473);
+            this.panel1.Size = new System.Drawing.Size(85, 441);
             this.panel1.TabIndex = 4;
             // 
             // MapSelectForm
@@ -85,9 +86,12 @@
             this.ClientSize = new System.Drawing.Size(759, 473);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.DarkDockPanel);
+            this.Location = new System.Drawing.Point(0, 0);
             this.Name = "MapSelectForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "MapSelectForm";
+            this.Controls.SetChildIndex(this.DarkDockPanel, 0);
+            this.Controls.SetChildIndex(this.panel1, 0);
             this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
 

@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using ProtoBuf;
+using WolfyCore.Controllers;
 
 namespace WolfyCore.Engine
 {
@@ -36,7 +37,20 @@ namespace WolfyCore.Engine
         /// <summary>
         /// Path to the source file of <see cref="Texture2D"/>.
         /// </summary>
-        [ProtoMember(5)] public string Path { get; set; }
+        [ProtoMember(5)]
+        public string Path
+        {
+            get => _path;
+            set
+            {
+                if(System.IO.Path.HasExtension(value))
+                    throw new Exception("Image path should not contain extension.");
+                if (System.IO.Path.IsPathRooted(value))
+                    throw new Exception("Image path should be relative.");
+
+                _path = value;
+            }
+        }
 
         /// <summary>
         /// Clockwise rotation of the image.
@@ -58,18 +72,27 @@ namespace WolfyCore.Engine
         /// </summary>
         [ProtoIgnore] public Vector2 Position;
 
+        private string _path;
+
         /// <summary>
         /// The region of the texture which should be rendered.
         /// </summary>
         [ProtoIgnore] public Rectangle SourceRectangle { get; set; } = Rectangle.Empty;
 
         /// <summary>
-        /// The texture.
+        /// Texture of the image.
         /// </summary>
         [ProtoIgnore] public Texture2D Texture { get; private set; }
 
+        /// <summary>
+        /// Default constructor.
+        /// </summary>
         public Image() { }
 
+        /// <summary>
+        /// Creates new <see cref="Image"/> with given path.
+        /// </summary>
+        /// <param name="path"></param>
         public Image(string path) { Path = path; }
 
         /// <summary>
@@ -78,14 +101,11 @@ namespace WolfyCore.Engine
         /// <param name="content"></param>
         public void LoadContent(ContentManager content)
         {
-            if (Texture != null)
+            if (Texture != null) // Image was already initialized
                 return;
 
             if (string.IsNullOrEmpty(Path))
                 throw new FileNotFoundException("Texture file is missing or has a wrong path! Path: " + Path);
-
-            if (System.IO.Path.HasExtension(Path))
-                Path = System.IO.Path.ChangeExtension(Path, null);
 
             Texture = content.Load<Texture2D>(Path);
 

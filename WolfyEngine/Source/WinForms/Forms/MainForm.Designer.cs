@@ -45,6 +45,7 @@
             this.mapsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.playerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.variablesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip = new DarkUI.Controls.DarkStatusStrip();
             this.currentProjectLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.statusLabel = new System.Windows.Forms.ToolStripStatusLabel();
@@ -52,14 +53,13 @@
             this.memoryUsageLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.button1 = new System.Windows.Forms.Button();
             this.OpacityTimer = new System.Windows.Forms.Timer(this.components);
-            this.variablesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.darkMenuStrip.SuspendLayout();
             this.statusStrip.SuspendLayout();
             this.SuspendLayout();
             // 
             // assetManagerButton
             // 
-            this.assetManagerButton.Location = new System.Drawing.Point(362, 1);
+            this.assetManagerButton.Location = new System.Drawing.Point(319, 38);
             this.assetManagerButton.Name = "assetManagerButton";
             this.assetManagerButton.Padding = new System.Windows.Forms.Padding(5);
             this.assetManagerButton.Size = new System.Drawing.Size(98, 23);
@@ -71,9 +71,9 @@
             // 
             this.darkDockPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
             this.darkDockPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.darkDockPanel.Location = new System.Drawing.Point(0, 24);
+            this.darkDockPanel.Location = new System.Drawing.Point(0, 32);
             this.darkDockPanel.Name = "darkDockPanel";
-            this.darkDockPanel.Size = new System.Drawing.Size(1340, 823);
+            this.darkDockPanel.Size = new System.Drawing.Size(1340, 815);
             this.darkDockPanel.TabIndex = 19;
             // 
             // darkMenuStrip
@@ -85,7 +85,7 @@
             this.editToolStripMenuItem,
             this.viewToolStripMenuItem,
             this.settingsToolStripMenuItem});
-            this.darkMenuStrip.Location = new System.Drawing.Point(0, 0);
+            this.darkMenuStrip.Location = new System.Drawing.Point(0, 32);
             this.darkMenuStrip.Name = "darkMenuStrip";
             this.darkMenuStrip.Padding = new System.Windows.Forms.Padding(3, 2, 0, 2);
             this.darkMenuStrip.Size = new System.Drawing.Size(1340, 24);
@@ -212,9 +212,18 @@
             this.playerToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
             this.playerToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
             this.playerToolStripMenuItem.Name = "playerToolStripMenuItem";
-            this.playerToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.playerToolStripMenuItem.Size = new System.Drawing.Size(120, 22);
             this.playerToolStripMenuItem.Text = "Player";
             this.playerToolStripMenuItem.Click += new System.EventHandler(this.PlayerToolStripMenuItem_Click);
+            // 
+            // variablesToolStripMenuItem
+            // 
+            this.variablesToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
+            this.variablesToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
+            this.variablesToolStripMenuItem.Name = "variablesToolStripMenuItem";
+            this.variablesToolStripMenuItem.Size = new System.Drawing.Size(120, 22);
+            this.variablesToolStripMenuItem.Text = "Variables";
+            this.variablesToolStripMenuItem.Click += new System.EventHandler(this.variablesToolStripMenuItem_Click);
             // 
             // statusStrip
             // 
@@ -267,22 +276,13 @@
             // button1
             // 
             this.button1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.button1.Location = new System.Drawing.Point(523, 0);
+            this.button1.Location = new System.Drawing.Point(444, 47);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 23;
             this.button1.Text = "button1";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.Button1_Click);
-            // 
-            // variablesToolStripMenuItem
-            // 
-            this.variablesToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
-            this.variablesToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
-            this.variablesToolStripMenuItem.Name = "variablesToolStripMenuItem";
-            this.variablesToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.variablesToolStripMenuItem.Text = "Variables";
-            this.variablesToolStripMenuItem.Click += new System.EventHandler(this.variablesToolStripMenuItem_Click);
             // 
             // MainForm
             // 
@@ -291,14 +291,19 @@
             this.ClientSize = new System.Drawing.Size(1340, 871);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.assetManagerButton);
-            this.Controls.Add(this.darkDockPanel);
             this.Controls.Add(this.darkMenuStrip);
+            this.Controls.Add(this.darkDockPanel);
             this.Controls.Add(this.statusStrip);
             this.DoubleBuffered = true;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "MainForm";
             this.Opacity = 0D;
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Wolfy Engine";
+            this.Text = "Wolfy Editor";
+            this.Controls.SetChildIndex(this.statusStrip, 0);
+            this.Controls.SetChildIndex(this.darkDockPanel, 0);
+            this.Controls.SetChildIndex(this.darkMenuStrip, 0);
+            this.Controls.SetChildIndex(this.assetManagerButton, 0);
+            this.Controls.SetChildIndex(this.button1, 0);
             this.darkMenuStrip.ResumeLayout(false);
             this.darkMenuStrip.PerformLayout();
             this.statusStrip.ResumeLayout(false);

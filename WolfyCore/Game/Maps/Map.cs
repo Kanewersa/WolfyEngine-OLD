@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -39,6 +38,11 @@ namespace WolfyCore.Game
         /// Layers of the map.
         /// </summary>
         [ProtoMember(5)] public List<BaseLayer> Layers { get; set; } = new List<BaseLayer>();
+
+        /// <summary>
+        /// DBackground music played after entering the map.
+        /// </summary>
+        [ProtoMember(6)] public Sound BackgroundMusic { get; set; }
 
         /// <summary>
         /// Stores the entities.

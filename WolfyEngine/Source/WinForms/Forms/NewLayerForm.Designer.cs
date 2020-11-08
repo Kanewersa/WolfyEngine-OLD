@@ -41,7 +41,7 @@
             // nameTitle
             // 
             this.nameTitle.AutoSize = true;
-            this.nameTitle.Location = new System.Drawing.Point(12, 9);
+            this.nameTitle.Location = new System.Drawing.Point(12, 44);
             this.nameTitle.Name = "nameTitle";
             this.nameTitle.Size = new System.Drawing.Size(38, 13);
             this.nameTitle.TabIndex = 13;
@@ -52,7 +52,7 @@
             this.nameTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(69)))), ((int)(((byte)(73)))), ((int)(((byte)(74)))));
             this.nameTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.nameTextBox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
-            this.nameTextBox.Location = new System.Drawing.Point(12, 25);
+            this.nameTextBox.Location = new System.Drawing.Point(12, 60);
             this.nameTextBox.Name = "nameTextBox";
             this.nameTextBox.Size = new System.Drawing.Size(186, 20);
             this.nameTextBox.TabIndex = 12;
@@ -60,9 +60,10 @@
             // 
             // graphicsPreviewBox
             // 
-            this.graphicsPreviewBox.Location = new System.Drawing.Point(407, 9);
+            this.graphicsPreviewBox.Location = new System.Drawing.Point(407, 35);
+            this.graphicsPreviewBox.Margin = new System.Windows.Forms.Padding(0);
             this.graphicsPreviewBox.Name = "graphicsPreviewBox";
-            this.graphicsPreviewBox.Size = new System.Drawing.Size(284, 460);
+            this.graphicsPreviewBox.Size = new System.Drawing.Size(287, 437);
             this.graphicsPreviewBox.TabIndex = 19;
             this.graphicsPreviewBox.TabStop = false;
             // 
@@ -90,9 +91,10 @@
             // 
             // tilesetsListView
             // 
-            this.tilesetsListView.Location = new System.Drawing.Point(232, 25);
+            this.tilesetsListView.Location = new System.Drawing.Point(232, 35);
+            this.tilesetsListView.Margin = new System.Windows.Forms.Padding(0);
             this.tilesetsListView.Name = "tilesetsListView";
-            this.tilesetsListView.Size = new System.Drawing.Size(169, 444);
+            this.tilesetsListView.Size = new System.Drawing.Size(169, 434);
             this.tilesetsListView.TabIndex = 25;
             this.tilesetsListView.Text = "Tilesets List View";
             this.tilesetsListView.Click += new System.EventHandler(this.tilesetsListView_Click);
@@ -118,9 +120,17 @@
             this.Controls.Add(this.graphicsPreviewBox);
             this.Controls.Add(this.nameTitle);
             this.Controls.Add(this.nameTextBox);
+            this.Location = new System.Drawing.Point(0, 0);
             this.Name = "NewLayerForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "New layer";
+            this.Controls.SetChildIndex(this.nameTextBox, 0);
+            this.Controls.SetChildIndex(this.nameTitle, 0);
+            this.Controls.SetChildIndex(this.graphicsPreviewBox, 0);
+            this.Controls.SetChildIndex(this.createButton, 0);
+            this.Controls.SetChildIndex(this.cancelButton, 0);
+            this.Controls.SetChildIndex(this.tilesetsListView, 0);
+            this.Controls.SetChildIndex(this.tilesetsTitle, 0);
             ((System.ComponentModel.ISupportInitialize)(this.graphicsPreviewBox)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

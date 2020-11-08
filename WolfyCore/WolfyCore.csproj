@@ -164,6 +164,7 @@
     <Compile Include="ECS\Actions\WolfyCondition.cs" />
     <Compile Include="ECS\Actions\Conditions\WolfyVariable.cs" />
     <Compile Include="ECS\Components\ActionComponent.cs" />
+    <Compile Include="ECS\Components\Audio\BGMComponent.cs" />
     <Compile Include="ECS\Components\BorderTeleportComponent.cs" />
     <Compile Include="ECS\Components\Collision\IgnoreCollisionComponent.cs" />
     <Compile Include="ECS\Components\Collision\NoCollisionComponent.cs" />
@@ -193,6 +194,7 @@
     <Compile Include="ECS\Components\UI\DisplayUIComponent.cs" />
     <Compile Include="ECS\Systems\ActionSystem.cs" />
     <Compile Include="ECS\Systems\AnimationSystem.cs" />
+    <Compile Include="ECS\Systems\Audio\BGMSystem.cs" />
     <Compile Include="ECS\Systems\Audio\SFXSystem.cs" />
     <Compile Include="ECS\Systems\Collision\CollisionDetectionSystem.cs" />
     <Compile Include="ECS\Systems\Collision\EntityCollisionHandler.cs" />
@@ -235,6 +237,7 @@
     <Compile Include="Engine\Utils\WolfyManager.cs" />
     <Compile Include="Engine\Vector2D.cs" />
     <Compile Include="Engine\Vector3D.cs" />
+    <Compile Include="Game\Entities.cs" />
     <Compile Include="Game\GameSettings.cs" />
     <Compile Include="Game\InGameTime.cs" />
     <Compile Include="Game\Inventory\GameItem.cs" />
@@ -254,6 +257,7 @@
     <Compile Include="Game\Maps\Tile.cs" />
     <Compile Include="Game\Maps\TileLayer.cs" />
     <Compile Include="Game\Maps\TileRow.cs" />
+    <Compile Include="Game\Audio\Sound.cs" />
     <Compile Include="Game\Tilesets\Tileset.cs" />
     <Compile Include="Game\Tilesets\TilesetInfo.cs" />
     <Compile Include="Game\Tilesets\TilesetsData.cs" />

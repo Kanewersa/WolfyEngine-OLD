@@ -33,7 +33,7 @@ namespace WolfyCore.Actions
 
         public override void Validate(GameTime gameTime)
         {
-            if (Entity.Player.HasComponent<DialogComponent>())
+            if (Entities.Player.HasComponent<DialogComponent>())
                 return;
             
             Complete();

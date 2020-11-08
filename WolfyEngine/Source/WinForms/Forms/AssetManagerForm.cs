@@ -19,7 +19,6 @@ namespace WolfyEngine.Forms
         public AssetManagerForm()
         {
             InitializeComponent();
-
             InitializeFolderTree();
         }
 
@@ -47,11 +46,6 @@ namespace WolfyEngine.Forms
             var audio = new DarkTreeNode("Audio");
             mainNode.Nodes.Add(audio);
 
-            var bgm = new DarkTreeNode("BGM");
-            var sfx = new DarkTreeNode("SFX");
-            audio.Nodes.Add(bgm);
-            audio.Nodes.Add(sfx);
-
             var data = new DarkTreeNode("Data");
             mainNode.Nodes.Add(data);
 
@@ -64,9 +58,15 @@ namespace WolfyEngine.Forms
             //Define sub folders
             var tilesets = new DarkTreeNode("Tilesets");
             graphics.Nodes.Add(tilesets);
-
             var sprites = new DarkTreeNode("Sprites");
             graphics.Nodes.Add(sprites);
+            var lookupTables = new DarkTreeNode("Lookup Tables");
+            graphics.Nodes.Add(lookupTables);
+
+            var bgm = new DarkTreeNode("BGM");
+            audio.Nodes.Add(bgm);
+            var sfx = new DarkTreeNode("SFX");
+            audio.Nodes.Add(sfx);
 
             //Collapse root
             mainNode.Expanded = true;
@@ -113,8 +113,6 @@ namespace WolfyEngine.Forms
         private void DisplayFiles(string folderPath, string extension)
         {
             Directory.CreateDirectory(folderPath);
-
-            //var extension = "*.png";
 
             foreach (var file in Directory.EnumerateFiles(folderPath, extension, SearchOption.TopDirectoryOnly))
             {

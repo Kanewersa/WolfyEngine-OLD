@@ -44,7 +44,7 @@
             // nameTitle
             // 
             this.nameTitle.AutoSize = true;
-            this.nameTitle.Location = new System.Drawing.Point(12, 9);
+            this.nameTitle.Location = new System.Drawing.Point(12, 40);
             this.nameTitle.Name = "nameTitle";
             this.nameTitle.Size = new System.Drawing.Size(38, 13);
             this.nameTitle.TabIndex = 11;
@@ -55,7 +55,7 @@
             this.nameTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(69)))), ((int)(((byte)(73)))), ((int)(((byte)(74)))));
             this.nameTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.nameTextBox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
-            this.nameTextBox.Location = new System.Drawing.Point(12, 25);
+            this.nameTextBox.Location = new System.Drawing.Point(12, 56);
             this.nameTextBox.Name = "nameTextBox";
             this.nameTextBox.Size = new System.Drawing.Size(186, 20);
             this.nameTextBox.TabIndex = 10;
@@ -88,9 +88,9 @@
             this.graphicsPreviewBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.graphicsPreviewBox.Location = new System.Drawing.Point(224, 12);
+            this.graphicsPreviewBox.Location = new System.Drawing.Point(224, 32);
             this.graphicsPreviewBox.Name = "graphicsPreviewBox";
-            this.graphicsPreviewBox.Size = new System.Drawing.Size(288, 416);
+            this.graphicsPreviewBox.Size = new System.Drawing.Size(288, 396);
             this.graphicsPreviewBox.TabIndex = 13;
             this.graphicsPreviewBox.TabStop = false;
             // 
@@ -98,7 +98,7 @@
             // 
             this.darkListView1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
-            this.darkListView1.Location = new System.Drawing.Point(12, 78);
+            this.darkListView1.Location = new System.Drawing.Point(12, 109);
             this.darkListView1.Name = "darkListView1";
             this.darkListView1.Size = new System.Drawing.Size(183, 265);
             this.darkListView1.TabIndex = 14;
@@ -108,7 +108,7 @@
             // 
             this.autotilesLabel.AutoSize = true;
             this.autotilesLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
-            this.autotilesLabel.Location = new System.Drawing.Point(9, 62);
+            this.autotilesLabel.Location = new System.Drawing.Point(9, 93);
             this.autotilesLabel.Name = "autotilesLabel";
             this.autotilesLabel.Size = new System.Drawing.Size(50, 13);
             this.autotilesLabel.TabIndex = 15;
@@ -117,7 +117,7 @@
             // addAutotileButton
             // 
             this.addAutotileButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.addAutotileButton.Location = new System.Drawing.Point(12, 349);
+            this.addAutotileButton.Location = new System.Drawing.Point(12, 380);
             this.addAutotileButton.Name = "addAutotileButton";
             this.addAutotileButton.Padding = new System.Windows.Forms.Padding(5);
             this.addAutotileButton.Size = new System.Drawing.Size(84, 36);
@@ -127,7 +127,7 @@
             // removeAutotileButton
             // 
             this.removeAutotileButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.removeAutotileButton.Location = new System.Drawing.Point(114, 349);
+            this.removeAutotileButton.Location = new System.Drawing.Point(114, 380);
             this.removeAutotileButton.Name = "removeAutotileButton";
             this.removeAutotileButton.Padding = new System.Windows.Forms.Padding(5);
             this.removeAutotileButton.Size = new System.Drawing.Size(84, 36);
@@ -161,9 +161,20 @@
             this.Controls.Add(this.nameTextBox);
             this.Controls.Add(this.cancelButton);
             this.Controls.Add(this.createButton);
+            this.Location = new System.Drawing.Point(0, 0);
             this.Name = "NewTilesetForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "New tileset";
+            this.Controls.SetChildIndex(this.createButton, 0);
+            this.Controls.SetChildIndex(this.cancelButton, 0);
+            this.Controls.SetChildIndex(this.nameTextBox, 0);
+            this.Controls.SetChildIndex(this.nameTitle, 0);
+            this.Controls.SetChildIndex(this.graphicsPreviewBox, 0);
+            this.Controls.SetChildIndex(this.darkListView1, 0);
+            this.Controls.SetChildIndex(this.autotilesLabel, 0);
+            this.Controls.SetChildIndex(this.addAutotileButton, 0);
+            this.Controls.SetChildIndex(this.removeAutotileButton, 0);
+            this.Controls.SetChildIndex(this.selectGraphicsButton, 0);
             ((System.ComponentModel.ISupportInitialize)(this.graphicsPreviewBox)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

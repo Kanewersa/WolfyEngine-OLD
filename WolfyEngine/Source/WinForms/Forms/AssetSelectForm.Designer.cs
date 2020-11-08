@@ -42,16 +42,16 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.previewBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.previewBox.Location = new System.Drawing.Point(175, 0);
+            this.previewBox.Location = new System.Drawing.Point(175, 32);
             this.previewBox.Margin = new System.Windows.Forms.Padding(0);
             this.previewBox.Name = "previewBox";
-            this.previewBox.Size = new System.Drawing.Size(405, 481);
+            this.previewBox.Size = new System.Drawing.Size(405, 449);
             this.previewBox.TabIndex = 4;
             this.previewBox.TabStop = false;
             // 
             // selectButton
             // 
-            this.selectButton.Location = new System.Drawing.Point(587, 12);
+            this.selectButton.Location = new System.Drawing.Point(587, 40);
             this.selectButton.Name = "selectButton";
             this.selectButton.Padding = new System.Windows.Forms.Padding(5);
             this.selectButton.Size = new System.Drawing.Size(100, 29);
@@ -74,10 +74,10 @@
             this.FilesListView.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
             this.FilesListView.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(55)))), ((int)(((byte)(58)))), ((int)(((byte)(60)))));
-            this.FilesListView.Location = new System.Drawing.Point(0, 0);
+            this.FilesListView.Location = new System.Drawing.Point(0, 32);
             this.FilesListView.Margin = new System.Windows.Forms.Padding(0);
             this.FilesListView.Name = "FilesListView";
-            this.FilesListView.Size = new System.Drawing.Size(175, 481);
+            this.FilesListView.Size = new System.Drawing.Size(175, 449);
             this.FilesListView.TabIndex = 8;
             this.FilesListView.Text = "Files List View";
             this.FilesListView.Click += new System.EventHandler(this.FilesListView_Click);
@@ -85,7 +85,7 @@
             // 
             // AssetManagerButton
             // 
-            this.AssetManagerButton.Location = new System.Drawing.Point(587, 61);
+            this.AssetManagerButton.Location = new System.Drawing.Point(587, 89);
             this.AssetManagerButton.Name = "AssetManagerButton";
             this.AssetManagerButton.Padding = new System.Windows.Forms.Padding(5);
             this.AssetManagerButton.Size = new System.Drawing.Size(100, 29);
@@ -103,9 +103,15 @@
             this.Controls.Add(this.cancelButton);
             this.Controls.Add(this.selectButton);
             this.Controls.Add(this.previewBox);
+            this.Location = new System.Drawing.Point(0, 0);
             this.Name = "AssetSelectForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "AssetSelectForm";
+            this.Controls.SetChildIndex(this.previewBox, 0);
+            this.Controls.SetChildIndex(this.selectButton, 0);
+            this.Controls.SetChildIndex(this.cancelButton, 0);
+            this.Controls.SetChildIndex(this.FilesListView, 0);
+            this.Controls.SetChildIndex(this.AssetManagerButton, 0);
             ((System.ComponentModel.ISupportInitialize)(this.previewBox)).EndInit();
             this.ResumeLayout(false);
 

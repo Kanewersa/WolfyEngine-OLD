@@ -48,7 +48,7 @@ namespace WolfyEngine.Forms
             form.ShowDialog();
         }
 
-        private void Form_OnAssetSelected(string assetName, string fullPath, string extension)
+        private void Form_OnAssetSelected(string assetName, string fullPath, string relativePath, string extension)
         {
             AssetTextBox.Text = assetName;
         }

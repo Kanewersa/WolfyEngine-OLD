@@ -101,7 +101,7 @@ namespace WolfyEngine.Controls
             form.ShowDialog();
         }
 
-        private void Form_OnAssetSelected(string assetName, string fullPath, string extension)
+        private void Form_OnAssetSelected(string assetName, string fullPath, string relativePath, string extension)
         {
             if(extension != ".png") throw new Exception("Sprite must be a png file!");
 
@@ -111,7 +111,7 @@ namespace WolfyEngine.Controls
                 GraphicsPictureBox.Image = img;
             }
 
-            _graphicsPath = Path.ChangeExtension(fullPath, null);
+            _graphicsPath = relativePath;
         }
     }
 }

@@ -8,6 +8,9 @@ namespace WolfyCore.ECS
 {
     [ProtoContract] public class TimeSystem : EntitySystem
     {
+        private static TimeSystem Instance;
+        public static InGameTime GameTime { get; private set; }
+
         [ProtoMember(1)] public float Timer;
         [ProtoMember(2)] public InGameTime Time;
 
@@ -15,6 +18,8 @@ namespace WolfyCore.ECS
 
         public override void Initialize(GraphicsDevice graphics)
         {
+            Instance = this;
+
             RequireComponent<ActiveComponent>();
             RequireComponent<TimeEventComponent>();
         }
@@ -31,6 +36,7 @@ namespace WolfyCore.ECS
             Timer = 0;
 
             Time = Time.AddMinute();
+            GameTime = Time;
 
             IterateEntities(entity =>
             {
@@ -39,6 +45,14 @@ namespace WolfyCore.ECS
                 var startAction = new StartActionComponent(timeComponent.GetActions(Time), true);
                 entity.AddComponent(startAction);
             });
+        }
+
+        public static void SetTime(InGameTime time)
+        {
+            GameTime = time;
+            Instance.Time = time;
+            Instance.Timer = 0;
+            // TODO: Do all operations to npc after changing game-time
         }
     }
 }

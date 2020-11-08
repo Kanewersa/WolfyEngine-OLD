@@ -6,6 +6,7 @@ using DarkUI.Docking;
 using Microsoft.Xna.Framework;
 using WolfyEngine.Forms;
 using WolfyCore.Controllers;
+using WolfyCore.ECS;
 using WolfyCore.Game;
 using WolfyECS;
 
@@ -30,17 +31,17 @@ namespace WolfyEngine.Controls
         {
             if (!displayToolStrip)
             {
-                toolStrip.Hide();
+                ToolStrip.Hide();
             }
 
             if (disableByDefault)
             {
-                toolStrip.Enabled = false;
+                ToolStrip.Enabled = false;
                 return;
             }
 
             RefreshTree();
-            toolStrip.Enabled = true;
+            ToolStrip.Enabled = true;
         }
 
 
@@ -112,7 +113,7 @@ namespace WolfyEngine.Controls
             if (MapsController.Instance.MapsData.GetMapsInfo().Count == 1)
             {
                 map.LoadEntities();
-                map.AddEntity(Entity.Player, Vector2.Zero);
+                map.AddEntity(Entities.Player, Vector2.Zero);
             }
 
             mapsTree.SelectNode(mapsTree.Nodes[0].Nodes.Last());

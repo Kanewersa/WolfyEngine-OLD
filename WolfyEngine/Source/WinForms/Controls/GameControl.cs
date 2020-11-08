@@ -261,7 +261,7 @@ namespace WolfyEngine.Controls
                     if (entity == Entity.Empty) 
                         continue;
                     
-                    if (entity == Entity.Player)
+                    if (entity == Entities.Player)
                     {
                         StartingPointImage.Position = new Vector2(x * TileSize.X, y * TileSize.Y);
                         StartingPointImage.Draw(Editor.spriteBatch);
@@ -295,7 +295,7 @@ namespace WolfyEngine.Controls
                 return;
             }
 
-            StartingMap = CurrentMap.Id == Entity.Player.GetComponent<TransformComponent>().CurrentMap;
+            StartingMap = CurrentMap.Id == Entities.Player.GetComponent<TransformComponent>().CurrentMap;
 
             Width = map.Size.X * TileSize.X;
             Height = map.Size.Y * TileSize.Y;

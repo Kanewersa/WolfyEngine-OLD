@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Input;
 using MonoGame.Forms.Controls;
 using WolfyCore;
+using WolfyCore.Controllers;
 using WolfyECS;
 using WolfyEngine.Utils;
 using WolfyCore.Game;
@@ -36,6 +37,8 @@ namespace WolfyEngine.Controls
             // Set swap chain render target
             Runtime.RenderTarget = SwapChainRenderTarget;
 
+            // Set content directory to project's path
+            Editor.Content.RootDirectory = PathsController.Instance.MainPath;
             Scene.Initialize(GraphicsDevice);
             Scene.LoadContent(Editor.Content);
 

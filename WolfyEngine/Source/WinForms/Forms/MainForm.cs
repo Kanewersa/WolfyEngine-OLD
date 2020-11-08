@@ -4,14 +4,12 @@ using System.Diagnostics;
 using System.Linq;
 using System.Windows.Forms;
 using DarkUI.Docking;
-using DarkUI.Forms;
 using DarkUI.Win32;
 using WolfyEngine.Controls;
 using WolfyEngine.Engine;
 using WolfyEngine.Properties;
 using WolfyCore;
 using WolfyCore.Controllers;
-using WolfyCore.ECS;
 using WolfyCore.Game;
 using WolfyECS;
 using Timer = System.Windows.Forms.Timer;
@@ -32,6 +30,8 @@ namespace WolfyEngine.Forms
         {
             AutoScaleMode = AutoScaleMode.None;
             InitializeComponent();
+            LoadTitle();
+
             // Add the control scroll message filter to re-route all mousewheel events
             // to the control the user is currently hovering over with their cursor.
             Application.AddMessageFilter(new ControlScrollFilter());
@@ -81,7 +81,7 @@ namespace WolfyEngine.Forms
             SetMemoryTimer();
 
             // Maximize the form after start
-            WindowState = FormWindowState.Maximized;
+            //WindowState = FormWindowState.Maximized;
 
             // Load all panels containing monogame controls by showing them for a while
             darkDockPanel.ActiveContent = TilesetEditorPanel;
@@ -298,7 +298,10 @@ namespace WolfyEngine.Forms
 
         private void Button1_Click(object sender, EventArgs e)
         {
-            
+            using (var form = new WolfyForm())
+            {
+                form.ShowDialog();
+            }
         }
 
         private void PlayerToolStripMenuItem_Click(object sender, EventArgs e)

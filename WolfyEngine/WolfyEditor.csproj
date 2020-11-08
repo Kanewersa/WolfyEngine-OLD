@@ -271,6 +271,12 @@
     <Compile Include="Source\WinForms\Forms\EntityForms\EntityEditForm.Designer.cs">
       <DependentUpon>EntityEditForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Source\WinForms\Forms\LookupTablesForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Source\WinForms\Forms\LookupTablesForm.Designer.cs">
+      <DependentUpon>LookupTablesForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Source\WinForms\Forms\FormHelper.cs" />
     <Compile Include="Source\WinForms\Forms\MapSelectForm.cs">
       <SubType>Form</SubType>
@@ -375,6 +381,12 @@
     <Compile Include="Source\WinForms\Panels\EntityPanels\MovementComponentPanel.Designer.cs">
       <DependentUpon>MovementComponentPanel.cs</DependentUpon>
     </Compile>
+    <Compile Include="Source\WinForms\Panels\LookupSetPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Source\WinForms\Panels\LookupSetPanel.Designer.cs">
+      <DependentUpon>LookupSetPanel.cs</DependentUpon>
+    </Compile>
     <Compile Include="Source\WinForms\Panels\MapSelectPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -429,11 +441,11 @@
     <Compile Include="Source\WinForms\Panels\TilesetsPanel.Designer.cs">
       <DependentUpon>TilesetsPanel.cs</DependentUpon>
     </Compile>
-    <Compile Include="Source\WinForms\Panels\TopPanel.cs">
+    <Compile Include="Source\WinForms\Panels\TitlePanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Source\WinForms\Panels\TopPanel.Designer.cs">
-      <DependentUpon>TopPanel.cs</DependentUpon>
+    <Compile Include="Source\WinForms\Panels\TitlePanel.Designer.cs">
+      <DependentUpon>TitlePanel.cs</DependentUpon>
     </Compile>
     <Compile Include="Source\WinForms\Forms\MessageDialog.cs">
       <SubType>Form</SubType>
@@ -458,12 +470,6 @@
     </Compile>
     <Compile Include="Source\WinForms\Forms\CreateProjectForm.Designer.cs">
       <DependentUpon>CreateProjectForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Source\WinForms\Forms\DatabaseForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Source\WinForms\Forms\DatabaseForm.Designer.cs">
-      <DependentUpon>DatabaseForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Source\WinForms\Forms\MainForm.cs">
       <SubType>Form</SubType>
@@ -522,6 +528,9 @@
     <EmbeddedResource Include="Source\WinForms\Forms\EntityForms\EntityEditForm.resx">
       <DependentUpon>EntityEditForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Source\WinForms\Forms\LookupTablesForm.resx">
+      <DependentUpon>LookupTablesForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Source\WinForms\Forms\MapSelectForm.resx">
       <DependentUpon>MapSelectForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -555,6 +564,9 @@
     <EmbeddedResource Include="Source\WinForms\Forms\Variables\WolfyVariableDocument.resx">
       <DependentUpon>WolfyVariableDocument.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Source\WinForms\Forms\WolfyForm.resx">
+      <DependentUpon>WolfyForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Source\WinForms\Panels\EntityPanels\ActionComponentPanel.resx">
       <DependentUpon>ActionComponentPanel.cs</DependentUpon>
     </EmbeddedResource>
@@ -576,6 +588,9 @@
     <EmbeddedResource Include="Source\WinForms\Panels\LayersPanel.resx">
       <DependentUpon>LayersPanel.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Source\WinForms\Panels\LookupSetPanel.resx">
+      <DependentUpon>LookupSetPanel.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Source\WinForms\Panels\MapSelectPanel.resx">
       <DependentUpon>MapSelectPanel.cs</DependentUpon>
     </EmbeddedResource>
@@ -591,8 +606,8 @@
     <EmbeddedResource Include="Source\WinForms\Panels\TilesetsPanel.resx">
       <DependentUpon>TilesetsPanel.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Source\WinForms\Panels\TopPanel.resx">
-      <DependentUpon>TopPanel.cs</DependentUpon>
+    <EmbeddedResource Include="Source\WinForms\Panels\TitlePanel.resx">
+      <DependentUpon>TitlePanel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Source\WinForms\Forms\MessageDialog.resx">
       <DependentUpon>MessageDialog.cs</DependentUpon>
@@ -605,9 +620,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Source\WinForms\Forms\CreateProjectForm.resx">
       <DependentUpon>CreateProjectForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Source\WinForms\Forms\DatabaseForm.resx">
-      <DependentUpon>DatabaseForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Source\WinForms\Forms\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>

@@ -30,7 +30,6 @@ namespace WolfyECS
         }
 
         public static Entity Empty => new Entity(0);
-        public static Entity Player => new Entity(1);
 
         /// <summary>
         /// Creates and returns the new component of type T.

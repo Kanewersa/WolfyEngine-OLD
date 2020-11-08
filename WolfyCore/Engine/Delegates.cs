@@ -7,7 +7,7 @@ namespace WolfyCore.Engine
 {
     public delegate void LayerEventHandler(BaseLayer layer);
 
-    public delegate void AssetPathHandler(string assetName, string fullPath, string extension);
+    public delegate void AssetPathHandler(string assetName, string fullPath, string relativePath, string extension);
 
     public delegate void ControlEventHandler();
 

@@ -1,4 +1,5 @@
-﻿using System.Drawing;
+﻿using System;
+using System.Drawing;
 using System.Windows.Forms;
 
 
@@ -23,7 +24,11 @@ namespace WolfyEngine.Controls
             if (e.Button == MouseButtons.Left)
             {
                 dragOffset = this.PointToScreen(e.Location);
-                var formLocation = FindForm().Location;
+                var form = FindForm();
+                if (form == null)
+                    throw new NullReferenceException("No parent form specified for " + this);
+                
+                var formLocation = form.Location;
                 dragOffset.X -= formLocation.X;
                 dragOffset.Y -= formLocation.Y;
             }
@@ -35,12 +40,18 @@ namespace WolfyEngine.Controls
 
             if (e.Button == MouseButtons.Left)
             {
+                var form = FindForm();
+                if(form == null) throw new NullReferenceException("No parent form specified for " + this);
                 Point newLocation = this.PointToScreen(e.Location);
 
                 newLocation.X -= dragOffset.X;
                 newLocation.Y -= dragOffset.Y;
 
-                FindForm().Location = newLocation;
+                form.Location = newLocation;
+
+                if (form.WindowState == FormWindowState.Maximized)
+                    form.WindowState = FormWindowState.Normal;
+                
             }
         }
     }

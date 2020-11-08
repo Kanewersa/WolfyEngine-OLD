@@ -58,20 +58,20 @@ namespace WolfyCore.Scenes
         {
             if (state.LeftButton == ButtonState.Pressed)
             {
-                var mousePosition = Entity.Player.GetComponent<CameraComponent>().ScreenToWorldSpace(new Vector2(state.X, state.Y));
+                var mousePosition = Entities.Player.GetComponent<CameraComponent>().ScreenToWorldSpace(new Vector2(state.X, state.Y));
                 var coordinates = Vector2.Floor(mousePosition / Runtime.GridSize);
-                var transform = Entity.Player.GetComponent<TransformComponent>();
+                var transform = Entities.Player.GetComponent<TransformComponent>();
                 var map = transform.GetMap();
                 if (coordinates.X < 0 || coordinates.Y < 0 || coordinates.X > map.Size.X || coordinates.Y > map.Size.Y)
                     return;
-                if (Entity.Player.HasComponent<PathMovementComponent>() ||
-                    Entity.Player.HasComponent<PathRequestComponent>())
+                if (Entities.Player.HasComponent<PathMovementComponent>() ||
+                    Entities.Player.HasComponent<PathRequestComponent>())
                 {
-                    Entity.Player.RemoveComponent<PathMovementComponent>();
-                    Entity.Player.RemoveComponent<PathRequestComponent>();
+                    Entities.Player.RemoveComponent<PathMovementComponent>();
+                    Entities.Player.RemoveComponent<PathRequestComponent>();
                 }
 
-                Entity.Player.AddComponent(new PathRequestComponent(map.Id, -1, transform.GridTransform, coordinates));
+                Entities.Player.AddComponent(new PathRequestComponent(map.Id, -1, transform.GridTransform, coordinates));
             }
 
         }

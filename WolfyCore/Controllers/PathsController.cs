@@ -68,10 +68,15 @@ namespace WolfyCore.Controllers
         public string WorldPath { get; private set; }
         public string SerializationHelperPath { get; private set; }
 
-        // Content manager paths
-        /*public string ContentWorkingPath { get; private set; }
-        public string ContentIntermediatePath { get; private set; }
-        public string ContentOutputPath { get; private set; }*/
+        /// <summary>
+        /// Merges the given path with main path of the project.
+        /// </summary>
+        /// <param name="path"></param>
+        /// <returns>Merged path</returns>
+        public static string BindProjectPath(string path)
+        {
+            return Path.Combine(Instance.MainPath, path);
+        }
 
         public void SetMainPath(string path)
         {

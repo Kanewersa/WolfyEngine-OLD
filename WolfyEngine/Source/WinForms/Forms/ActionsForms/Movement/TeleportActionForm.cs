@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
 using WolfyCore.Actions;
+using WolfyCore.ECS;
 using WolfyECS;
 
 namespace WolfyEngine.Forms
@@ -47,7 +48,7 @@ namespace WolfyEngine.Forms
 
         protected override WolfyAction CreateAction()
         {
-            _teleportTarget = ThisEntityButton.Checked ? Entity : Entity.Player;
+            _teleportTarget = ThisEntityButton.Checked ? Entity : Entities.Player;
             return new TeleportAction(_teleportTarget, SelectedMapId, SelectedCoordinates);
         }
 
@@ -68,7 +69,7 @@ namespace WolfyEngine.Forms
             if (teleport.Target == Entity)
             {
                 ThisEntityButton.Checked = true;
-            } else if (teleport.Target == Entity.Player)
+            } else if (teleport.Target == Entities.Player)
             {
                 TeleportPlayerButton.Checked = true;
             }

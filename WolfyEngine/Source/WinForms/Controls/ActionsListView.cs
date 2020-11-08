@@ -239,13 +239,13 @@ namespace WolfyEngine.Controls
             if (action is WolfyCondition)
             {
                 // Add empty item to serve as a boundary
-                ActionItems.Add(new ActionListViewItem(null, true, newItem));
+                ActionItems.Insert(index + 1, new ActionListViewItem(null, true, newItem));
                 // Add 'else' item
-                ActionItems.Add(newItem);
+                ActionItems.Insert(index + 2, newItem);
                 // Add empty item to serve as a boundary
-                ActionItems.Add(new ActionListViewItem(null, false, newItem));
+                ActionItems.Insert(index + 3, new ActionListViewItem(null, false, newItem));
                 // Add 'end' item
-                ActionItems.Add(newItem);
+                ActionItems.Insert(index + 4, newItem);
             }
 
             ResetDisplay();
@@ -352,7 +352,7 @@ namespace WolfyEngine.Controls
                 var lastHoveredActionIndex = range.Item2;
 
                 // Prevent dragging condition onto itself.
-                if (DraggedItemIndex >= firstHoveredActionIndex && DraggedItemIndex <= lastHoveredActionIndex)
+                if (LastHoveredItemIndex >= firstHoveredActionIndex && LastHoveredItemIndex <= lastHoveredActionIndex)
                     return;
                 
                 var actionsToMove = ActionItems.GetRange(firstHoveredActionIndex, lastHoveredActionIndex - firstHoveredActionIndex + 1);

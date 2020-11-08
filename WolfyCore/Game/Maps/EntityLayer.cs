@@ -74,7 +74,12 @@ namespace WolfyCore.Game
 
         public override void Draw(SpriteBatch spriteBatch, GameTime gameTime, Rectangle visibleArea)
         {
-            /*for (int y = visibleArea.Y; y < visibleArea.Height; y++)
+            /*visibleArea = new Rectangle(visibleArea.X - 2,
+                visibleArea.Y - 2,
+                visibleArea.Width + 2,
+                visibleArea.Height + 2);*/
+
+            for (int y = visibleArea.Y; y < visibleArea.Height; y++)
             {
                 for (int x = visibleArea.X; x < visibleArea.Width; x++)
                 {
@@ -86,14 +91,9 @@ namespace WolfyCore.Game
                         && animation.Initialized)
                         animation.Draw(spriteBatch);
                 }
-            }*/
-
-            visibleArea = new Rectangle(visibleArea.X - 2,
-                                        visibleArea.Y - 2,
-                                        visibleArea.Width + 2,
-                                        visibleArea.Height + 2);
-
-            foreach (var entity in Entities)
+            }
+            
+            /*foreach (var entity in Entities)
             {
                 var transformComponent = entity.GetComponent<TransformComponent>();
                 var transform = transformComponent.GridTransform;
@@ -108,7 +108,7 @@ namespace WolfyCore.Game
                         }
                     }
                 }
-            }
+            }*/
         }
 
         /// <summary>

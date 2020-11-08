@@ -1,5 +1,6 @@
 ﻿using System;
 using WolfyCore.Actions;
+using WolfyCore.ECS;
 using WolfyECS;
 
 namespace WolfyEngine.Forms
@@ -14,7 +15,7 @@ namespace WolfyEngine.Forms
         public override void Initialize(Entity entity)
         {
             // Camera fade action is executed on player's camera.
-            Entity = Entity.Player;
+            Entity = Entities.Player;
         }
 
         protected override WolfyAction CreateAction()

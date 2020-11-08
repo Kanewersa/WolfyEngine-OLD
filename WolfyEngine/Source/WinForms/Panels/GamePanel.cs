@@ -232,26 +232,26 @@ namespace WolfyEngine.Controls
         private void SetStartingPointToolStripMenuItem_Click(object sender, EventArgs e)
         {
             var newCoordinates = new Vector2((int)EntityContextMenu.CurrentCoordinates.X, (int)EntityContextMenu.CurrentCoordinates.Y);
-            var transform = Entity.Player.GetComponent<TransformComponent>();
+            var transform = Entities.Player.GetComponent<TransformComponent>();
 
             if (transform.CurrentMap != _currentMap.Id)
             {
                 var entities = EntityController.GetEntities(transform.CurrentMap);
-                entities.Remove(Entity.Player);
+                entities.Remove(Entities.Player);
 
                 var newMap = MapsController.Instance.GetMap(_currentMap.Id);
-                newMap.AddEntity(Entity.Player, newCoordinates);
+                newMap.AddEntity(Entities.Player, newCoordinates);
             }
             else
             {
-                _currentMap.MoveEntity(Entity.Player, transform.GridTransform, newCoordinates);
+                _currentMap.MoveEntity(Entities.Player, transform.GridTransform, newCoordinates);
             }
 
             transform.CurrentMap = _currentMap.Id;
             transform.GridTransform = newCoordinates;
             transform.Transform = newCoordinates * Runtime.GridSize;
 
-            if (Entity.Player.GetIfHasComponent(out AnimationComponent animation))
+            if (Entities.Player.GetIfHasComponent(out AnimationComponent animation))
             {
                 animation.Position = transform.Transform;
             }
@@ -358,7 +358,7 @@ namespace WolfyEngine.Controls
             var layer = gameEditorControl.GetCurrentLayer<EntityLayer>();
             var entity = layer.GetEntity(coordinates);
 
-            if (entity != Entity.Player)
+            if (entity != Entities.Player)
             {
                 entity.Destroy();
                 layer.RemoveEntity(coordinates);

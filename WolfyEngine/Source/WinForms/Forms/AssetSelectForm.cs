@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using DarkUI.Controls;
 using DarkUI.Forms;
+using WolfyCore.Controllers;
 using WolfyCore.Engine;
 
 namespace WolfyEngine.Forms
@@ -86,11 +87,19 @@ namespace WolfyEngine.Forms
 
             var assetName = FilesListView.Items[FilesListView.SelectedIndices[0]].Text;
             var fullPath = Path.Combine(AssetsPath, assetName);
+            
+            var projectPath = PathsController.Instance.MainPath;
+            if (!fullPath.StartsWith(projectPath))
+                throw new Exception("Asset's absolute path didn't start with project's path.");
+
+            var relativePath = fullPath.Substring(projectPath.Length).TrimStart(Path.DirectorySeparatorChar);
+            if (Path.HasExtension(relativePath))
+            {
+                relativePath = Path.ChangeExtension(relativePath, null);
+            }
             var extension = Path.GetExtension(fullPath);
 
-            // Check if asset is correct (if it has .xnb counterpart)
-            var counterpart = Path.ChangeExtension(fullPath, ".xnb");
-            if (!File.Exists(counterpart))
+            if (!File.Exists(Path.ChangeExtension(fullPath, ".xnb")))
             {
                 DarkMessageBox.ShowWarning(
                     "The possible reason is that your asset was added to the project manually. " +
@@ -98,11 +107,8 @@ namespace WolfyEngine.Forms
                     "Selected asset was not compiled by Asset Manager.");
                 return;
             }
-
-            Console.WriteLine("Selected asset: " + fullPath);
-            Console.WriteLine("Asset name: " + assetName);
-            Console.WriteLine("Asset extension: " + extension);
-            OnAssetSelected?.Invoke(assetName, fullPath, extension);
+            
+            OnAssetSelected?.Invoke(assetName, fullPath, relativePath, extension);
             Close();
         }
 

@@ -47,7 +47,15 @@ namespace WolfyCore.ECS
                 map.LoadContent(ContentManager);
                 map.ActivateEntities();
 
-                // Load new maps    
+                var bgm = entity.AddComponent<BGMComponent>();
+
+                if (map.BackgroundMusic != null)
+                {
+                    bgm.Sound = map.BackgroundMusic;
+                    bgm.IsRepeating = true;
+                }
+
+                // Load new maps
                 foreach (var mapId in mapsIds.Except(LoadedMaps))
                 {
                     map = MapsController.Instance.GetMap(mapId);

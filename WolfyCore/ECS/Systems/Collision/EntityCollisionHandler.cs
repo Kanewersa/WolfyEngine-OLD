@@ -43,7 +43,7 @@ namespace WolfyCore.ECS
                     return;
                 }
 
-                if (interaction.Source == Entity.Player)
+                if (interaction.Source == ECS.Entities.Player)
                 {
                     if (interaction.Target.GetIfHasComponent(out ActionComponent action))
                     {

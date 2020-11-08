@@ -28,36 +28,36 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.toolStrip = new DarkUI.Controls.DarkToolStrip();
+            this.ToolStrip = new DarkUI.Controls.DarkToolStrip();
             this.newMapButton = new System.Windows.Forms.ToolStripButton();
             this.renameMapButton = new System.Windows.Forms.ToolStripButton();
             this.copyButton = new System.Windows.Forms.ToolStripButton();
             this.removeButton = new System.Windows.Forms.ToolStripButton();
             this.refreshTreeButton = new System.Windows.Forms.ToolStripButton();
             this.mapsTree = new DarkUI.Controls.DarkTreeView();
-            this.toolStrip.SuspendLayout();
+            this.ToolStrip.SuspendLayout();
             this.SuspendLayout();
             // 
-            // toolStrip
+            // ToolStrip
             // 
-            this.toolStrip.AutoSize = false;
-            this.toolStrip.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
-            this.toolStrip.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.toolStrip.Enabled = false;
-            this.toolStrip.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
-            this.toolStrip.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
-            this.toolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.ToolStrip.AutoSize = false;
+            this.ToolStrip.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
+            this.ToolStrip.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.ToolStrip.Enabled = false;
+            this.ToolStrip.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
+            this.ToolStrip.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
+            this.ToolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.newMapButton,
             this.renameMapButton,
             this.copyButton,
             this.removeButton,
             this.refreshTreeButton});
-            this.toolStrip.Location = new System.Drawing.Point(0, 428);
-            this.toolStrip.Name = "toolStrip";
-            this.toolStrip.Padding = new System.Windows.Forms.Padding(5, 0, 1, 0);
-            this.toolStrip.Size = new System.Drawing.Size(261, 28);
-            this.toolStrip.TabIndex = 2;
-            this.toolStrip.Text = "darkToolStrip1";
+            this.ToolStrip.Location = new System.Drawing.Point(0, 428);
+            this.ToolStrip.Name = "ToolStrip";
+            this.ToolStrip.Padding = new System.Windows.Forms.Padding(5, 0, 1, 0);
+            this.ToolStrip.Size = new System.Drawing.Size(261, 28);
+            this.ToolStrip.TabIndex = 2;
+            this.ToolStrip.Text = "darkToolStrip1";
             // 
             // newMapButton
             // 
@@ -137,20 +137,20 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.mapsTree);
-            this.Controls.Add(this.toolStrip);
+            this.Controls.Add(this.ToolStrip);
             this.DefaultDockArea = DarkUI.Docking.DarkDockArea.Left;
             this.DockText = "Maps";
             this.Name = "MapsPanel";
             this.Size = new System.Drawing.Size(261, 456);
-            this.toolStrip.ResumeLayout(false);
-            this.toolStrip.PerformLayout();
+            this.ToolStrip.ResumeLayout(false);
+            this.ToolStrip.PerformLayout();
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private DarkUI.Controls.DarkToolStrip toolStrip;
+        private DarkUI.Controls.DarkToolStrip ToolStrip;
         private System.Windows.Forms.ToolStripButton newMapButton;
         private System.Windows.Forms.ToolStripButton renameMapButton;
         private System.Windows.Forms.ToolStripButton copyButton;

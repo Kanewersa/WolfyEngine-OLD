@@ -66,7 +66,7 @@ namespace WolfyCore.ECS
 
             // If dialog panel is displayed and player clicked enter.
             if (DialogPanel.Parent != null
-                && Entity.Player.GetIfHasComponent(out InputComponent input)
+                && ECS.Entities.Player.GetIfHasComponent(out InputComponent input)
                 && input.Enter)
             {
                 // If Animator completed the animation
@@ -74,7 +74,7 @@ namespace WolfyCore.ECS
                 if (Animator.IsDone)
                 {
                     // Remove the dialog component.
-                    Entity.Player.RemoveComponent<DialogComponent>();
+                    ECS.Entities.Player.RemoveComponent<DialogComponent>();
                 }
                 else
                 {
@@ -87,7 +87,7 @@ namespace WolfyCore.ECS
             }
 
             if (DialogPanel.Parent != null
-                && !Entity.Player.HasComponent<DialogComponent>())
+                && !ECS.Entities.Player.HasComponent<DialogComponent>())
             {
                 DialogCloseTimeout--;
                 if (DialogCloseTimeout <= 0)

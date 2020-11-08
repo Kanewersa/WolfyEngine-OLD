@@ -1,7 +1,9 @@
 ﻿using System;
 using DarkUI.Forms;
 using ProtoBuf;
+using WolfyCore.ECS;
 using WolfyCore.Engine;
+using WolfyCore.Game;
 using WolfyEngine.Engine;
 
 namespace WolfyCore
