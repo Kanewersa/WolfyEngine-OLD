@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using ProtoBuf;
 using WolfyCore.Actions;
@@ -18,6 +19,11 @@ namespace WolfyCore.ECS
             ActionsManager.Initialize(graphics);
 
             RequireComponent<StartActionComponent>();
+        }
+
+        public override void LoadContent(ContentManager content)
+        {
+            ActionsManager.LoadContent(content);
         }
 
         public override void Update(GameTime gameTime)

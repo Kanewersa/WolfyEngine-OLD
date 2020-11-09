@@ -88,19 +88,19 @@
             // 
             this.ComponentsDockPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
             this.ComponentsDockPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ComponentsDockPanel.Location = new System.Drawing.Point(175, 0);
+            this.ComponentsDockPanel.Location = new System.Drawing.Point(175, 32);
             this.ComponentsDockPanel.Name = "ComponentsDockPanel";
-            this.ComponentsDockPanel.Size = new System.Drawing.Size(479, 628);
+            this.ComponentsDockPanel.Size = new System.Drawing.Size(479, 596);
             this.ComponentsDockPanel.TabIndex = 5;
             // 
             // MainSection
             // 
             this.MainSection.Controls.Add(this.TableLayoutPanel);
             this.MainSection.Dock = System.Windows.Forms.DockStyle.Left;
-            this.MainSection.Location = new System.Drawing.Point(0, 0);
+            this.MainSection.Location = new System.Drawing.Point(0, 32);
             this.MainSection.Name = "MainSection";
             this.MainSection.SectionHeader = "Entity ID | Name";
-            this.MainSection.Size = new System.Drawing.Size(175, 628);
+            this.MainSection.Size = new System.Drawing.Size(175, 596);
             this.MainSection.TabIndex = 6;
             // 
             // TableLayoutPanel
@@ -121,15 +121,15 @@
             this.TableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 5.464481F));
             this.TableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 38.97997F));
             this.TableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.TableLayoutPanel.Size = new System.Drawing.Size(173, 602);
+            this.TableLayoutPanel.Size = new System.Drawing.Size(173, 570);
             this.TableLayoutPanel.TabIndex = 0;
             // 
             // ComponentsListView
             // 
             this.ComponentsListView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ComponentsListView.Location = new System.Drawing.Point(3, 390);
+            this.ComponentsListView.Location = new System.Drawing.Point(3, 370);
             this.ComponentsListView.Name = "ComponentsListView";
-            this.ComponentsListView.Size = new System.Drawing.Size(167, 209);
+            this.ComponentsListView.Size = new System.Drawing.Size(167, 197);
             this.ComponentsListView.TabIndex = 5;
             this.ComponentsListView.Text = "darkListView1";
             this.ComponentsListView.MouseClick += new System.Windows.Forms.MouseEventHandler(this.ComponentsListClick);
@@ -165,7 +165,7 @@
             this.ComponentsStrip.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
             this.ComponentsStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.AddComponentStrip});
-            this.ComponentsStrip.Location = new System.Drawing.Point(0, 363);
+            this.ComponentsStrip.Location = new System.Drawing.Point(0, 343);
             this.ComponentsStrip.Name = "ComponentsStrip";
             this.ComponentsStrip.Padding = new System.Windows.Forms.Padding(3, 2, 0, 2);
             this.ComponentsStrip.Size = new System.Drawing.Size(173, 24);
@@ -199,7 +199,7 @@
             this.RemoveComponentMenuItem,
             this.ShowComponentMenuItem});
             this.ComponentContextMenu.Name = "ComponentContextMenu";
-            this.ComponentContextMenu.Size = new System.Drawing.Size(183, 70);
+            this.ComponentContextMenu.Size = new System.Drawing.Size(183, 48);
             // 
             // RemoveComponentMenuItem
             // 
@@ -229,10 +229,14 @@
             this.Controls.Add(this.ComponentsDockPanel);
             this.Controls.Add(this.MainSection);
             this.Controls.Add(this.panel2);
+            this.Location = new System.Drawing.Point(0, 0);
             this.MainMenuStrip = this.ComponentsStrip;
             this.Name = "EntityEditForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Edit Entity";
+            this.Controls.SetChildIndex(this.panel2, 0);
+            this.Controls.SetChildIndex(this.MainSection, 0);
+            this.Controls.SetChildIndex(this.ComponentsDockPanel, 0);
             this.panel2.ResumeLayout(false);
             this.MainSection.ResumeLayout(false);
             this.TableLayoutPanel.ResumeLayout(false);
