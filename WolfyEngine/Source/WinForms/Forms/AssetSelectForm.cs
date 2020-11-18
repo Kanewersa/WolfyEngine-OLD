@@ -16,6 +16,8 @@ namespace WolfyEngine.Forms
 
         public event AssetPathHandler OnAssetSelected;
 
+        private static readonly DarkListItem NoneNode = new DarkListItem("[None]");
+
         public AssetSelectForm(string assetsPath, bool hideExtension = false)
         {
             InitializeComponent();
@@ -32,6 +34,8 @@ namespace WolfyEngine.Forms
             //Clear files tree view
             FilesListView.Items.Clear();
             FilesListView.Refresh();
+
+            FilesListView.Items.Add(NoneNode);
 
             foreach (var file in Directory.EnumerateFiles(path, extension, SearchOption.TopDirectoryOnly))
             {
@@ -85,6 +89,13 @@ namespace WolfyEngine.Forms
                 return;
             }
 
+            if (FilesListView.Items[FilesListView.SelectedIndices[0]] == NoneNode)
+            {
+                OnAssetSelected?.Invoke(null, null, null, null);
+                Close();
+                return;
+            }
+
             var assetName = FilesListView.Items[FilesListView.SelectedIndices[0]].Text;
             var fullPath = Path.Combine(AssetsPath, assetName);
             
@@ -115,6 +126,9 @@ namespace WolfyEngine.Forms
         private void FilesListView_Click(object sender, EventArgs e)
         {
             if (!FilesListView.SelectedIndices.Any())
+                return;
+
+            if (FilesListView.Items[FilesListView.SelectedIndices[0]] == NoneNode)
                 return;
 
             PreviewFile(

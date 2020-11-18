@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
+using System.Windows.Forms;
 using DarkUI.Controls;
 using DarkUI.Docking;
 using Microsoft.Xna.Framework;
@@ -71,7 +73,7 @@ namespace WolfyEngine.Controls
 
         private void TreeViewClicked(object sender, EventArgs e)
         {
-            // Return if user clicked empty space in tree view
+            // Return if user clicked empty space in tree view.
             if (mapsTree.SelectedNodes.Count < 1)
                 return;
 
@@ -80,13 +82,13 @@ namespace WolfyEngine.Controls
             // If user clicked main node
             if (clickedNode == mapsTree.Nodes[0])
             {
-                // Invoke null to unload controls
+                // Invoke null to unload controls.
                 OnMapChanged?.Invoke(null);
             }
             // If user clicked one of the sub nodes
             else
             {
-                // Load the map with given id
+                // Load the map with given id.
                 var map = MapsController.Instance.GetMap(_nodeKeys[clickedNode]);
                 OnMapChanged?.Invoke(map);
             }
@@ -99,14 +101,13 @@ namespace WolfyEngine.Controls
 
         private void NewMapButton_Click(object sender, EventArgs e)
         {
-            using var form = new NewMapForm();
-            form.OnMapCreate += FormOnOnMapCreate;
+            using var form = new SetupMapForm();
+            form.OnMapSave += FormOnMapSave;
             form.ShowDialog();
         }
 
-        private void FormOnOnMapCreate(Map map)
+        private void FormOnMapSave(Map map)
         {
-            MapsController.Instance.AddMap(map);
             RefreshTree();
             mapsTree.Nodes[0].Expanded = true;
 
@@ -118,6 +119,39 @@ namespace WolfyEngine.Controls
 
             mapsTree.SelectNode(mapsTree.Nodes[0].Nodes.Last());
             OnMapChanged?.Invoke(map);
+        }
+
+        private int SelectedMapId { get; set; } = -1;
+
+        private void TreeViewMouseClicked(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right)
+            {
+                // Return if user clicked empty space in tree view.
+                if (mapsTree.SelectedNodes.Count < 1)
+                    return;
+
+                SelectedMapId = _nodeKeys[mapsTree.SelectedNodes[0]];
+                MapContextMenu.Show(PointToScreen(e.Location));
+            }
+        }
+
+        private void EditMap(object sender, EventArgs e)
+        {
+            if (SelectedMapId == -1) return;
+
+            using (var form = new SetupMapForm(SelectedMapId))
+            {
+                form.ShowDialog();
+            }
+        }
+
+        private void RemoveMap(object sender, EventArgs e)
+        {
+            if (SelectedMapId == -1) return;
+
+            var map = MapsController.Instance.GetMap(SelectedMapId);
+            // TODO: Remove map here!
         }
     }
 }

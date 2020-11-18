@@ -39,6 +39,7 @@ namespace WolfyEngine.Forms
                 };
             }
 
+            LoadTitle();
         }
 
         protected override void OnActivated(EventArgs e)

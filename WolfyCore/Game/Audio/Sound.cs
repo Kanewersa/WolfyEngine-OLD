@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using Microsoft.Xna.Framework.Audio;
 using ProtoBuf;
 
@@ -88,6 +89,8 @@ namespace WolfyCore.Game
         /// </summary>
         [ProtoMember(9)] public float LoopDelay { get; set; }
 
+        [ProtoMember(10)] public float LoopTimer { get; set; }
+
         /// <summary>
         /// The loaded sound.
         /// </summary>
@@ -100,6 +103,11 @@ namespace WolfyCore.Game
             AudioFile = audioFile;
             Volume = volume;
             Loop = loop;
+        }
+
+        public string GetNameWithoutPath()
+        {
+            return Path.GetFileName(AudioFile);
         }
     }
 }

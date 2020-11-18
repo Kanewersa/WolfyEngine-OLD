@@ -1,24 +1,23 @@
 ﻿using Microsoft.Xna.Framework;
 using ProtoBuf;
 using WolfyCore.Actions;
+using WolfyCore.Game;
 using WolfyECS;
 
 namespace WolfyCore.ECS
 {
     public class PlaySfxAction : WolfyAction
     {
-        [ProtoMember(1)] public string AudioFile { get; private set; }
-        [ProtoMember(2)] public float Volume { get; private set; }
-        public PlaySfxAction(Entity target, string audioFile, float volume)
+        [ProtoMember(1)] public Sound Sound { get; private set; }
+
+        public PlaySfxAction(Entity target, Sound sound)
         {
             Target = target;
-            AudioFile = audioFile;
-            Volume = volume;
+            Sound = sound;
         }
         public override void Execute()
         {
-            var audioComponent = new SFXComponent(AudioFile, 1, 0, Volume);
-            Target.AddComponent(audioComponent);
+            Target.AddComponent(new SFXComponent(Sound));
         }
 
         public override void Validate(GameTime gameTime)
@@ -32,7 +31,7 @@ namespace WolfyCore.ECS
 
         public override string GetDescription()
         {
-            return "Play sound: " + AudioFile;
+            return "Play sound: " + Sound.GetNameWithoutPath();
         }
     }
 }

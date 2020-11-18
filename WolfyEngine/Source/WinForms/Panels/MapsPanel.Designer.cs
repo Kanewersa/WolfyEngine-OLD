@@ -32,10 +32,14 @@
             this.newMapButton = new System.Windows.Forms.ToolStripButton();
             this.renameMapButton = new System.Windows.Forms.ToolStripButton();
             this.copyButton = new System.Windows.Forms.ToolStripButton();
-            this.removeButton = new System.Windows.Forms.ToolStripButton();
+            this.RemoveMapButton = new System.Windows.Forms.ToolStripButton();
             this.refreshTreeButton = new System.Windows.Forms.ToolStripButton();
             this.mapsTree = new DarkUI.Controls.DarkTreeView();
+            this.MapContextMenu = new DarkUI.Controls.DarkContextMenu();
+            this.EditMapContextButton = new System.Windows.Forms.ToolStripMenuItem();
+            this.DeleteMapContextButton = new System.Windows.Forms.ToolStripMenuItem();
             this.ToolStrip.SuspendLayout();
+            this.MapContextMenu.SuspendLayout();
             this.SuspendLayout();
             // 
             // ToolStrip
@@ -50,7 +54,7 @@
             this.newMapButton,
             this.renameMapButton,
             this.copyButton,
-            this.removeButton,
+            this.RemoveMapButton,
             this.refreshTreeButton});
             this.ToolStrip.Location = new System.Drawing.Point(0, 428);
             this.ToolStrip.Name = "ToolStrip";
@@ -83,6 +87,7 @@
             this.renameMapButton.Size = new System.Drawing.Size(23, 25);
             this.renameMapButton.Text = "toolStripButton2";
             this.renameMapButton.ToolTipText = "Rename map";
+            this.renameMapButton.Click += new System.EventHandler(this.EditMap);
             // 
             // copyButton
             // 
@@ -96,17 +101,18 @@
             this.copyButton.Text = "toolStripButton5";
             this.copyButton.ToolTipText = "Copy map";
             // 
-            // removeButton
+            // RemoveMapButton
             // 
-            this.removeButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
-            this.removeButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.removeButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
-            this.removeButton.Image = global::WolfyEngine.Icons.x;
-            this.removeButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.removeButton.Name = "removeButton";
-            this.removeButton.Size = new System.Drawing.Size(23, 25);
-            this.removeButton.Text = "toolStripButton6";
-            this.removeButton.ToolTipText = "Remove map";
+            this.RemoveMapButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
+            this.RemoveMapButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.RemoveMapButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
+            this.RemoveMapButton.Image = global::WolfyEngine.Icons.x;
+            this.RemoveMapButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.RemoveMapButton.Name = "RemoveMapButton";
+            this.RemoveMapButton.Size = new System.Drawing.Size(23, 25);
+            this.RemoveMapButton.Text = "toolStripButton6";
+            this.RemoveMapButton.ToolTipText = "Remove map";
+            this.RemoveMapButton.Click += new System.EventHandler(this.RemoveMap);
             // 
             // refreshTreeButton
             // 
@@ -131,6 +137,37 @@
             this.mapsTree.TabIndex = 3;
             this.mapsTree.Text = "darkTreeView1";
             this.mapsTree.Click += new System.EventHandler(this.TreeViewClicked);
+            this.mapsTree.MouseClick += new System.Windows.Forms.MouseEventHandler(this.TreeViewMouseClicked);
+            // 
+            // MapContextMenu
+            // 
+            this.MapContextMenu.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
+            this.MapContextMenu.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
+            this.MapContextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.EditMapContextButton,
+            this.DeleteMapContextButton});
+            this.MapContextMenu.Name = "MapContextMenu";
+            this.MapContextMenu.Size = new System.Drawing.Size(108, 48);
+            // 
+            // EditMapContextButton
+            // 
+            this.EditMapContextButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
+            this.EditMapContextButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
+            this.EditMapContextButton.Image = global::WolfyEngine.Icons.edit_3;
+            this.EditMapContextButton.Name = "EditMapContextButton";
+            this.EditMapContextButton.Size = new System.Drawing.Size(107, 22);
+            this.EditMapContextButton.Text = "Edit";
+            this.EditMapContextButton.Click += new System.EventHandler(this.EditMap);
+            // 
+            // DeleteMapContextButton
+            // 
+            this.DeleteMapContextButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
+            this.DeleteMapContextButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
+            this.DeleteMapContextButton.Image = global::WolfyEngine.Icons.trash_2;
+            this.DeleteMapContextButton.Name = "DeleteMapContextButton";
+            this.DeleteMapContextButton.Size = new System.Drawing.Size(107, 22);
+            this.DeleteMapContextButton.Text = "Delete";
+            this.DeleteMapContextButton.Click += new System.EventHandler(this.RemoveMap);
             // 
             // MapsPanel
             // 
@@ -144,6 +181,7 @@
             this.Size = new System.Drawing.Size(261, 456);
             this.ToolStrip.ResumeLayout(false);
             this.ToolStrip.PerformLayout();
+            this.MapContextMenu.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -154,8 +192,11 @@
         private System.Windows.Forms.ToolStripButton newMapButton;
         private System.Windows.Forms.ToolStripButton renameMapButton;
         private System.Windows.Forms.ToolStripButton copyButton;
-        private System.Windows.Forms.ToolStripButton removeButton;
+        private System.Windows.Forms.ToolStripButton RemoveMapButton;
         private DarkUI.Controls.DarkTreeView mapsTree;
         private System.Windows.Forms.ToolStripButton refreshTreeButton;
+        private DarkUI.Controls.DarkContextMenu MapContextMenu;
+        private System.Windows.Forms.ToolStripMenuItem EditMapContextButton;
+        private System.Windows.Forms.ToolStripMenuItem DeleteMapContextButton;
     }
 }

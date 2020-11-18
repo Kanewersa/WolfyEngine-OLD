@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.assetManagerButton = new DarkUI.Controls.DarkButton();
             this.darkDockPanel = new DarkUI.Docking.DarkDockPanel();
             this.darkMenuStrip = new DarkUI.Controls.DarkMenuStrip();
@@ -53,6 +54,12 @@
             this.memoryUsageLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.button1 = new System.Windows.Forms.Button();
             this.OpacityTimer = new System.Windows.Forms.Timer(this.components);
+            this.toolTipButton1 = new DarkUI.Controls.ToolTipButton();
+            this.toolTipButton2 = new DarkUI.Controls.ToolTipButton();
+            this.toolTipButton3 = new DarkUI.Controls.ToolTipButton();
+            this.toolTipButton4 = new DarkUI.Controls.ToolTipButton();
+            this.toolTipButton5 = new DarkUI.Controls.ToolTipButton();
+            this.toolTipButton6 = new DarkUI.Controls.ToolTipButton();
             this.darkMenuStrip.SuspendLayout();
             this.statusStrip.SuspendLayout();
             this.SuspendLayout();
@@ -284,18 +291,91 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.Button1_Click);
             // 
+            // toolTipButton1
+            // 
+            this.toolTipButton1.BackColor = System.Drawing.Color.Transparent;
+            this.toolTipButton1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("toolTipButton1.BackgroundImage")));
+            this.toolTipButton1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.toolTipButton1.Location = new System.Drawing.Point(558, 355);
+            this.toolTipButton1.Name = "toolTipButton1";
+            this.toolTipButton1.Size = new System.Drawing.Size(32, 32);
+            this.toolTipButton1.TabIndex = 24;
+            this.toolTipButton1.ToolTipText = resources.GetString("toolTipButton1.ToolTipText");
+            // 
+            // toolTipButton2
+            // 
+            this.toolTipButton2.BackColor = System.Drawing.Color.Transparent;
+            this.toolTipButton2.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("toolTipButton2.BackgroundImage")));
+            this.toolTipButton2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.toolTipButton2.Location = new System.Drawing.Point(633, 355);
+            this.toolTipButton2.Name = "toolTipButton2";
+            this.toolTipButton2.Size = new System.Drawing.Size(32, 32);
+            this.toolTipButton2.TabIndex = 25;
+            this.toolTipButton2.ToolTipText = "Some short text";
+            // 
+            // toolTipButton3
+            // 
+            this.toolTipButton3.BackColor = System.Drawing.Color.Transparent;
+            this.toolTipButton3.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("toolTipButton3.BackgroundImage")));
+            this.toolTipButton3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.toolTipButton3.Location = new System.Drawing.Point(742, 355);
+            this.toolTipButton3.Name = "toolTipButton3";
+            this.toolTipButton3.Size = new System.Drawing.Size(32, 32);
+            this.toolTipButton3.TabIndex = 26;
+            this.toolTipButton3.ToolTipText = "Short";
+            // 
+            // toolTipButton4
+            // 
+            this.toolTipButton4.BackColor = System.Drawing.Color.Transparent;
+            this.toolTipButton4.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("toolTipButton4.BackgroundImage")));
+            this.toolTipButton4.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.toolTipButton4.Location = new System.Drawing.Point(905, 355);
+            this.toolTipButton4.Name = "toolTipButton4";
+            this.toolTipButton4.Size = new System.Drawing.Size(32, 32);
+            this.toolTipButton4.TabIndex = 27;
+            this.toolTipButton4.ToolTipText = "";
+            // 
+            // toolTipButton5
+            // 
+            this.toolTipButton5.BackColor = System.Drawing.Color.Transparent;
+            this.toolTipButton5.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("toolTipButton5.BackgroundImage")));
+            this.toolTipButton5.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.toolTipButton5.Location = new System.Drawing.Point(574, 465);
+            this.toolTipButton5.Name = "toolTipButton5";
+            this.toolTipButton5.Size = new System.Drawing.Size(32, 32);
+            this.toolTipButton5.TabIndex = 28;
+            this.toolTipButton5.ToolTipText = "This is some random text. Trees are big. The sky is blue. The roses red and space" +
+    ".";
+            // 
+            // toolTipButton6
+            // 
+            this.toolTipButton6.BackColor = System.Drawing.Color.Transparent;
+            this.toolTipButton6.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("toolTipButton6.BackgroundImage")));
+            this.toolTipButton6.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.toolTipButton6.Location = new System.Drawing.Point(385, 378);
+            this.toolTipButton6.Name = "toolTipButton6";
+            this.toolTipButton6.Size = new System.Drawing.Size(32, 32);
+            this.toolTipButton6.TabIndex = 29;
+            this.toolTipButton6.ToolTipText = "This is some random text. Trees are big. The sky is blue.";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1340, 871);
+            this.Controls.Add(this.toolTipButton6);
+            this.Controls.Add(this.toolTipButton5);
+            this.Controls.Add(this.toolTipButton4);
+            this.Controls.Add(this.toolTipButton3);
+            this.Controls.Add(this.toolTipButton2);
+            this.Controls.Add(this.toolTipButton1);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.assetManagerButton);
             this.Controls.Add(this.darkMenuStrip);
             this.Controls.Add(this.darkDockPanel);
             this.Controls.Add(this.statusStrip);
             this.DoubleBuffered = true;
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.Location = new System.Drawing.Point(0, 0);
             this.Name = "MainForm";
             this.Opacity = 0D;
             this.Text = "Wolfy Editor";
@@ -304,6 +384,12 @@
             this.Controls.SetChildIndex(this.darkMenuStrip, 0);
             this.Controls.SetChildIndex(this.assetManagerButton, 0);
             this.Controls.SetChildIndex(this.button1, 0);
+            this.Controls.SetChildIndex(this.toolTipButton1, 0);
+            this.Controls.SetChildIndex(this.toolTipButton2, 0);
+            this.Controls.SetChildIndex(this.toolTipButton3, 0);
+            this.Controls.SetChildIndex(this.toolTipButton4, 0);
+            this.Controls.SetChildIndex(this.toolTipButton5, 0);
+            this.Controls.SetChildIndex(this.toolTipButton6, 0);
             this.darkMenuStrip.ResumeLayout(false);
             this.darkMenuStrip.PerformLayout();
             this.statusStrip.ResumeLayout(false);
@@ -338,6 +424,12 @@
         private System.Windows.Forms.ToolStripMenuItem playerToolStripMenuItem;
         private System.Windows.Forms.Timer OpacityTimer;
         private System.Windows.Forms.ToolStripMenuItem variablesToolStripMenuItem;
+        private DarkUI.Controls.ToolTipButton toolTipButton1;
+        private DarkUI.Controls.ToolTipButton toolTipButton2;
+        private DarkUI.Controls.ToolTipButton toolTipButton3;
+        private DarkUI.Controls.ToolTipButton toolTipButton4;
+        private DarkUI.Controls.ToolTipButton toolTipButton5;
+        private DarkUI.Controls.ToolTipButton toolTipButton6;
     }
 }
 

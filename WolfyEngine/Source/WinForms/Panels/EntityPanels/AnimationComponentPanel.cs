@@ -103,6 +103,12 @@ namespace WolfyEngine.Controls
 
         private void Form_OnAssetSelected(string assetName, string fullPath, string relativePath, string extension)
         {
+            if (string.IsNullOrEmpty(assetName))
+            {
+                _graphicsPath = string.Empty;
+                return;
+            }
+
             if(extension != ".png") throw new Exception("Sprite must be a png file!");
 
             using (var temp = new Bitmap(fullPath))

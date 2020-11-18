@@ -72,6 +72,27 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <LangVersion>8.0</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <LangVersion>8.0</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="DarkUI, Version=2.0.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\DarkUI.2.0.2\lib\DarkUI.dll</HintPath>
@@ -107,17 +128,29 @@
     <Reference Include="SharpDX, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b4dcf0f35e5521f1, processorArchitecture=MSIL">
       <HintPath>..\packages\SharpDX.4.0.1\lib\net45\SharpDX.dll</HintPath>
     </Reference>
+    <Reference Include="SharpDX.Direct2D1, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b4dcf0f35e5521f1, processorArchitecture=MSIL">
+      <HintPath>..\packages\SharpDX.Direct2D1.4.0.1\lib\net45\SharpDX.Direct2D1.dll</HintPath>
+    </Reference>
     <Reference Include="SharpDX.Direct3D11, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b4dcf0f35e5521f1, processorArchitecture=MSIL">
-      <HintPath>..\packages\MonoGame.Forms.DX.2.4.0\lib\net451\SharpDX.Direct3D11.dll</HintPath>
+      <HintPath>..\packages\SharpDX.Direct3D11.4.0.1\lib\net45\SharpDX.Direct3D11.dll</HintPath>
     </Reference>
     <Reference Include="SharpDX.Direct3D9, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b4dcf0f35e5521f1, processorArchitecture=MSIL">
       <HintPath>..\packages\SharpDX.Direct3D9.4.0.1\lib\net45\SharpDX.Direct3D9.dll</HintPath>
     </Reference>
     <Reference Include="SharpDX.DXGI, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b4dcf0f35e5521f1, processorArchitecture=MSIL">
-      <HintPath>..\packages\MonoGame.Forms.DX.2.4.0\lib\net451\SharpDX.DXGI.dll</HintPath>
+      <HintPath>..\packages\SharpDX.DXGI.4.0.1\lib\net45\SharpDX.DXGI.dll</HintPath>
     </Reference>
     <Reference Include="SharpDX.Mathematics, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b4dcf0f35e5521f1, processorArchitecture=MSIL">
       <HintPath>..\packages\SharpDX.Mathematics.4.0.1\lib\net45\SharpDX.Mathematics.dll</HintPath>
+    </Reference>
+    <Reference Include="SharpDX.MediaFoundation, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b4dcf0f35e5521f1, processorArchitecture=MSIL">
+      <HintPath>..\packages\SharpDX.MediaFoundation.4.0.1\lib\net45\SharpDX.MediaFoundation.dll</HintPath>
+    </Reference>
+    <Reference Include="SharpDX.XAudio2, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b4dcf0f35e5521f1, processorArchitecture=MSIL">
+      <HintPath>..\packages\SharpDX.XAudio2.4.0.1\lib\net45\SharpDX.XAudio2.dll</HintPath>
+    </Reference>
+    <Reference Include="SharpDX.XInput, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b4dcf0f35e5521f1, processorArchitecture=MSIL">
+      <HintPath>..\packages\SharpDX.XInput.4.0.1\lib\net45\SharpDX.XInput.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
@@ -192,6 +225,9 @@
     <Compile Include="Source\WinForms\Controls\ActionsListView.Designer.cs">
       <DependentUpon>ActionsListView.cs</DependentUpon>
     </Compile>
+    <Compile Include="Source\WinForms\Controls\DarkToolTip.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Source\WinForms\Controls\EntityContextMenu.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -203,6 +239,12 @@
     </Compile>
     <Compile Include="Source\WinForms\Controls\TilesetEditorControl.cs">
       <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Source\WinForms\Controls\ToolTipButton.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Source\WinForms\Controls\ToolTipButton.Designer.cs">
+      <DependentUpon>ToolTipButton.cs</DependentUpon>
     </Compile>
     <Compile Include="Source\WinForms\Controls\WolfyGameControl.cs">
       <SubType>Component</SubType>
@@ -479,11 +521,11 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Source\WinForms\Forms\NewMapForm.cs">
+    <Compile Include="Source\WinForms\Forms\SetupMapForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Source\WinForms\Forms\NewMapForm.Designer.cs">
-      <DependentUpon>NewMapForm.cs</DependentUpon>
+    <Compile Include="Source\WinForms\Forms\SetupMapForm.Designer.cs">
+      <DependentUpon>SetupMapForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Source\WinForms\Selector.cs" />
     <EmbeddedResource Include="Icons.resx">
@@ -499,6 +541,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Source\WinForms\Controls\ActionsListView.resx">
       <DependentUpon>ActionsListView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Source\WinForms\Controls\ToolTipButton.resx">
+      <DependentUpon>ToolTipButton.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Source\WinForms\Forms\ActionsForms\Audio\ChangeBGMActionForm.resx">
       <DependentUpon>ChangeBGMActionForm.cs</DependentUpon>
@@ -634,8 +679,8 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <EmbeddedResource Include="Source\WinForms\Forms\NewMapForm.resx">
-      <DependentUpon>NewMapForm.cs</DependentUpon>
+    <EmbeddedResource Include="Source\WinForms\Forms\SetupMapForm.resx">
+      <DependentUpon>SetupMapForm.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
@@ -664,7 +709,6 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Assets\Icons\" />
     <Folder Include="Assets\Tilesets\" />
   </ItemGroup>
   <ItemGroup>
@@ -741,6 +785,7 @@
     <None Include="Resources\stopsquare.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Assets\Icons\help_32x.png" />
     <Content Include="Content\GeonBit.UI\themes\lowres\styles\Entity-MouseDown.xml" />
     <Content Include="Content\GeonBit.UI\themes\lowres\styles\Entity-MouseHover.xml" />
     <Content Include="Content\GeonBit.UI\themes\lowres\styles\example.xml" />

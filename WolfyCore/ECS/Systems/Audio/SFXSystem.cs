@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System.Linq;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -30,25 +31,48 @@ namespace WolfyCore.ECS
             IterateEntities(entity =>
             {
                 var audio = entity.GetComponent<SFXComponent>();
-                var sound = audio.Sound;
+                var sounds = audio.Sounds;
 
-                if (sound.RangedBasedVolume)
+                if (!sounds.Any())
                 {
-                    var transform = entity.GetComponent<TransformComponent>();
-
-                    var distance = Vector2.Distance(transform.Transform, playerTransform.Transform);
-
-                    if (distance > sound.HearingRange)
-                        return;
-
-                    sound.Volume = (sound.HearingRange - distance * sound.HearingDecreaseRate) / sound.HearingRange;
+                    entity.RemoveComponent<SFXComponent>();
+                    return;
                 }
 
-                sound.SoundEffect ??= ContentManager.Load<SoundEffect>(sound.AudioFile);
+                foreach (var sound in sounds)
+                {
+                    if (sound.LoopTimer >= 0)
+                    {
+                        sound.LoopTimer -= (float)gameTime.ElapsedGameTime.TotalSeconds;
+                        continue;
+                    }
 
-                sound.SoundEffect.Play(sound.Volume, sound.Pitch, sound.Pan);
+                    if (sound.RangedBasedVolume)
+                    {
+                        var transform = entity.GetComponent<TransformComponent>();
 
-                entity.RemoveComponent<SFXComponent>();
+                        var distance = Vector2.Distance(transform.Transform, playerTransform.Transform);
+
+                        if (distance > sound.HearingRange)
+                            return;
+
+                        sound.Volume = (sound.HearingRange - distance * sound.HearingDecreaseRate) / sound.HearingRange;
+                    }
+
+                    sound.SoundEffect ??= ContentManager.Load<SoundEffect>(sound.AudioFile);
+
+                    sound.SoundEffect.Play(sound.Volume, sound.Pitch, sound.Pan);
+
+                    if (sound.Loop)
+                    {
+                        sound.LoopTimer = sound.LoopDelay;
+                    }
+                    else
+                    {
+                        audio.RemoveSound(sound);
+                    }
+                }
+
             });
         }
     }

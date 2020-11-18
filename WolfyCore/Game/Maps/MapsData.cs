@@ -8,7 +8,7 @@ namespace WolfyCore.Game
     {
         /// <summary>
         /// Stores MapInfo values by integer keys.
-        /// </summary>
+        ///  vb</summary>
         [ProtoMember(1)] private Dictionary<int, MapInfo> Info { get; set; } = new Dictionary<int, MapInfo>();
 
         /// <summary>
@@ -47,6 +47,11 @@ namespace WolfyCore.Game
             Info.Remove(id);
         }
 
+        public bool HasMap(int id)
+        {
+            return Info.ContainsKey(id);
+        }
+
         public string GetFileName(int id)
         {
             return Info[id].FileName;
@@ -55,6 +60,11 @@ namespace WolfyCore.Game
         public string GetMapName(int id)
         {
             return Info[id].MapName;
+        }
+
+        public void SetMapName(int id, string name)
+        {
+            Info[id].MapName = name;
         }
 
         public Dictionary<int, MapInfo> GetMapsInfo()

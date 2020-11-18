@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Drawing;
+using System.Globalization;
 using System.IO;
 using DarkUI.Forms;
 using WolfyCore;
@@ -32,6 +33,8 @@ namespace WolfyEngine.Forms
 
         private void Form_OnAssetSelected(string assetName, string fullPath, string relativePath, string extension)
         {
+            if (string.IsNullOrEmpty(assetName)) return;
+
             using (var temp = new Bitmap(fullPath))
             {
                 var img = new Bitmap(temp);

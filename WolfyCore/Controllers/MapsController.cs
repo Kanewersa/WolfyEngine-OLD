@@ -97,6 +97,16 @@ namespace WolfyCore.Controllers
         }
 
         /// <summary>
+        /// Checks if map with given id exists.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public bool MapExists(int id)
+        {
+            return MapsData.HasMap(id);
+        }
+
+        /// <summary>
         /// Deserializes and returns map with given id.
         /// </summary>
         /// <param name="id"></param>

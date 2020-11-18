@@ -27,6 +27,12 @@ namespace WolfyCore.Actions
 
         public override void Execute()
         {
+            if (string.IsNullOrEmpty(SongTitle))
+            {
+                MediaPlayer.Stop();
+                return;
+            }
+
             var bgmPath = Path.Combine(PathsController.Instance.BgmPath, SongTitle);
 
             bgmPath = Path.ChangeExtension(bgmPath, null);
@@ -42,6 +48,10 @@ namespace WolfyCore.Actions
 
         public override string GetDescription()
         {
+            if (string.IsNullOrEmpty(SongTitle))
+            {
+                return "Disable background music";
+            }
             return "Change background music to: " + SongTitle;
         }
     }
