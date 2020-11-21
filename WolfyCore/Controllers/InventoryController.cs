@@ -4,7 +4,7 @@ using WolfyEngine.Engine;
 
 namespace WolfyCore.Controllers
 {
-    public class InventoryController
+    public class InventoryController : IController
     {
         private static InventoryController _instance;
         public static InventoryController Instance => _instance ??= new InventoryController();
@@ -13,7 +13,7 @@ namespace WolfyCore.Controllers
 
         public InventoryData InventoryData { get; set; }
 
-        public void InitializeProject(bool empty)
+        public void InitializeProject()
         {
             if (empty) return;
 
@@ -22,7 +22,7 @@ namespace WolfyCore.Controllers
                 : new InventoryData();
         }
 
-        public void Save()
+        public void SaveData()
         {
             Serialization.ProtoSerialize(InventoryData, InventoryDataPath);
         }

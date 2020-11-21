@@ -33,9 +33,5 @@ namespace DarkUI.Controls
         {
             ToolTip.Show(ToolTipText, this, ToolTip.Location);
         }
-
-        private void ToolTipButton_MouseHover(object sender, EventArgs e)
-        {
-        }
     }
 }

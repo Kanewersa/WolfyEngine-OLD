@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using WolfyECS;
 using WolfyEngine.Engine;
 
 namespace WolfyCore.Controllers
 {
-    public class EntityController
+    public class EntityController : IController
     {
         private static EntityController _instance;
         public static EntityController Instance => _instance ??= new EntityController();
@@ -15,7 +14,7 @@ namespace WolfyCore.Controllers
 
         public EntityData EntityData { get; private set; }
 
-        public void InitializeProject(bool empty)
+        public void InitializeProject()
         {
             if (empty) return;
 
@@ -29,7 +28,7 @@ namespace WolfyCore.Controllers
             return Instance.EntityData.GetEntities(mapId);
         }
 
-        public void Save()
+        public void SaveData()
         {
             Serialization.ProtoSerialize(EntityData, EntityDataPath);
         }

@@ -6,7 +6,7 @@ using WolfyEngine.Engine;
 
 namespace WolfyCore.Controllers
 {
-    public class ProjectsController
+    public class ProjectsController : IController
     {
         private static ProjectsController _instance;
 
@@ -86,6 +86,11 @@ namespace WolfyCore.Controllers
             }
         }
 
+        public void InitializeProject()
+        {
+
+        }
+
         public void OpenProject(string path)
         {
             // Try to deserialize project from file
@@ -107,7 +112,7 @@ namespace WolfyCore.Controllers
             OpenProject(Path.Combine(CurrentProject.Path, CurrentProject.Name + ".proj"));
         }
 
-        public void SaveCurrentProject()
+        public void SaveData()
         {
             CurrentProject.Save();
         }

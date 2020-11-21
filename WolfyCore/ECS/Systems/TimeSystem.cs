@@ -29,7 +29,6 @@ namespace WolfyCore.ECS
             Timer += (float)gameTime.ElapsedGameTime.TotalSeconds;
 
             // TODO: Change in-game time flow
-            
             // One minute in game = one second
             if (Timer < 1f) return;
 
@@ -52,7 +51,7 @@ namespace WolfyCore.ECS
             GameTime = time;
             Instance.Time = time;
             Instance.Timer = 0;
-            // TODO: Do all operations to npc after changing game-time
+            // TODO: Do all operations on npcs after changing game-time
         }
     }
 }

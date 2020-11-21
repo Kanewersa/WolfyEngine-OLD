@@ -176,6 +176,7 @@
     <Compile Include="Controllers\EntityController.cs" />
     <Compile Include="Controllers\EntityData.cs" />
     <Compile Include="Controllers\GameController.cs" />
+    <Compile Include="Controllers\IController.cs" />
     <Compile Include="Controllers\MapsController.cs" />
     <Compile Include="Controllers\PathsController.cs" />
     <Compile Include="Controllers\TilesetsController.cs" />

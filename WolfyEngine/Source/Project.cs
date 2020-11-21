@@ -1,9 +1,7 @@
 ﻿using System;
 using DarkUI.Forms;
 using ProtoBuf;
-using WolfyCore.ECS;
 using WolfyCore.Engine;
-using WolfyCore.Game;
 using WolfyEngine.Engine;
 
 namespace WolfyCore
@@ -17,6 +15,7 @@ namespace WolfyCore
         [ProtoMember(3)] public Vector2D TileSize { get; set; }
         [ProtoMember(4)] public DateTime LastModified { get; set; }
         [ProtoMember(5)] public SerializationData SerializationData { get; set; }
+        [ProtoMember(6)] public ProjectSettings ProjectSettings { get; set; }
 
         public Project() { }
         public Project(string name, string path, Vector2D tileSize)
@@ -27,11 +26,12 @@ namespace WolfyCore
             LastModified = DateTime.Now;
             Path = path;
             SerializationData = new SerializationData();
+            ProjectSettings = new ProjectSettings();
         }
 
         /// <summary>
-        /// Initializes the project
-        /// </summary>e
+        /// Initializes the project.
+        /// </summary>
         public void Initialize()
         {
             if(TileSize.X == 0 || TileSize.Y == 0)
@@ -59,5 +59,4 @@ namespace WolfyCore
             Serialization.ProtoSerialize(this, System.IO.Path.Combine(Path, Name + ".proj"));
         }
     }
-
 }

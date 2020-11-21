@@ -5,7 +5,7 @@ using WolfyEngine.Engine;
 
 namespace WolfyCore.Controllers
 {
-    public class TilesetsController
+    public class TilesetsController : IController
     {
         private static TilesetsController _instance;
         public static TilesetsController Instance => _instance ??= new TilesetsController();
@@ -25,7 +25,7 @@ namespace WolfyCore.Controllers
         /// <summary>
         /// Loads the tilesets data for current project
         /// </summary>
-        public void InitializeProject(bool empty)
+        public void InitializeProject()
         {
             if (empty) return;
 
@@ -121,7 +121,7 @@ namespace WolfyCore.Controllers
         /// <summary>
         /// Saves TilesetsData and all tilesets
         /// </summary>
-        public void Save()
+        public void SaveData()
         {
             foreach (var pair in LoadedTilesets)
             {

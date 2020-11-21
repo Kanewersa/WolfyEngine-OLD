@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
-using ProtoBuf;
 using WolfyCore.Game;
-using WolfyECS;
 using WolfyEngine.Engine;
 
 namespace WolfyCore.Controllers
 {
-    public class MapsController
+    public class MapsController : IController
     {
         private static MapsController _instance;
         public static MapsController Instance => _instance ??= new MapsController();
@@ -28,7 +25,7 @@ namespace WolfyCore.Controllers
         /// <summary>
         /// Loads the maps data for current project.
         /// </summary>
-        public void InitializeProject(bool empty)
+        public void InitializeProject()
         {
             if (empty) return;
 
@@ -144,7 +141,7 @@ namespace WolfyCore.Controllers
         /// <summary>
         /// Saves MapsData and all loaded maps.
         /// </summary>
-        public void Save()
+        public void SaveData()
         {
             foreach (var pair in LoadedMaps)
             {

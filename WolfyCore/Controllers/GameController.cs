@@ -12,7 +12,7 @@ using WolfyEngine.Engine;
 
 namespace WolfyCore.Controllers
 {
-    public class GameController
+    public class GameController : IController
     {
         private static GameController _instance;
         public static GameController Instance => _instance ??= new GameController();
@@ -29,7 +29,7 @@ namespace WolfyCore.Controllers
         /// <summary>
         /// Loads the game world and settings for current project
         /// </summary>
-        public void InitializeProject(bool empty)
+        public void InitializeProject()
         {
             if (empty) return;
 
@@ -115,7 +115,7 @@ namespace WolfyCore.Controllers
             return player;
         }
 
-        public void Save()
+        public void SaveData()
         {
             Serialization.ProtoSerialize(Settings, GameSettingsPath);
             Serialization.ProtoSerialize(World.WorldInstance, WorldPath);

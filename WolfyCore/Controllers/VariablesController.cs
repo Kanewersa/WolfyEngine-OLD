@@ -7,7 +7,7 @@ using WolfyEngine.Engine;
 
 namespace WolfyCore.Controllers
 {
-    public class VariablesController
+    public class VariablesController : IController
     {
         private static VariablesController _instance;
         public static VariablesController Instance => _instance ??= new VariablesController();
@@ -16,7 +16,7 @@ namespace WolfyCore.Controllers
 
         public VariablesData VariablesData { get; private set; }
 
-        public void InitializeProject(bool empty)
+        public void InitializeProject()
         {
             if (empty) return;
 
@@ -31,7 +31,7 @@ namespace WolfyCore.Controllers
             }
         }
 
-        public void Save()
+        public void SaveData()
         {
             Serialization.ProtoSerialize(VariablesData, VariablesPath);
         }

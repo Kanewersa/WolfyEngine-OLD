@@ -26,6 +26,18 @@ namespace WolfyEngine.Forms
         private LayersPanel LayersPanel { get; }
         private TilesetsPanel TilesetsPanel { get; }
         private MapsPanel MapsPanel { get; }
+
+        private List<IController> Controllers { get; } = new List<IController>
+        {
+            ProjectsController.Instance,
+            EntityController.Instance,
+            GameController.Instance,
+            InventoryController.Instance,
+            MapsController.Instance,
+            TilesetsController.Instance,
+            VariablesController.Instance,
+        };
+
         public MainForm()
         {
             AutoScaleMode = AutoScaleMode.None;
@@ -50,10 +62,9 @@ namespace WolfyEngine.Forms
             _toolWindows.Add(MapsPanel = new MapsPanel());
             _toolWindows.Add(TilesetEditorPanel = new TilesetEditorPanel());
             _toolWindows.Add(TilesetsPanel = new TilesetsPanel());
-            // Deserialize the previous state if it exists
-            /*if (File.Exists("dock.config"))
-                DeserializeDockPanel();
-            else*/
+
+            // TODO: Deserialize the last tool windows state if it exists
+
             // Add the tool window list contents to the dock panel
             foreach (var window in _toolWindows) darkDockPanel.AddContent(window);
 
@@ -178,21 +189,22 @@ namespace WolfyEngine.Forms
         
         private void InitializeProject(Project project)
         {
-            // Change current project status label
-            currentProjectLabel.Text = project != null ? "Current project: " + project.Name : "Current project: None";
-
             bool isProjectEmpty = project == null;
+
+            if (isProjectEmpty)
+            {
+                currentProjectLabel.Text = "Current project: None";
+            }
+            else
+            {
+                currentProjectLabel.Text = "Current project: " + project.Name;
+                Controllers.ForEach(controller => controller.InitializeProject());
+            }
 
             // Initialize project in controllers
             // TODO Empty project should not be allowed
             // TODO Add controllers inheritance
-            TilesetsController.Instance.InitializeProject(isProjectEmpty);
-            MapsController.Instance.InitializeProject(isProjectEmpty);
-            GameController.Instance.InitializeProject(isProjectEmpty);
-            VariablesController.Instance.InitializeProject(isProjectEmpty);
-            EntityController.Instance.InitializeProject(isProjectEmpty);
-            InventoryController.Instance.InitializeProject(isProjectEmpty);
-
+            
             // Load content builder
             ContentBuilder.Instance.Initialize();
 
@@ -245,12 +257,7 @@ namespace WolfyEngine.Forms
 
         private void SaveProjectMenuItem_Click(object sender, EventArgs e)
         {
-            ProjectsController.Instance.SaveCurrentProject();
-            MapsController.Instance.Save();
-            TilesetsController.Instance.Save();
-            VariablesController.Instance.Save();
-            GameController.Instance.Save();
-            EntityController.Instance.Save();
+            Controllers.ForEach(controller => controller.SaveData());
         }
 
         #region ToolStrip - ToolWindow Functions

@@ -199,6 +199,7 @@
     <Compile Include="Source\ProgramSettings.cs" />
     <Compile Include="Source\Project.cs" />
     <Compile Include="Source\Controllers\ProjectsController.cs" />
+    <Compile Include="Source\ProjectSettings.cs" />
     <Compile Include="Source\SerializationData.cs" />
     <Compile Include="Source\SubTypeData.cs" />
     <Compile Include="Source\WinForms\Controls\ActionControls\ListDisplay.cs">
