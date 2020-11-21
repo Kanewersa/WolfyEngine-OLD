@@ -31,8 +31,6 @@ namespace WolfyCore.Controllers
         /// </summary>
         public void InitializeProject()
         {
-            if (empty) return;
-
             Settings = File.Exists(GameSettingsPath)
                 ? Serialization.ProtoDeserialize<GameSettings>(GameSettingsPath)
                 : new GameSettings();

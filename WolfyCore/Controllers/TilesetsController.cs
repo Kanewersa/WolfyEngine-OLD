@@ -27,8 +27,6 @@ namespace WolfyCore.Controllers
         /// </summary>
         public void InitializeProject()
         {
-            if (empty) return;
-
             TilesetsData = File.Exists(_tilesetsDataPath)
                 ? Serialization.ProtoDeserialize<TilesetsData>(_tilesetsDataPath)
                 : new TilesetsData();

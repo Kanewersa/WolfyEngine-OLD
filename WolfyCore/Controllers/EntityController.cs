@@ -16,8 +16,6 @@ namespace WolfyCore.Controllers
 
         public void InitializeProject()
         {
-            if (empty) return;
-
             EntityData = File.Exists(EntityDataPath)
                 ? Serialization.ProtoDeserialize<EntityData>(EntityDataPath)
                 : new EntityData();

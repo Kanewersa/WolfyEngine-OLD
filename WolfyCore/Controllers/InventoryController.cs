@@ -15,8 +15,6 @@ namespace WolfyCore.Controllers
 
         public void InitializeProject()
         {
-            if (empty) return;
-
             InventoryData = File.Exists(InventoryDataPath)
                 ? Serialization.ProtoDeserialize<InventoryData>(InventoryDataPath)
                 : new InventoryData();

@@ -18,8 +18,6 @@ namespace WolfyCore.Controllers
 
         public void InitializeProject()
         {
-            if (empty) return;
-
             if (File.Exists(VariablesPath))
             {
                 VariablesData = Serialization.ProtoDeserialize<VariablesData>(VariablesPath);

@@ -256,6 +256,7 @@
     <Compile Include="Engine\Graphics\FullScreenQuadRenderer.cs" />
     <Compile Include="Engine\Graphics\GraphicsManager.cs" />
     <Compile Include="Engine\Graphics\Image.cs" />
+    <Compile Include="Engine\Graphics\LookupSet.cs" />
     <Compile Include="Engine\Graphics\LUTManager.cs" />
     <Compile Include="Engine\Graphics\RectangleTexture.cs" />
     <Compile Include="Engine\MeasureTime.cs" />

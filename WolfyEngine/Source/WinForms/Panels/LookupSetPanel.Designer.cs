@@ -45,7 +45,7 @@
             // SelectImageButton
             // 
             this.SelectImageButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.SelectImageButton.Location = new System.Drawing.Point(366, 465);
+            this.SelectImageButton.Location = new System.Drawing.Point(397, 484);
             this.SelectImageButton.Name = "SelectImageButton";
             this.SelectImageButton.Padding = new System.Windows.Forms.Padding(5);
             this.SelectImageButton.Size = new System.Drawing.Size(215, 31);
@@ -57,10 +57,10 @@
             this.GraphicsSection.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
             this.GraphicsSection.Controls.Add(this.ImagePictureBox);
-            this.GraphicsSection.Location = new System.Drawing.Point(365, 42);
+            this.GraphicsSection.Location = new System.Drawing.Point(396, 34);
             this.GraphicsSection.Name = "GraphicsSection";
-            this.GraphicsSection.SectionHeader = "Graphics";
-            this.GraphicsSection.Size = new System.Drawing.Size(216, 418);
+            this.GraphicsSection.SectionHeader = "Asset";
+            this.GraphicsSection.Size = new System.Drawing.Size(216, 444);
             this.GraphicsSection.TabIndex = 11;
             // 
             // ImagePictureBox
@@ -68,7 +68,7 @@
             this.ImagePictureBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ImagePictureBox.Location = new System.Drawing.Point(1, 25);
             this.ImagePictureBox.Name = "ImagePictureBox";
-            this.ImagePictureBox.Size = new System.Drawing.Size(214, 392);
+            this.ImagePictureBox.Size = new System.Drawing.Size(214, 418);
             this.ImagePictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
             this.ImagePictureBox.TabIndex = 0;
             this.ImagePictureBox.TabStop = false;

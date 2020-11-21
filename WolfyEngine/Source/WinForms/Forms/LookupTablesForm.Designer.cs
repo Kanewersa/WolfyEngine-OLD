@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.LookupTablesSection = new DarkUI.Controls.DarkSectionPanel();
+            this.LookupSetsSection = new DarkUI.Controls.DarkSectionPanel();
             this.LookupTablesListView = new DarkUI.Controls.DarkListView();
             this.ToolStrip = new DarkUI.Controls.DarkToolStrip();
             this.NewLookupButton = new System.Windows.Forms.ToolStripButton();
@@ -36,20 +36,20 @@
             this.CopyLookupButton = new System.Windows.Forms.ToolStripButton();
             this.RemoveLookupButton = new System.Windows.Forms.ToolStripButton();
             this.LookupDockPanel = new DarkUI.Docking.DarkDockPanel();
-            this.LookupTablesSection.SuspendLayout();
+            this.LookupSetsSection.SuspendLayout();
             this.ToolStrip.SuspendLayout();
             this.SuspendLayout();
             // 
-            // LookupTablesSection
+            // LookupSetsSection
             // 
-            this.LookupTablesSection.Controls.Add(this.LookupTablesListView);
-            this.LookupTablesSection.Controls.Add(this.ToolStrip);
-            this.LookupTablesSection.Dock = System.Windows.Forms.DockStyle.Left;
-            this.LookupTablesSection.Location = new System.Drawing.Point(0, 32);
-            this.LookupTablesSection.Name = "LookupTablesSection";
-            this.LookupTablesSection.SectionHeader = "Lookup tables";
-            this.LookupTablesSection.Size = new System.Drawing.Size(218, 536);
-            this.LookupTablesSection.TabIndex = 0;
+            this.LookupSetsSection.Controls.Add(this.LookupTablesListView);
+            this.LookupSetsSection.Controls.Add(this.ToolStrip);
+            this.LookupSetsSection.Dock = System.Windows.Forms.DockStyle.Left;
+            this.LookupSetsSection.Location = new System.Drawing.Point(0, 32);
+            this.LookupSetsSection.Name = "LookupSetsSection";
+            this.LookupSetsSection.SectionHeader = "Lookup sets";
+            this.LookupSetsSection.Size = new System.Drawing.Size(218, 536);
+            this.LookupSetsSection.TabIndex = 0;
             // 
             // LookupTablesListView
             // 
@@ -143,14 +143,14 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(799, 568);
             this.Controls.Add(this.LookupDockPanel);
-            this.Controls.Add(this.LookupTablesSection);
+            this.Controls.Add(this.LookupSetsSection);
             this.Location = new System.Drawing.Point(0, 0);
             this.Name = "LookupTablesForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "LookupTablesForm";
-            this.Controls.SetChildIndex(this.LookupTablesSection, 0);
+            this.Controls.SetChildIndex(this.LookupSetsSection, 0);
             this.Controls.SetChildIndex(this.LookupDockPanel, 0);
-            this.LookupTablesSection.ResumeLayout(false);
+            this.LookupSetsSection.ResumeLayout(false);
             this.ToolStrip.ResumeLayout(false);
             this.ToolStrip.PerformLayout();
             this.ResumeLayout(false);
@@ -159,7 +159,7 @@
 
         #endregion
 
-        private DarkUI.Controls.DarkSectionPanel LookupTablesSection;
+        private DarkUI.Controls.DarkSectionPanel LookupSetsSection;
         private DarkUI.Controls.DarkListView LookupTablesListView;
         private DarkUI.Controls.DarkToolStrip ToolStrip;
         private System.Windows.Forms.ToolStripButton NewLookupButton;
