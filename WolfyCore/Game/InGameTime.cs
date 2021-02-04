@@ -1,4 +1,5 @@
-﻿using ProtoBuf;
+﻿using System;
+using ProtoBuf;
 
 namespace WolfyCore.Game
 {
@@ -24,6 +25,18 @@ namespace WolfyCore.Game
             Day++;
 
             return this;
+        }
+
+        /// <summary>
+        /// Returns formatted time as string.
+        /// </summary>
+        /// <param name="withDay">Determines if Day should be included</param>
+        /// <returns></returns>
+        public string AsString(bool withDay = true)
+        {
+            return withDay
+                ? string.Concat(Day, ", ", Hour, ":", Minute)
+                : string.Concat(Hour, ":", Minute);
         }
     }
 }

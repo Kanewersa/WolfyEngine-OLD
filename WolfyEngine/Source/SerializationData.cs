@@ -1,5 +1,4 @@
-﻿using System.Runtime.Serialization;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using ProtoBuf;
 using ProtoBuf.Meta;
 using WolfyCore.Actions;

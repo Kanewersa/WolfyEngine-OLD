@@ -11,6 +11,14 @@ namespace WolfyCore.ECS
         [ProtoMember(1)] public Dictionary<InGameTime, List<WolfyAction>> Events { get; private set; }
         [ProtoMember(2)] public InGameTime LastActionsTime { get; private set; }
 
+        public void AddEvent(InGameTime time, WolfyAction action)
+        {
+            if (!HasEvents(time))
+                Events.Add(time, new List<WolfyAction>());
+            
+            GetActions(time).Add(action);
+        }
+
         public bool HasEvents(InGameTime time)
         {
             return Events.ContainsKey(time);

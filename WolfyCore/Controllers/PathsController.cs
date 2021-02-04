@@ -28,6 +28,7 @@ namespace WolfyCore.Controllers
                 EntityDataPath = Path.Combine(DataPath, "EntityData.wolf");
                 InventoryDataPath = Path.Combine(DataPath, "Inventories.wolf");
                 VariablesDataPath = Path.Combine(DataPath, "Variables.wolf");
+                LookupDataPath = Path.Combine(DataPath, "LookupSets.wolf");
                     
                 BgmPath = Path.Combine(AudioPath, "Bgm");
                 SfxPath = Path.Combine(AudioPath, "Sfx");
@@ -63,6 +64,7 @@ namespace WolfyCore.Controllers
         public string EntityDataPath { get; private set; }
         public string InventoryDataPath { get; private set; }
         public string VariablesDataPath { get; private set; }
+        public string LookupDataPath { get; private set; }
 
         public string GameSettingsPath { get; private set; }
         public string WorldPath { get; private set; }

@@ -177,6 +177,7 @@
     <Compile Include="Controllers\EntityData.cs" />
     <Compile Include="Controllers\GameController.cs" />
     <Compile Include="Controllers\IController.cs" />
+    <Compile Include="Controllers\LookupTablesController.cs" />
     <Compile Include="Controllers\MapsController.cs" />
     <Compile Include="Controllers\PathsController.cs" />
     <Compile Include="Controllers\TilesetsController.cs" />
@@ -186,7 +187,7 @@
     <Compile Include="ECS\Actions\Audio\ChangeBGMAction.cs" />
     <Compile Include="ECS\Actions\Audio\PlaySfxAction.cs" />
     <Compile Include="ECS\Actions\Camera\CameraFadeAction.cs" />
-    <Compile Include="ECS\Actions\Camera\LUTAction.cs" />
+    <Compile Include="ECS\Actions\Camera\ChangeLUTAction.cs" />
     <Compile Include="ECS\Actions\Conditions\BaseVariable.cs" />
     <Compile Include="ECS\Actions\Conditions\BoolAction.cs" />
     <Compile Include="ECS\Actions\Conditions\VariableAction.cs" />

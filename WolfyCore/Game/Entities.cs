@@ -6,6 +6,6 @@ namespace WolfyCore.ECS
     {
         public static Entity Empty => new Entity(0);
         public static Entity Player => new Entity(1);
-        public static Entity Time => new Entity(2);
+        public static Entity LUTTime => new Entity(2);
     }
 }

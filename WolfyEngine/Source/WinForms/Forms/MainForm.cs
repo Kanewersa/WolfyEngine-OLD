@@ -323,7 +323,15 @@ namespace WolfyEngine.Forms
 
         private void variablesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            using (var form = new VariablesForm())
+            using (var form = new WolfyForm())//using (var form = new VariablesForm())
+            {
+                form.ShowDialog();
+            }
+        }
+
+        private void lookupTablesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            using (var form = new LookupTablesForm())
             {
                 form.ShowDialog();
             }

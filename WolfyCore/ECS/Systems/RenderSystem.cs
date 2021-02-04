@@ -83,7 +83,7 @@ namespace WolfyCore.ECS
                 }
                 else
                 {
-                    if (gameTime != null) FadeValue -= (float)gameTime.ElapsedGameTime.TotalSeconds/camera.FadeDuration;
+                    if (FadeValue != 0 && gameTime != null) FadeValue -= (float)gameTime.ElapsedGameTime.TotalSeconds/camera.FadeDuration;
                     if (FadeValue < 0) FadeValue = 0;
                 }
 
@@ -114,6 +114,7 @@ namespace WolfyCore.ECS
                 if (entity.GetIfHasComponent(out LUTComponent lut))
                 {
                     LUTManager.SetNewLUT(lut.LUTPath, lut.TransitionTime);
+                    entity.RemoveComponent<LUTComponent>();
                 }
             });
             spriteBatch.End();

@@ -10,15 +10,15 @@ namespace WolfyCore.Actions
     /// <summary>
     /// Changes the lookup table.
     /// </summary>
-    [ProtoContract] public class LUTAction : WolfyAction
+    [ProtoContract] public class ChangeLUTAction : WolfyAction
     {
         [ProtoMember(1)] public string LUTPath;
         [ProtoMember(2)] public float TransitionTime;
 
 
-        public LUTAction() { }
+        public ChangeLUTAction() { }
 
-        public LUTAction(Entity target, string path, float transitionTime)
+        public ChangeLUTAction(Entity target, string path, float transitionTime)
         {
             Asynchronous = false;
             Target = target;
@@ -30,7 +30,7 @@ namespace WolfyCore.Actions
         {
             if (Target.HasComponent<LUTComponent>())
             {
-                throw new Exception("Target entity already had LUTComponent");
+                throw new Exception("Target entity already had LUTComponent.");
             }
 
             Target.AddComponent(new LUTComponent(LUTPath, TransitionTime));

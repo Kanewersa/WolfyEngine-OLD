@@ -68,6 +68,7 @@ namespace WolfyCore.Controllers
             World.SetWorld(world);
             CreateSystems(world);
             CreatePlayer(world);
+            CreateLUTTime(world);
             return world;
         }
 
@@ -111,6 +112,16 @@ namespace WolfyCore.Controllers
             animation.AnimationManager = new AnimationManager(animations.FirstOrDefault().Value);
 
             return player;
+        }
+
+        private Entity CreateLUTTime(World world)
+        {
+            var time = world.CreateEntity();
+            var name = time.AddComponent<InGameNameComponent>();
+            name.Name = "LUTTime";
+
+            time.AddComponent<ActiveComponent>();
+            return time;
         }
 
         public void SaveData()
